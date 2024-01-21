@@ -1,0 +1,43 @@
+﻿<link rel="stylesheet" href="~/css/Home/HomePage/HomePage.css" asp-append-version="true" />
+
+<svg xmlns="http://www.w3.org/2000/svg">
+	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
+
+	<filter id="motion-blur-filter" filterUnits="userSpaceOnUse">
+		<!-- We only want horizontal blurring. x: 100, y: 0 -->
+
+		<feGaussianBlur stdDeviation="100 0"></feGaussianBlur>
+	</filter>
+</svg>
+
+<span class="website-name" filter-content="X">Xcelerate</span>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+<script src="~/js/HomePage/HomePage.js" asp-append-version="true"></script>
+
+<article class="card-news">
+	<div id="clock"></div>
+	<h1 class="news-text">NEWS</h1>
+
+	<ol>
+		<li>
+			<strong>Electric Revolution:</strong>
+			<p>Electric vehicles (EVs) continue to gain momentum, with major automakers investing heavily in eco-friendly mobility solutions. The rise of electric cars is not just a trend; it's a paradigm shift towards a more sustainable future.</p>
+		</li>
+		<li>
+			<strong>Autonomous Driving:</strong>
+			<p>The dream of self-driving cars is becoming a reality. Advanced driver-assistance systems (ADAS) and artificial intelligence are paving the way for safer and more efficient transportation. The concept of hands-free driving is no longer confined to science fiction.</p>
+		</li>
+		<li>
+			<strong>Hypercar Marvels:</strong>
+			<p>Hypercars are pushing the boundaries of speed and performance. Cutting-edge engineering and aerodynamics are giving birth to machines that redefine what's possible on the road. These cars are not just a mode of transportation; they're a statement of engineering prowess.</p>
+		</li>
+		<li>
+			<strong>Sustainable Materials:</strong>
+			<p>Automakers are embracing sustainable practices by incorporating eco-friendly materials in car manufacturing. From recycled plastics to plant-based components, the industry is moving towards a greener approach, reducing the environmental impact of vehicle production.</p>
+		</li>
+	</ol>
+
+</article>
