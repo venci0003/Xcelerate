@@ -38,19 +38,19 @@ namespace Xcelerate.Infrastructure.Data.Configurations
             Manufacturer manufacturerTwo = new Manufacturer()
             {
                 ManufacturerId = 2,
-                Name = "Ford"
+                Name = "Honda"
             };
 
             Manufacturer manufacturerThree = new Manufacturer()
             {
                 ManufacturerId = 3,
-                Name = "Honda"
+                Name = "Ford"
             };
 
             Manufacturer manufacturerFour = new Manufacturer()
             {
                 ManufacturerId = 4,
-                Name = "BMW"
+                Name = "Volkswagen"
             };
 
             Manufacturer manufacturerFive = new Manufacturer()
@@ -62,31 +62,31 @@ namespace Xcelerate.Infrastructure.Data.Configurations
             Manufacturer manufacturerSix = new Manufacturer()
             {
                 ManufacturerId = 6,
-                Name = "Chevrolet"
+                Name = "Audi"
             };
 
             Manufacturer manufacturerSeven = new Manufacturer()
             {
                 ManufacturerId = 7,
-                Name = "Audi"
+                Name = "Infiniti"
             };
 
             Manufacturer manufacturerEight = new Manufacturer()
             {
                 ManufacturerId = 8,
-                Name = "Nissan"
+                Name = "Hyundai"
             };
 
             Manufacturer manufacturerNine = new Manufacturer()
             {
                 ManufacturerId = 9,
-                Name = "Volkswagen"
+                Name = "BMW"
             };
 
             Manufacturer manufacturerTen = new Manufacturer()
             {
                 ManufacturerId = 10,
-                Name = "Hyundai"
+                Name = "Nissan"
             };
 
             manufacturers.Add(manufacturerOne);

@@ -39,7 +39,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     // CookieSettings.
     options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(45);
     options.SlidingExpiration = true;
 
     //options.LoginPath = "/Identity/Account/Login";

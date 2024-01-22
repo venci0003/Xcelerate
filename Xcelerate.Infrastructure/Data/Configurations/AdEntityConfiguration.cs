@@ -66,7 +66,9 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 4,
                 CarId = 4, // Assuming CarId corresponds to the fourth car in your collection
                 UserId = Guid.Parse("495CC255-9E57-40E1-A4DE-B1ADBFDBC0FC"), // Assuming UserId corresponds to the fourth user in your collection
-                CarDescription = "Luxurious BMW 5 Series with advanced features. Well-maintained."
+                CarDescription = "The 2020 Volkswagen Golf TSI is a compact hatchback that offers a blend of performance, comfort, and practicality1. It’s powered by a 1.4L Turbo Inline-4 Gas engine that produces 147 horsepower at 5000 rpm and 184 lb-ft of torque at 1400 rpm" +
+                ". The Golf is fun to drive with well-calibrated transmissions and confident in corners." +
+                " It’s not as fast as its sportier GTI counterpart, but it’s still enjoyable to drive1."
             };
 
             Ad adFive = new Ad()
@@ -74,7 +76,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 5,
                 CarId = 5, // Assuming CarId corresponds to the fifth car in your collection
                 UserId = Guid.Parse("B0B378DD-78AA-4884-AFA7-7EC6626C9CDF"), // Assuming UserId corresponds to the fifth user in your collection
-                CarDescription = "Mercedes-Benz C-Class with AMG package. Stunning design and performance."
+                CarDescription = "The 2022 Mercedes-Benz C-Class is a luxury sedan that has been fully redesigned for the year." +
+                " It’s a far cry from where the model started out almost 30 years ago. With smaller and more affordable vehicles supporting it, the C-Class is more of a middleweight luxury sedan than an entry-level taste of the brand."
             };
 
             Ad adSix = new Ad()
@@ -82,7 +85,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 6,
                 CarId = 6, // Assuming CarId corresponds to the sixth car in your collection
                 UserId = Guid.Parse("9173EFB3-6DC6-4C27-8D1A-555107353AEA"), // Assuming UserId corresponds to the sixth user in your collection
-                CarDescription = "Chevrolet Camaro with V8 engine. Impressive power and handling."
+                CarDescription = "The 2022 Audi S3 is a compact luxury sedan that has been fully redesigned for the year." +
+                " It finds an admirable middle ground between the more conventional A3 and higher-performing RS 3, both in terms of price and personality." +
+                "\r\n\r\nWith 306 horsepower and all-wheel drive as standard, the S3 is a big step up from the 201-hp A3 and a sensible alternative to the RS 3’s monster 401 hp." +
+                " Despite being Audi’s entry-level vehicles, the A3 and S3 deliver a healthy dose of modern luxury and tech features."
             };
 
             Ad adSeven = new Ad()
@@ -90,7 +96,11 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 7,
                 CarId = 7, // Assuming CarId corresponds to the seventh car in your collection
                 UserId = Guid.Parse("0C106D5A-7440-44DD-B8D3-3C1B7ACA8020"), // Assuming UserId corresponds to the seventh user in your collection
-                CarDescription = "Audi A4 with advanced technology. Smooth and comfortable driving experience."
+                CarDescription = "The 2022 Infiniti QX80 is a large, three-row, luxury SUV." +
+                " It has an attractive and upscale look, a sturdily built interior, and a smooth ride." +
+                " Here are some key features and specifications:\r\n\r\nEngine: It is powered by a 400-hp 5.6-liter V-8 engine, paired with a seven-speed automatic transmission" +
+                ".\r\nPerformance: The QX80’s engine provides smooth power delivery and snappy throttle response." +
+                " It can go from zero to 60 mph in 5.9 seconds.\r\nFuel Efficiency: It has a fuel efficiency of 14/20 MPG city/highway."
             };
 
             Ad adEight = new Ad()
@@ -98,7 +108,12 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 8,
                 CarId = 8, // Assuming CarId corresponds to the eighth car in your collection
                 UserId = Guid.Parse("B4D7DDAD-411E-4FE8-A7D9-C2638F376F1C"), // Assuming UserId corresponds to the eighth user in your collection
-                CarDescription = "Nissan GT-R with impressive acceleration. Well-maintained and garage-kept."
+                CarDescription = "The 2021 Hyundai Elantra is a compact sedan that has been redesigned with modern exterior and interior styling, and more advanced technology features" +
+                ". Here are some key features and specifications:\r\n\r\nEngine: The standard non-hybrid powertrain is a 147-hp four-cylinder engine" +
+                ". There’s also a 201-hp turbocharged N Line model and an available hybrid powertrain." +
+                "\r\nPerformance: The Elantra offers good ride quality and enough pep for normal city and highway driving." +
+                " The performance-oriented N Line model provides perkier acceleration and adept handling." +
+                "\r\nFuel Efficiency: The Elantra Hybrid earned an EPA rating as high as 56 mpg highway."
             };
 
             Ad adNine = new Ad()
@@ -106,7 +121,12 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 9,
                 CarId = 9, // Assuming CarId corresponds to the ninth car in your collection
                 UserId = Guid.Parse("B13EDF51-1FF3-46D7-BF4C-C55CAAC1A7C0"), // Assuming UserId corresponds to the ninth user in your collection
-                CarDescription = "Volkswagen Golf TDI. Fuel-efficient diesel engine, great for long drives."
+                CarDescription = "The 2022 BMW M3 is a high-performance sedan that offers thrilling powertrains and a satisfying manual gearbox" +
+                ". Here are some key features and specifications:\r\n\r\nEngine: The M3 features a twin-turbo 3.0-liter inline-six engine" +
+                ". The standard version delivers 473 horsepower and 406 pound-feet of torque." +
+                "\r\nPerformance: The M3 is known for its thrilling powertrains and drivability." +
+                " The standard M3 is rear-wheel drive and comes with a manual gearbox." +
+                " The Competition model has an enhanced engine with 503 horsepower and a track-tuned chassis."
             };
 
             Ad adTen = new Ad()
@@ -114,7 +134,11 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 10,
                 CarId = 10, // Assuming CarId corresponds to the tenth car in your collection
                 UserId = Guid.Parse("1B6F6E67-5ADF-4F78-A74E-27B02430C709"), // Assuming UserId corresponds to the tenth user in your collection
-                CarDescription = "Hyundai Sonata with modern features. Comfortable and reliable sedan."
+                CarDescription = "The 2021 Nissan Rogue is a compact SUV that has been redesigned with modern exterior and interior styling, and more advanced technology features." +
+                " Here are some key features and specifications:\r\n\r\nEngine: The 2021 model is powered by a 2.5-liter four-cylinder engine." +
+                " It has received a slight power bump to 181 horsepower.\r\nPerformance: The Rogue offers good ride quality and enough pep for normal city and highway driving." +
+                " It has improved in both acceleration and handling." +
+                "\r\nFuel Efficiency: The EPA estimates that front-wheel drive Rogues should deliver up to 27 mpg city and 35 mpg highway."
             };
 
             ads.Add(adOne);
