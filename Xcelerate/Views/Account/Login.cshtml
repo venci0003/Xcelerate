@@ -1,0 +1,50 @@
+﻿@model LoginViewModel
+
+<link rel="stylesheet" href="~/css/Account/Login/Login.css" asp-append-version="true" />
+
+<svg xmlns="http://www.w3.org/2000/svg">
+	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
+
+	<filter id="motion-blur-filter" filterUnits="userSpaceOnUse">
+		<!-- We only want horizontal blurring. x: 100, y: 0 -->
+
+		<feGaussianBlur stdDeviation="100 0"></feGaussianBlur>
+	</filter>
+</svg>
+
+<span class="website-name" filter-content="X">Xcelerate</span>
+<article class="card-login">
+	<div class="minimize-icon-holder-login">
+		<img id="minimizeIcon-login"
+			 src="~/Icons/icons8-minimize-64 white.png"
+			 alt="Icon Description" />
+	</div>
+	<form method="post" action="/Account/Login" class="card-content">
+		<h1 class="title-text">LOGIN FORM</h1>
+		<section class="other-forms">
+			<label asp-for="@Model.Email">Email</label>
+			<input type="text" name="Email" asp-for="@Model.Email" id="email-name" />
+			<span asp-validation-for="@Model.Email" class="text-danger"></span>
+
+			<label asp-for="@Model.Password">Password</label>
+			<input type="password" name="Password" asp-for="@Model.Password" id="password" />
+			<span asp-validation-for="@Model.Password" class="text-danger"></span>
+
+		</section>
+
+		<section class="check-box-input">
+			<input type="checkbox" name="" id="check-box" />
+			<label for="check-box">I&nbsp&nbspaccept the Terms of Use & Privacy Policy</label>
+		</section>
+
+		<section class="button-object">
+			<button type="submit">LOGIN NOW</button>
+		</section>
+		<div asp-validation-summary="ModelOnly" class="error-container"></div>
+	</form>
+</article>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+<script src="~/js/Login/Login.js" asp-append-version="true"></script>

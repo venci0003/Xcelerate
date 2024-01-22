@@ -1,0 +1,71 @@
+﻿@model RegisterViewModel
+
+<link rel="stylesheet" href="~/css/Account/Register/Register.css" asp-append-version="true" />
+
+<svg xmlns="http://www.w3.org/2000/svg">
+	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
+
+	<filter id="motion-blur-filter" filterUnits="userSpaceOnUse">
+		<!-- We only want horizontal blurring. x: 100, y: 0 -->
+
+		<feGaussianBlur stdDeviation="100 0"></feGaussianBlur>
+	</filter>
+</svg>
+
+<span class="website-name" filter-content="X">Xcelerate</span>
+
+<article class="card-register">
+	<div class="minimize-icon-holder-register">
+		<img id="minimizeIcon-register"
+			 src="~/Icons/icons8-minimize-64 white.png"
+			 alt="Icon Description" />
+	</div>
+	<form method="post" action="/Account/Register" class="card-content">
+		<h1 class="title-text">REGISTRATION FORM</h1>
+
+		<section class="names-inputs">
+			<div class="first-name-input">
+				<label asp-for="@Model.FirstName">First Name</label>
+				<input type="text" name="FirstName" asp-for="@Model.FirstName" id="first-name" />
+				<span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+			</div>
+
+			<div class="last-name-input">
+				<label asp-for="@Model.LastName">Last Name</label>
+				<input type="text" name="LastName" asp-for="@Model.LastName" id="last-name" />
+				<span asp-validation-for="@Model.LastName" class="text-danger"></span>
+			</div>
+		</section>
+
+		<section class="other-forms">
+			<label asp-for="@Model.Email">Email</label>
+			<input type="text" name="Email" asp-for="@Model.Email" id="email-name" />
+			<span asp-validation-for="@Model.Email" class="text-danger"></span>
+
+			<label asp-for="@Model.Password">Password</label>
+			<input type="password" name="Password" asp-for="@Model.Password" id="password" />
+			<span asp-validation-for="@Model.Password" class="text-danger"></span>
+
+			<label asp-for="@Model.ConfirmPassword">Confirm Password</label>
+			<input type="password" name="ConfirmPassword" asp-for="@Model.ConfirmPassword" id="password-confirm" />
+			<span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+		</section>
+
+		<section class="check-box-input">
+			<input type="checkbox" name="" id="check-box" />
+			<label for="check-box">I&nbsp&nbspaccept the Terms of Use & Privacy Policy</label>
+		</section>
+
+		<section class="button-object">
+			<button type="submit">REGISTER NOW</button>
+		</section>
+	</form>
+</article>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+<script src="~/js/Register/Register.js" asp-append-version="true"></script>
+
+

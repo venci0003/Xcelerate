@@ -1,0 +1,220 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
+
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css);
+
+html {
+    font-family: "Mulish", sans-serif;
+}
+
+body {
+    transition: background-image 1s ease-in-out;
+    background-repeat: no-repeat;
+    margin: 0px;
+    padding: 0px;
+}
+
+span {
+    position: relative;
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 900;
+    font-size: 64px;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    display: inline-block;
+}
+
+    span:before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: attr(filter-content);
+        filter: url(#motion-blur-filter);
+    }
+
+svg {
+    display: none;
+}
+
+.website-name {
+    display: inline-block;
+    color: white;
+    margin-left: 37%;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 60px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+
+input {
+    border-radius: 4px;
+    height: 30px;
+}
+
+button {
+    border-radius: 24px;
+    padding: 10px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    background-color: rgba(174, 60, 51, 255);
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+
+
+
+.title-text {
+    margin-right: 100px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+
+.other-forms {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+
+    .other-forms label {
+        color: white;
+        font-size: 18px;
+        text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    }
+
+    .other-forms input {
+        margin: 10px 0px;
+        width: 360px;
+        height: 35px;
+        border: 1px solid lightgrey;
+    }
+
+.check-box-input {
+    display: flex;
+    align-items: center;
+}
+
+    .check-box-input input {
+        margin-right: 10px;
+    }
+
+    .check-box-input label {
+        color: white;
+        font-size: 16px;
+        width: 500px;
+        text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    }
+.card-content {
+    display: flex;
+    padding: 0px 60px 0px 60px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 70%;
+}
+
+.button-object {
+    margin-top: 14px;
+    margin-left: 110px;
+}
+
+    .button-object :hover {
+        background-color: rgb(184, 68, 59);
+    }
+
+.title-text {
+    margin-top: 45px;
+    color: white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    font-size: 25px;
+}
+
+.text-danger span {
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 0px;
+    margin-top: 5px;
+    width: 195px;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-danger {
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+}
+
+.card-login {
+    opacity: 1;
+    margin: 100px 10px 314px 35%;
+    border-radius: 24px;
+    /* background-image: url(2021_honda_civic_type_r_9_1920x1080.png); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 510px;
+    height: 430px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7px);
+    transition: opacity 0.5s; /* Add a transition effect */
+}
+
+.minimize-icon-holder-login {
+    display: block;
+    position: absolute;
+    right: 1px;
+    padding: 2px;
+    width: 60px;
+    height: 60px;
+    margin: 8px 12px 0px 0px;
+    border-radius: 40px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.5s; /* Add a transition effect */
+}
+
+
+
+#minimizeIcon-login {
+    position: inherit;
+    right: 1px;
+    margin: 4px 4px 0px 0px;
+    padding: 1px;
+    width: 50px;
+    height: 50px;
+    border-radius: 40px;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+    border-color: black;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    transition: opacity 0.5s; /* Add a transition effect */
+}
