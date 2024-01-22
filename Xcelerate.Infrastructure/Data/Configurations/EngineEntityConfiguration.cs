@@ -30,39 +30,39 @@ namespace Xcelerate.Infrastructure.Data.Configurations
             Engine engineOne = new Engine()
             {
                 EngineId = 1,
-                Model = "V6 Turbo",
-                Horsepower = 300,
+                Model = "V6",
+                Horsepower = 301,
                 CylinderCount = 6,
                 FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 1 // Assume ManufacturerId corresponds to Toyota
+                ManufacturerId = 1 
             };
 
             Engine engineTwo = new Engine()
             {
                 EngineId = 2,
-                Model = "V8 EcoBoost",
-                Horsepower = 400,
-                CylinderCount = 8,
+                Model = "In-Line 4-Cylinder with Turbocharger",
+                Horsepower = 306,
+                CylinderCount = 4,
                 FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 2 // Assume ManufacturerId corresponds to Ford
+                ManufacturerId = 2 
             };
 
             Engine engineThree = new Engine()
             {
                 EngineId = 3,
-                Model = "K20C1",
-                Horsepower = 320,
-                CylinderCount = 4,
-                FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 3 // Assume ManufacturerId corresponds to Honda
+                Model = "5.2-liter V-8 engine",
+                Horsepower = 526,
+                CylinderCount = 8,
+                FuelType = FuelTypeEnum.Diesel,
+                ManufacturerId = 3 
             };
 
             Engine engineFour = new Engine()
             {
                 EngineId = 4,
-                Model = "TwinPower Turbo",
-                Horsepower = 350,
-                CylinderCount = 6,
+                Model = "1.4L Turbo Inline-4",
+                Horsepower = 147,
+                CylinderCount = 4,
                 FuelType = FuelTypeEnum.Petrol,
                 ManufacturerId = 4 // Assume ManufacturerId corresponds to BMW
             };

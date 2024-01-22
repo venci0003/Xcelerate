@@ -38,7 +38,9 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 1,
                 CarId = 1, // Assuming CarId corresponds to the first car in your collection
                 UserId = Guid.Parse("9ABB04A0-36A0-4A35-8C1A-34D324AA169E"), // Assuming UserId corresponds to the first user in your collection
-                CarDescription = "Excellent condition, low mileage. Well-maintained Toyota Camry."
+                CarDescription = "The 2020 Toyota Camry TRD is a sporty, performance-oriented version of the long-standing mid-size sedan1." +
+                " It’s the first Camry that could be construed as \"sporty\"1.\nPerformance The TRD’s front brake rotors are larger than those on the next-sportiest Camry, the XSE V-6 model, and are squeezed by two-piston calipers instead of single-piston units." +
+                " It’s equipped with stiffer springs and larger-diameter anti-roll bars, stiffer underbody braces, and a V-brace behind the rear seats."
             };
 
             Ad adTwo = new Ad()
@@ -46,7 +48,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 2,
                 CarId = 2, // Assuming CarId corresponds to the second car in your collection
                 UserId = Guid.Parse("2CC5DA14-F51C-4B51-96B3-0C296C2EE8DC"), // Assuming UserId corresponds to the second user in your collection
-                CarDescription = "Powerful Ford Mustang with a sleek design. Low mileage, great performance."
+                CarDescription = "The 2021 Honda Civic Type R Limited Edition is a high-performance, four-door hatchback that stands out in its class1. Despite its bold and somewhat juvenile bodywork, it offers a transformative driving experience, volcanic acceleration, and is entirely practical for daily use1.\r\n\r\nThe car is powered by a 306-hp turbocharged four-cylinder engine and a six-speed manual transmission, making it one of the quickest sport compacts1. Honda has managed to virtually eliminate the dreaded torque steer that plagues powerful front-drive cars, providing talkative steering, tremendous cornering grip, and a ride that’s surprisingly smooth"
             };
 
             Ad adThree = new Ad()
@@ -54,7 +56,9 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Id = 3,
                 CarId = 3, // Assuming CarId corresponds to the third car in your collection
                 UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6"), // Assuming UserId corresponds to the third user in your collection
-                CarDescription = "Fuel-efficient Honda Accord. Perfect for city commuting."
+                CarDescription = "The 2020 Ford Mustang Shelby GT350R is a powerful, high-strung muscle car designed to rock race tracks while still being at home on the street." +
+                " Its special 5.2-liter V-8 engine, code-named Voodoo, makes 526 horsepower and revs to a dizzying 8250 rpm1." +
+                " The GT350R has been designed to handle cornering at race-track speeds without being too harsh on the street. It’s equipped with a tautly tuned suspension and robust brakes."
             };
 
             Ad adFour = new Ad()

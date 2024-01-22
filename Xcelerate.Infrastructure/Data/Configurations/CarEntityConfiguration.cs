@@ -43,16 +43,16 @@ namespace Xcelerate.Infrastructure.Data.Configurations
             {
                 CarId = 1,
                 Brand = "Toyota",
-                Model = "Camry",
-                Year = 2022,
+                Model = "Camry TRD",
+                Year = 2020,
                 EngineId = 1, // Assuming you have an Engine with EngineId = 1
                 Condition = ConditionEnum.Used,
                 EuroStandard = EuroStandardEnum.EuroFour,
                 FuelType = FuelTypeEnum.Petrol,
-                Colour = ColourEnum.Black,
+                Colour = ColourEnum.White,
                 Transmition = TransmitionEnum.Automatic,
                 DriveTrain = DriveTrainEnum.FrontWheelDrive,
-                Weight = 1500.5m,
+                Weight = 1623.5m,
                 Mileage = 30000,
                 Price = 25000.50m,
                 BodyType = BodyTypeEnum.Sedan,
@@ -66,18 +66,18 @@ namespace Xcelerate.Infrastructure.Data.Configurations
             {
                 CarId = 2,
                 Brand = "Honda",
-                Model = "Civic",
+                Model = "Civic Type R Limited Edition",
                 Year = 2021,
                 EngineId = 2, // Assuming you have an Engine with EngineId = 2
                 Condition = ConditionEnum.BrandNew,
-                EuroStandard = EuroStandardEnum.EuroFive,
-                FuelType = FuelTypeEnum.Diesel,
-                Colour = ColourEnum.Blue,
+                EuroStandard = EuroStandardEnum.EuroSix,
+                FuelType = FuelTypeEnum.Petrol,
+                Colour = ColourEnum.Yellow,
                 Transmition = TransmitionEnum.Manual,
-                DriveTrain = DriveTrainEnum.RearWheelDrive,
-                Weight = 1400.75m,
+                DriveTrain = DriveTrainEnum.FrontWheelDrive,
+                Weight = 1395.75m,
                 Mileage = 15000,
-                Price = 22000.75m,
+                Price = 62000.75m,
                 BodyType = BodyTypeEnum.Hatchback,
                 ManufacturerId = 2, // Assuming you have a Manufacturer with ManufacturerId = 2
                 AddressId = 2, // Assuming you have an Address with AddressId = 2
@@ -89,19 +89,19 @@ namespace Xcelerate.Infrastructure.Data.Configurations
             {
                 CarId = 3,
                 Brand = "Ford",
-                Model = "Mustang",
+                Model = "Mustang Shelby GT350R",
                 Year = 2020,
                 EngineId = 3, // Assuming you have an Engine with EngineId = 3
                 Condition = ConditionEnum.Used,
                 EuroStandard = EuroStandardEnum.EuroSix,
                 FuelType = FuelTypeEnum.Petrol,
-                Colour = ColourEnum.Red,
+                Colour = ColourEnum.White,
                 Transmition = TransmitionEnum.Automatic,
                 DriveTrain = DriveTrainEnum.RearWheelDrive,
                 Weight = 1600.25m,
                 Mileage = 25000,
                 Price = 30000.25m,
-                BodyType = BodyTypeEnum.Coupe,
+                BodyType = BodyTypeEnum.Sedan,
                 ManufacturerId = 3, // Assuming you have a Manufacturer with ManufacturerId = 3
                 AddressId = 3, // Assuming you have an Address with AddressId = 3
                 AdId = 3, // Assuming you have an Ad with AdId = 3
@@ -117,9 +117,9 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 EngineId = 4, // Assuming you have an Engine with EngineId = 4
                 Condition = ConditionEnum.Used,
                 EuroStandard = EuroStandardEnum.EuroFive,
-                FuelType = FuelTypeEnum.Diesel,
-                Colour = ColourEnum.Orange,
-                Transmition = TransmitionEnum.Automatic,
+                FuelType = FuelTypeEnum.Petrol,
+                Colour = ColourEnum.White,
+                Transmition = TransmitionEnum.Manual,
                 DriveTrain = DriveTrainEnum.FrontWheelDrive,
                 Weight = 1400.75m,
                 Mileage = 20000,
