@@ -1,0 +1,144 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
+
+
+html {
+    font-family: "Mulish", sans-serif;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body {
+    background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
+    animation: gradient 5s ease infinite;
+    margin: 0px;
+    padding: 0px;
+}
+
+.div-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-elements {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    left: 590px;
+    margin-bottom: 0px;
+    font-size: 60px;
+    font-weight: 100;
+    position: relative;
+}
+
+.sub-title {
+    margin-top: 0px;
+    position: absolute;
+    top: 130px;
+    right: 780px;
+    font-size: 30px;
+    align-self: flex-end;
+    letter-spacing: 2px;
+    color: rgba(203, 32, 36, 255);
+}
+
+.hostel-home-card {
+    margin-top: 70px;
+    border-radius: 20px 20px 0px 0px;
+    background-color: rgb(255, 255, 255);
+}
+
+.image-holder img {
+    width: 500px;
+    height: 300px;
+    border-radius: 20px 20px 0px 0px;
+    background-size: cover;
+}
+
+.hostel-home-card {
+    display: flex;
+    flex-direction: column;
+    height: 635px;
+    width: 500px; 
+    margin-top: 50px;
+    margin-bottom: 140px;
+}
+
+.article-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    border-bottom: 1px solid black;
+    padding: 10px 20px;
+    width: 420px;
+    margin: 0px auto;
+}
+
+.hostel-home-card p {
+    margin: 0px auto;
+    padding: 25px;
+    width: 440px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 22px;
+}
+
+.bottom-text {
+    height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    bottom: 15px;
+    border-radius: 0px 0px 20px 20px;
+}
+
+    .bottom-text i a {
+        padding: 0px;
+        color: white;
+        font-size: 22px;
+        padding: 12px 38px;
+        background-color: darkred;
+        border-radius:25px;
+        text-decoration: none;
+        position:absolute;
+        left: 185px;
+    }
+
+
+.hostel-home-card p i {
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    padding: 6px 8px;
+    background-color: rgba(203, 32, 39, 255);
+    border-radius: 100%;
+    height: 10%;
+    position: absolute;
+    right: 128px;
+}
+
+.card-holder {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    align-items: center; /* Center the cards horizontally */
+}
