@@ -50,6 +50,7 @@ namespace Xcelerate.Controllers
                 .Include(c => c.Address)
                 .Include(c => c.Ad)
                 .Include(c => c.User)
+                .Include(c => c.Accessories)
                 .FirstOrDefault(c => c.CarId == carId);
 
             if (car == null)
@@ -61,6 +62,7 @@ namespace Xcelerate.Controllers
             var adViewModel = new AdInformationViewModel
             {
                 ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
+                Accessories = car.Accessories.ToList(),
                 Brand = car.Brand,
                 Model = car.Model,
                 Year = car.Year,

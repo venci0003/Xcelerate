@@ -1,17 +1,11 @@
-﻿using Microsoft.AspNetCore.Connections.Features;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xcelerate.Infrastructure.Data.Enums;
 using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Infrastructure.Data.Configurations
 {
-    public class CarEntityConfiguration : IEntityTypeConfiguration<Car>
+	public class CarEntityConfiguration : IEntityTypeConfiguration<Car>
     {
         public void Configure(EntityTypeBuilder<Car> builder)
         {
@@ -24,6 +18,11 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				.HasMany(c => c.Images)
 				.WithOne(c => c.Car)
 				.OnDelete(DeleteBehavior.NoAction);
+
+            builder
+                .HasMany(a => a.Accessories)
+                .WithOne(c => c.Car)
+                .OnDelete(DeleteBehavior.NoAction);
 
 			builder.Property(c => c.Price)
             .HasColumnType("decimal(18,2)");
@@ -42,7 +41,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
             Car firstCar = new Car()
             {
                 CarId = 1,
-                Brand = "Toyota",
+				Brand = "Toyota",
                 Model = "Camry TRD",
                 Year = 2020,
                 EngineId = 1, // Assuming you have an Engine with EngineId = 1

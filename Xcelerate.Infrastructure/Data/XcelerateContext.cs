@@ -28,11 +28,13 @@ namespace Xcelerate.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new ReviewEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ManufacturerEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ImageEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new AccessoryEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Image> Images { get; set; } = null!;
+		public DbSet<Accessory> Accessories { get; set; } = null!;
+		public DbSet<Image> Images { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Car> Cars { get; set; } = null!;
         public DbSet<Engine> Engines { get; set; } = null!;
