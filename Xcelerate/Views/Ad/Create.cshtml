@@ -21,9 +21,9 @@
 			 src="~/Icons/icons8-minimize-64 white.png"
 			 alt="Icon Description" />
 	</div>
-	<form method="post" action="/Account/Register" class="card-content">
+	<form method="post" action="/Ad/Create" class="card-content">
+		@* @Html.AntiForgeryToken() *@
 		<h1 class="title-text">CREATE AD</h1>
-
 		<section class="information-inputs">
 			<div class="form-input">
 				<label asp-for="@Model.Brand">Brand</label>
@@ -69,6 +69,11 @@
 				<label asp-for="@Model.Price">Price</label>
 				<input type="text" name="Price" asp-for="@Model.Price" id="form-input" />
 				<span asp-validation-for="@Model.Price" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.UploadedImages">Upload Images</label>
+				<input type="file" name="UploadedImages" multiple />
 			</div>
 
 			<div class="form-input">
@@ -149,7 +154,6 @@
 				<span asp-validation-for="@Model.DriveTrain" class="text-danger"></span>
 			</div>
 
-
 			<div class="form-input">
 				<label asp-for="@Model.BodyType">Body Type</label>
 				<select name="BodyType" asp-for="@Model.BodyType" id="form-input">
@@ -160,7 +164,6 @@
 				</select>
 				<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
 			</div>
-
 
 			<div class="row-accessories">
 				<h1 class="title-text-accessory">ACCESSORIES</h1>
@@ -175,70 +178,8 @@
 					}
 				</section>
 			</div>
-			@* <div class="column-accessories">
-			<h3>Category 2</h3>
-			<ul>
-			<li><input type="checkbox"> Item 1</li>
-			<li><input type="checkbox"> Item 2</li>
-			<li><input type="checkbox"> Item 3</li>
-			</ul>
-			</div>
-
-
-			<div class="column-accessories">
-			<h3>Category 2</h3>
-			<ul>
-			<li><input type="checkbox"> Item 1</li>
-			<li><input type="checkbox"> Item 2</li>
-			<li><input type="checkbox"> Item 3</li>
-			</ul>
-			</div>
-			<div class="column-accessories">
-			<h3>Category 3</h3>
-			<ul>
-			<li><input type="checkbox"> Item 1</li>
-			<li><input type="checkbox"> Item 2</li>
-			<li><input type="checkbox"> Item 3</li>
-			</ul>
-			</div>
-			<div class="column-accessories">
-			<h3>Category 4</h3>
-			<ul>
-			<li><input type="checkbox"> Item 1</li>
-			<li><input type="checkbox"> Item 2</li>
-			<li><input type="checkbox"> Item 3</li>
-			</ul>
-			</div>
-			<div class="column-accessories">
-			<h3>Category 5</h3>
-			<ul>
-			<li><input type="checkbox"> Item 1</li>
-			<li><input type="checkbox"> Item 2</li>
-			<li><input type="checkbox"> Item 3</li>
-			</ul>
-			</div>
-			</div> *@
 
 		</section>
-		@*
-		<section class="other-forms">
-		<label asp-for="@Model.Email">Email</label>
-		<input type="text" name="Email" asp-for="@Model.Email" id="email-name" />
-		<span asp-validation-for="@Model.Email" class="text-danger"></span>
-
-		<label asp-for="@Model.Password">Password</label>
-		<input type="password" name="Password" asp-for="@Model.Password" id="password" />
-		<span asp-validation-for="@Model.Password" class="text-danger"></span>
-
-		<label asp-for="@Model.ConfirmPassword">Confirm Password</label>
-		<input type="password" name="ConfirmPassword" asp-for="@Model.ConfirmPassword" id="password-confirm" />
-		<span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
-		</section>
-
-		<section class="check-box-input">
-		<input type="checkbox" name="" id="check-box" />
-		<label for="check-box">I&nbsp&nbspaccept the Terms of Use & Privacy Policy</label>
-		</section> *@
 
 		<section class="button-object">
 			<button type="submit">SUMBIT FORM</button>

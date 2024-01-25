@@ -1,17 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Infrastructure.Data;
+using Xcelerate.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Xcelerate.Controllers
 {
 	public class AdController : Controller
 	{
 		private readonly XcelerateContext _dbContext;
-
-		public AdController(XcelerateContext dbContext)
+		private readonly IWebHostEnvironment _webHostEnvironment;
+		public AdController(XcelerateContext dbContext , IWebHostEnvironment webHostEnvironment)
 		{
 			_dbContext = dbContext;
+			_webHostEnvironment = webHostEnvironment;
 		}
 
 		public async Task<IActionResult> Index()
@@ -117,9 +124,61 @@ namespace Xcelerate.Controllers
 			return View(car);
 		}
 
-		public IActionResult Create()
+		//[ValidateAntiForgeryToken]
+		[HttpPost]
+		public async Task<IActionResult> Create(AdInformationViewModel adViewModel, List<IFormFile> Images)
 		{
-			return View();
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					// Map the ViewModel to your Car model
+					var car = new Car
+					{
+						// Map properties from ViewModel to Model
+						Brand = adViewModel.Brand,
+						Model = adViewModel.Model,
+						Year = adViewModel.Year,
+						Engine = new Engine { Model = adViewModel.Engine },
+						// Map other properties as needed
+					};
+
+					if (Images.Count != 6)
+					{
+						ModelState.AddModelError("Images", "Please upload exactly 6 images.");
+						return View(adViewModel);
+					}
+
+					// Save car to the database
+					_dbContext.Cars.Add(car);
+					await _dbContext.SaveChangesAsync();
+
+					var adId = car.CarId; // Assuming there's an identifier for the ad (replace with the actual property)
+					var adImagesDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad");
+
+
+					foreach (var image in Images)
+					{
+						if (image != null && image.Length > 0)
+						{
+							var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+							var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
+							image.CopyTo(new FileStream(filePath, FileMode.Create));
+						}
+					}
+
+					return RedirectToAction("Index", "Ad");  // Redirect to the desired action after successful creation
+				}
+				catch (Exception ex)
+				{
+					// Handle exceptions appropriately (log, show error page, etc.)
+					ModelState.AddModelError(string.Empty, "An error occurred while saving the ad.");
+				}
+			}
+
+			// If ModelState is not valid, return to the Create view with the ViewModel
+			return View(adViewModel);
 		}
+
 	}
 }

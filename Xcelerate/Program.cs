@@ -15,6 +15,11 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
     .AddEntityFrameworkStores<XcelerateContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.Configure<IISServerOptions>(options =>
+{
+	options.AllowSynchronousIO = true;
+});
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
@@ -77,17 +82,20 @@ app.UseAuthorization();
 
 app.UseEndpoints(config =>
 {
-    config.MapControllerRoute(
-       name: "default",
-       pattern: "{controller=Home}/{action=HomePage}/{id?}"
-    );
+	config.MapControllerRoute(
+		name: "home",
+		pattern: "{controller=Home}/{action=HomePage}/{id?}"
+	);
 
-    config.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Ad}/{action=Information}/{carId?}");
+	config.MapControllerRoute(
+		name: "ad",
+		pattern: "{controller=Ad}/{action=Information}/{carId?}");
 
-    config.MapRazorPages();
+	config.MapControllerRoute(
+	  name: "adCreate",
+	  pattern: "{controller=Ad}/{action=Create}");
+
+	config.MapRazorPages();
 });
-
 
 app.Run();
