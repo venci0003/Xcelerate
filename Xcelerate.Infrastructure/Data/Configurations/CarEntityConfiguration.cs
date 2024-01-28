@@ -65,7 +65,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
             {
                 CarId = 2,
                 Brand = "Honda",
-                Model = "Civic Type R Limited Edition",
+                Model = "Civic Type R",
                 Year = 2021,
                 EngineId = 2, // Assuming you have an Engine with EngineId = 2
                 Condition = ConditionEnum.BrandNew,
@@ -88,7 +88,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
             {
                 CarId = 3,
                 Brand = "Ford",
-                Model = "Mustang Shelby GT350R",
+                Model = "Mustang GT350R",
                 Year = 2020,
                 EngineId = 3, // Assuming you have an Engine with EngineId = 3
                 Condition = ConditionEnum.Used,

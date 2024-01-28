@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Xcelerate.Controllers
 {
@@ -15,7 +10,7 @@ namespace Xcelerate.Controllers
 	{
 		private readonly XcelerateContext _dbContext;
 		private readonly IWebHostEnvironment _webHostEnvironment;
-		public AdController(XcelerateContext dbContext , IWebHostEnvironment webHostEnvironment)
+		public AdController(XcelerateContext dbContext, IWebHostEnvironment webHostEnvironment)
 		{
 			_dbContext = dbContext;
 			_webHostEnvironment = webHostEnvironment;
@@ -126,38 +121,95 @@ namespace Xcelerate.Controllers
 
 		//[ValidateAntiForgeryToken]
 		[HttpPost]
-		public async Task<IActionResult> Create(AdInformationViewModel adViewModel, List<IFormFile> Images)
+		public async Task<IActionResult> Create(AdInformationViewModel adViewModel)
 		{
+
 			if (ModelState.IsValid)
 			{
 				try
 				{
 					// Map the ViewModel to your Car model
-					var car = new Car
+					var car = new AdInformationViewModel
 					{
-						// Map properties from ViewModel to Model
+						UploadedImages = new List<IFormFile>(),
 						Brand = adViewModel.Brand,
 						Model = adViewModel.Model,
 						Year = adViewModel.Year,
-						Engine = new Engine { Model = adViewModel.Engine },
-						// Map other properties as needed
+						Engine = adViewModel.Engine,
+						Condition = adViewModel.Condition,
+						EuroStandard = adViewModel.EuroStandard,
+						FuelType = adViewModel.FuelType,
+						Colour = adViewModel.Colour,
+						Transmition = adViewModel.Transmition,
+						DriveTrain = adViewModel.DriveTrain,
+						Weight = adViewModel.Weight,
+						Mileage = adViewModel.Mileage,
+						Price = adViewModel.Price,
+						BodyType = adViewModel.BodyType,
+						Manufacturer = adViewModel.Manufacturer,
+						Description = adViewModel.Description,
 					};
 
-					if (Images.Count != 6)
+					// Add accessories
+					car.Accessories = adViewModel.Accessories.Select(accessory => new AccessoryViewModel
+					{
+						GpsTrackingSystem = accessory.GpsTrackingSystem,
+						AutomaticStabilityControl = accessory.AutomaticStabilityControl,
+						AdaptiveHeadlights = accessory.AdaptiveHeadlights,
+						Abs = accessory.Abs,
+						RearAirbags = accessory.RearAirbags,
+						FrontAirbags = accessory.FrontAirbags,
+						SideAirbags = accessory.SideAirbags,
+						Ebd = accessory.Ebd,
+						Esp = accessory.Esp,
+						Tpms = accessory.Tpms,
+						Parktronic = accessory.Parktronic,
+						Isofix = accessory.Isofix,
+						DynamicStabilityControl = accessory.DynamicStabilityControl,
+						Tcs = accessory.Tcs,
+						DistanceControlSystem = accessory.DistanceControlSystem,
+						DescentControlSystem = accessory.DescentControlSystem,
+						Bas = accessory.Bas,
+						AutoStartStopFunction = accessory.AutoStartStopFunction,
+						BluetoothHandsfreeSystem = accessory.BluetoothHandsfreeSystem,
+						DvdTv = accessory.DvdTv,
+						SteptronicTiptronic = accessory.SteptronicTiptronic,
+						UsbAudioVideoInAuxOutputs = accessory.UsbAudioVideoInAuxOutputs,
+						AdaptiveAirSuspension = accessory.AdaptiveAirSuspension,
+						KeylessIgnition = accessory.KeylessIgnition,
+						DifferentialLock = accessory.DifferentialLock,
+						OnBoardComputer = accessory.OnBoardComputer,
+						LightSensor = accessory.LightSensor,
+						ElectricMirrors = accessory.ElectricMirrors,
+						ElectricGlass = accessory.ElectricGlass,
+						ElectricSuspensionAdjustment = accessory.ElectricSuspensionAdjustment,
+						ElectricSeatAdjustment = accessory.ElectricSeatAdjustment,
+						ElectricPowerSteering = accessory.ElectricPowerSteering,
+						AirConditioner = accessory.AirConditioner,
+						Climatronic = accessory.Climatronic,
+						MultifunctionSteeringWheel = accessory.MultifunctionSteeringWheel,
+						NavigationSystem = accessory.NavigationSystem,
+						SteeringWheelHeating = accessory.SteeringWheelHeating,
+						WindshieldHeating = accessory.WindshieldHeating,
+						SeatHeating = accessory.SeatHeating,
+						SteeringWheelAdjustment = accessory.SteeringWheelAdjustment,
+						RainSensor = accessory.RainSensor,
+						PowerSteering = accessory.PowerSteering,
+						HeadlampWashSystem = accessory.HeadlampWashSystem,
+						CruiseControlSystem = accessory.CruiseControlSystem,
+						StereoSystem = accessory.StereoSystem,
+						CoolingGlovebox = accessory.CoolingGlovebox,
+					}).ToList();
+
+					if (car.UploadedImages.Count != 6)
 					{
 						ModelState.AddModelError("Images", "Please upload exactly 6 images.");
 						return View(adViewModel);
 					}
 
-					// Save car to the database
-					_dbContext.Cars.Add(car);
-					await _dbContext.SaveChangesAsync();
-
-					var adId = car.CarId; // Assuming there's an identifier for the ad (replace with the actual property)
 					var adImagesDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad");
 
-
-					foreach (var image in Images)
+					foreach (var image in car.UploadedImages)
 					{
 						if (image != null && image.Length > 0)
 						{
@@ -166,6 +218,10 @@ namespace Xcelerate.Controllers
 							image.CopyTo(new FileStream(filePath, FileMode.Create));
 						}
 					}
+					// Save car to the database
+					_dbContext.Add(car);
+					await _dbContext.SaveChangesAsync();
+
 
 					return RedirectToAction("Index", "Ad");  // Redirect to the desired action after successful creation
 				}

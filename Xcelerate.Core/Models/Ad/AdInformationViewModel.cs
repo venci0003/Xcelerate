@@ -1,10 +1,13 @@
-﻿using Xcelerate.Infrastructure.Data.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using Xcelerate.Infrastructure.Data.Enums;
 
 namespace Xcelerate.Core.Models.Ad
 {
 	public class AdInformationViewModel
 	{
 		public List<string> ImageUrls { get; set; } = null!;
+
+		public List<IFormFile> UploadedImages { get; set; } = null!;
 
 		public List<AccessoryViewModel> Accessories { get; set; } = null!;
 

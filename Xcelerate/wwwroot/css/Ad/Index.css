@@ -138,7 +138,9 @@ body {
 
 .card-holder {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 28px;
     align-items: center; /* Center the cards horizontally */
 }
