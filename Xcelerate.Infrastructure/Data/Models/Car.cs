@@ -10,13 +10,11 @@
         [Comment("CarId")]
         public int CarId { get; set; }
 
-        [Required]
-		[Comment("Images")]
-		public ICollection<Image> Images { get; set; } = new List<Image>();
+		public ICollection<CarAccessory> CarAccessories {get;set;} = new List<CarAccessory>();
 
 		[Required]
-		[Comment("Accesories")]
-		public ICollection<Accessory> Accessories { get; set; } = new List<Accessory>();
+		[Comment("Images")]
+		public ICollection<Image> Images { get; set; } = new List<Image>();
 
 		[Required]
         [Comment("Brand")]
@@ -78,7 +76,9 @@
         [Comment("BodyType")]
         public BodyTypeEnum BodyType { get; set; }
 
-        [ForeignKey(nameof(Manufacturer))]
+        public string Description { get; set; } = null!;
+
+		[ForeignKey(nameof(Manufacturer))]
         public int ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; } = null!;
 

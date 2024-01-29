@@ -20,7 +20,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				.OnDelete(DeleteBehavior.NoAction);
 
             builder
-                .HasMany(a => a.Accessories)
+                .HasMany(a => a.CarAccessories)
                 .WithOne(c => c.Car)
                 .OnDelete(DeleteBehavior.NoAction);
 
@@ -55,6 +55,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 30000,
                 Price = 25000.50m,
                 BodyType = BodyTypeEnum.Sedan,
+                Description = "Toyota Camry TRD",
                 ManufacturerId = 1, // Assuming you have a Manufacturer with ManufacturerId = 1
                 AddressId = 1, // Assuming you have an Address with AddressId = 1
                 AdId = 1, // Assuming you have an Ad with AdId = 1
@@ -78,7 +79,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 15000,
                 Price = 62000.75m,
                 BodyType = BodyTypeEnum.Hatchback,
-                ManufacturerId = 2, // Assuming you have a Manufacturer with ManufacturerId = 2
+				Description = "Honda Civic Type R",
+				ManufacturerId = 2, // Assuming you have a Manufacturer with ManufacturerId = 2
                 AddressId = 2, // Assuming you have an Address with AddressId = 2
                 AdId = 2, // Assuming you have an Ad with AdId = 2
                 UserId = Guid.Parse("2CC5DA14-F51C-4B51-96B3-0C296C2EE8DC") // Assuming you have a User with UserId = 2
@@ -101,7 +103,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 25000,
                 Price = 30000.25m,
                 BodyType = BodyTypeEnum.Sedan,
-                ManufacturerId = 3, // Assuming you have a Manufacturer with ManufacturerId = 3
+				Description = "Ford Mustang GT350R",
+				ManufacturerId = 3, // Assuming you have a Manufacturer with ManufacturerId = 3
                 AddressId = 3, // Assuming you have an Address with AddressId = 3
                 AdId = 3, // Assuming you have an Ad with AdId = 3
                 UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6") // Assuming you have a User with UserId = 3
@@ -124,7 +127,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 20000,
                 Price = 18000.75m,
                 BodyType = BodyTypeEnum.Hatchback,
-                ManufacturerId = 4, // Assuming you have a Manufacturer with ManufacturerId = 4
+				Description = "Volkswagen Golf",
+				ManufacturerId = 4, // Assuming you have a Manufacturer with ManufacturerId = 4
                 AddressId = 4, // Assuming you have an Address with AddressId = 4
                 AdId = 4, // Assuming you have an Ad with AdId = 4
                 UserId = Guid.Parse("495CC255-9E57-40E1-A4DE-B1ADBFDBC0FC") // Assuming you have a User with UserId = 4
@@ -149,7 +153,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 10000,
                 Price = 40000.5m,
                 BodyType = BodyTypeEnum.Sedan,
-                ManufacturerId = 5, // Assuming you have a Manufacturer with ManufacturerId = 5
+				Description = "Mercedes-Benz C-Class",
+				ManufacturerId = 5, // Assuming you have a Manufacturer with ManufacturerId = 5
                 AddressId = 5, // Assuming you have an Address with AddressId = 5
                 AdId = 5, // Assuming you have an Ad with AdId = 5
                 UserId = Guid.Parse("B0B378DD-78AA-4884-AFA7-7EC6626C9CDF") // Assuming you have a User with UserId = 5
@@ -172,7 +177,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 30000,
                 Price = 28000.25m,
                 BodyType = BodyTypeEnum.Sedan,
-                ManufacturerId = 6, // Assuming you have a Manufacturer with ManufacturerId = 6
+				Description = "Audi A3",
+				ManufacturerId = 6, // Assuming you have a Manufacturer with ManufacturerId = 6
                 AddressId = 6, // Assuming you have an Address with AddressId = 6
                 AdId = 6, // Assuming you have an Ad with AdId = 6
                 UserId = Guid.Parse("9173EFB3-6DC6-4C27-8D1A-555107353AEA") // Assuming you have a User with UserId = 6
@@ -195,7 +201,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 25000,
                 Price = 35000.0m,
                 BodyType = BodyTypeEnum.SUV,
-                ManufacturerId = 7, // Assuming you have a Manufacturer with ManufacturerId = 7
+				Description = "Infiniti QX80",
+				ManufacturerId = 7, // Assuming you have a Manufacturer with ManufacturerId = 7
                 AddressId = 7, // Assuming you have an Address with AddressId = 7
                 AdId = 7, // Assuming you have an Ad with AdId = 7
                 UserId = Guid.Parse("0C106D5A-7440-44DD-B8D3-3C1B7ACA8020") // Assuming you have a User with UserId = 7
@@ -218,7 +225,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 15000,
                 Price = 23000.5m,
                 BodyType = BodyTypeEnum.Sedan,
-                ManufacturerId = 8, // Assuming you have a Manufacturer with ManufacturerId = 8
+				Description = "Hyundai Elantra",
+				ManufacturerId = 8, // Assuming you have a Manufacturer with ManufacturerId = 8
                 AddressId = 8, // Assuming you have an Address with AddressId = 8
                 AdId = 8, // Assuming you have an Ad with AdId = 8
                 UserId = Guid.Parse("B4D7DDAD-411E-4FE8-A7D9-C2638F376F1C") // Assuming you have a User with UserId = 8
@@ -241,7 +249,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 320000,
                 Price = 42000.0m,
                 BodyType = BodyTypeEnum.Sedan,
-                ManufacturerId = 9, // Assuming you have a Manufacturer with ManufacturerId = 9
+				Description = "BMW 3 Series",
+				ManufacturerId = 9, // Assuming you have a Manufacturer with ManufacturerId = 9
                 AddressId = 9, // Assuming you have an Address with AddressId = 9
                 AdId = 9, // Assuming you have an Ad with AdId = 9
                 UserId = Guid.Parse("B13EDF51-1FF3-46D7-BF4C-C55CAAC1A7C0") // Assuming you have a User with UserId = 9
@@ -264,7 +273,8 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 18000,
                 Price = 28000.75m,
                 BodyType = BodyTypeEnum.SUV,
-                ManufacturerId = 10, // Assuming you have a Manufacturer with ManufacturerId = 10
+				Description = "Nissan Rogue",
+				ManufacturerId = 10, // Assuming you have a Manufacturer with ManufacturerId = 10
                 AddressId = 10, // Assuming you have an Address with AddressId = 10
                 AdId = 10, // Assuming you have an Ad with AdId = 10
                 UserId = Guid.Parse("1B6F6E67-5ADF-4F78-A74E-27B02430C709") // Assuming you have a User with UserId = 10

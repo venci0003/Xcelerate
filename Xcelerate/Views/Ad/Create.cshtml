@@ -21,7 +21,7 @@
 			 src="~/Icons/icons8-minimize-64 white.png"
 			 alt="Icon Description" />
 	</div>
-	<form method="post" action="/Ad/Create" class="card-content">
+	<form method="post" action="/Ad/Create" class="card-content" enctype="multipart/form-data">
 		@* @Html.AntiForgeryToken() *@
 		<h1 class="title-text">CREATE AD</h1>
 		<section class="information-inputs">
@@ -74,6 +74,11 @@
 			<div class="form-input">
 				<label asp-for="@Model.UploadedImages">Upload Images</label>
 				<input type="file" name="UploadedImages" multiple />
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Description">Description</label>
+				<input type="text" name="Description" />
 			</div>
 
 			<div class="form-input">
@@ -165,19 +170,25 @@
 				<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
 			</div>
 
-			<div class="row-accessories">
+			@* <div class="row-accessories">
 				<h1 class="title-text-accessory">ACCESSORIES</h1>
 				<section class="checkbox-list">
-					@foreach (var property in typeof(AccessoryViewModel).GetProperties())
+					@for (var i = 0; i < Model.Accessories.Count; i++)
 					{
 						<div class="column-accessories">
 							<ul>
-								<li><input type="checkbox" name="@property.Name" value="true" /> @property.Name</li>
+								<li>
+									<input type="hidden" asp-for="@Model.Accessories[i].AccessoryId" />
+									<input type="checkbox" asp-for="@Model.Accessories[i].IsSelected" />
+									<label>@Model.Accessories[i].Name</label>
+								</li>
 							</ul>
 						</div>
 					}
 				</section>
-			</div>
+			</div> *@
+
+
 
 		</section>
 

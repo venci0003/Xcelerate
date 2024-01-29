@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Infrastructure.Data;
@@ -43,54 +44,10 @@ namespace Xcelerate.Controllers
 			var car = await _dbContext.Cars.Where(c => c.CarId == carId).Select(car => new AdInformationViewModel
 			{
 				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
-				Accessories = car.Accessories.Select(accessory => new AccessoryViewModel
+				Accessories = car.CarAccessories.Select(accessory => new AccessoryViewModel
 				{
-					GpsTrackingSystem = accessory.GpsTrackingSystem,
-					AutomaticStabilityControl = accessory.AutomaticStabilityControl,
-					AdaptiveHeadlights = accessory.AdaptiveHeadlights,
-					Abs = accessory.Abs,
-					RearAirbags = accessory.RearAirbags,
-					FrontAirbags = accessory.FrontAirbags,
-					SideAirbags = accessory.SideAirbags,
-					Ebd = accessory.Ebd,
-					Esp = accessory.Esp,
-					Tpms = accessory.Tpms,
-					Parktronic = accessory.Parktronic,
-					Isofix = accessory.Isofix,
-					DynamicStabilityControl = accessory.DynamicStabilityControl,
-					Tcs = accessory.Tcs,
-					DistanceControlSystem = accessory.DistanceControlSystem,
-					DescentControlSystem = accessory.DescentControlSystem,
-					Bas = accessory.Bas,
-					AutoStartStopFunction = accessory.AutoStartStopFunction,
-					BluetoothHandsfreeSystem = accessory.BluetoothHandsfreeSystem,
-					DvdTv = accessory.DvdTv,
-					SteptronicTiptronic = accessory.SteptronicTiptronic,
-					UsbAudioVideoInAuxOutputs = accessory.UsbAudioVideoInAuxOutputs,
-					AdaptiveAirSuspension = accessory.AdaptiveAirSuspension,
-					KeylessIgnition = accessory.KeylessIgnition,
-					DifferentialLock = accessory.DifferentialLock,
-					OnBoardComputer = accessory.OnBoardComputer,
-					LightSensor = accessory.LightSensor,
-					ElectricMirrors = accessory.ElectricMirrors,
-					ElectricGlass = accessory.ElectricGlass,
-					ElectricSuspensionAdjustment = accessory.ElectricSuspensionAdjustment,
-					ElectricSeatAdjustment = accessory.ElectricSeatAdjustment,
-					ElectricPowerSteering = accessory.ElectricPowerSteering,
-					AirConditioner = accessory.AirConditioner,
-					Climatronic = accessory.Climatronic,
-					MultifunctionSteeringWheel = accessory.MultifunctionSteeringWheel,
-					NavigationSystem = accessory.NavigationSystem,
-					SteeringWheelHeating = accessory.SteeringWheelHeating,
-					WindshieldHeating = accessory.WindshieldHeating,
-					SeatHeating = accessory.SeatHeating,
-					SteeringWheelAdjustment = accessory.SteeringWheelAdjustment,
-					RainSensor = accessory.RainSensor,
-					PowerSteering = accessory.PowerSteering,
-					HeadlampWashSystem = accessory.HeadlampWashSystem,
-					CruiseControlSystem = accessory.CruiseControlSystem,
-					StereoSystem = accessory.StereoSystem,
-					CoolingGlovebox = accessory.CoolingGlovebox,
+					AccessoryId = accessory.AccessoryId,
+					Name = accessory.Accessory.Name
 				}).ToList(),
 				Brand = car.Brand,
 				Model = car.Model,
@@ -119,23 +76,42 @@ namespace Xcelerate.Controllers
 			return View(car);
 		}
 
+		[HttpGet]
+		public async Task<IActionResult> Create()
+		{
+			AdInformationViewModel adViewModel = new AdInformationViewModel();
+
+			List<AccessoryViewModel> accessories = await _dbContext.Accessories.Select(accessory => new AccessoryViewModel()
+			{
+				AccessoryId = accessory.AccessoryId,
+				Name = accessory.Name
+			}).ToListAsync();
+
+			adViewModel.Accessories = accessories;
+
+			return View(adViewModel);
+		}
+
 		//[ValidateAntiForgeryToken]
 		[HttpPost]
 		public async Task<IActionResult> Create(AdInformationViewModel adViewModel)
 		{
+			if (!ModelState.IsValid)
+			{
+				IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+			}
 
 			if (ModelState.IsValid)
 			{
 				try
 				{
 					// Map the ViewModel to your Car model
-					var car = new AdInformationViewModel
+					var car = new Car
 					{
-						UploadedImages = new List<IFormFile>(),
 						Brand = adViewModel.Brand,
 						Model = adViewModel.Model,
 						Year = adViewModel.Year,
-						Engine = adViewModel.Engine,
+						Engine = new Engine { Model = adViewModel.Engine },
 						Condition = adViewModel.Condition,
 						EuroStandard = adViewModel.EuroStandard,
 						FuelType = adViewModel.FuelType,
@@ -146,62 +122,27 @@ namespace Xcelerate.Controllers
 						Mileage = adViewModel.Mileage,
 						Price = adViewModel.Price,
 						BodyType = adViewModel.BodyType,
-						Manufacturer = adViewModel.Manufacturer,
+						Manufacturer = new Manufacturer { Name = adViewModel.Manufacturer },
 						Description = adViewModel.Description,
 					};
 
 					// Add accessories
-					car.Accessories = adViewModel.Accessories.Select(accessory => new AccessoryViewModel
-					{
-						GpsTrackingSystem = accessory.GpsTrackingSystem,
-						AutomaticStabilityControl = accessory.AutomaticStabilityControl,
-						AdaptiveHeadlights = accessory.AdaptiveHeadlights,
-						Abs = accessory.Abs,
-						RearAirbags = accessory.RearAirbags,
-						FrontAirbags = accessory.FrontAirbags,
-						SideAirbags = accessory.SideAirbags,
-						Ebd = accessory.Ebd,
-						Esp = accessory.Esp,
-						Tpms = accessory.Tpms,
-						Parktronic = accessory.Parktronic,
-						Isofix = accessory.Isofix,
-						DynamicStabilityControl = accessory.DynamicStabilityControl,
-						Tcs = accessory.Tcs,
-						DistanceControlSystem = accessory.DistanceControlSystem,
-						DescentControlSystem = accessory.DescentControlSystem,
-						Bas = accessory.Bas,
-						AutoStartStopFunction = accessory.AutoStartStopFunction,
-						BluetoothHandsfreeSystem = accessory.BluetoothHandsfreeSystem,
-						DvdTv = accessory.DvdTv,
-						SteptronicTiptronic = accessory.SteptronicTiptronic,
-						UsbAudioVideoInAuxOutputs = accessory.UsbAudioVideoInAuxOutputs,
-						AdaptiveAirSuspension = accessory.AdaptiveAirSuspension,
-						KeylessIgnition = accessory.KeylessIgnition,
-						DifferentialLock = accessory.DifferentialLock,
-						OnBoardComputer = accessory.OnBoardComputer,
-						LightSensor = accessory.LightSensor,
-						ElectricMirrors = accessory.ElectricMirrors,
-						ElectricGlass = accessory.ElectricGlass,
-						ElectricSuspensionAdjustment = accessory.ElectricSuspensionAdjustment,
-						ElectricSeatAdjustment = accessory.ElectricSeatAdjustment,
-						ElectricPowerSteering = accessory.ElectricPowerSteering,
-						AirConditioner = accessory.AirConditioner,
-						Climatronic = accessory.Climatronic,
-						MultifunctionSteeringWheel = accessory.MultifunctionSteeringWheel,
-						NavigationSystem = accessory.NavigationSystem,
-						SteeringWheelHeating = accessory.SteeringWheelHeating,
-						WindshieldHeating = accessory.WindshieldHeating,
-						SeatHeating = accessory.SeatHeating,
-						SteeringWheelAdjustment = accessory.SteeringWheelAdjustment,
-						RainSensor = accessory.RainSensor,
-						PowerSteering = accessory.PowerSteering,
-						HeadlampWashSystem = accessory.HeadlampWashSystem,
-						CruiseControlSystem = accessory.CruiseControlSystem,
-						StereoSystem = accessory.StereoSystem,
-						CoolingGlovebox = accessory.CoolingGlovebox,
-					}).ToList();
+					//car.Accessories = adViewModel.Accessories.Select(accessory => new AccessoryViewModel
+					//{
+					//	AccessoryId = accessory.AccessoryId,
+					//	Name = accessory.Name
+					//}).ToList();
 
-					if (car.UploadedImages.Count != 6)
+					//foreach (var accessory in adViewModel.Accessories)
+					//{
+					//	_dbContext.CarAccessories.Add(new CarAccessory()
+					//	{
+					//		CarId = car.CarId,
+					//		AccessoryId = accessory.AccessoryId
+					//	});
+					//}
+
+					if (adViewModel.UploadedImages.Count != 6)
 					{
 						ModelState.AddModelError("Images", "Please upload exactly 6 images.");
 						return View(adViewModel);
@@ -209,7 +150,7 @@ namespace Xcelerate.Controllers
 
 					var adImagesDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad");
 
-					foreach (var image in car.UploadedImages)
+					foreach (var image in adViewModel.UploadedImages)
 					{
 						if (image != null && image.Length > 0)
 						{
@@ -219,13 +160,13 @@ namespace Xcelerate.Controllers
 						}
 					}
 					// Save car to the database
-					_dbContext.Add(car);
+					await _dbContext.AddAsync(car);
 					await _dbContext.SaveChangesAsync();
 
 
 					return RedirectToAction("Index", "Ad");  // Redirect to the desired action after successful creation
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
 					// Handle exceptions appropriately (log, show error page, etc.)
 					ModelState.AddModelError(string.Empty, "An error occurred while saving the ad.");
@@ -235,6 +176,5 @@ namespace Xcelerate.Controllers
 			// If ModelState is not valid, return to the Create view with the ViewModel
 			return View(adViewModel);
 		}
-
 	}
 }

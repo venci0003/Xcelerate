@@ -45,52 +45,9 @@
 					@{
 						foreach (var accessory in Model.Accessories)
 						{
-							DisplayAccessoryProperty("GPS Tracking System", accessory.GpsTrackingSystem);
-							DisplayAccessoryProperty("Automatic Stability Control", accessory.AutomaticStabilityControl);
-							DisplayAccessoryProperty("Adaptive Headlights", accessory.AdaptiveHeadlights);
-							DisplayAccessoryProperty("Anti-lock Braking System (ABS)", accessory.Abs);
-							DisplayAccessoryProperty("Rear Airbags", accessory.RearAirbags);
-							DisplayAccessoryProperty("Front Airbags", accessory.FrontAirbags);
-							DisplayAccessoryProperty("Side Airbags", accessory.SideAirbags);
-							DisplayAccessoryProperty("Electronic Brake-force Distribution (EBD)", accessory.Ebd);
-							DisplayAccessoryProperty("Electronic Stabilization Program (ESP)", accessory.Esp);
-							DisplayAccessoryProperty("Tire Pressure Monitoring System (TPMS)", accessory.Tpms);
-							DisplayAccessoryProperty("Parktronic (Parking Sensors)", accessory.Parktronic);
-							DisplayAccessoryProperty("ISOFIX System (Child Seat Anchorage System)", accessory.Isofix);
-							DisplayAccessoryProperty("Dynamic Stability Control", accessory.DynamicStabilityControl);
-							DisplayAccessoryProperty("Traction Control System (TCS)", accessory.Tcs);
-							DisplayAccessoryProperty("Distance Control System", accessory.DistanceControlSystem);
-							DisplayAccessoryProperty("Descent Control System", accessory.DescentControlSystem);
-							DisplayAccessoryProperty("Brake Assist System (BAS)", accessory.Bas);
-							DisplayAccessoryProperty("Auto Start-Stop Function", accessory.AutoStartStopFunction);
-							DisplayAccessoryProperty("Bluetooth/Handsfree System", accessory.BluetoothHandsfreeSystem);
-							DisplayAccessoryProperty("DVD/TV", accessory.DvdTv);
-							DisplayAccessoryProperty("Steptronic/Tiptronic (Transmission Systems)", accessory.SteptronicTiptronic);
-							DisplayAccessoryProperty("USB/Audio/Video/IN/AUX Outputs", accessory.UsbAudioVideoInAuxOutputs);
-							DisplayAccessoryProperty("Adaptive Air Suspension", accessory.AdaptiveAirSuspension);
-							DisplayAccessoryProperty("Keyless Ignition", accessory.KeylessIgnition);
-							DisplayAccessoryProperty("Differential Lock", accessory.DifferentialLock);
-							DisplayAccessoryProperty("On-board Computer", accessory.OnBoardComputer);
-							DisplayAccessoryProperty("Light Sensor", accessory.LightSensor);
-							DisplayAccessoryProperty("Electric Mirrors", accessory.ElectricMirrors);
-							DisplayAccessoryProperty("Electric Glass", accessory.ElectricGlass);
-							DisplayAccessoryProperty("Electric Suspension Adjustment", accessory.ElectricSuspensionAdjustment);
-							DisplayAccessoryProperty("Electric Seat Adjustment", accessory.ElectricSeatAdjustment);
-							DisplayAccessoryProperty("Electric Power Steering", accessory.ElectricPowerSteering);
-							DisplayAccessoryProperty("Air Conditioner", accessory.AirConditioner);
-							DisplayAccessoryProperty("Climatronic (Automatic Climate Control)", accessory.Climatronic);
-							DisplayAccessoryProperty("Multifunction Steering Wheel", accessory.MultifunctionSteeringWheel);
-							DisplayAccessoryProperty("Navigation System", accessory.NavigationSystem);
-							DisplayAccessoryProperty("Steering Wheel Heating", accessory.SteeringWheelHeating);
-							DisplayAccessoryProperty("Windshield Heating", accessory.WindshieldHeating);
-							DisplayAccessoryProperty("Seat Heating", accessory.SeatHeating);
-							DisplayAccessoryProperty("Steering Wheel Adjustment", accessory.SteeringWheelAdjustment);
-							DisplayAccessoryProperty("Rain Sensor", accessory.RainSensor);
-							DisplayAccessoryProperty("Power Steering", accessory.PowerSteering);
-							DisplayAccessoryProperty("Headlamp Wash System", accessory.HeadlampWashSystem);
-							DisplayAccessoryProperty("Cruise Control System (Autopilot)", accessory.CruiseControlSystem);
-							DisplayAccessoryProperty("Stereo System", accessory.StereoSystem);
-							DisplayAccessoryProperty("Cooling Glovebox", accessory.CoolingGlovebox);
+						<li>
+							<strong>@accessory.Name</strong>
+						</li>
 						}
 					}
 			</ul>
