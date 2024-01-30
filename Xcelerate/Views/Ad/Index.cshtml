@@ -15,14 +15,6 @@
                         <img src="~/Images/Ad/@firstImage" alt="First image of the car ad" />
                     }
                 }
-
-                @{
-                    // Display every sixth image
-                    for (int i = 6; i < ad.ImageUrls.Count; i += 6)
-                    {
-                        <img src="~/Images/Ad/@ad.ImageUrls[i]" alt="First image of the car ad." />
-                    }
-                }
             </div>
             <h2 class="article-title">@ad.Brand @ad.Model</h2>
             <div card-text>
@@ -33,6 +25,7 @@
                     <li><strong>Condition:</strong> @ad.Condition</li>
                     <li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
                     <li><strong>Fuel Type:</strong> @ad.FuelType</li>
+                    <li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
                 </ul>
                 <footer class="bottom-text">
                     <i>
@@ -44,3 +37,22 @@
     }
 </section>
 
+
+
+@* <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var imageHolders = document.querySelectorAll('.image-holder');
+
+        imageHolders.forEach(function (imageHolder) {
+            var images = Array.from(imageHolder.querySelectorAll('.ad-image'));
+            var currentIndex = 0;
+
+            imageHolder.addEventListener('mouseover', function () {
+                currentIndex = (currentIndex + 1) % images.length;
+                images.forEach(function (image, index) {
+                    image.style.opacity = index === currentIndex ? '1' : '0';
+                });
+            });
+        });
+    });
+</script> *@

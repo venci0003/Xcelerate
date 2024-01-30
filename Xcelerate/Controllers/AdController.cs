@@ -32,6 +32,8 @@ namespace Xcelerate.Controllers
 				EuroStandard = car.EuroStandard,
 				FuelType = car.FuelType,
 				Price = car.Price,
+				FirstName = car.User.FirstName,
+				LastName = car.User.LastName,
 			}).ToListAsync();
 
 			return View(cars);

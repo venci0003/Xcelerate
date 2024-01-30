@@ -40,7 +40,15 @@ namespace Xcelerate.Core.Models.Ad
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
-        [Required]
+		[Required]
+		[Comment("FirstName")]
+		public string FirstName { get; set; } = null!;
+
+		[Required]
+		[Comment("LastName")]
+		public string LastName { get; set; } = null!;
+
+		[Required]
         public List<string> ImageUrls { get; set; } = new List<string>();
 
     }
