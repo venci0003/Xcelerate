@@ -128,21 +128,18 @@ namespace Xcelerate.Controllers
 						Description = adViewModel.Description,
 					};
 
-					// Add accessories
-					//car.Accessories = adViewModel.Accessories.Select(accessory => new AccessoryViewModel
-					//{
-					//	AccessoryId = accessory.AccessoryId,
-					//	Name = accessory.Name
-					//}).ToList();
+					await _dbContext.AddAsync(car);
+					await _dbContext.SaveChangesAsync();
 
-					//foreach (var accessory in adViewModel.Accessories)
-					//{
-					//	_dbContext.CarAccessories.Add(new CarAccessory()
-					//	{
-					//		CarId = car.CarId,
-					//		AccessoryId = accessory.AccessoryId
-					//	});
-					//}
+					foreach (var accessoryId in adViewModel.SelectedCheckBoxId)
+					{
+						_dbContext.CarAccessories.Add(new CarAccessory()
+						{
+							CarId = car.CarId,
+							AccessoryId = accessoryId
+						});
+					}
+
 
 					if (adViewModel.UploadedImages.Count != 6)
 					{
@@ -162,7 +159,6 @@ namespace Xcelerate.Controllers
 						}
 					}
 					// Save car to the database
-					await _dbContext.AddAsync(car);
 					await _dbContext.SaveChangesAsync();
 
 

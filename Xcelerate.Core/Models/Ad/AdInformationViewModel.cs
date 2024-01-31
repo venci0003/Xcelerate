@@ -13,6 +13,8 @@ namespace Xcelerate.Core.Models.Ad
 
 		public List<AccessoryViewModel> Accessories { get; set; } = new List<AccessoryViewModel>();
 
+		public List<int> SelectedCheckBoxId { get; set; } = new List<int>();
+
 		public string Brand { get; set; } = null!;
 
 		public string Model { get; set; } = null!;

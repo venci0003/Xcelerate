@@ -31,12 +31,6 @@ namespace Xcelerate.Infrastructure.Data.Models
         [Comment("FuelType")]
         public FuelTypeEnum FuelType { get; set; }
 
-        [ForeignKey(nameof(Manufacturer))]
-        public int ManufacturerId { get; set; }
-
-        [Comment("Manufacturer")]
-        public Manufacturer Manufacturer { get; set; } = null!;
-
         public ICollection<Car> Cars { get; set; } = new List<Car>();
     }
 }

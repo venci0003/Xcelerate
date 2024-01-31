@@ -170,24 +170,22 @@
 				<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
 			</div>
 
-			 <div class="row-accessories">
+			<div class="row-accessories">
 				<h1 class="title-text-accessory">ACCESSORIES</h1>
 				<section class="checkbox-list">
-					@for (var i = 0; i < Model.Accessories.Count; i++)
+					@foreach (var accessory in Model.Accessories)
 					{
 						<div class="column-accessories">
 							<ul>
 								<li>
-									<input type="hidden" asp-for="@Model.Accessories[i].AccessoryId" />
-									<input type="checkbox" asp-for="@Model.Accessories[i].IsSelected" />
-									<label>@Model.Accessories[i].Name</label>
+									<input type="checkbox" name="SelectedCheckBoxId" value="@accessory.AccessoryId" />
+									<label>@accessory.Name</label>
 								</li>
 							</ul>
 						</div>
 					}
 				</section>
-			</div> 
-
+			</div>
 
 
 		</section>

@@ -27,6 +27,6 @@ namespace Xcelerate.Infrastructure.Data.Models
         [Comment("StreetName")]
         public string StreetName { get; set; } = null!;
 
-        public ICollection<Car> Cars { get; set; }
+        public ICollection<Car> Cars { get; set; } = new List<Car>();
     }
 }

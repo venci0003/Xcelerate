@@ -34,7 +34,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 301,
                 CylinderCount = 6,
                 FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 1 
             };
 
             Engine engineTwo = new Engine()
@@ -44,7 +43,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 306,
                 CylinderCount = 4,
                 FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 2 
             };
 
             Engine engineThree = new Engine()
@@ -54,7 +52,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 526,
                 CylinderCount = 8,
                 FuelType = FuelTypeEnum.Diesel,
-                ManufacturerId = 3 
             };
 
             Engine engineFour = new Engine()
@@ -64,7 +61,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 147,
                 CylinderCount = 4,
                 FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 4 
             };
 
             Engine engineFive = new Engine()
@@ -74,7 +70,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 255,
                 CylinderCount = 4,
                 FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 5 
             };
 
             Engine engineSix = new Engine()
@@ -84,7 +79,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 306,
                 CylinderCount = 4,
                 FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 6 
             };
 
             Engine engineSeven = new Engine()
@@ -94,7 +88,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 400,
                 CylinderCount = 8,
                 FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 7 // Assume ManufacturerId corresponds to Audi
             };
 
             Engine engineEight = new Engine()
@@ -104,7 +97,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 147,
                 CylinderCount = 4,
                 FuelType = FuelTypeEnum.Petrol,
-                ManufacturerId = 8 // Assume ManufacturerId corresponds to Nissan
             };
 
             Engine engineNine = new Engine()
@@ -114,7 +106,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 473,
                 CylinderCount = 6,
                 FuelType = FuelTypeEnum.Diesel,
-                ManufacturerId = 9 // Assume ManufacturerId corresponds to Volkswagen
             };
 
             Engine engineTen = new Engine()
@@ -124,7 +115,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Horsepower = 181,
                 CylinderCount = 4,
                 FuelType = FuelTypeEnum.Diesel,
-                ManufacturerId = 10 // Assume ManufacturerId corresponds to Hyundai
             };
 
             engines.Add(engineOne);

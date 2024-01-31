@@ -18,8 +18,6 @@ namespace Xcelerate.Infrastructure.Data.Models
         [Comment("Name")]
         public string Name { get; set; } = null!;
 
-        public ICollection<Engine> Engines { get; set; } = new List<Engine>();
-
         public ICollection<Car> Cars { get; set; } = new List<Car>();
     }
 }

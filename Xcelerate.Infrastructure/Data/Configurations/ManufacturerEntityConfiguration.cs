@@ -17,10 +17,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 .WithOne(c => c.Manufacturer)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(m => m.Engines)
-                .WithOne(c => c.Manufacturer)
-                .OnDelete(DeleteBehavior.NoAction);
-
             ICollection<Manufacturer> manufacturersCollection = CreateManufacturers();
             builder.HasData(CreateManufacturers());
         }

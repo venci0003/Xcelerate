@@ -16,6 +16,7 @@
 		[Comment("Images")]
 		public ICollection<Image> Images { get; set; } = new List<Image>();
 
+
 		[Required]
         [Comment("Brand")]
         public string Brand { get; set; } = null!;
