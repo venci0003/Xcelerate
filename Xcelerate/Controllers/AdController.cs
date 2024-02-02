@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using System.Security.Claims;
 using Xcelerate.Core.Models.Ad;
+using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
 
@@ -114,11 +116,11 @@ namespace Xcelerate.Controllers
 			{
 				try
 				{
-					var userId = "C10F4EB6-EB46-453E-7ADE-08DC240767C7";
+					var userId = User.GetUserId();
 					// Map the ViewModel to your Car model
 					var car = new Car
 					{
-						UserId = Guid.Parse(userId),
+						UserId = userId,
 						Brand = adViewModel.Brand,
 						Model = adViewModel.Model,
 						Year = adViewModel.Year,
@@ -136,7 +138,7 @@ namespace Xcelerate.Controllers
 						Manufacturer = new Manufacturer { Name = adViewModel.Manufacturer },
 						Ad = new Ad
 						{
-							UserId = Guid.Parse(userId),
+							UserId = userId,
 							CarDescription = adViewModel.CarDescription
 						},
 						Address = new Address
