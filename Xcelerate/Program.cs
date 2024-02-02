@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
@@ -13,7 +14,14 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<XcelerateContext>();
-builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllersWithViews()
+	.AddMvcOptions(options =>
+	{
+		//This filter adds a guid on the forms
+		options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+		options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+	});
 
 builder.Services.Configure<IISServerOptions>(options =>
 {
