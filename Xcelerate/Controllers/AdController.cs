@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
@@ -66,7 +67,13 @@ namespace Xcelerate.Controllers
 				Price = car.Price,
 				BodyType = car.BodyType,
 				Manufacturer = car.Manufacturer.Name,
-				Description = car.Ad.CarDescription
+				Address = new AddressViewModel
+				{
+					CountryName = car.Address.CountryName,
+					TownName = car.Address.TownName,
+					StreetName = car.Address.StreetName,
+				},
+				CarDescription = car.Ad.CarDescription
 			}).FirstOrDefaultAsync();
 
 			if (car == null)
@@ -107,9 +114,11 @@ namespace Xcelerate.Controllers
 			{
 				try
 				{
+					var userId = "C10F4EB6-EB46-453E-7ADE-08DC240767C7";
 					// Map the ViewModel to your Car model
 					var car = new Car
 					{
+						UserId = Guid.Parse(userId),
 						Brand = adViewModel.Brand,
 						Model = adViewModel.Model,
 						Year = adViewModel.Year,
@@ -125,7 +134,17 @@ namespace Xcelerate.Controllers
 						Price = adViewModel.Price,
 						BodyType = adViewModel.BodyType,
 						Manufacturer = new Manufacturer { Name = adViewModel.Manufacturer },
-						Description = adViewModel.Description,
+						Ad = new Ad
+						{
+							UserId = Guid.Parse(userId),
+							CarDescription = adViewModel.CarDescription
+						},
+						Address = new Address
+						{
+							CountryName = adViewModel.Address.CountryName,
+							TownName = adViewModel.Address.TownName,
+							StreetName = adViewModel.Address.StreetName
+						}
 					};
 
 					await _dbContext.AddAsync(car);
@@ -140,6 +159,7 @@ namespace Xcelerate.Controllers
 						});
 					}
 
+					await _dbContext.SaveChangesAsync();
 
 					if (adViewModel.UploadedImages.Count != 6)
 					{
@@ -156,6 +176,13 @@ namespace Xcelerate.Controllers
 							var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
 							var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
 							image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+							Image imageToCreate = new Image()
+							{
+								CarId = car.CarId,
+								ImageUrl = uniqueFileName
+							};
+							await _dbContext.AddAsync(imageToCreate);
 						}
 					}
 					// Save car to the database

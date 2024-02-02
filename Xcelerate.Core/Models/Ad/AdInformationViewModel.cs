@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System.Net;
 using Xcelerate.Infrastructure.Data.Enums;
 
 namespace Xcelerate.Core.Models.Ad
@@ -14,6 +13,8 @@ namespace Xcelerate.Core.Models.Ad
 		public List<AccessoryViewModel> Accessories { get; set; } = new List<AccessoryViewModel>();
 
 		public List<int> SelectedCheckBoxId { get; set; } = new List<int>();
+
+		public AddressViewModel Address { get; set; } = new AddressViewModel();
 
 		public string Brand { get; set; } = null!;
 
@@ -45,14 +46,7 @@ namespace Xcelerate.Core.Models.Ad
 
 		public string Manufacturer { get; set; } = null!;
 
-		public string Description { get; set; } = null!;
+		public string CarDescription { get; set; } = null!;
 
-		public string Address { get; set; } = null!;
-
-		// You can include necessary properties from the Address entity
-
-		// You can include necessary properties from the Ad entity
-
-		// You can include necessary properties from the User entity
 	}
 }

@@ -55,7 +55,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 30000,
                 Price = 25000.50m,
                 BodyType = BodyTypeEnum.Sedan,
-                Description = "Toyota Camry TRD",
                 ManufacturerId = 1, // Assuming you have a Manufacturer with ManufacturerId = 1
                 AddressId = 1, // Assuming you have an Address with AddressId = 1
                 AdId = 1, // Assuming you have an Ad with AdId = 1
@@ -79,7 +78,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 15000,
                 Price = 62000.75m,
                 BodyType = BodyTypeEnum.Hatchback,
-				Description = "Honda Civic Type R",
 				ManufacturerId = 2, // Assuming you have a Manufacturer with ManufacturerId = 2
                 AddressId = 2, // Assuming you have an Address with AddressId = 2
                 AdId = 2, // Assuming you have an Ad with AdId = 2
@@ -103,7 +101,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 25000,
                 Price = 30000.25m,
                 BodyType = BodyTypeEnum.Sedan,
-				Description = "Ford Mustang GT350R",
 				ManufacturerId = 3, // Assuming you have a Manufacturer with ManufacturerId = 3
                 AddressId = 3, // Assuming you have an Address with AddressId = 3
                 AdId = 3, // Assuming you have an Ad with AdId = 3
@@ -127,7 +124,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 20000,
                 Price = 18000.75m,
                 BodyType = BodyTypeEnum.Hatchback,
-				Description = "Volkswagen Golf",
 				ManufacturerId = 4, // Assuming you have a Manufacturer with ManufacturerId = 4
                 AddressId = 4, // Assuming you have an Address with AddressId = 4
                 AdId = 4, // Assuming you have an Ad with AdId = 4
@@ -153,7 +149,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 10000,
                 Price = 40000.5m,
                 BodyType = BodyTypeEnum.Sedan,
-				Description = "Mercedes-Benz C-Class",
 				ManufacturerId = 5, // Assuming you have a Manufacturer with ManufacturerId = 5
                 AddressId = 5, // Assuming you have an Address with AddressId = 5
                 AdId = 5, // Assuming you have an Ad with AdId = 5
@@ -177,7 +172,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 30000,
                 Price = 28000.25m,
                 BodyType = BodyTypeEnum.Sedan,
-				Description = "Audi A3",
 				ManufacturerId = 6, // Assuming you have a Manufacturer with ManufacturerId = 6
                 AddressId = 6, // Assuming you have an Address with AddressId = 6
                 AdId = 6, // Assuming you have an Ad with AdId = 6
@@ -201,7 +195,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 25000,
                 Price = 35000.0m,
                 BodyType = BodyTypeEnum.SUV,
-				Description = "Infiniti QX80",
 				ManufacturerId = 7, // Assuming you have a Manufacturer with ManufacturerId = 7
                 AddressId = 7, // Assuming you have an Address with AddressId = 7
                 AdId = 7, // Assuming you have an Ad with AdId = 7
@@ -225,7 +218,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 15000,
                 Price = 23000.5m,
                 BodyType = BodyTypeEnum.Sedan,
-				Description = "Hyundai Elantra",
 				ManufacturerId = 8, // Assuming you have a Manufacturer with ManufacturerId = 8
                 AddressId = 8, // Assuming you have an Address with AddressId = 8
                 AdId = 8, // Assuming you have an Ad with AdId = 8
@@ -249,7 +241,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 320000,
                 Price = 42000.0m,
                 BodyType = BodyTypeEnum.Sedan,
-				Description = "BMW 3 Series",
 				ManufacturerId = 9, // Assuming you have a Manufacturer with ManufacturerId = 9
                 AddressId = 9, // Assuming you have an Address with AddressId = 9
                 AdId = 9, // Assuming you have an Ad with AdId = 9
@@ -273,7 +264,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
                 Mileage = 18000,
                 Price = 28000.75m,
                 BodyType = BodyTypeEnum.SUV,
-				Description = "Nissan Rogue",
 				ManufacturerId = 10, // Assuming you have a Manufacturer with ManufacturerId = 10
                 AddressId = 10, // Assuming you have an Address with AddressId = 10
                 AdId = 10, // Assuming you have an Ad with AdId = 10

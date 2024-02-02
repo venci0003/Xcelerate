@@ -54,12 +54,6 @@
 			</div>
 
 			<div class="form-input">
-				<label asp-for="@Model.Address">Address</label>
-				<input type="text" name="Address" asp-for="@Model.Address" id="form-input" />
-				<span asp-validation-for="@Model.Address" class="text-danger"></span>
-			</div>
-
-			<div class="form-input">
 				<label asp-for="@Model.Engine">Engine</label>
 				<input type="text" name="Engine" asp-for="@Model.Engine" id="form-input" />
 				<span asp-validation-for="@Model.Engine" class="text-danger"></span>
@@ -73,12 +67,32 @@
 
 			<div class="form-input">
 				<label asp-for="@Model.UploadedImages">Upload Images</label>
-				<input type="file" name="UploadedImages" multiple />
+				<input type="file" asp-for="@Model.UploadedImages" name="UploadedImages" multiple />
+				<span asp-validation-for="@Model.UploadedImages" class="text-danger"></span>
 			</div>
 
 			<div class="form-input">
-				<label asp-for="@Model.Description">Description</label>
-				<input type="text" name="Description" />
+				<label asp-for="@Model.CarDescription">Description</label>
+				<input type="text" asp-for="@Model.CarDescription" name="CarDescription" />
+				<span asp-validation-for="@Model.CarDescription" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Address.CountryName">Country</label>
+				<input type="text" asp-for="@Model.Address.CountryName" name="Address.CountryName" />
+				<span asp-validation-for="@Model.Address.CountryName" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Address.TownName">Town</label>
+				<input type="text" asp-for="@Model.Address.TownName" name="Address.TownName" />
+				<span asp-validation-for="@Model.Address.TownName" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Address.StreetName">Street</label>
+				<input type="text" asp-for="@Model.Address.StreetName" name="Address.StreetName" />
+				<span asp-validation-for="@Model.Address.StreetName" class="text-danger"></span>
 			</div>
 
 			<div class="form-input">

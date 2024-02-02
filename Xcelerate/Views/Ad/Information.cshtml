@@ -5,12 +5,12 @@
 <section class="card-holder" asp-action="Information">
 
 	<article class="hostel-home-card">
-		<div class="image-holder">
+		 <div class="image-holder">
 			@{
 				int currentIndex = 0;
 			}
 			<img src="~/Images/Ad/@Model.ImageUrls[currentIndex]" alt="First image of the car ad" id="carImage" class="image-transition" fade />
-		</div>
+		</div> 
 		<a class="prev" onclick="changeImage(-1)">&#10094;</a>
 		<a class="next" onclick="changeImage(1)">&#10095;</a>
 		<h2 class="article-title">@Model.Brand @Model.Model</h2>
@@ -31,6 +31,9 @@
 				<li><strong>Mileage:</strong> @Model.Mileage KM</li>
 				<li><strong>Body Type:</strong> @Model.BodyType</li>
 				<li><strong>Manufacturer:</strong> @Model.Manufacturer</li>
+				<li><strong>Country:</strong> @Model.Address.CountryName</li>
+				<li><strong>Town:</strong> @Model.Address.TownName</li>
+				<li><strong>Street:</strong> @Model.Address.StreetName</li>
 				<!-- Include necessary properties from Address, Ad, and User entities -->
 		</div>
 		</ul>
@@ -53,7 +56,7 @@
 		</section>
 		<section>
 			<h2 class="article-title">Description</h2>
-			<p>@Model.Description</p>
+			<p>@Model.CarDescription</p>
 		</section>
 		</div>
 	</article>

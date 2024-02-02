@@ -77,7 +77,6 @@
         [Comment("BodyType")]
         public BodyTypeEnum BodyType { get; set; }
 
-        public string Description { get; set; } = null!;
 
 		[ForeignKey(nameof(Manufacturer))]
         public int ManufacturerId { get; set; }
