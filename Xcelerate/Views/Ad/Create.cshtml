@@ -67,7 +67,7 @@
 
 			<div class="form-input">
 				<label asp-for="@Model.UploadedImages">Upload Images</label>
-				<input type="file" asp-for="@Model.UploadedImages" name="UploadedImages" multiple />
+				<input type="file" asp-for="@Model.UploadedImages" name="UploadedImages" multiple/>
 				<span asp-validation-for="@Model.UploadedImages" class="text-danger"></span>
 			</div>
 
@@ -192,7 +192,7 @@
 						<div class="column-accessories">
 							<ul>
 								<li>
-									<input type="checkbox" name="SelectedCheckBoxId" value="@accessory.AccessoryId" />
+									<input type="checkbox" name="SelectedCheckBoxId" value="@accessory.AccessoryId"/>
 									<label>@accessory.Name</label>
 								</li>
 							</ul>
@@ -205,14 +205,32 @@
 		</section>
 
 		<section class="button-object">
-			<button type="submit">SUMBIT FORM</button>
+			<button class="submit-button" type="submit">SUMBIT FORM</button>
 		</section>
 	</form>
 </article>
 
 
 @section Scripts {
-	<partial name="_ValidationScriptsPartial" />
-}
-<script src="~/js/Register/Register.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Register/Register.js" asp-append-version="true"></script>
+
+   }
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+	const uploadField = document.getElementById("UploadedImages");
+
+	uploadField.onchange = function () {
+		if (this.files[0].size > 2097152) {
+			Swal.fire({
+				icon: 'error',
+				title: 'File is too big!',
+				text: 'Please upload a file up to 2 MB.',
+			});
+			this.value = "";
+		}
+	}
+</script>
 

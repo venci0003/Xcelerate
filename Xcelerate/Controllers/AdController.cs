@@ -173,6 +173,11 @@ namespace Xcelerate.Controllers
 
 					foreach (var image in adViewModel.UploadedImages)
 					{
+						//if (image.Length > 2097152) // 2 MB limit
+						//{
+						//	ModelState.AddModelError("UploadedImages", "Image size should be up to 2 MB.");
+						//	return View(adViewModel);
+						//}
 						if (image != null && image.Length > 0)
 						{
 							var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;

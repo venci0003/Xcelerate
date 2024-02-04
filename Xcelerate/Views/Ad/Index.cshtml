@@ -2,57 +2,98 @@
 
 <link rel="stylesheet" href="~/css/Ad/Index.css" asp-append-version="true" />
 
-<section class="card-holder">
-    @foreach (var ad in Model)
-    {
-        <article class="hostel-home-card">
-            <div class="image-holder">
-                @{
-                    // Display the first image
-                    var firstImage = ad.ImageUrls.FirstOrDefault();
-                    if (firstImage != null)
-                    {
-                        <img src="~/Images/Ad/@firstImage" alt="First image of the car ad" />
-                    }
-                }
-            </div>
-            <h2 class="article-title">@ad.Brand @ad.Model</h2>
-            <div card-text>
-                <ul>
-                    <li><strong>Price:</strong> @ad.Price$</li>
-                    <li><strong>Year:</strong> @ad.Year</li>
-                    <li><strong>Engine:</strong> @ad.Engine</li>
-                    <li><strong>Condition:</strong> @ad.Condition</li>
-                    <li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
-                    <li><strong>Fuel Type:</strong> @ad.FuelType</li>
-                    <li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
-                </ul>
-                <footer class="bottom-text">
-                    <i>
-                        <a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-carId="@ad.CarId">View</a>
-                    </i>
-                </footer>
-            </div>
-        </article>
-    }
-</section>
+@if (!User?.Identity?.IsAuthenticated ?? false)
+{
+	<section class="card-holder">
+		@for (int i = 0; i < 5 && i < Model.Count; i++)
+		{
+			var ad = Model[i];
+			<article class="hostel-home-card">
+				<div class="image-holder">
+					@{
+						// Display the first image
+						var firstImage = ad.ImageUrls.FirstOrDefault();
+						if (firstImage != null)
+						{
+							<img src="~/Images/Ad/@firstImage" alt="First image of the car ad" />
+						}
+					}
+				</div>
+				<h2 class="article-title">@ad.Brand @ad.Model</h2>
+				<div card-text>
+					<ul>
+						<li><strong>Price:</strong> @ad.Price$</li>
+						<li><strong>Year:</strong> @ad.Year</li>
+						<li><strong>Engine:</strong> @ad.Engine</li>
+						<li><strong>Condition:</strong> @ad.Condition</li>
+						<li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
+						<li><strong>Fuel Type:</strong> @ad.FuelType</li>
+						<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
+					</ul>
+					<footer class="bottom-text">
+						<i>
+							<a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-carId="@ad.CarId">View</a>
+						</i>
+					</footer>
+				</div>
+			</article>
+		}
+		<section class="card-holder-message">
+			<article class="car-card-message">
+				<h2 class="article-title-message"> </h2>
+				<div card-text>
+					<h2 class="message">Please register or login to continue with your car browsing.</h2>
+					<footer class="bottom-text-message">
+						<ul>
+							<i class="register-message-button">
+								<a asp-area="" asp-controller="Account" asp-action="Register">SIGN UP</a>
+							</i>
+							<i class="login-message-button">
+								<a asp-area="" asp-controller="Account" asp-action="Login">LOGIN</a>
+							</i>
+						</ul>
+					</footer>
+				</div>
+			</article>
+		</section>
+	</section>
 
+}
+else
+{
+	<section class="card-holder">
+		@foreach (var ad in Model)
+		{
+			<article class="hostel-home-card">
+				<div class="image-holder">
+					@{
+						// Display the first image
+						var firstImage = ad.ImageUrls.FirstOrDefault();
+						if (firstImage != null)
+						{
+							<img src="~/Images/Ad/@firstImage" alt="First image of the car ad" />
+						}
+					}
+				</div>
+				<h2 class="article-title">@ad.Brand @ad.Model</h2>
+				<div card-text>
+					<ul>
+						<li><strong>Price:</strong> @ad.Price$</li>
+						<li><strong>Year:</strong> @ad.Year</li>
+						<li><strong>Engine:</strong> @ad.Engine</li>
+						<li><strong>Condition:</strong> @ad.Condition</li>
+						<li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
+						<li><strong>Fuel Type:</strong> @ad.FuelType</li>
+						<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
+					</ul>
+					<footer class="bottom-text">
+						<i>
+							<a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-carId="@ad.CarId">View</a>
+						</i>
+					</footer>
+				</div>
+			</article>
+		}
+	</section>
+}
 
-
-@* <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var imageHolders = document.querySelectorAll('.image-holder');
-
-        imageHolders.forEach(function (imageHolder) {
-            var images = Array.from(imageHolder.querySelectorAll('.ad-image'));
-            var currentIndex = 0;
-
-            imageHolder.addEventListener('mouseover', function () {
-                currentIndex = (currentIndex + 1) % images.length;
-                images.forEach(function (image, index) {
-                    image.style.opacity = index === currentIndex ? '1' : '0';
-                });
-            });
-        });
-    });
-</script> *@

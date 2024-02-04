@@ -63,6 +63,61 @@ body {
     background-color: rgb(255, 255, 255);
 }
 
+.car-card-message {
+    margin-top: 70px;
+    border-radius: 20px 20px 0px 0px;
+    background-color: rgb(255, 255, 255);
+}
+
+.message {
+    width: 502px;
+    text-align: center;
+}
+
+.bottom-text-message {
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    bottom: -20px;
+    border-radius: 0px 0px 20px 20px;
+}
+
+    .login-message-button a {
+        color: white;
+        font-size: 22px;
+        padding: 12px 38px;
+        background-color: darkred;
+        border-radius: 25px;
+        text-decoration: none;
+        position: absolute;
+        left: 160px;
+    }
+
+    .register-message-button a {
+        width:90px;
+        color: white;
+        font-size: 22px;
+        padding: 12px 38px;
+        background-color: darkred;
+        border-radius: 25px;
+        text-decoration: none;
+        position: absolute;
+        left: 185px;
+    }
+
+.login-message-button{
+    position:absolute;
+    left:150px;
+}
+
+.register-message-button {
+    position: absolute;
+    left: -155px;
+}
+
+
 .image-holder img {
     width: 500px;
     height: 300px;
@@ -85,6 +140,16 @@ body {
     align-items: center;
     font-size: 34px;
     border-bottom: 1px solid black;
+    padding: 10px 20px;
+    width: 420px;
+    margin: 0px auto;
+}
+
+.article-title-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
     padding: 10px 20px;
     width: 420px;
     margin: 0px auto;
@@ -143,4 +208,14 @@ body {
     justify-content: center;
     gap: 28px;
     align-items: center; /* Center the cards horizontally */
+}
+
+.card-holder-message {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px;
+    align-items: center; /* Center the cards horizontally */
+    margin-bottom: 460px;
 }
