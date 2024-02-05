@@ -30,6 +30,7 @@
 					<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
 					<li><a asp-area="" asp-controller="Ad" asp-action="Index">Ads</a></li>
 					<li><a asp-area="" asp-controller="Ad" asp-action="Create">Create</a></li>
+					<li><a asp-area="" asp-controller="Ad" asp-action="UserAds">My Ads</a></li>
 				</ul>
 			}
 			@if (!User?.Identity?.IsAuthenticated ?? false)
@@ -48,6 +49,7 @@
 					<img id="keyIcon"
 						 src="~/Icons/icons8-key-100.png"
 						 alt="Icon Description" />
+					<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Profile" class="logout-button-submit">ACCOUNT</a></li>
 					<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Logout" class="logout-button-submit">LOG OUT</a></li>
 				</ul>
 			}

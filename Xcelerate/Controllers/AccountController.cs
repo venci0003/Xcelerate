@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Caching.Memory;
 using Xcelerate.Core.Models.Account;
+using Xcelerate.Core.Models.Account.UserProfile;
+using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Controllers
@@ -86,6 +88,37 @@ namespace Xcelerate.Controllers
 		{
 			await signInManager.SignOutAsync();
 			return RedirectToAction("HomePage", "Home");
+		}
+
+		public async Task<IActionResult> Profile()
+		{
+			var userId = User.GetUserId();
+
+			// Check if the user ID is not null
+			if (userId != null)
+			{
+				// Retrieve the user by ID
+				var user = await userManager.FindByIdAsync(userId.ToString());
+
+				// Check if the user is not null
+				if (user != null)
+				{
+					// Create a UserProfileViewModel and set the properties
+					var userProfileModel = new UserProfileViewModel
+					{
+						FirstName = user.FirstName,
+						LastName = user.LastName,
+						Email = user.Email
+						// Set other properties as needed
+					};
+
+					// Pass the UserProfileViewModel to the view
+					return View("UserProfile/Profile", userProfileModel);
+				}
+			}
+
+			// Handle the case when the user ID is not found or the user is not found
+			return NotFound();
 		}
 	}
 }

@@ -208,5 +208,230 @@ namespace Xcelerate.Controllers
 			// If ModelState is not valid, return to the Create view with the ViewModel
 			return View(adViewModel);
 		}
+
+		public async Task<IActionResult> UserAds()
+		{
+			var userId = User.GetUserId();
+
+			// Retrieve ads for the current user
+			var userAds = await _dbContext.Ads
+		.Where(ad => ad.UserId == userId)
+		.Select(car => new AdPreviewViewModel
+		{
+			CarId = car.CarId,
+			ImageUrls = car.Car.Images.Select(car => car.ImageUrl).ToList(),
+			Brand = car.Car.Brand,
+			Model = car.Car.Model,
+			Year = car.Car.Year,
+			Engine = car.Car.Engine.Model,
+			Condition = car.Car.Condition,
+			EuroStandard = car.Car.EuroStandard,
+			FuelType = car.Car.FuelType,
+			Price = car.Car.Price,
+			FirstName = car.User.FirstName,
+			LastName = car.User.LastName,
+		})
+		.ToListAsync();
+
+			// Pass the ads to the view
+			return View(userAds);
+		}
+
+
+		[HttpGet]
+		public async Task<IActionResult> Edit(int? carId)
+		{
+			if (carId == null)
+			{
+				return NotFound();
+			}
+
+			var car = await _dbContext.Cars
+				.Include(c => c.Engine)
+				.Include(c => c.Manufacturer)
+				.Include(c => c.Address)
+				.Include(c => c.Ad)
+				.Include(c => c.CarAccessories)
+					.ThenInclude(ca => ca.Accessory)
+				.Include(c => c.Images)
+				.FirstOrDefaultAsync(c => c.CarId == carId);
+
+			if (car == null)
+			{
+				return NotFound();
+			}
+
+			AdInformationViewModel adViewModel = new AdInformationViewModel
+			{
+				CarId = car.CarId,
+				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
+				Accessories = car.CarAccessories.Select(accessory => new AccessoryViewModel
+				{
+					AccessoryId = accessory.AccessoryId,
+					Name = accessory.Accessory.Name
+				}).ToList(),
+				Brand = car.Brand,
+				Model = car.Model,
+				Year = car.Year,
+				Engine = car.Engine.Model,
+				Condition = car.Condition,
+				EuroStandard = car.EuroStandard,
+				FuelType = car.FuelType,
+				Colour = car.Colour,
+				Transmition = car.Transmition,
+				DriveTrain = car.DriveTrain,
+				Weight = car.Weight,
+				Mileage = car.Mileage,
+				Price = car.Price,
+				BodyType = car.BodyType,
+				Manufacturer = car.Manufacturer.Name,
+				Address = new AddressViewModel
+				{
+					CountryName = car.Address.CountryName,
+					TownName = car.Address.TownName,
+					StreetName = car.Address.StreetName,
+				},
+				CarDescription = car.Ad.CarDescription
+			};
+
+			List<AccessoryViewModel> accessories = await _dbContext.Accessories
+				.Select(accessory => new AccessoryViewModel
+				{
+					AccessoryId = accessory.AccessoryId,
+					Name = accessory.Name
+				})
+				.ToListAsync();
+
+			adViewModel.Accessories = accessories;
+
+			return View(adViewModel);
+		}
+
+		[HttpPost]
+		//[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(AdInformationViewModel adViewModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+				// Handle validation errors appropriately
+				return View(adViewModel);
+			}
+
+			try
+			{
+				var userId = User.GetUserId();
+				var car = await _dbContext.Cars
+					.Include(c => c.Engine)
+					.Include(c => c.Manufacturer)
+					.Include(c => c.Address)
+					.Include(c => c.Ad)
+					.Include(c => c.CarAccessories)
+					.Include(c => c.Images)
+					.FirstOrDefaultAsync(c => c.CarId == adViewModel.CarId);
+
+				if (car == null)
+				{
+					return NotFound();
+				}
+
+				// Update the properties of the existing car entity based on the ViewModel
+				car.Brand = adViewModel.Brand;
+				car.Model = adViewModel.Model;
+				car.Year = adViewModel.Year;
+				car.Engine.Model = adViewModel.Engine;
+				car.Condition = adViewModel.Condition;
+				car.EuroStandard = adViewModel.EuroStandard;
+				car.FuelType = adViewModel.FuelType;
+				car.Colour = adViewModel.Colour;
+				car.Transmition = adViewModel.Transmition;
+				car.DriveTrain = adViewModel.DriveTrain;
+				car.Weight = adViewModel.Weight;
+				car.Mileage = adViewModel.Mileage;
+				car.Price = adViewModel.Price;
+				car.BodyType = adViewModel.BodyType;
+				car.Manufacturer.Name = adViewModel.Manufacturer;
+				car.Ad.CarDescription = adViewModel.CarDescription;
+				car.Address.CountryName = adViewModel.Address.CountryName;
+				car.Address.TownName = adViewModel.Address.TownName;
+				car.Address.StreetName = adViewModel.Address.StreetName;
+
+				// Update CarAccessories
+				var selectedAccessories = adViewModel.SelectedCheckBoxId;
+				var existingAccessories = car.CarAccessories.Select(ca => ca.AccessoryId).ToList();
+
+				var accessoriesToAdd = selectedAccessories.Except(existingAccessories);
+				var accessoriesToRemove = existingAccessories.Except(selectedAccessories);
+
+				foreach (var accessoryId in accessoriesToAdd)
+				{
+					await _dbContext.CarAccessories.AddAsync(new CarAccessory()
+					{
+						CarId = car.CarId,
+						AccessoryId = accessoryId
+					});
+				}
+
+				foreach (var accessoryId in accessoriesToRemove)
+				{
+					var accessoryToRemove = car.CarAccessories.FirstOrDefault(ca => ca.AccessoryId == accessoryId);
+					if (accessoryToRemove != null)
+					{
+						_dbContext.CarAccessories.Remove(accessoryToRemove);
+					}
+				}
+
+				foreach (var oldImage in car.Images.ToList())
+				{
+					var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad", oldImage.ImageUrl);
+
+					if (System.IO.File.Exists(oldImagePath))
+					{
+						using (var stream = new FileStream(oldImagePath, FileMode.Open, FileAccess.ReadWrite))
+						{
+							// Close and dispose of the FileStream before deletion
+							stream.Close();
+						}
+						System.IO.File.Delete(oldImagePath);
+					}
+
+					// Remove the image from the database
+					_dbContext.Images.Remove(oldImage);
+				}
+
+
+				// Update Images (assuming you want to replace all images on edit)
+				var adImagesDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad");
+				foreach (var image in adViewModel.UploadedImages)
+				{
+					if (image != null && image.Length > 0)
+					{
+						var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+						var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
+						using (var stream = new FileStream(filePath, FileMode.Create))
+						{
+							image.CopyTo(stream);
+						}
+
+						Image imageToCreate = new Image()
+						{
+							CarId = car.CarId,
+							ImageUrl = uniqueFileName
+						};
+						_dbContext.Images.Add(imageToCreate);
+					}
+				}
+
+				await _dbContext.SaveChangesAsync();
+
+				return RedirectToAction("Index", "Ad");
+			}
+			catch (Exception)
+			{
+				ModelState.AddModelError(string.Empty, "An error occurred while saving the ad.");
+				// Handle exceptions appropriately (log, show error page, etc.)
+				return View(adViewModel);
+			}
+		}
 	}
 }

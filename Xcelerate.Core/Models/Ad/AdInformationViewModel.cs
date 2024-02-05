@@ -5,7 +5,7 @@ namespace Xcelerate.Core.Models.Ad
 {
 	public class AdInformationViewModel
 	{
-
+		public int CarId { get; set; }
 		public List<string> ImageUrls { get; set; } = new List<string>();
 
 		public List<IFormFile> UploadedImages { get; set; } = new List<IFormFile>();
