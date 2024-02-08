@@ -1,0 +1,39 @@
+﻿@model UserProfileViewModel
+
+<link rel="stylesheet" href="~/css/Account/Login/Login.css" asp-append-version="true" />
+
+<svg xmlns="http://www.w3.org/2000/svg">
+	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
+
+	<filter id="motion-blur-filter" filterUnits="userSpaceOnUse">
+		<!-- We only want horizontal blurring. x: 100, y: 0 -->
+
+		<feGaussianBlur stdDeviation="100 0"></feGaussianBlur>
+	</filter>
+</svg>
+
+<span class="website-name" filter-content="X">Xcelerate</span>
+<article class="card-login">
+	<div class="minimize-icon-holder-login">
+		<img id="minimizeIcon-login"
+			 src="~/Icons/icons8-minimize-64 white.png"
+			 alt="Icon Description" />
+	</div>
+	<form  action="/Account/Profile" class="card-content">
+		<h1 class="title-text">ACCOUNT INFORMATION</h1>
+		<section class="other-forms">
+			<ul>
+				<li><strong>First name:</strong> @Model.FirstName</li>
+				<li><strong>Last name:</strong> @Model.LastName</li>
+				<li><strong>Email address:</strong> @Model.Email</li>
+			</ul>
+		</section>
+
+		<div asp-validation-summary="ModelOnly" class="error-container"></div>
+	</form>
+</article>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+<script src="~/js/Login/Login.js" asp-append-version="true"></script>

@@ -433,5 +433,117 @@ namespace Xcelerate.Controllers
 				return View(adViewModel);
 			}
 		}
+
+		//[ValidateAntiForgeryToken]
+		[HttpPost]
+		public async Task<IActionResult> Delete(int? carId)
+		{
+
+			if (!ModelState.IsValid)
+			{
+				IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+				// Handle validation errors appropriately
+				return RedirectToAction("Information", new { carId = carId });
+			}
+
+			if (carId == null)
+			{
+				return NotFound();
+			}
+
+			var car = await _dbContext.Cars
+				.Include(c => c.Ad)
+				.Include(c => c.Images)
+				.Include(c => c.CarAccessories)
+					.ThenInclude(ca => ca.Accessory)
+					.Include(m => m.Manufacturer)
+					.Include(a => a.Address)
+					.Include(e => e.Engine)
+				.FirstOrDefaultAsync(c => c.CarId == carId);
+
+			if (car == null)
+			{
+				return NotFound();
+			}
+
+			try
+			{
+				// Remove associated images from file system and database
+				foreach (var image in car.Images)
+				{
+					var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad", image.ImageUrl);
+
+					if (System.IO.File.Exists(imagePath))
+					{
+						try
+						{
+							using (var stream = new FileStream(imagePath, FileMode.Open, FileAccess.ReadWrite))
+							{
+								// Close the file stream before deletion
+								stream.Close();
+							}
+							// Attempt to delete the file
+							System.IO.File.Delete(imagePath);
+						}
+						catch (IOException)
+						{
+							ModelState.AddModelError(string.Empty, "An error occurred while deleting the ad.");
+						}
+					}
+
+					_dbContext.Images.Remove(image);
+				}
+
+				// Remove associated reviews
+				if (car.Ad != null && car.Ad.Reviews != null)
+				{
+					_dbContext.Reviews.RemoveRange(car.Ad.Reviews);
+				}
+
+				// Remove associated ad
+				if (car.Ad != null)
+				{
+					_dbContext.Ads.Remove(car.Ad);
+				}
+
+				// Remove associated car accessories
+				if (car.CarAccessories != null)
+				{
+					_dbContext.CarAccessories.RemoveRange(car.CarAccessories);
+				}
+
+				// Remove associated address
+				if (car.Address != null)
+				{
+					_dbContext.Addresses.Remove(car.Address);
+				}
+
+				// Remove associated manufacturer
+				if (car.Manufacturer != null)
+				{
+					_dbContext.Manufacturers.Remove(car.Manufacturer);
+				}
+
+				// Remove associated engine
+				if (car.Engine != null)
+				{
+					_dbContext.Engines.Remove(car.Engine);
+				}
+
+				// Remove car entity
+				_dbContext.Cars.Remove(car);
+
+				await _dbContext.SaveChangesAsync();
+
+				return RedirectToAction("Index", "Ad");
+			}
+			catch (Exception)
+			{
+				// Handle exceptions appropriately (log, show error page, etc.)
+				ModelState.AddModelError(string.Empty, "An error occurred while deleting the ad.");
+				return RedirectToAction("Information", new { carId = carId });
+			}
+		}
+
 	}
 }
