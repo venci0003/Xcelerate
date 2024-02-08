@@ -200,3 +200,20 @@ body {
     align-items: center; /* Center the cards horizontally */
     margin-bottom: 460px;
 }
+
+.create-message-button a {
+    width: 90px;
+    color: white;
+    font-size: 22px;
+    padding: 12px 38px;
+    background-color: darkred;
+    border-radius: 25px;
+    text-decoration: none;
+    position: absolute;
+    left: 185px;
+}
+
+.create-message-button {
+    position: absolute;
+    left: -3%;
+}

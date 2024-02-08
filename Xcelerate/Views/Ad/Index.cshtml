@@ -95,5 +95,21 @@ else
 			</article>
 		}
 	</section>
+
+	{
+		if ((bool)ViewBag.AdCreatedSuccessfully == true)
+		{
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+			<script>
+				Swal.fire({
+					icon: 'success',
+					title: 'Your ad has been created successfully!',
+					showConfirmButton: false,
+					timer: 1500
+				});
+			</script>
+		}
+	}
 }
 

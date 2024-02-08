@@ -195,6 +195,7 @@ namespace Xcelerate.Controllers
 					// Save car to the database
 					await _dbContext.SaveChangesAsync();
 
+					ViewBag.AdCreatedSuccessfully = true;
 
 					return RedirectToAction("Index", "Ad");  // Redirect to the desired action after successful creation
 				}
