@@ -29,6 +29,7 @@
 						<li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
 						<li><strong>Fuel Type:</strong> @ad.FuelType</li>
 						<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
+						<li><strong>Created On:</strong> @ad.CreatedOn</li>
 					</ul>
 					<footer class="bottom-text">
 						<i>
@@ -81,10 +82,12 @@ else
 						<li><strong>Price:</strong> @ad.Price$</li>
 						<li><strong>Year:</strong> @ad.Year</li>
 						<li><strong>Engine:</strong> @ad.Engine</li>
+						<li><strong>HorsePower:</strong> @ad.HorsePower</li>
 						<li><strong>Condition:</strong> @ad.Condition</li>
 						<li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
 						<li><strong>Fuel Type:</strong> @ad.FuelType</li>
 						<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
+						<li><strong>Created On:</strong> @ad.CreatedOn</li>
 					</ul>
 					<footer class="bottom-text">
 						<i>
@@ -95,21 +98,25 @@ else
 			</article>
 		}
 	</section>
+}
 
-	{
-		if ((bool)ViewBag.AdCreatedSuccessfully == true)
-		{
-			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if (ViewBag.AdCreatedSuccessfully != null && (bool)ViewBag.AdCreatedSuccessfully)
+{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-			<script>
-				Swal.fire({
-					icon: 'success',
-					title: 'Your ad has been created successfully!',
-					showConfirmButton: false,
-					timer: 1500
-				});
-			</script>
-		}
-	}
+	<script>
+		$(document).ready(function () {
+			Swal.fire({
+				icon: 'success',
+				title: 'Your ad has been created successfully!',
+				showConfirmButton: false,
+				timer: 1500
+			});
+		});
+	</script>
+}
+else
+{
+	<p>deeez nuts</p>
 }
 

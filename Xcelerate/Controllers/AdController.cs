@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
-using System.Security.Claims;
+using System.Globalization;
+using static Xcelerate.Common.EntityValidation;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
+using Xcelerate.Common;
 
 namespace Xcelerate.Controllers
 {
@@ -31,12 +33,15 @@ namespace Xcelerate.Controllers
 				Model = car.Model,
 				Year = car.Year,
 				Engine = car.Engine.Model,
+				HorsePower = car.Engine.Horsepower,
 				Condition = car.Condition,
 				EuroStandard = car.EuroStandard,
 				FuelType = car.FuelType,
 				Price = car.Price,
 				FirstName = car.User.FirstName,
 				LastName = car.User.LastName,
+				CreatedOn = car.Ad.CreatedOn,
+
 			}).ToListAsync();
 
 			return View(cars);
@@ -58,6 +63,7 @@ namespace Xcelerate.Controllers
 				Model = car.Model,
 				Year = car.Year,
 				Engine = car.Engine.Model,
+				HorsePower = car.Engine.Horsepower,
 				Condition = car.Condition,
 				EuroStandard = car.EuroStandard,
 				FuelType = car.FuelType,
@@ -68,6 +74,9 @@ namespace Xcelerate.Controllers
 				Mileage = car.Mileage,
 				Price = car.Price,
 				BodyType = car.BodyType,
+				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
+				FirstName = car.User.FirstName,
+				LastName = car.User.LastName,
 				Manufacturer = car.Manufacturer.Name,
 				Address = new AddressViewModel
 				{
@@ -90,9 +99,10 @@ namespace Xcelerate.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Create()
 		{
-			AdInformationViewModel adViewModel = new AdInformationViewModel();
+			AdCreateViewModel adViewModel = new AdCreateViewModel();
 
-			List<AccessoryViewModel> accessories = await _dbContext.Accessories.Select(accessory => new AccessoryViewModel()
+			List<AccessoryViewModel> accessories = await _dbContext.Accessories
+				.Select(accessory => new AccessoryViewModel()
 			{
 				AccessoryId = accessory.AccessoryId,
 				Name = accessory.Name
@@ -105,7 +115,7 @@ namespace Xcelerate.Controllers
 
 		//[ValidateAntiForgeryToken]
 		[HttpPost]
-		public async Task<IActionResult> Create(AdInformationViewModel adViewModel)
+		public async Task<IActionResult> Create(AdCreateViewModel adViewModel)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -139,7 +149,8 @@ namespace Xcelerate.Controllers
 						Ad = new Ad
 						{
 							UserId = userId,
-							CarDescription = adViewModel.CarDescription
+							CarDescription = adViewModel.CarDescription,
+							CreatedOn = adViewModel.CreatedOn.ToString(AdEntity.CreatedOnDateFormat)
 						},
 						Address = new Address
 						{
@@ -217,7 +228,7 @@ namespace Xcelerate.Controllers
 			// Retrieve ads for the current user
 			var userAds = await _dbContext.Ads
 		.Where(ad => ad.UserId == userId)
-		.Select(car => new AdPreviewViewModel
+		.Select(car => new UserAdsViewModel
 		{
 			CarId = car.CarId,
 			ImageUrls = car.Car.Images.Select(car => car.ImageUrl).ToList(),
@@ -262,7 +273,7 @@ namespace Xcelerate.Controllers
 				return NotFound();
 			}
 
-			AdInformationViewModel adViewModel = new AdInformationViewModel
+			AdEditViewModel adViewModel = new AdEditViewModel
 			{
 				CarId = car.CarId,
 				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
@@ -310,7 +321,7 @@ namespace Xcelerate.Controllers
 
 		[HttpPost]
 		//[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(AdInformationViewModel adViewModel)
+		public async Task<IActionResult> Edit(AdEditViewModel adViewModel)
 		{
 			if (!ModelState.IsValid)
 			{

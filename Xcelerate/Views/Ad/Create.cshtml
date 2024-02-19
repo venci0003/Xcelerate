@@ -1,4 +1,4 @@
-﻿@model AdInformationViewModel
+﻿@model AdCreateViewModel
 @using Xcelerate.Infrastructure.Data.Enums
 
 <link rel="stylesheet" href="~/css/Ad/Create.css" asp-append-version="true" />
@@ -60,6 +60,12 @@
 			</div>
 
 			<div class="form-input">
+				<label asp-for="@Model.HorsePower">Horse Power</label>
+				<input type="text" name="HorsePower" asp-for="@Model.HorsePower" id="form-input" />
+				<span asp-validation-for="@Model.HorsePower" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
 				<label asp-for="@Model.Price">Price</label>
 				<input type="text" name="Price" asp-for="@Model.Price" id="form-input" />
 				<span asp-validation-for="@Model.Price" class="text-danger"></span>
@@ -67,7 +73,7 @@
 
 			<div class="form-input">
 				<label asp-for="@Model.UploadedImages">Upload Images</label>
-				<input type="file" asp-for="@Model.UploadedImages" name="UploadedImages" multiple/>
+				<input type="file" asp-for="@Model.UploadedImages" name="UploadedImages" multiple />
 				<span asp-validation-for="@Model.UploadedImages" class="text-danger"></span>
 			</div>
 
@@ -192,7 +198,7 @@
 						<div class="column-accessories">
 							<ul>
 								<li>
-									<input type="checkbox" name="SelectedCheckBoxId" value="@accessory.AccessoryId"/>
+									<input type="checkbox" name="SelectedCheckBoxId" value="@accessory.AccessoryId" />
 									<label>@accessory.Name</label>
 								</li>
 							</ul>
@@ -212,10 +218,10 @@
 
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/Register/Register.js" asp-append-version="true"></script>
+	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/Register/Register.js" asp-append-version="true"></script>
 
-   }
+}
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

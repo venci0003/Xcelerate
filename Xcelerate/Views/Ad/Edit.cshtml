@@ -1,4 +1,4 @@
-﻿@model AdInformationViewModel
+﻿@model AdEditViewModel
 @using Xcelerate.Infrastructure.Data.Enums
 
 <link rel="stylesheet" href="~/css/Ad/Create.css" asp-append-version="true" />
@@ -57,6 +57,12 @@
 				<label asp-for="@Model.Engine">Engine</label>
 				<input type="text" name="Engine" asp-for="@Model.Engine" id="form-input" />
 				<span asp-validation-for="@Model.Engine" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.HorsePower">Horse Power</label>
+				<input type="text" name="HorsePower" asp-for="@Model.HorsePower" id="form-input" />
+				<span asp-validation-for="@Model.HorsePower" class="text-danger"></span>
 			</div>
 
 			<div class="form-input">
