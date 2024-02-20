@@ -19,7 +19,7 @@ namespace Xcelerate.Infrastructure.Data.Models
         [Required]
         [ForeignKey(nameof(Car))]
         public int CarId { get; set; }
-        public Car Car{ get; set; } = null!;
+        public Car Car { get; set; } = null!;
 
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
@@ -29,5 +29,7 @@ namespace Xcelerate.Infrastructure.Data.Models
 
         [Required]
         public string CarDescription { get; set; } = null!;
+
+        public string CreatedOn { get; set; } = null!;
     }
 }

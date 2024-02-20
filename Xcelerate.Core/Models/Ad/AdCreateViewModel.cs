@@ -1,20 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 using Xcelerate.Infrastructure.Data.Enums;
 
 namespace Xcelerate.Core.Models.Ad
 {
-	public class AdInformationViewModel
+	public class AdCreateViewModel
 	{
-		[Required]
-		[Comment("FirstName")]
-		public string FirstName { get; set; } = null!;
-
-		[Required]
-		[Comment("LastName")]
-		public string LastName { get; set; } = null!;
-		public int CarId { get; set; }
 		public List<string> ImageUrls { get; set; } = new List<string>();
 
 		public List<IFormFile> UploadedImages { get; set; } = new List<IFormFile>();
@@ -60,6 +50,5 @@ namespace Xcelerate.Core.Models.Ad
 		public string Manufacturer { get; set; } = null!;
 
 		public string CarDescription { get; set; } = null!;
-
 	}
 }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Xcelerate.Common
+﻿namespace Xcelerate.Common
 {
-    public class EntityValidation
+	public class EntityValidation
     {
         public static class UserEntity
         {
@@ -128,6 +122,8 @@ namespace Xcelerate.Common
             public const int CarDescriptionMinLength = 20;
 
             public const int CarDescriptionMaxLength = 300;
+
+            public const string CreatedOnDateFormat = "yyyy-dd-MM";
         }
     }
 }

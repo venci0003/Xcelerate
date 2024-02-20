@@ -15,7 +15,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
         {
             builder.HasMany(c => c.Cars)
                 .WithOne(a => a.Address)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             ICollection<Address> addressCollection = CreateAddress();
             builder.HasData(addressCollection);
