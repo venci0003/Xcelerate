@@ -10,6 +10,11 @@ body {
     background-repeat: no-repeat;
     margin: 0px;
     padding: 0px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }
 
 span {
@@ -43,47 +48,7 @@ svg {
     font-size: 60px;
     margin-top: 0px;
     margin-bottom: 0px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }
-
-
-#minimizeIcon-register {
-    position: inherit;
-    right: 1px;
-    margin: 4px 4px 0px 0px;
-    padding: 1px;
-    width: 50px;
-    height: 50px;
-    border-radius: 40px;
-    backdrop-filter: blur(2px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
-    border-color: black;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
-    transition: opacity 0.5s; /* Add a transition effect */
-}
-
-.minimize-icon-holder-register {
-    display: block;
-    padding: 2px;
-    width: 60px;
-    height: 60px;
-    margin: 8px 12px 0px 0px;
-    border-radius: 40px;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: opacity 0.5s; /* Add a transition effect */
-    position: absolute;
-    right: 1px;
-}
-
 .card-content {
     display: flex;
     padding: 0px 60px 0px 60px;
@@ -118,11 +83,6 @@ svg {
         color: white;
         font-size: 18px;
         text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
     }
 
 input {
@@ -143,11 +103,6 @@ input {
     color: white;
     font-size: 14px;
     transition: background-color 0.2s ease-in-out;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }
 
 .title-text-accessory {
@@ -157,11 +112,6 @@ input {
     font-size: 25px;
     left: 40px;
     bottom: 413px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }
 
 .title-text {
@@ -170,11 +120,6 @@ input {
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
     font-size: 25px;
     margin-right: 100px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }
 
 .other-forms {
@@ -187,11 +132,6 @@ input {
         color: white;
         font-size: 18px;
         text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
     }
 
     .other-forms input {
@@ -215,11 +155,6 @@ input {
         font-size: 16px;
         width: 500px;
         text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
     }
 
 .button-object {
@@ -306,5 +241,4 @@ option {
     background-color: #f0f0f0;
     color: #333;
     font-weight: bold;
-
 }
