@@ -11,7 +11,7 @@ namespace Xcelerate.Core.Contracts
 		public Task CreateAdAsync(AdCreateViewModel adViewModel, string userId);
 		public Task<List<UserAdsViewModel>> GetUserAdsAsync(Guid userId);
 		public Task<AdEditViewModel> GetEditInformationAsync(int? carId);
-		public Task<IActionResult> Edit(AdEditViewModel adViewModel);
-		public Task<bool> Delete(int? carId);
+		public Task<bool> EditCarAdAsync(AdEditViewModel adViewModel);
+		public Task<bool> DeleteCarAdAsync(int? carId);
 	}
 }

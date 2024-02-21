@@ -257,13 +257,121 @@ namespace Xcelerate.Core.Services
 			return adViewModel;
 		}
 
-		public Task<IActionResult> Edit(AdEditViewModel adViewModel)
+		public async Task<bool> EditCarAdAsync(AdEditViewModel adViewModel)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var car = await _dbContext.Cars
+					.Include(c => c.Engine)
+					.Include(c => c.Manufacturer)
+					.Include(c => c.Address)
+					.Include(c => c.Ad)
+					.Include(c => c.CarAccessories)
+					.Include(c => c.Images)
+					.FirstOrDefaultAsync(c => c.CarId == adViewModel.CarId);
+
+				if (car == null)
+				{
+					throw new ArgumentException("Car not found!");
+				}
+
+				// Update the properties of the existing car entity based on the ViewModel
+				car.Brand = adViewModel.Brand;
+				car.Model = adViewModel.Model;
+				car.Year = adViewModel.Year;
+				car.Engine.Model = adViewModel.Engine;
+				car.Condition = adViewModel.Condition;
+				car.EuroStandard = adViewModel.EuroStandard;
+				car.FuelType = adViewModel.FuelType;
+				car.Colour = adViewModel.Colour;
+				car.Transmition = adViewModel.Transmition;
+				car.DriveTrain = adViewModel.DriveTrain;
+				car.Weight = adViewModel.Weight;
+				car.Mileage = adViewModel.Mileage;
+				car.Price = adViewModel.Price;
+				car.BodyType = adViewModel.BodyType;
+				car.Manufacturer.Name = adViewModel.Manufacturer;
+				car.Ad.CarDescription = adViewModel.CarDescription;
+				car.Address.CountryName = adViewModel.Address.CountryName;
+				car.Address.TownName = adViewModel.Address.TownName;
+				car.Address.StreetName = adViewModel.Address.StreetName;
+
+				// Update CarAccessories
+				var selectedAccessories = adViewModel.SelectedCheckBoxId;
+				var existingAccessories = car.CarAccessories.Select(ca => ca.AccessoryId).ToList();
+
+				var accessoriesToAdd = selectedAccessories.Except(existingAccessories);
+				var accessoriesToRemove = existingAccessories.Except(selectedAccessories);
+
+				foreach (var accessoryId in accessoriesToAdd)
+				{
+					await _dbContext.CarAccessories.AddAsync(new CarAccessory()
+					{
+						CarId = car.CarId,
+						AccessoryId = accessoryId
+					});
+				}
+
+				foreach (var accessoryId in accessoriesToRemove)
+				{
+					var accessoryToRemove = car.CarAccessories.FirstOrDefault(ca => ca.AccessoryId == accessoryId);
+					if (accessoryToRemove != null)
+					{
+						_dbContext.CarAccessories.Remove(accessoryToRemove);
+					}
+				}
+
+				foreach (var oldImage in car.Images.ToList())
+				{
+					var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad", oldImage.ImageUrl);
+
+					if (System.IO.File.Exists(oldImagePath))
+					{
+						using (var stream = new FileStream(oldImagePath, FileMode.Open, FileAccess.ReadWrite))
+						{
+							// Close and dispose of the FileStream before deletion
+							stream.Close();
+						}
+						System.IO.File.Delete(oldImagePath);
+					}
+
+					_dbContext.Images.Remove(oldImage);
+				}
+
+				var adImagesDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad");
+				foreach (var image in adViewModel.UploadedImages)
+				{
+					if (image != null && image.Length > 0)
+					{
+						var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+						var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
+						using (var stream = new FileStream(filePath, FileMode.Create))
+						{
+							image.CopyTo(stream);
+						}
+
+						Image imageToCreate = new Image()
+						{
+							CarId = car.CarId,
+							ImageUrl = uniqueFileName
+						};
+						_dbContext.Images.Add(imageToCreate);
+					}
+				}
+
+				await _dbContext.SaveChangesAsync();
+
+				return true;
+
+			}
+			catch (Exception)
+			{
+				throw new ArgumentException("An error occurred while saving the ad.");
+			}
 		}
 
 
-		public async Task<bool> Delete(int? carId)
+		public async Task<bool> DeleteCarAdAsync(int? carId)
 		{
 			var car = await _dbContext.Cars
 				.Include(c => c.Ad)
