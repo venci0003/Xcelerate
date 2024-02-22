@@ -1,6 +1,6 @@
-﻿@model AdInformationViewModel
+﻿@model UserCarsInformationViewModel
 
-<link rel="stylesheet" href="~/css/Ad/Information.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/UserCars/Information.css" asp-append-version="true" />
 
 <section class="card-holder" asp-action="Information">
 
@@ -17,9 +17,6 @@
 		<div class="card-text">
 			<ul class="list-information-car">
 				<strong class="price-information">Price: @Model.Price$</strong>
-				<form asp-area="" asp-controller="Ad" asp-action="Buy" asp-route-carId="@Model.CarId" method="post">
-					<button type="submit" class="buy-button" onclick="logCarId()">BUY</button>
-				</form>
 				<div class="car-information">
 				<li><strong>Year:</strong> @Model.Year</li>
 				<li><strong>Engine:</strong> @Model.Engine</li>

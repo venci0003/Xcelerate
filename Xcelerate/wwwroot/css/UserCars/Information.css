@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
+    background: linear-gradient(-45deg, #00264d, #004080, white, #0073e6);
     animation: gradient 5s ease infinite;
     margin: 0px;
     padding: 0px;
@@ -67,7 +67,7 @@ body {
     width: 1000px;
     height: 600px;
     background-size: cover;
-    border-radius: 20px 20px 0px 0px;
+    border-radius:20px 20px 0px 0px;
 }
 
 .hostel-home-card {

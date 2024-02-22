@@ -20,8 +20,8 @@ html {
 }
 
 body {
-    background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
-    animation: gradient 5s ease infinite;
+    background: linear-gradient(-45deg, #00264d, #004080, white, #0073e6);
+    animation: gradient 3s ease infinite;
     margin: 0px;
     padding: 0px;
 }
@@ -84,7 +84,7 @@ body {
     border-radius: 0px 0px 20px 20px;
 }
 
-.edit-button {
+.sell-button {
     color: white;
     font-size: 22px;
     padding: 12px 38px;
@@ -95,9 +95,7 @@ body {
     left: 90px;
 }
 
-.delete-button {
-    height: 35%;
-    width: 28%;
+.view-button {
     color: white;
     font-size: 22px;
     padding: 12px 38px;
@@ -107,6 +105,7 @@ body {
     position: absolute;
     left: 285px;
 }
+
 
 
 

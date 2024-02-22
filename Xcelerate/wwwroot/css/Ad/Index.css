@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    background: linear-gradient(-65deg, #8B0000, #B22222, #A52A2A, #800000);
+    background: linear-gradient(-45deg, #6b0000, #8b0000, #F80D30, #540000);
     animation: gradient 5s ease infinite;
     margin: 0px;
     padding: 0px;
@@ -84,32 +84,32 @@ body {
     border-radius: 0px 0px 20px 20px;
 }
 
-    .login-message-button a {
-        color: white;
-        font-size: 22px;
-        padding: 12px 38px;
-        background-color: darkred;
-        border-radius: 25px;
-        text-decoration: none;
-        position: absolute;
-        left: 160px;
-    }
+.login-message-button a {
+    color: white;
+    font-size: 22px;
+    padding: 12px 38px;
+    background-color: darkred;
+    border-radius: 25px;
+    text-decoration: none;
+    position: absolute;
+    left: 160px;
+}
 
-    .register-message-button a {
-        width:90px;
-        color: white;
-        font-size: 22px;
-        padding: 12px 38px;
-        background-color: darkred;
-        border-radius: 25px;
-        text-decoration: none;
-        position: absolute;
-        left: 185px;
-    }
+.register-message-button a {
+    width: 90px;
+    color: white;
+    font-size: 22px;
+    padding: 12px 38px;
+    background-color: darkred;
+    border-radius: 25px;
+    text-decoration: none;
+    position: absolute;
+    left: 185px;
+}
 
-.login-message-button{
-    position:absolute;
-    left:150px;
+.login-message-button {
+    position: absolute;
+    left: 150px;
 }
 
 .register-message-button {
@@ -128,10 +128,10 @@ body {
 .hostel-home-card {
     display: flex;
     flex-direction: column;
-    height: 635px;
-    width: 500px; 
+    height: 775px;
+    width: 500px;
     margin-top: 50px;
-    margin-bottom: 140px;
+    margin-bottom: 20px;
 }
 
 .article-title {
@@ -182,9 +182,9 @@ body {
         font-size: 22px;
         padding: 12px 38px;
         background-color: darkred;
-        border-radius:25px;
+        border-radius: 25px;
         text-decoration: none;
-        position:absolute;
+        position: absolute;
         left: 185px;
     }
 

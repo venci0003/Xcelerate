@@ -1,0 +1,237 @@
+﻿@model UserCarsSellViewModel
+@using Xcelerate.Infrastructure.Data.Enums
+
+<link rel="stylesheet" href="~/css/Ad/Create.css" asp-append-version="true" />
+
+<svg xmlns="http://www.w3.org/2000/svg">
+	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
+
+	<filter id="motion-blur-filter" filterUnits="userSpaceOnUse">
+		<!-- We only want horizontal blurring. x: 100, y: 0 -->
+
+		<feGaussianBlur stdDeviation="100 0"></feGaussianBlur>
+	</filter>
+</svg>
+
+<span class="website-name" filter-content="X">Xcelerate</span>
+
+<article class="card-ad-create">
+	<form method="post" action="/Ad/Edit" class="card-content" enctype="multipart/form-data">
+		@* @Html.AntiForgeryToken() *@
+		<h1 class="title-text">EDIT AD</h1>
+		<section class="information-inputs">
+			<div class="form-input">
+				<label asp-for="@Model.Brand">Brand</label>
+				<input type="text" name="Brand" asp-for="@Model.Brand" id="form-input" />
+				<span asp-validation-for="@Model.Brand" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Model">Model</label>
+				<input type="text" name="Model" asp-for="@Model.Model" id="form-input" />
+				<span asp-validation-for="@Model.Model" class="text-danger"></span>
+			</div>
+			<div class="form-input">
+				<label asp-for="@Model.Weight">Weight</label>
+				<input type="text" name="Weight" asp-for="@Model.Weight" id="form-input" />
+				<span asp-validation-for="@Model.Weight" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Mileage">Mileage</label>
+				<input type="text" name="Mileage" asp-for="@Model.Mileage" id="form-input" />
+				<span asp-validation-for="@Model.Mileage" class="text-danger"></span>
+			</div>
+			<div class="form-input">
+				<label asp-for="@Model.Manufacturer">Manufacturer</label>
+				<input type="text" name="Manufacturer" asp-for="@Model.Manufacturer" id="form-input" />
+				<span asp-validation-for="@Model.Manufacturer" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Engine">Engine</label>
+				<input type="text" name="Engine" asp-for="@Model.Engine" id="form-input" />
+				<span asp-validation-for="@Model.Engine" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.HorsePower">Horse Power</label>
+				<input type="text" name="HorsePower" asp-for="@Model.HorsePower" id="form-input" />
+				<span asp-validation-for="@Model.HorsePower" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Price">Price</label>
+				<input type="text" name="Price" asp-for="@Model.Price" id="form-input" />
+				<span asp-validation-for="@Model.Price" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.UploadedImages">Upload Images</label>
+				<input type="file" asp-for="@Model.UploadedImages" name="UploadedImages" multiple />
+				<span asp-validation-for="@Model.UploadedImages" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.CarDescription">Description</label>
+				<input type="text" asp-for="@Model.CarDescription" name="CarDescription" />
+				<span asp-validation-for="@Model.CarDescription" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Address.CountryName">Country</label>
+				<input type="text" asp-for="@Model.Address.CountryName" name="Address.CountryName" />
+				<span asp-validation-for="@Model.Address.CountryName" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Address.TownName">Town</label>
+				<input type="text" asp-for="@Model.Address.TownName" name="Address.TownName" />
+				<span asp-validation-for="@Model.Address.TownName" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Address.StreetName">Street</label>
+				<input type="text" asp-for="@Model.Address.StreetName" name="Address.StreetName" />
+				<span asp-validation-for="@Model.Address.StreetName" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Year">Year</label>
+				<select name="Year" asp-for="@Model.Year" id="form-input">
+					@for (int year = 1900; year <= 2099; year++)
+					{
+						<option value="@year">@year</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.Year" class="text-danger"></span>
+			</div>
+
+
+			<div class="form-input">
+				<label asp-for="@Model.Condition">Condition</label>
+				<select name="Condition" asp-for="@Model.Condition" id="form-input">
+					@foreach (var condition in Enum.GetValues(typeof(ConditionEnum)))
+					{
+						<option value="@condition">@condition</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.Condition" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.EuroStandard">Euro Standard</label>
+				<select name="EuroStandard" asp-for="@Model.EuroStandard" id="form-input">
+					@foreach (var standard in Enum.GetValues(typeof(EuroStandardEnum)))
+					{
+						<option value="@standard">@standard</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.FuelType">Fuel Type</label>
+				<select name="FuelType" asp-for="@Model.FuelType" id="form-input">
+					@foreach (var fuelType in Enum.GetValues(typeof(FuelTypeEnum)))
+					{
+						<option value="@fuelType">@fuelType</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.FuelType" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Colour">Colour</label>
+				<select name="Colour" asp-for="@Model.Colour" id="form-input">
+					@foreach (var colour in Enum.GetValues(typeof(ColourEnum)))
+					{
+						<option value="@colour">@colour</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.Colour" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.Transmition">Transmission</label>
+				<select name="Transmission" asp-for="@Model.Transmition" id="form-input">
+					@foreach (var transmission in Enum.GetValues(typeof(TransmitionEnum)))
+					{
+						<option value="@transmission">@transmission</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.Transmition" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.DriveTrain">Drive Train</label>
+				<select name="DriveTrain" asp-for="@Model.DriveTrain" id="form-input">
+					@foreach (var driveTrainType in Enum.GetValues(typeof(DriveTrainEnum)))
+					{
+						<option value="@driveTrainType">@driveTrainType</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.DriveTrain" class="text-danger"></span>
+			</div>
+
+			<div class="form-input">
+				<label asp-for="@Model.BodyType">Body Type</label>
+				<select name="BodyType" asp-for="@Model.BodyType" id="form-input">
+					@foreach (var bodyType in Enum.GetValues(typeof(BodyTypeEnum)))
+					{
+						<option value="@bodyType">@bodyType</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
+			</div>
+
+			<div class="row-accessories">
+				<h1 class="title-text-accessory">ACCESSORIES</h1>
+				<section class="checkbox-list">
+					@foreach (var accessory in Model.Accessories)
+					{
+						<div class="column-accessories">
+							<ul>
+								<li>
+									<input type="checkbox" name="SelectedCheckBoxId" value="@accessory.AccessoryId" />
+									<label>@accessory.Name</label>
+								</li>
+							</ul>
+						</div>
+					}
+				</section>
+			</div>
+
+
+		</section>
+
+		<section class="button-object">
+			<button class="submit-button" type="submit" asp-route-carId="@Model.CarId">SELL</button>
+		</section>
+	</form>
+</article>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/Register/Register.js" asp-append-version="true"></script>
+
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+	const uploadField = document.getElementById("UploadedImages");
+
+	uploadField.onchange = function () {
+		if (this.files[0].size > 2097152) {
+			Swal.fire({
+				icon: 'error',
+				title: 'File is too big!',
+				text: 'Please upload a file up to 2 MB.',
+			});
+			this.value = "";
+		}
+	}
+</script>
+

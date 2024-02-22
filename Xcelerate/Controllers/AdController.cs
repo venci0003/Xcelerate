@@ -1,15 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using System.Globalization;
-using static Xcelerate.Common.EntityValidation;
+using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Extension;
-using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
-using Xcelerate.Common;
-using Xcelerate.Core.Contracts;
 
 namespace Xcelerate.Controllers
 {
@@ -135,11 +128,6 @@ namespace Xcelerate.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Buy(int? carId)
 		{
-
-			if (carId == null)
-			{
-				return NotFound();
-			}
 
 			Guid buyerUserId = User.GetUserId();
 

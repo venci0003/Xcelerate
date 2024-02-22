@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Xcelerate.Core.Models.Ad;
+﻿using Xcelerate.Core.Models.Ad;
 using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Core.Contracts

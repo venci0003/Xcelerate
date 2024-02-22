@@ -1,10 +1,5 @@
-﻿
-
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using System.Globalization;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
@@ -41,7 +36,7 @@ namespace Xcelerate.Core.Services
 				Price = car.Price,
 				FirstName = car.User.FirstName,
 				LastName = car.User.LastName,
-				CreatedOn = car.Ad.CreatedOn,
+				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString()
 			}).ToListAsync();
 
 			return cars;
@@ -55,6 +50,7 @@ namespace Xcelerate.Core.Services
 				Brand = car.Brand,
 				Model = car.Model,
 				Year = car.Year,
+				CarId = car.CarId,
 				Engine = car.Engine.Model,
 				HorsePower = car.Engine.Horsepower,
 				Condition = car.Condition,
@@ -161,6 +157,8 @@ namespace Xcelerate.Core.Services
 				}
 
 				await _dbContext.SaveChangesAsync();
+
+				//TempData[SuccessMessage] = DefaultErrorMessage;
 			}
 			catch (Exception)
 			{
@@ -477,7 +475,6 @@ namespace Xcelerate.Core.Services
 		{
 			var carToFind = await _dbContext.Cars
 				.FirstOrDefaultAsync(c => c.CarId == carId);
-
 
 			if (carToFind == null)
 			{

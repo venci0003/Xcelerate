@@ -59,9 +59,9 @@ svg {
 
 .information-inputs {
     display: flex;
-    gap: 14px;
+    gap: 6px;
     flex-wrap: wrap;
-    width: 600px
+    width: 800px
 }
 
     .information-inputs label {
@@ -71,12 +71,16 @@ svg {
 .form-input {
     display: flex;
     flex-direction: column;
-    margin: 5px 0px;
+    margin: 1px 0px;
 }
 
     .form-input input {
         height: 35px;
-        border: 1px solid lightgrey;
+        width: 160px;
+        border: none;
+        color: white;
+        background: none;
+        background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
     }
 
     .form-input label {
@@ -93,7 +97,7 @@ input {
 .submit-button {
     position: absolute;
     left: 40%;
-    bottom: 20px;
+    bottom: 170px;
     border-radius: 24px;
     padding: 10px;
     width: 150px;
@@ -110,8 +114,8 @@ input {
     color: white;
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
     font-size: 25px;
-    left: 40px;
-    bottom: 413px;
+    left: 220px;
+    bottom: -4px;
 }
 
 .title-text {
@@ -186,17 +190,15 @@ input {
 }
 
 .card-ad-create {
-    opacity: 1;
     margin: 45px 115px 0px 15%;
     border-radius: 24px;
-    /* background-image: url(2021_honda_civic_type_r_9_1920x1080.png); */
     background-repeat: no-repeat;
     background-size: cover;
-    width: 1450px;
-    height: 775px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(7px);
-    transition: opacity 0.5s; /* Add a transition effect */
+    width: 1150px;
+    height: 655px;
+    background: linear-gradient(135deg, black, rgba(255, 255, 255, 0.1));
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .column-accessories {
@@ -221,19 +223,24 @@ input {
 
 .row-accessories {
     position: absolute;
-    left: 650px;
+    left: 940px;
 }
 
 .checkbox-list {
     overflow-y: scroll;
-    max-height: 45vh
+    max-height: 500px;
+    position:absolute;
+    left:170px;
+
 }
 
 select {
     padding: 10px;
     font-size: 16px;
-    border-radius: 5px;
-    border-color: lightgray;
+    border: none;
+    color: white;
+    background: none;
+    background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
 }
 
 /* Style for the options within the select element */
@@ -241,4 +248,6 @@ option {
     background-color: #f0f0f0;
     color: #333;
     font-weight: bold;
+    background: none;
+    background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
 }

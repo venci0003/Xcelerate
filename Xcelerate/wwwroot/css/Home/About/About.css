@@ -3,41 +3,41 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css);
 
 html {
-  font-family: "Mulish", sans-serif;
-  scroll-behavior: smooth;
+    font-family: "Mulish", sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
-  background-color: gray;
-  background-repeat: no-repeat;
-  margin: 0px;
-  padding: 0px;
-  overflow-y: 500px;
-  overflow-x: hidden;
-  height: 0;
+    background-color: gray;
+    background-repeat: no-repeat;
+    margin: 0px;
+    padding: 0px;
+    overflow-y: 500px;
+    overflow-x: hidden;
+    height: 0;
 }
 
 .register-button {
-  display: inline;
-  float: right;
-  position: absolute;
-  left: 1700px;
-  margin: 15px 20px;
-  border-radius: 24px;
-  padding: 10px;
-  width: 150px;
-  height: 40px;
-  border: none;
-  background-color: rgba(174, 60, 51, 255);
-  color: white;
-  font-size: 14px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-  z-index: 2;
+    display: inline;
+    float: right;
+    position: absolute;
+    left: 1700px;
+    margin: 15px 20px;
+    border-radius: 24px;
+    padding: 10px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    background-color: rgba(174, 60, 51, 255);
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    z-index: 2;
 }
 
-.register-button:hover {
-  color: #ffcc00;
-}
+    .register-button:hover {
+        color: #ffcc00;
+    }
 
 /* @keyframes changeColor {
     0% { color: #ffffff; }
@@ -54,405 +54,345 @@ body {
 /* We set the position to relative so that we can stack a blurred pseudo element on top of the original text */
 
 span {
-  position: relative;
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 900;
-  font-size: 64px;
-  text-transform: uppercase;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  display: inline-block;
+    position: relative;
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 900;
+    font-size: 64px;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    display: inline-block;
 }
 
-/* We create a pseudo element and blur it using the SVG filter. We’ll grab the content from the custom HTML attribute. */
+    /* We create a pseudo element and blur it using the SVG filter. We’ll grab the content from the custom HTML attribute. */
 
-span:before {
-  position: absolute;
-  left: 0;
-  top: 0;
-  content: attr(filter-content);
-  filter: url(#motion-blur-filter);
-}
+    span:before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: attr(filter-content);
+        filter: url(#motion-blur-filter);
+    }
 
 /* We hide the SVG filter element from the DOM as it would take up some space */
 
 svg {
-  display: none;
+    display: none;
 }
 
 /* footer */
 footer {
-  background-color: black;
-  display: flex;
-  align-items: center;
-  gap: 100px;
-  justify-content: space-evenly;
-  padding-bottom: 35px;
-  padding-top: 30px;
-  margin-top: 0;
-  overflow-y: hidden;
-  z-index: 13;
-  position: relative;
-  
+    background-color: black;
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    justify-content: space-evenly;
+    padding-bottom: 35px;
+    padding-top: 30px;
+    margin-top: 0;
+    overflow-y: hidden;
+    z-index: 13;
+    position: relative;
 }
-footer .footer-nav {
-  display: flex;
-  align-items: center;
-  gap: 200px;
-}
+
+    footer .footer-nav {
+        display: flex;
+        align-items: center;
+        gap: 200px;
+    }
+
 .footer-nav ul {
-  list-style: none;
+    list-style: none;
 }
-.footer-nav ul li {
-  margin-top: 18px;
-}
-.footer-nav ul li a {
-  text-decoration: none;
-  color: white;
-}
+
+    .footer-nav ul li {
+        margin-top: 18px;
+    }
+
+        .footer-nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
 .footer-title {
-  color: white;
-  font-size: 50px;
+    color: white;
+    font-size: 50px;
 }
+
 .footer-nav .social .wrapper {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
+
 .footer-nav .social li i {
-  margin-left: 17px;
-  font-size: 25px;
+    margin-left: 17px;
+    font-size: 25px;
 }
 
 .social-title {
-  margin-left: 12px;
-  color: white;
-  font-weight: normal;
-  margin-bottom: 0px;
-  font-size: 18px;
+    margin-left: 12px;
+    color: white;
+    font-weight: normal;
+    margin-bottom: 0px;
+    font-size: 18px;
 }
 
 .title-text {
-  margin-top: 45px;
-  color: white;
-  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-  font-size: 25px;
+    margin-top: 45px;
+    color: white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    font-size: 25px;
 }
 
 .nav-bar {
-  position: fixed;
-  z-index: 11;
+    position: fixed;
+    z-index: 11;
 }
 
-#ul-list {
-  backdrop-filter: blur(2px);
-  box-shadow: 10px 1px 40px 2px #3b2929;
-  padding: 15px;
-  border-radius: 50px;
-  width: 40px;
-  margin-top: 5px;
-  margin-left: 6px;
-  transition: 0s ease-in-out;
-  display: inline-flex;
-}
 
-.nav-bar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-#ul-list li {
-  margin-top: 10px;
-  margin-right: 25px;
-  margin-left: 25px;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.nav-bar a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-#ul-list li a:hover {
-  color: #ffcc00; /* Change the color on hover as needed */
-}
-
-#ul-list {
-  transition: width 0.3s ease-in-out; /* Adjust the duration and timing function as needed */
-}
-
-#ul-list:hover {
-  width: 450px;
-}
-
-#ul-list:hover a {
-  opacity: 1; /* Reveal the links on hover */
-  transition: 0.5s ease-in-out;
-}
-
-#ul-list a:hover {
-  color: whitesmoke; /* Change the text color on hover as needed */
-}
-
-/* Initial hiding state */
-#ul-list a {
-  opacity: 0;
-}
-
-#wheelIcon {
-  width: 40px; /* Adjust the size as needed */
-  height: 40px;
-  transition: transform 0.5s ease-in-out; /* Smooth transition for spinning */
-}
-
-/* CSS animation for spinning on hover */
-#wheelIcon:hover {
-  transform: rotate(360deg);
-}
 
 .parallax {
-  /* overflow: hidden; */
-  position: relative;
-  z-index: 0;
-  min-height: 75vh;
-  display: grid;
-  grid-template-areas: "stack";
+    /* overflow: hidden; */
+    position: relative;
+    z-index: 0;
+    min-height: 75vh;
+    display: grid;
+    grid-template-areas: "stack";
 }
 
-.parallax > * {
-  grid-area: stack;
-  animation: parallax linear;
-  animation-timeline: scroll();
-}
+    .parallax > * {
+        grid-area: stack;
+        animation: parallax linear;
+        animation-timeline: scroll();
+    }
 
 @keyframes parallax {
-  to {
-    transform: translateY(calc(var(--parallax-speed) * 400px));
-  }
+    to {
+        transform: translateY(calc(var(--parallax-speed) * 400px));
+    }
 }
 
 .bottom-image-first {
-  z-index: 3;
-  --parallax-speed: 2;
+    z-index: 3;
+    --parallax-speed: 2;
 }
 
 .top-image-first {
-  z-index: 1;
-  --parallax-speed: 5;
+    z-index: 1;
+    --parallax-speed: 5;
 }
 
 .top-image-first {
-  margin-bottom: 1600px;
+    margin-bottom: 1600px;
 }
 
 .bottom-image-first {
-  margin-bottom: 700px;
+    margin-bottom: 700px;
 }
 
 .website-name {
-  color: white;
-  margin-left: 37%;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-size: 60px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  height: 0px;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
-  --parallax-speed: 8;
-  z-index: 2;
-  transition: transform 0.9s ease-in-out infinite;
+    color: white;
+    margin-left: 37%;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 60px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 0px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    --parallax-speed: 8;
+    z-index: 2;
+    transition: transform 0.9s ease-in-out infinite;
 }
 
 .website-name-on-welcome {
-  font-size: 40px;
+    font-size: 40px;
 }
 
 .sub-text-to-welcome {
-  color: #fff;
-  font-size: 25px;
-  text-align: center;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-style: italic;
-  letter-spacing: 0.05em;
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 0.05em;
 }
 
 .welcome-text {
-  color: #fff;
-  font-size: 30px;
-  text-align: center;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 900;
-  font-size: 40px;
-  text-transform: uppercase;
-  font-style: initial;
-  letter-spacing: 0.05em;
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-style: initial;
+    letter-spacing: 0.05em;
 }
 
 .information-text {
-  margin-top: 80px;
-  color: #fff;
-  font-size: 25px;
-  text-align: center;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.05em;
+    margin-top: 80px;
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0.05em;
 }
 
-.sub-point-first{
-  margin-top: 80px;
-  color: #fff;
-  font-size: 25px;
-  text-align: center;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-style: italic;
-  letter-spacing: 0.05em;
+.sub-point-first {
+    margin-top: 80px;
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 0.05em;
 }
 
-.sub-point-first-information{
-  margin-top: 80px;
-  color: #fff;
-  font-size: 25px;
-  text-align: center;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.05em;
+.sub-point-first-information {
+    margin-top: 80px;
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0.05em;
 }
 
-.sub-point-second{
-  margin-top: 80px;
-  color: #fff;
-  font-size: 25px;
-  text-align: center;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-style: italic;
-  letter-spacing: 0.05em;
+.sub-point-second {
+    margin-top: 80px;
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 0.05em;
 }
 
-.sub-point-second-information{
-   margin-top: 80px;
-  color: #fff;
-  font-size: 25px;
-  text-align: center;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  margin-bottom: 50px;
+.sub-point-second-information {
+    margin-top: 80px;
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin-bottom: 50px;
 }
 
-.sub-point-third{
-  margin-top: 80px;
-  color: #fff;
-  font-size: 25px;
-  text-align: center;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-style: italic;
-  letter-spacing: 0.05em;
+.sub-point-third {
+    margin-top: 80px;
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 0.05em;
 }
 
-.sub-point-third-information{
-   margin-top: 80px;
-  color: #fff;
-  font-size: 25px;
-  text-align: center;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-family: "Avenir Next", sans-serif;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  margin-bottom: 50px;
+.sub-point-third-information {
+    margin-top: 80px;
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin-bottom: 50px;
 }
 
-.top-image-second{
-  width: 100%;
-  height: 703px;
-  z-index: 11;
-  --parallax-speed: 4;
-position: absolute;
-bottom: 1689px;
-right: 1px;
+.top-image-second {
+    width: 100%;
+    height: 703px;
+    z-index: 11;
+    --parallax-speed: 4;
+    position: absolute;
+    bottom: 1689px;
+    right: 1px;
 }
 
-.bottom-image-second{
-  z-index: 13;
-  --parallax-speed: 1;
-margin-top: 0px;
-position: absolute;
-bottom: 272px;
-margin-bottom: 0;
-right: 1px;
-
+.bottom-image-second {
+    z-index: 13;
+    --parallax-speed: 1;
+    margin-top: 0px;
+    position: absolute;
+    bottom: 272px;
+    margin-bottom: 0;
+    right: 1px;
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-.explore-text{
-  color: white;
-  margin-left: 40%;
-  position: absolute;
-  bottom: 1765px;
-  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-  font-size: 60px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
-  --parallax-speed: 3;
-  z-index: 12;
-  transition: transform 0.9s ease-in-out infinite;
+.explore-text {
+    color: white;
+    margin-left: 40%;
+    position: absolute;
+    bottom: 1765px;
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 60px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    --parallax-speed: 3;
+    z-index: 12;
+    transition: transform 0.9s ease-in-out infinite;
 }
 
 
 .main-content {
-  background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
-	background-size: 400% 400%;
-	animation: gradient 5s ease infinite;
-	height: 100vh;
-  position: absolute;
-  top: 1447px;
-  width: 100%;
-  height: 1250px;
-  margin-bottom: 0;
-  z-index: 10;
+    background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+    height: 100vh;
+    position: absolute;
+    top: 1447px;
+    width: 100%;
+    height: 1250px;
+    margin-bottom: 0;
+    z-index: 10;
+
 }
