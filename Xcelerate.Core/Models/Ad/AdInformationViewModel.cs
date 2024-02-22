@@ -29,6 +29,8 @@ namespace Xcelerate.Core.Models.Ad
 
 		public DateTime CreatedOn { get; set; } = DateTime.Now;
 
+		public bool IsForSale { get; set; }
+
 		public string Model { get; set; } = null!;
 
 		public int Year { get; set; }

@@ -131,5 +131,31 @@ namespace Xcelerate.Controllers
 			return RedirectToAction("UserAds", "Ad");
 
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> Buy(int? carId)
+		{
+
+			if (carId == null)
+			{
+				return NotFound();
+			}
+
+			Guid buyerUserId = User.GetUserId();
+
+			Car carToBuy = await _adService.GetCarByIdAsync(carId.Value);
+
+			if (carToBuy == null)
+			{
+				return NotFound();
+			}
+
+			carToBuy.UserId = buyerUserId;
+
+			await _adService.BuyCarAsync(carToBuy);
+
+			return RedirectToAction("Index", "UserCars");
+
+		}
 	}
 }

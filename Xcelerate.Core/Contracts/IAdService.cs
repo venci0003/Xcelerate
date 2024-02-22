@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Xcelerate.Core.Models.Ad;
+using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Core.Contracts
 {
@@ -13,5 +14,9 @@ namespace Xcelerate.Core.Contracts
 		public Task<AdEditViewModel> GetEditInformationAsync(int? carId);
 		public Task<bool> EditCarAdAsync(AdEditViewModel adViewModel);
 		public Task<bool> DeleteCarAdAsync(int? carId);
+
+		public Task<bool> BuyCarAsync(Car car);
+
+		public Task<Car> GetCarByIdAsync(int carId);
 	}
 }

@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    background: linear-gradient(-65deg, #8B0000, #B22222, #A52A2A, #800000);
+    background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
     animation: gradient 5s ease infinite;
     margin: 0px;
     padding: 0px;
@@ -57,7 +57,7 @@ body {
     color: rgba(203, 32, 36, 255);
 }
 
-.hostel-home-card {
+.car-card {
     margin-top: 70px;
     border-radius: 20px 20px 0px 0px;
     background-color: rgb(255, 255, 255);
@@ -84,38 +84,30 @@ body {
     border-radius: 0px 0px 20px 20px;
 }
 
-    .login-message-button a {
-        color: white;
-        font-size: 22px;
-        padding: 12px 38px;
-        background-color: darkred;
-        border-radius: 25px;
-        text-decoration: none;
-        position: absolute;
-        left: 160px;
-    }
-
-    .register-message-button a {
-        width:90px;
-        color: white;
-        font-size: 22px;
-        padding: 12px 38px;
-        background-color: darkred;
-        border-radius: 25px;
-        text-decoration: none;
-        position: absolute;
-        left: 185px;
-    }
-
-.login-message-button{
-    position:absolute;
-    left:150px;
-}
-
-.register-message-button {
+.edit-button {
+    color: white;
+    font-size: 22px;
+    padding: 12px 38px;
+    background-color: seagreen;
+    border-radius: 25px;
+    text-decoration: none;
     position: absolute;
-    left: -155px;
+    left: 90px;
 }
+
+.delete-button {
+    height: 35%;
+    width: 28%;
+    color: white;
+    font-size: 22px;
+    padding: 12px 38px;
+    background-color: darkred;
+    border-radius: 25px;
+    text-decoration: none;
+    position: absolute;
+    left: 285px;
+}
+
 
 
 .image-holder img {
@@ -125,11 +117,11 @@ body {
     background-size: cover;
 }
 
-.hostel-home-card {
+.car-card {
     display: flex;
     flex-direction: column;
     height: 635px;
-    width: 500px; 
+    width: 500px;
     margin-top: 50px;
     margin-bottom: 140px;
 }
@@ -155,7 +147,7 @@ body {
     margin: 0px auto;
 }
 
-.hostel-home-card p {
+.car-card p {
     margin: 0px auto;
     padding: 25px;
     width: 440px;
@@ -176,20 +168,9 @@ body {
     border-radius: 0px 0px 20px 20px;
 }
 
-    .bottom-text i a {
-        padding: 0px;
-        color: white;
-        font-size: 22px;
-        padding: 12px 38px;
-        background-color: darkred;
-        border-radius:25px;
-        text-decoration: none;
-        position:absolute;
-        left: 185px;
-    }
 
 
-.hostel-home-card p i {
+.car-card p i {
     color: white;
     font-size: 15px;
     text-align: center;
@@ -218,4 +199,21 @@ body {
     gap: 28px;
     align-items: center; /* Center the cards horizontally */
     margin-bottom: 460px;
+}
+
+.create-message-button a {
+    width: 90px;
+    color: white;
+    font-size: 22px;
+    padding: 12px 38px;
+    background-color: darkred;
+    border-radius: 25px;
+    text-decoration: none;
+    position: absolute;
+    left: 185px;
+}
+
+.create-message-button {
+    position: absolute;
+    left: -3%;
 }

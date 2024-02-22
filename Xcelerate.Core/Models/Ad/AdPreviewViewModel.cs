@@ -25,6 +25,8 @@ namespace Xcelerate.Core.Models.Ad
 
 		public string CreatedOn { get; set; } = null!;
 
+		public bool IsForSale { get; set; }
+
 		[Required]
 		public ConditionEnum Condition { get; set; }
 

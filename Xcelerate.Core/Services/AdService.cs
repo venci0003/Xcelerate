@@ -26,7 +26,7 @@ namespace Xcelerate.Core.Services
 		}
 		public async Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync()
 		{
-			IEnumerable<AdPreviewViewModel> cars = await _dbContext.Cars.Select(car => new AdPreviewViewModel
+			IEnumerable<AdPreviewViewModel> cars = await _dbContext.Cars.Where(c => c.IsForSale == true).Select(car => new AdPreviewViewModel
 			{
 				CarId = car.CarId,
 				ImageUrls = car.Images.Select(car => car.ImageUrl).ToList(),
@@ -49,7 +49,7 @@ namespace Xcelerate.Core.Services
 
 		public async Task<AdInformationViewModel> GetCarsInformationAsync(int? carId)
 		{
-			AdInformationViewModel? car = await _dbContext.Cars.Where(c => c.CarId == carId).Select(car => new AdInformationViewModel
+			AdInformationViewModel? car = await _dbContext.Cars.Where(c => c.CarId == carId && c.IsForSale == true).Select(car => new AdInformationViewModel
 			{
 				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
 				Brand = car.Brand,
@@ -89,7 +89,6 @@ namespace Xcelerate.Core.Services
 		}
 		public async Task CreateAdAsync(AdCreateViewModel adViewModel, string userId)
 		{
-
 			try
 			{
 				var car = new Car
@@ -98,6 +97,7 @@ namespace Xcelerate.Core.Services
 					Brand = adViewModel.Brand,
 					Model = adViewModel.Model,
 					Year = adViewModel.Year,
+					IsForSale = adViewModel.IsForSale = true,
 					Engine = new Engine
 					{
 						Model = adViewModel.Engine,
@@ -172,7 +172,7 @@ namespace Xcelerate.Core.Services
 		{
 
 			List<UserAdsViewModel> userAds = await _dbContext.Ads
-		.Where(ad => ad.UserId == userId)
+		.Where(ad => ad.UserId == userId && ad.Car.IsForSale == true)
 		.Select(car => new UserAdsViewModel
 		{
 			CarId = car.CarId,
@@ -462,6 +462,31 @@ namespace Xcelerate.Core.Services
 			{
 				throw new ArgumentException("Delete failed!");
 			}
+		}
+
+		public async Task<bool> BuyCarAsync(Car car)
+		{
+			_dbContext.Cars.Update(car);
+
+			await _dbContext.SaveChangesAsync();
+
+			return true;
+		}
+
+		public async Task<Car> GetCarByIdAsync(int carId)
+		{
+			var carToFind = await _dbContext.Cars
+				.FirstOrDefaultAsync(c => c.CarId == carId);
+
+
+			if (carToFind == null)
+			{
+				throw new ArgumentException("Car not found!");
+			}
+
+			carToFind.IsForSale = false;
+
+			return carToFind;
 		}
 	}
 }
