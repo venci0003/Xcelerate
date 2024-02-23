@@ -246,6 +246,7 @@ button {
 
 .nav-bar {
     position: fixed;
+    z-index: 5;
 }
 
 #ul-list-unauthorized {

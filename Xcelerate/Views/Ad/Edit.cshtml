@@ -69,7 +69,14 @@
 			<div class="form-input">
 				<label asp-for="@Model.UploadedImages">Upload Images</label>
 				<input type="file" asp-for="@Model.UploadedImages" name="UploadedImages" multiple />
-				<span asp-validation-for="@Model.UploadedImages" class="text-danger"></span>
+				@* <span asp-validation-for="@Model.UploadedImages" class="text-danger"></span> *@
+			</div>
+
+			<div class="form-input">
+				<label>
+					<input type="checkbox" name="KeepExistingImages" value="true" />
+					Keep existing images
+				</label>
 			</div>
 
 			<div class="form-input">

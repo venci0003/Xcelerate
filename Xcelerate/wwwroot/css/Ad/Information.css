@@ -154,7 +154,7 @@ body {
     left: 1040px;
 }
 
-.buy-button {
+.buy-button, .cancel-button {
     font-size: 35px;
     position: absolute;
     margin-top: 10px;
@@ -163,6 +163,12 @@ body {
     padding: 0px 25px;
     border-radius: 25px;
 }
+
+    .buy-button:hover,
+    .cancel-button:hover {
+        cursor: pointer;
+        opacity: 0.8; /* Reduce opacity on hover for visual feedback */
+    }
 
 .car-information {
     margin-top: 10px;

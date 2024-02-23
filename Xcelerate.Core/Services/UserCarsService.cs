@@ -32,36 +32,35 @@ namespace Xcelerate.Core.Services
 			UserCarsInformationViewModel? car = await _dbContext.Cars
 				.Where(c => c.CarId == carId && c.IsForSale == false)
 				.Select(car => new UserCarsInformationViewModel
-			{
-				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
-				Brand = car.Brand,
-				Model = car.Model,
-				Year = car.Year,
-				CarId = car.CarId,
-				Engine = car.Engine.Model,
-				HorsePower = car.Engine.Horsepower,
-				Condition = car.Condition,
-				EuroStandard = car.EuroStandard,
-				FuelType = car.FuelType,
-				Colour = car.Colour,
-				Transmition = car.Transmition,
-				DriveTrain = car.DriveTrain,
-				Weight = car.Weight,
-				Mileage = car.Mileage,
-				Price = car.Price,
-				BodyType = car.BodyType,
-				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
-				FirstName = car.User.FirstName,
-				LastName = car.User.LastName,
-				Manufacturer = car.Manufacturer.Name,
-				Address = new AddressViewModel
 				{
-					CountryName = car.Address.CountryName,
-					TownName = car.Address.TownName,
-					StreetName = car.Address.StreetName,
-				},
-				CarDescription = car.Ad.CarDescription
-			}).FirstOrDefaultAsync();
+					ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
+					Brand = car.Brand,
+					Model = car.Model,
+					Year = car.Year,
+					CarId = car.CarId,
+					Engine = car.Engine.Model,
+					HorsePower = car.Engine.Horsepower,
+					Condition = car.Condition,
+					EuroStandard = car.EuroStandard,
+					FuelType = car.FuelType,
+					Colour = car.Colour,
+					Transmition = car.Transmition,
+					DriveTrain = car.DriveTrain,
+					Weight = car.Weight,
+					Mileage = car.Mileage,
+					Price = car.Price,
+					BodyType = car.BodyType,
+					
+					FirstName = car.User.FirstName,
+					LastName = car.User.LastName,
+					Manufacturer = car.Manufacturer.Name,
+					Address = new AddressViewModel
+					{
+						CountryName = car.Address.CountryName,
+						TownName = car.Address.TownName,
+						StreetName = car.Address.StreetName,
+					}
+				}).FirstOrDefaultAsync();
 
 			if (car == null)
 			{
@@ -71,9 +70,9 @@ namespace Xcelerate.Core.Services
 			return car;
 		}
 
-		public async Task<IEnumerable<UserCarsPreviewViewModel>> GetUserCarsPreviewAsync()
+		public async Task<IEnumerable<UserCarsPreviewViewModel>> GetUserCarsPreviewAsync(Guid userId)
 		{
-			IEnumerable<UserCarsPreviewViewModel> cars = await _dbContext.Cars.Where(c => c.IsForSale == false).Select(car => new UserCarsPreviewViewModel
+			IEnumerable<UserCarsPreviewViewModel> cars = await _dbContext.Cars.Where(c => c.IsForSale == false && c.UserId == userId).Select(car => new UserCarsPreviewViewModel
 			{
 				CarId = car.CarId,
 				ImageUrls = car.Images.Select(car => car.ImageUrl).ToList(),
@@ -271,6 +270,22 @@ namespace Xcelerate.Core.Services
 			{
 				throw new ArgumentException("An error occurred while saving the ad.");
 			}
+		}
+
+		public async Task<bool> CancelSellAdAsync(int? carId)
+		{
+			var carAdToRemove = await _dbContext.Cars.FirstOrDefaultAsync(c => c.CarId == carId);
+
+			if (carAdToRemove == null)
+			{
+				throw new ArgumentException("An error occurred removing the ad.");
+			}
+
+			carAdToRemove.IsForSale = false;
+
+			await _dbContext.SaveChangesAsync();
+
+			return true;
 		}
 	}
 }

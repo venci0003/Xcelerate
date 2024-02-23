@@ -7,6 +7,8 @@ namespace Xcelerate.Core.Models.Ad
 {
 	public class AdInformationViewModel
 	{
+		public Guid UserId { get; set; }
+
 		[Required]
 		[Comment("FirstName")]
 		public string FirstName { get; set; } = null!;

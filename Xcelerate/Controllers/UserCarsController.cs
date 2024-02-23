@@ -2,8 +2,7 @@
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.UserCars;
-using Xcelerate.Core.Services;
-using Xcelerate.Infrastructure.Data.Models;
+using Xcelerate.Extension;
 
 namespace Xcelerate.Controllers
 {
@@ -20,7 +19,9 @@ namespace Xcelerate.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var cars = await _userCarsService.GetUserCarsPreviewAsync();
+			Guid userId = User.GetUserId();
+
+			var cars = await _userCarsService.GetUserCarsPreviewAsync(userId);
 
 			return View(cars);
 		}
@@ -80,6 +81,13 @@ namespace Xcelerate.Controllers
 			//}
 
 			return RedirectToAction("Index", "Ad");
+		}
+
+		public async Task<IActionResult> Cancel(int carId)
+		{
+			await _userCarsService.CancelSellAdAsync(carId);
+
+			return RedirectToAction("Index", "UserCars");
 		}
 	}
 }

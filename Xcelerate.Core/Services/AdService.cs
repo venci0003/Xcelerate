@@ -66,6 +66,7 @@ namespace Xcelerate.Core.Services
 				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
 				FirstName = car.User.FirstName,
 				LastName = car.User.LastName,
+				UserId = car.UserId,
 				Manufacturer = car.Manufacturer.Name,
 				Address = new AddressViewModel
 				{
@@ -319,41 +320,35 @@ namespace Xcelerate.Core.Services
 					}
 				}
 
-				foreach (var oldImage in car.Images.ToList())
+				if (adViewModel.UploadedImages == null || !adViewModel.UploadedImages.Any())
 				{
-					var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad", oldImage.ImageUrl);
-
-					if (System.IO.File.Exists(oldImagePath))
-					{
-						using (var stream = new FileStream(oldImagePath, FileMode.Open, FileAccess.ReadWrite))
-						{
-							// Close and dispose of the FileStream before deletion
-							stream.Close();
-						}
-						System.IO.File.Delete(oldImagePath);
-					}
-
-					_dbContext.Images.Remove(oldImage);
+					// User wants to keep existing images, do nothing
 				}
-
-				var adImagesDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad");
-				foreach (var image in adViewModel.UploadedImages)
+				else
 				{
-					if (image != null && image.Length > 0)
-					{
-						var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
-						var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
-						using (var stream = new FileStream(filePath, FileMode.Create))
-						{
-							image.CopyTo(stream);
-						}
+					// User wants to upload new images, remove existing images and add new ones
+					_dbContext.Images.RemoveRange(car.Images);
 
-						Image imageToCreate = new Image()
+
+					var adImagesDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad");
+					foreach (var image in adViewModel.UploadedImages)
+					{
+						if (image != null && image.Length > 0)
 						{
-							CarId = car.CarId,
-							ImageUrl = uniqueFileName
-						};
-						_dbContext.Images.Add(imageToCreate);
+							var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+							var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
+							using (var stream = new FileStream(filePath, FileMode.Create))
+							{
+								image.CopyTo(stream);
+							}
+
+							Image imageToCreate = new Image()
+							{
+								CarId = car.CarId,
+								ImageUrl = uniqueFileName
+							};
+							_dbContext.Images.Add(imageToCreate);
+						}
 					}
 				}
 
@@ -464,11 +459,28 @@ namespace Xcelerate.Core.Services
 
 		public async Task<bool> BuyCarAsync(Car car)
 		{
-			_dbContext.Cars.Update(car);
+			var adToRemove = await _dbContext.Ads.FirstOrDefaultAsync(a => a.Id == car.AdId);
 
-			await _dbContext.SaveChangesAsync();
+			if (adToRemove != null)
+			{
+				// Remove associated reviews
+				var reviewsToRemove = _dbContext.Reviews.Where(r => r.AdId == adToRemove.Id);
+				_dbContext.Reviews.RemoveRange(reviewsToRemove);
 
-			return true;
+				// Now remove the ad
+				_dbContext.Ads.Remove(adToRemove);
+
+				// Update the car
+				_dbContext.Cars.Update(car);
+
+				await _dbContext.SaveChangesAsync();
+				return true;
+			}
+			else
+			{
+				// Handle the case where the associated ad is not found
+				return false;
+			}
 		}
 
 		public async Task<Car> GetCarByIdAsync(int carId)

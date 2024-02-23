@@ -27,6 +27,7 @@ namespace Xcelerate.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Information(int? carId)
 		{
+			ViewBag.UserId = User.GetUserId();
 
 			if (carId == null)
 			{
