@@ -497,5 +497,84 @@ namespace Xcelerate.Core.Services
 
 			return carToFind;
 		}
+
+
+		public async Task<(AdInformationViewModel firstCar, AdInformationViewModel secondCar)> GetTwoCarsByIdAsync(int firstCarId, int secondCarId)
+		{
+			var firstCarDataModel = await _dbContext.Cars.Where(c => c.CarId == firstCarId).Select(car => new AdInformationViewModel
+			{
+				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
+				Brand = car.Brand,
+				Model = car.Model,
+				Year = car.Year,
+				CarId = car.CarId,
+				Engine = car.Engine.Model,
+				HorsePower = car.Engine.Horsepower,
+				Condition = car.Condition,
+				EuroStandard = car.EuroStandard,
+				FuelType = car.FuelType,
+				Colour = car.Colour,
+				Transmition = car.Transmition,
+				DriveTrain = car.DriveTrain,
+				Weight = car.Weight,
+				Mileage = car.Mileage,
+				Price = car.Price,
+				BodyType = car.BodyType,
+				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
+				FirstName = car.User.FirstName,
+				LastName = car.User.LastName,
+				UserId = car.UserId,
+				Manufacturer = car.Manufacturer.Name,
+				Address = new AddressViewModel
+				{
+					CountryName = car.Address.CountryName,
+					TownName = car.Address.TownName,
+					StreetName = car.Address.StreetName,
+				},
+				CarDescription = car.Ad.CarDescription
+			}).FirstOrDefaultAsync();
+
+			var secondCarDataModel = await _dbContext.Cars.Where(c => c.CarId == secondCarId).Select(car => new AdInformationViewModel
+			{
+				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
+				Brand = car.Brand,
+				Model = car.Model,
+				Year = car.Year,
+				CarId = car.CarId,
+				Engine = car.Engine.Model,
+				HorsePower = car.Engine.Horsepower,
+				Condition = car.Condition,
+				EuroStandard = car.EuroStandard,
+				FuelType = car.FuelType,
+				Colour = car.Colour,
+				Transmition = car.Transmition,
+				DriveTrain = car.DriveTrain,
+				Weight = car.Weight,
+				Mileage = car.Mileage,
+				Price = car.Price,
+				BodyType = car.BodyType,
+				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
+				FirstName = car.User.FirstName,
+				LastName = car.User.LastName,
+				UserId = car.UserId,
+				Manufacturer = car.Manufacturer.Name,
+				Address = new AddressViewModel
+				{
+					CountryName = car.Address.CountryName,
+					TownName = car.Address.TownName,
+					StreetName = car.Address.StreetName,
+				},
+				CarDescription = car.Ad.CarDescription
+			}).FirstOrDefaultAsync(); 
+
+
+			if (firstCarDataModel == null || secondCarDataModel == null)
+			{
+				throw new ArgumentException("One or both cars not found!");
+			}
+
+			return (firstCarDataModel, secondCarDataModel);
+		}
+
 	}
 }

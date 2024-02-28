@@ -154,7 +154,8 @@ body {
     left: 1040px;
 }
 
-.buy-button, .cancel-button {
+
+.buy-button, .cancel-button, .compare-button {
     font-size: 35px;
     position: absolute;
     margin-top: 10px;
@@ -165,10 +166,16 @@ body {
 }
 
     .buy-button:hover,
-    .cancel-button:hover {
+    .cancel-button:hover,
+    .compare-button:hover {
         cursor: pointer;
         opacity: 0.8; /* Reduce opacity on hover for visual feedback */
     }
+.compare-button {
+    top: 930px;
+    width:240px;
+    left:1120px;
+}
 
 .car-information {
     margin-top: 10px;
@@ -181,7 +188,7 @@ body {
     transition: opacity 0.5s ease;
     flex-direction: column;
     align-items: center;
-    margin-right:28px;
+    margin-right: 28px;
 }
 
     .list-information-car-accessories.show-all {
@@ -191,8 +198,8 @@ body {
         opacity: 0;
     }
 
-.toggle-accessories-button{
-    margin-top:25px;
+.toggle-accessories-button {
+    margin-top: 25px;
     margin-left: 425px;
 }
 

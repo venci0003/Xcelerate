@@ -140,8 +140,7 @@ namespace Xcelerate.Core.Services
 					CountryName = car.Address.CountryName,
 					TownName = car.Address.TownName,
 					StreetName = car.Address.StreetName,
-				},
-				CarDescription = car.Ad.CarDescription
+				}
 			};
 
 			List<AccessoryViewModel> accessories = await _dbContext.Accessories

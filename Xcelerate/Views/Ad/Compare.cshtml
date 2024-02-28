@@ -1,0 +1,154 @@
+﻿@using Xcelerate.Infrastructure.Data.Models
+<link rel="stylesheet" href="~/css/Ad/Compare.css" asp-append-version="true" />
+@model (AdInformationViewModel, AdInformationViewModel)
+
+
+<section class="card-holder">
+	@foreach (var carInfo in new[] { Model.Item1, Model.Item2 })
+	{
+		<article class="car-card">
+			<div class="image-holder">
+				<img src="~/Images/Ad/@carInfo.ImageUrls[0]" alt="First image of the car ad" class="image-transition fade" />
+			</div>
+			@if (carInfo == Model.Item1)
+			{
+				<a class="prev first-car" onclick="changeImage('@carInfo.CarId', -1)">&#10094;</a>
+				<a class="next first-car" onclick="changeImage('@carInfo.CarId', 1)">&#10095;</a>
+			}
+			<!-- Previous and next buttons for the second car -->
+			@if (carInfo == Model.Item2)
+			{
+				<a class="prev second-car" onclick="changeImage('@carInfo.CarId', -1)">&#10094;</a>
+				<a class="next second-car" onclick="changeImage('@carInfo.CarId', 1)">&#10095;</a>
+			}
+			<h2 class="article-title">@carInfo.Brand @carInfo.Model</h2>
+			<div card-text>
+				<ul>
+					@{
+						var item1YearColor = Model.Item1.Year > Model.Item2.Year ? "midnightblue" : (Model.Item1.Year < Model.Item2.Year ? "blue" : "inherit");
+						var item2YearColor = Model.Item2.Year > Model.Item1.Year ? "midnightblue" : (Model.Item2.Year < Model.Item1.Year ? "blue" : "inherit");
+
+						var item1HorsePowerColor = Model.Item1.HorsePower > Model.Item2.HorsePower ? "green" : (Model.Item1.HorsePower < Model.Item2.HorsePower ? "red" : "inherit");
+						var item2HorsePowerColor = Model.Item2.HorsePower > Model.Item1.HorsePower ? "green" : (Model.Item2.HorsePower < Model.Item1.HorsePower ? "red" : "inherit");
+
+						var item1WeightColor = Model.Item1.Weight > Model.Item2.Weight ? "red" : (Model.Item1.Weight < Model.Item2.Weight ? "green" : "inherit");
+						var item2WeightColor = Model.Item2.Weight > Model.Item1.Weight ? "red" : (Model.Item2.Weight < Model.Item1.Weight ? "green" : "inherit");
+
+						var item1MileageColor = Model.Item1.Mileage > Model.Item2.Mileage ? "green" : (Model.Item1.Mileage < Model.Item2.Mileage ? "red" : "inherit");
+						var item2MileageColor = Model.Item2.Mileage > Model.Item1.Mileage ? "green" : (Model.Item2.Mileage < Model.Item1.Mileage ? "red" : "inherit");
+
+						var item1ConditionColor = string.Equals(Model.Item1.Condition, Model.Item2.Condition) ? "inherit" : (string.Equals(carInfo.Condition, Model.Item1.Condition) ? "blue" : "midnightblue");
+						var item2ConditionColor = string.Equals(Model.Item1.Condition, Model.Item2.Condition) ? "inherit" : (string.Equals(carInfo.Condition, Model.Item2.Condition) ? "midnightblue" : "blue");
+
+						var item1EuroStandardColor = string.Equals(Model.Item1.EuroStandard, Model.Item2.EuroStandard) ? "inherit" : (string.Equals(carInfo.EuroStandard, Model.Item1.EuroStandard)? "blue" : "midnightblue");;
+						var item2EuroStandardColor = string.Equals(Model.Item1.EuroStandard, Model.Item2.EuroStandard) ? "inherit" : (string.Equals(carInfo.EuroStandard, Model.Item2.EuroStandard)? "midnightblue" : "blue");;
+
+						var item1FuelTypeColor = string.Equals(Model.Item1.FuelType, Model.Item2.FuelType) ? "inherit" : (string.Equals(carInfo.FuelType, Model.Item1.FuelType) ? "blue" : "midnightblue");
+						var item2FuelTypeColor = string.Equals(Model.Item1.FuelType, Model.Item2.FuelType) ? "inherit" : (string.Equals(carInfo.FuelType, Model.Item2.FuelType) ? "midnightblue" : "blue");
+
+						var item1ColourColor = string.Equals(Model.Item1.Colour, Model.Item2.Colour) ? "inherit" : (string.Equals(carInfo.Colour, Model.Item1.Colour) ? "blue" : "midnightblue");
+						var item2ColourColor = string.Equals(Model.Item1.Colour, Model.Item2.Colour) ? "inherit" : (string.Equals(carInfo.Colour, Model.Item2.Colour) ? "midnightblue" : "blue");
+
+						var item1TransmissionColor = string.Equals(Model.Item1.Transmition, Model.Item2.Transmition) ? "inherit" : (string.Equals(carInfo.Transmition, Model.Item1.Transmition) ? "blue" : "midnightblue");
+						var item2TransmissionColor = string.Equals(Model.Item1.Transmition, Model.Item2.Transmition) ? "inherit" : (string.Equals(carInfo.Transmition, Model.Item2.Transmition) ? "midnightblue" : "blue");
+
+						var item1DriveTrainColor = string.Equals(Model.Item1.DriveTrain, Model.Item2.DriveTrain) ? "inherit" : (string.Equals(carInfo.DriveTrain, Model.Item1.DriveTrain) ? "blue" : "midnightblue");
+						var item2DriveTrainColor = string.Equals(Model.Item1.DriveTrain, Model.Item2.DriveTrain) ? "inherit" : (string.Equals(carInfo.DriveTrain, Model.Item2.DriveTrain) ? "midnightblue" : "blue");
+
+						var item1BodyTypeColor = string.Equals(Model.Item1.BodyType, Model.Item2.BodyType) ? "inherit" : (string.Equals(carInfo.BodyType, Model.Item1.BodyType) ? "blue" : "midnightblue");
+						var item2BodyTypeColor = string.Equals(Model.Item1.BodyType, Model.Item2.BodyType) ? "inherit" : (string.Equals(carInfo.BodyType, Model.Item2.BodyType) ? "midnightblue" : "blue");
+
+						var item1ManufacturerColor = string.Equals(Model.Item1.Manufacturer, Model.Item2.Manufacturer) ? "inherit" : (string.Equals(carInfo.Manufacturer, Model.Item1.Manufacturer) ? "blue" : "midnightblue");
+						var item2ManufacturerColor = string.Equals(Model.Item1.Manufacturer, Model.Item2.Manufacturer) ? "inherit" : (string.Equals(carInfo.Manufacturer, Model.Item2.Manufacturer) ? "midnightblue" : "blue");
+
+					}
+					<li>
+						<strong>Year:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1YearColor : item2YearColor)">@carInfo.Year</span>
+					</li>
+					<li><strong>Engine:</strong> @carInfo.Engine</li>
+					<li>
+						<strong>HorsePower:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1HorsePowerColor : item2HorsePowerColor)">@carInfo.HorsePower</span>
+					</li>
+					<li>
+						<strong>Condition:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1ConditionColor : item2ConditionColor)">@carInfo.Condition</span>
+					</li>
+					<li>
+						<strong>Euro Standard:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1EuroStandardColor : item2EuroStandardColor)">@carInfo.EuroStandard</span>
+					</li>
+					<li>
+						<strong>Fuel Type:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1FuelTypeColor : item2FuelTypeColor)">@carInfo.FuelType</span>
+					</li>
+					<li>
+						<strong>Colour:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1ColourColor : item2ColourColor)">@carInfo.Colour</span>
+					</li>
+					<li>
+						<strong>Transmission:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1TransmissionColor : item2TransmissionColor)">@carInfo.Transmition</span>
+					</li>
+					<li>
+						<strong>Drive Train:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1DriveTrainColor : item2DriveTrainColor)">@carInfo.DriveTrain</span>
+					</li>
+					<li>
+						<strong>Weight:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1WeightColor : item2WeightColor)">@carInfo.Weight KG</span>
+					</li>
+
+					<li>
+						<strong>Mileage:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1MileageColor : item2MileageColor)">@carInfo.Mileage KM</span>
+					</li>
+					<li>
+						<strong>Body Type:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1BodyTypeColor : item2BodyTypeColor)">@carInfo.BodyType</span>
+					</li>
+					<li>
+						<strong>Manufacturer:</strong>
+						<span style="color: @(carInfo == Model.Item1 ? item1ManufacturerColor : item2ManufacturerColor)">@carInfo.Manufacturer</span>
+					</li>
+					<li><strong>Country:</strong> @carInfo.Address.CountryName</li>
+					<li><strong>Town:</strong> @carInfo.Address.TownName</li>
+					<li><strong>Street:</strong> @carInfo.Address.StreetName</li>
+					<li><strong>Owner:</strong> @carInfo.FirstName @carInfo.LastName</li>
+					<li><strong>Created On:</strong> @carInfo.CreatedOn</li>
+				</ul>
+			</div>
+		</article>
+	}
+</section>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/Ad/Ad.js" asp-append-version="true"></script>
+	<script>
+		var currentIndex = [0, 0]; // Initialize current index for each car
+		var imageUrls = [@Html.Raw(Json.Serialize(Model.Item1.ImageUrls)), @Html.Raw(Json.Serialize(Model.Item2.ImageUrls))];
+
+		function changeImage(carId, step) {
+			var index = carId === '@Model.Item1.CarId' ? 0 : 1; // Determine the index of the car
+
+			currentIndex[index] += step; // Update current index
+
+			// Ensure the index stays within bounds
+			if (currentIndex[index] < 0) {
+				currentIndex[index] = imageUrls[index].length - 1;
+			} else if (currentIndex[index] >= imageUrls[index].length) {
+				currentIndex[index] = 0;
+			}
+
+			var imageUrl = '@Url.Content("~/Images/Ad/")' + imageUrls[index][currentIndex[index]]; // Get the URL of the current image
+
+			$(".image-holder img").eq(index).fadeTo(200, 0, function () {
+				$(this).attr("src", imageUrl).fadeTo(200, 1);
+			});
+		}
+
+	</script>
+}
+

@@ -27,9 +27,17 @@
 				{
 					<!-- Display content for non-owner -->
 					<form asp-area="" asp-controller="Ad" asp-action="Buy" asp-route-carId="@Model.CarId" method="post">
-						<button type="submit" class="buy-button" onclick="logCarId()">BUY</button>
+						<button type="submit" class="buy-button">BUY</button>
 					</form>
 				}
+
+				<form asp-area="" asp-controller="Ad" asp-action="Index" method="get">
+					<input type="hidden" name="firstCarId" value="@Model.CarId" />
+					<input type="hidden" name="compareClicked" value="true" />
+					<button type="submit" class="compare-button">COMPARE</button>
+				</form>
+
+
 
 				<div class="car-information">
 				<li><strong>Year:</strong> @Model.Year</li>

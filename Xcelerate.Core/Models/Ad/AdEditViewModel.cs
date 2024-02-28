@@ -3,7 +3,5 @@
 	public class AdEditViewModel : AdCreateViewModel
 	{
 		public int CarId { get; set; }
-
-		public bool KeepExistingImages { get; set; } = false;
     }
 }

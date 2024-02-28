@@ -17,9 +17,21 @@ namespace Xcelerate.Controllers
 			_accessoriesService = accessoriesServiceContext;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int firstCarId, bool compareClicked = false, bool isSubmited = false)
 		{
+			ViewBag.FirstCarId = firstCarId;
+
 			var cars = await _adService.GetCarsPreviewAsync();
+
+			if (compareClicked == true)
+			{
+				TempData["CompareButtonClicked"] = true;
+			}
+
+			if (isSubmited == true)
+			{
+				TempData["AdCreatedSuccesfully"] = true;
+			}
 
 			return View(cars);
 		}
@@ -62,7 +74,7 @@ namespace Xcelerate.Controllers
 
 		//[ValidateAntiForgeryToken]
 		[HttpPost]
-		public async Task<IActionResult> Create(AdCreateViewModel adViewModel)
+		public async Task<IActionResult> Create(AdCreateViewModel adViewModel, bool isSubmited)
 		{
 			Guid userId = User.GetUserId();
 
@@ -145,6 +157,23 @@ namespace Xcelerate.Controllers
 
 			return RedirectToAction("Index", "UserCars");
 
+		}
+
+		public async Task<IActionResult> Compare(int firstCarId, int secondCarId)
+		{
+			try
+			{
+				var (firstCar, secondCar) = await _adService.GetTwoCarsByIdAsync(firstCarId, secondCarId);
+
+				// Optionally, you can map these cars to view models if needed
+
+				return View((firstCar, secondCar));
+			}
+			catch (ArgumentException ex)
+			{
+				// Handle error (e.g., car not found) appropriately
+				return RedirectToAction("Error", "Home");
+			}
 		}
 	}
 }

@@ -91,7 +91,18 @@ else
 					</ul>
 					<footer class="bottom-text">
 						<i>
-							<a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-carId="@ad.CarId">View</a>
+							@if (TempData["CompareButtonClicked"] != null && (bool)TempData["CompareButtonClicked"])
+							{
+								<form asp-area="" asp-controller="Ad" asp-action="Compare" method="get">
+									<input type="hidden" name="firstCarId" value="@ViewBag.FirstCarId" />
+									<input type="hidden" name="secondCarId" value="@ad.CarId" />
+									<button type="submit" class="compare-button">Compare</button>
+								</form>
+							}
+							else
+							{
+								<a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-carId="@ad.CarId">View</a>
+							}
 						</i>
 					</footer>
 				</div>
@@ -100,23 +111,20 @@ else
 	</section>
 }
 
-@if (ViewBag.AdCreatedSuccessfully != null && (bool)ViewBag.AdCreatedSuccessfully)
+@if (TempData["AdCreatedSuccesfully"] != null && (bool)TempData["AdCreatedSuccesfully"])
 {
+
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<script>
-		$(document).ready(function () {
-			Swal.fire({
-				icon: 'success',
-				title: 'Your ad has been created successfully!',
-				showConfirmButton: false,
-				timer: 1500
-			});
+		Swal.fire({
+			icon: 'success',
+			title: 'message',
+			text: 'text',
 		});
 	</script>
 }
-else
-{
-	<p>deeez nuts</p>
-}
+
+
+
 
