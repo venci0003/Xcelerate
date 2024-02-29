@@ -113,18 +113,32 @@ else
 
 @if (TempData["AdCreatedSuccesfully"] != null && (bool)TempData["AdCreatedSuccesfully"])
 {
-
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<script>
 		Swal.fire({
 			icon: 'success',
-			title: 'message',
-			text: 'text',
+			title: 'Ad created!',
+			text: 'You have succesfully created an ad!',
 		});
 	</script>
+	@TempData.Remove("AdCreatedSuccesfully");
 }
 
+@if (TempData.ContainsKey("CompareError") && (bool)TempData["CompareError"])
+{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		Swal.fire({
+			icon: 'error',
+			title: 'Compare error!',
+			text: 'Can\'t compare the same car!',
+			showConfirmButton: false,
+			timer: 3000
+		});
+	</script>
+	@TempData.Remove("CompareError")
+}
 
 
 

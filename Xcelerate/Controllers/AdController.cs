@@ -17,7 +17,7 @@ namespace Xcelerate.Controllers
 			_accessoriesService = accessoriesServiceContext;
 		}
 
-		public async Task<IActionResult> Index(int firstCarId, bool compareClicked = false, bool isSubmited = false)
+		public async Task<IActionResult> Index(int firstCarId, bool compareClicked = false)
 		{
 			ViewBag.FirstCarId = firstCarId;
 
@@ -26,11 +26,6 @@ namespace Xcelerate.Controllers
 			if (compareClicked == true)
 			{
 				TempData["CompareButtonClicked"] = true;
-			}
-
-			if (isSubmited == true)
-			{
-				TempData["AdCreatedSuccesfully"] = true;
 			}
 
 			return View(cars);
@@ -74,11 +69,13 @@ namespace Xcelerate.Controllers
 
 		//[ValidateAntiForgeryToken]
 		[HttpPost]
-		public async Task<IActionResult> Create(AdCreateViewModel adViewModel, bool isSubmited)
+		public async Task<IActionResult> Create(AdCreateViewModel adViewModel)
 		{
 			Guid userId = User.GetUserId();
 
 			await _adService.CreateAdAsync(adViewModel, userId.ToString());
+
+			TempData["AdCreatedSuccesfully"] = true;
 
 			return RedirectToAction("Index", "Ad");
 		}
@@ -126,13 +123,9 @@ namespace Xcelerate.Controllers
 		public async Task<IActionResult> Delete(int? carId)
 		{
 
-			/*var deletedAd =*/
 			await _adService.DeleteCarAdAsync(carId);
 
-			//if (deletedAd)
-			//{
-			//	return "message";
-			//}
+			TempData["DeleteMessage"] = true;
 
 			return RedirectToAction("UserAds", "Ad");
 
@@ -164,6 +157,12 @@ namespace Xcelerate.Controllers
 			try
 			{
 				var (firstCar, secondCar) = await _adService.GetTwoCarsByIdAsync(firstCarId, secondCarId);
+
+				if (firstCar.CarId == secondCar.CarId)
+				{
+					TempData["CompareError"] = true;
+					return RedirectToAction("Index", "Ad");
+				}
 
 				// Optionally, you can map these cars to view models if needed
 

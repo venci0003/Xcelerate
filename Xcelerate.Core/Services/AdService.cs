@@ -158,8 +158,6 @@ namespace Xcelerate.Core.Services
 				}
 
 				await _dbContext.SaveChangesAsync();
-
-				//TempData[SuccessMessage] = DefaultErrorMessage;
 			}
 			catch (Exception)
 			{

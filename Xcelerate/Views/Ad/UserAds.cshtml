@@ -60,3 +60,18 @@ else
 		</article>
 	</section>
 }
+
+@if (TempData["DeleteMessage"] != null && (bool)TempData["DeleteMessage"])
+{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: 'Ad deleted!',
+			text: 'You have succesfully deleted an ad!',
+		});
+	</script>
+	@TempData.Remove("DeleteMessage")
+	;
+}
