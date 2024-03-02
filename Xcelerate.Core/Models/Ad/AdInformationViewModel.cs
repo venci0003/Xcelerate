@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Xcelerate.Core.Models.Review;
 using Xcelerate.Infrastructure.Data.Enums;
 
 namespace Xcelerate.Core.Models.Ad
@@ -17,6 +18,8 @@ namespace Xcelerate.Core.Models.Ad
 		[Comment("LastName")]
 		public string LastName { get; set; } = null!;
 		public int CarId { get; set; }
+
+		public int AdId { get; set; }
 		public List<string> ImageUrls { get; set; } = new List<string>();
 
 		public List<IFormFile> UploadedImages { get; set; } = new List<IFormFile>();

@@ -49,6 +49,7 @@ svg {
     margin-top: 0px;
     margin-bottom: 0px;
 }
+
 .card-content {
     display: flex;
     padding: 0px 60px 0px 60px;
@@ -229,9 +230,8 @@ input {
 .checkbox-list {
     overflow-y: scroll;
     max-height: 500px;
-    position:absolute;
-    left:170px;
-
+    position: absolute;
+    left: 170px;
 }
 
 select {
@@ -246,8 +246,20 @@ select {
 /* Style for the options within the select element */
 option {
     background-color: #f0f0f0;
-    color: #333;
+    color: white;
     font-weight: bold;
     background: none;
     background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
 }
+
+
+select:focus {
+    background-color:  rgb(41, 40, 40);
+}
+
+    select:focus > option:checked {
+        background: #000 !important;
+    }
+
+
+   

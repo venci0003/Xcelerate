@@ -31,6 +31,8 @@ builder.Services.AddScoped<IAccessoriesService, AccessoriesService>();
 
 builder.Services.AddScoped<IUserCarsService, UserCarsService>();
 
+builder.Services.AddScoped<IReviewService, ReviewService>();
+
 builder.Services.Configure<IISServerOptions>(options =>
 {
 	options.AllowSynchronousIO = true;

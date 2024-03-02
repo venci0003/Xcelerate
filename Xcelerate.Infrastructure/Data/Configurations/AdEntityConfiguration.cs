@@ -35,7 +35,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adOne = new Ad()
             {
-                Id = 1,
+                AdId = 1,
                 CarId = 1, // Assuming CarId corresponds to the first car in your collection
                 UserId = Guid.Parse("9ABB04A0-36A0-4A35-8C1A-34D324AA169E"), // Assuming UserId corresponds to the first user in your collection
                 CarDescription = "The 2020 Toyota Camry TRD is a sporty, performance-oriented version of the long-standing mid-size sedan1." +
@@ -46,7 +46,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adTwo = new Ad()
             {
-                Id = 2,
+				AdId = 2,
                 CarId = 2, // Assuming CarId corresponds to the second car in your collection
                 UserId = Guid.Parse("2CC5DA14-F51C-4B51-96B3-0C296C2EE8DC"), // Assuming UserId corresponds to the second user in your collection
                 CarDescription = "The 2021 Honda Civic Type R Limited Edition is a high-performance, four-door hatchback that stands out in its class1. Despite its bold and somewhat juvenile bodywork, it offers a transformative driving experience, volcanic acceleration, and is entirely practical for daily use1.\r\n\r\nThe car is powered by a 306-hp turbocharged four-cylinder engine and a six-speed manual transmission, making it one of the quickest sport compacts1. Honda has managed to virtually eliminate the dreaded torque steer that plagues powerful front-drive cars, providing talkative steering, tremendous cornering grip, and a ride that’s surprisingly smooth",
@@ -55,7 +55,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adThree = new Ad()
             {
-                Id = 3,
+				AdId = 3,
                 CarId = 3, // Assuming CarId corresponds to the third car in your collection
                 UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6"), // Assuming UserId corresponds to the third user in your collection
                 CarDescription = "The 2020 Ford Mustang Shelby GT350R is a powerful, high-strung muscle car designed to rock race tracks while still being at home on the street." +
@@ -66,7 +66,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adFour = new Ad()
             {
-                Id = 4,
+				AdId = 4,
                 CarId = 4, // Assuming CarId corresponds to the fourth car in your collection
                 UserId = Guid.Parse("495CC255-9E57-40E1-A4DE-B1ADBFDBC0FC"), // Assuming UserId corresponds to the fourth user in your collection
                 CarDescription = "The 2020 Volkswagen Golf TSI is a compact hatchback that offers a blend of performance, comfort, and practicality1. It’s powered by a 1.4L Turbo Inline-4 Gas engine that produces 147 horsepower at 5000 rpm and 184 lb-ft of torque at 1400 rpm" +
@@ -77,7 +77,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adFive = new Ad()
             {
-                Id = 5,
+				AdId = 5,
                 CarId = 5, // Assuming CarId corresponds to the fifth car in your collection
                 UserId = Guid.Parse("B0B378DD-78AA-4884-AFA7-7EC6626C9CDF"), // Assuming UserId corresponds to the fifth user in your collection
                 CarDescription = "The 2022 Mercedes-Benz C-Class is a luxury sedan that has been fully redesigned for the year." +
@@ -87,7 +87,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adSix = new Ad()
             {
-                Id = 6,
+				AdId = 6,
                 CarId = 6, // Assuming CarId corresponds to the sixth car in your collection
                 UserId = Guid.Parse("9173EFB3-6DC6-4C27-8D1A-555107353AEA"), // Assuming UserId corresponds to the sixth user in your collection
                 CarDescription = "The 2022 Audi S3 is a compact luxury sedan that has been fully redesigned for the year." +
@@ -99,7 +99,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adSeven = new Ad()
             {
-                Id = 7,
+				AdId = 7,
                 CarId = 7, // Assuming CarId corresponds to the seventh car in your collection
                 UserId = Guid.Parse("0C106D5A-7440-44DD-B8D3-3C1B7ACA8020"), // Assuming UserId corresponds to the seventh user in your collection
                 CarDescription = "The 2022 Infiniti QX80 is a large, three-row, luxury SUV." +
@@ -112,7 +112,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adEight = new Ad()
             {
-                Id = 8,
+				AdId = 8,
                 CarId = 8, // Assuming CarId corresponds to the eighth car in your collection
                 UserId = Guid.Parse("B4D7DDAD-411E-4FE8-A7D9-C2638F376F1C"), // Assuming UserId corresponds to the eighth user in your collection
                 CarDescription = "The 2021 Hyundai Elantra is a compact sedan that has been redesigned with modern exterior and interior styling, and more advanced technology features" +
@@ -126,7 +126,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adNine = new Ad()
             {
-                Id = 9,
+				AdId = 9,
                 CarId = 9, // Assuming CarId corresponds to the ninth car in your collection
                 UserId = Guid.Parse("B13EDF51-1FF3-46D7-BF4C-C55CAAC1A7C0"), // Assuming UserId corresponds to the ninth user in your collection
                 CarDescription = "The 2022 BMW M3 is a high-performance sedan that offers thrilling powertrains and a satisfying manual gearbox" +
@@ -140,7 +140,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 
             Ad adTen = new Ad()
             {
-                Id = 10,
+				AdId = 10,
                 CarId = 10, // Assuming CarId corresponds to the tenth car in your collection
                 UserId = Guid.Parse("1B6F6E67-5ADF-4F78-A74E-27B02430C709"), // Assuming UserId corresponds to the tenth user in your collection
                 CarDescription = "The 2021 Nissan Rogue is a compact SUV that has been redesigned with modern exterior and interior styling, and more advanced technology features." +

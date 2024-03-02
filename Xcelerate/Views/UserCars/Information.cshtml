@@ -60,17 +60,6 @@
 
 </section>
 
-
-@functions
-{
-	void DisplayAccessoryProperty(string propertyName, bool propertyValue)
-	{
-		<li>
-			<strong>@propertyName</strong>: @(propertyValue ? "Yes" : "No")
-		</li>
-	}
-}
-
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 	<script src="~/js/Ad/Ad.js" asp-append-version="true"></script>

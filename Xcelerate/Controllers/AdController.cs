@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Extension;
@@ -6,6 +7,7 @@ using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Controllers
 {
+	[Authorize]
 	public class AdController : Controller
 	{
 		private readonly IAdService _adService;

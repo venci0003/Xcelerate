@@ -47,7 +47,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 1, // Assuming you have an Engine with EngineId = 1
 				Condition = ConditionEnum.Used,
-				EuroStandard = EuroStandardEnum.EuroFour,
+				EuroStandard = EuroStandardEnum.Four,
 				FuelType = FuelTypeEnum.Petrol,
 				Colour = ColourEnum.White,
 				Transmition = TransmitionEnum.Automatic,
@@ -71,7 +71,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 2, // Assuming you have an Engine with EngineId = 2
 				Condition = ConditionEnum.BrandNew,
-				EuroStandard = EuroStandardEnum.EuroSix,
+				EuroStandard = EuroStandardEnum.Six,
 				FuelType = FuelTypeEnum.Petrol,
 				Colour = ColourEnum.Yellow,
 				Transmition = TransmitionEnum.Manual,
@@ -95,7 +95,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 3, // Assuming you have an Engine with EngineId = 3
 				Condition = ConditionEnum.Used,
-				EuroStandard = EuroStandardEnum.EuroSix,
+				EuroStandard = EuroStandardEnum.Six,
 				FuelType = FuelTypeEnum.Petrol,
 				Colour = ColourEnum.White,
 				Transmition = TransmitionEnum.Automatic,
@@ -119,7 +119,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 4, // Assuming you have an Engine with EngineId = 4
 				Condition = ConditionEnum.Used,
-				EuroStandard = EuroStandardEnum.EuroFive,
+				EuroStandard = EuroStandardEnum.Five,
 				FuelType = FuelTypeEnum.Petrol,
 				Colour = ColourEnum.White,
 				Transmition = TransmitionEnum.Manual,
@@ -145,7 +145,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 5, // Assuming you have an Engine with EngineId = 5
 				Condition = ConditionEnum.BrandNew,
-				EuroStandard = EuroStandardEnum.EuroSix,
+				EuroStandard = EuroStandardEnum.Six,
 				FuelType = FuelTypeEnum.Petrol,
 				Colour = ColourEnum.White,
 				Transmition = TransmitionEnum.Automatic,
@@ -169,7 +169,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 6, // Assuming you have an Engine with EngineId = 6
 				Condition = ConditionEnum.Used,
-				EuroStandard = EuroStandardEnum.EuroSix,
+				EuroStandard = EuroStandardEnum.Six,
 				FuelType = FuelTypeEnum.Diesel,
 				Colour = ColourEnum.Red,
 				Transmition = TransmitionEnum.Automatic,
@@ -193,7 +193,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 7, // Assuming you have an Engine with EngineId = 7
 				Condition = ConditionEnum.Used,
-				EuroStandard = EuroStandardEnum.EuroSix,
+				EuroStandard = EuroStandardEnum.Two,
 				FuelType = FuelTypeEnum.Petrol,
 				Colour = ColourEnum.Brown,
 				Transmition = TransmitionEnum.Automatic,
@@ -217,7 +217,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 8, // Assuming you have an Engine with EngineId = 8
 				Condition = ConditionEnum.BrandNew,
-				EuroStandard = EuroStandardEnum.EuroSix,
+				EuroStandard = EuroStandardEnum.Five,
 				FuelType = FuelTypeEnum.Petrol,
 				Colour = ColourEnum.White,
 				Transmition = TransmitionEnum.Automatic,
@@ -241,7 +241,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 9, // Assuming you have an Engine with EngineId = 9
 				Condition = ConditionEnum.Used,
-				EuroStandard = EuroStandardEnum.EuroThree,
+				EuroStandard = EuroStandardEnum.One,
 				FuelType = FuelTypeEnum.Diesel,
 				Colour = ColourEnum.SlateGray,
 				Transmition = TransmitionEnum.Automatic,
@@ -265,7 +265,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				IsForSale = true,
 				EngineId = 10, // Assuming you have an Engine with EngineId = 10
 				Condition = ConditionEnum.Used,
-				EuroStandard = EuroStandardEnum.EuroSix,
+				EuroStandard = EuroStandardEnum.Four,
 				FuelType = FuelTypeEnum.Diesel,
 				Colour = ColourEnum.Red,
 				Transmition = TransmitionEnum.Automatic,

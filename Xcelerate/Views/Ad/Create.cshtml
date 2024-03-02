@@ -98,9 +98,12 @@
 			<div class="form-input">
 				<label asp-for="@Model.Year">Year</label>
 				<select name="Year" asp-for="@Model.Year" id="form-input">
-					@for (int year = 1900; year <= 2099; year++)
-					{
-						<option value="@year">@year</option>
+					@{
+						int currentYear = DateTime.Now.Year;
+						for (int year = currentYear; year >= 1900; year--)
+						{
+							<option value="@year">@year</option>
+						}
 					}
 				</select>
 				<span asp-validation-for="@Model.Year" class="text-danger"></span>

@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Diagnostics;
-using Xcelerate.Core.Models.Account;
-using Xcelerate.Infrastructure.Data.Models;
 using Xcelerate.Models;
 
 namespace Xcelerate.Controllers
 {
+	[AllowAnonymous]
     public class HomeController : Controller
     {	
 

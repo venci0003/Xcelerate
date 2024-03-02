@@ -1,20 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Xcelerate.Infrastructure.Data.Models
 {
-    public class Ad
+	public class Ad
     {
         [Key]
         [Required]
         [Comment("Id")]
-        public int Id { get; set; }
+        public int AdId { get; set; }
 
         [Required]
         [ForeignKey(nameof(Car))]

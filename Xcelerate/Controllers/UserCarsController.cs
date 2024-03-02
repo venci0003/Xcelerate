@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.UserCars;
@@ -6,6 +7,7 @@ using Xcelerate.Extension;
 
 namespace Xcelerate.Controllers
 {
+	[Authorize]
 	public class UserCarsController : Controller
 	{
 		private readonly IUserCarsService _userCarsService;

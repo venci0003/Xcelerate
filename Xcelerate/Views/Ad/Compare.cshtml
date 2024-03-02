@@ -40,8 +40,9 @@
 						var item1ConditionColor = string.Equals(Model.Item1.Condition, Model.Item2.Condition) ? "inherit" : (string.Equals(carInfo.Condition, Model.Item1.Condition) ? "blue" : "midnightblue");
 						var item2ConditionColor = string.Equals(Model.Item1.Condition, Model.Item2.Condition) ? "inherit" : (string.Equals(carInfo.Condition, Model.Item2.Condition) ? "midnightblue" : "blue");
 
-						var item1EuroStandardColor = string.Equals(Model.Item1.EuroStandard, Model.Item2.EuroStandard) ? "inherit" : (string.Equals(carInfo.EuroStandard, Model.Item1.EuroStandard)? "blue" : "midnightblue");;
-						var item2EuroStandardColor = string.Equals(Model.Item1.EuroStandard, Model.Item2.EuroStandard) ? "inherit" : (string.Equals(carInfo.EuroStandard, Model.Item2.EuroStandard)? "midnightblue" : "blue");;
+						var item1EuroStandardColor = (int)Model.Item1.EuroStandard > (int)Model.Item2.EuroStandard ? "green" : ((int)Model.Item1.EuroStandard < (int)Model.Item2.EuroStandard ? "red" : "inherit");
+						var item2EuroStandardColor = (int)Model.Item2.EuroStandard > (int)Model.Item1.EuroStandard ? "green" : ((int)Model.Item2.EuroStandard < (int)Model.Item1.EuroStandard ? "red" : "inherit");
+
 
 						var item1FuelTypeColor = string.Equals(Model.Item1.FuelType, Model.Item2.FuelType) ? "inherit" : (string.Equals(carInfo.FuelType, Model.Item1.FuelType) ? "blue" : "midnightblue");
 						var item2FuelTypeColor = string.Equals(Model.Item1.FuelType, Model.Item2.FuelType) ? "inherit" : (string.Equals(carInfo.FuelType, Model.Item2.FuelType) ? "midnightblue" : "blue");

@@ -57,7 +57,7 @@ body {
     color: rgba(203, 32, 36, 255);
 }
 
-.hostel-home-card {
+.car-information-card {
     margin-top: 70px;
     border-radius: 20px 20px 0px 0px;
     background-color: rgb(255, 255, 255);
@@ -70,7 +70,7 @@ body {
     border-radius: 20px 20px 0px 0px;
 }
 
-.hostel-home-card {
+.car-information-card {
     display: flex;
     flex-direction: column;
     height: 1950px;
@@ -90,7 +90,7 @@ body {
     margin: 0px auto;
 }
 
-.hostel-home-card p {
+.car-information-card p {
     margin: 0px auto;
     padding: 25px;
     width: 440px;
@@ -124,7 +124,7 @@ body {
     }
 
 
-.hostel-home-card p i {
+.car-information-card p i {
     color: white;
     font-size: 15px;
     text-align: center;
@@ -171,10 +171,17 @@ body {
         cursor: pointer;
         opacity: 0.8; /* Reduce opacity on hover for visual feedback */
     }
+
 .compare-button {
     top: 930px;
-    width:240px;
-    left:1120px;
+    width: 240px;
+    left: 1120px;
+}
+
+review-button {
+    position: absolute;
+    top: 1730px;
+    left:800px
 }
 
 .car-information {

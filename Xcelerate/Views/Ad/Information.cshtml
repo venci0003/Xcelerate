@@ -3,7 +3,7 @@
 
 <section class="card-holder" asp-action="Information">
 
-	<article class="hostel-home-card">
+	<article class="car-information-card">
 		<div class="image-holder">
 			@{
 				int currentIndex = 0;
@@ -82,21 +82,17 @@
 			<h2 class="article-title">Description</h2>
 			<p>@Model.CarDescription</p>
 		</section>
+		<section>
+			<form asp-area="" asp-controller="Review" asp-action="Index" method="get">
+				<input type="hidden" name="adId" value="@Model.AdId" />
+				<button type="submit" class="review-button">VIEW REVIEWS</button>
+			</form>
+
+		</section>
 		</div>
 	</article>
 
 </section>
-
-
-@functions
-{
-	void DisplayAccessoryProperty(string propertyName, bool propertyValue)
-	{
-		<li>
-			<strong>@propertyName</strong>: @(propertyValue ? "Yes" : "No")
-		</li>
-	}
-}
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />

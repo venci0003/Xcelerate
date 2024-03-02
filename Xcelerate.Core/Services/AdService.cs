@@ -51,6 +51,7 @@ namespace Xcelerate.Core.Services
 				Model = car.Model,
 				Year = car.Year,
 				CarId = car.CarId,
+				AdId = car.AdId,
 				Engine = car.Engine.Model,
 				HorsePower = car.Engine.Horsepower,
 				Condition = car.Condition,
@@ -457,12 +458,12 @@ namespace Xcelerate.Core.Services
 
 		public async Task<bool> BuyCarAsync(Car car)
 		{
-			var adToRemove = await _dbContext.Ads.FirstOrDefaultAsync(a => a.Id == car.AdId);
+			var adToRemove = await _dbContext.Ads.FirstOrDefaultAsync(a => a.AdId == car.AdId);
 
 			if (adToRemove != null)
 			{
 				// Remove associated reviews
-				var reviewsToRemove = _dbContext.Reviews.Where(r => r.AdId == adToRemove.Id);
+				var reviewsToRemove = _dbContext.Reviews.Where(r => r.AdId == adToRemove.AdId);
 				_dbContext.Reviews.RemoveRange(reviewsToRemove);
 
 				// Now remove the ad
