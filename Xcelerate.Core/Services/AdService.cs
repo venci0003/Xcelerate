@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
+using Xcelerate.Core.Models.Review;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
 using static Xcelerate.Common.EntityValidation;
@@ -24,6 +25,7 @@ namespace Xcelerate.Core.Services
 			IEnumerable<AdPreviewViewModel> cars = await _dbContext.Cars.Where(c => c.IsForSale == true).Select(car => new AdPreviewViewModel
 			{
 				CarId = car.CarId,
+				AdId = car.AdId,
 				ImageUrls = car.Images.Select(car => car.ImageUrl).ToList(),
 				Brand = car.Brand,
 				Model = car.Model,
@@ -51,7 +53,6 @@ namespace Xcelerate.Core.Services
 				Model = car.Model,
 				Year = car.Year,
 				CarId = car.CarId,
-				AdId = car.AdId,
 				Engine = car.Engine.Model,
 				HorsePower = car.Engine.Horsepower,
 				Condition = car.Condition,

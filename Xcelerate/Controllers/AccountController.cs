@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Caching.Memory;
 using Xcelerate.Core.Models.Account;
 using Xcelerate.Core.Models.Account.UserProfile;
 using Xcelerate.Extension;

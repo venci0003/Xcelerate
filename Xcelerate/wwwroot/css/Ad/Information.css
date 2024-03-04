@@ -73,10 +73,43 @@ body {
 .car-information-card {
     display: flex;
     flex-direction: column;
-    height: 1950px;
+    height: auto;
     width: 1000px;
     margin-top: 50px;
     margin-bottom: 140px;
+}
+
+.description-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    border-bottom: 1px solid black;
+    padding: 10px 20px;
+    width: 420px;
+    margin: 0px auto;
+}
+
+.car-description {
+    margin: 0px auto 190px auto;
+    padding: 25px;
+    width: 440px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 22px;
+}
+
+.accessories-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    border-bottom: 1px solid black;
+    padding: 10px 20px;
+    width: 420px;
+    margin: 0px auto;
 }
 
 .article-title {
@@ -90,15 +123,37 @@ body {
     margin: 0px auto;
 }
 
-.car-information-card p {
-    margin: 0px auto;
-    padding: 25px;
-    width: 440px;
-    height: 100px;
+.list-car-ad-reviews {
+    margin-left: 25%;
+    overflow-y: scroll;
+    height: 255px;
+    width: 400px;
+}
+
+.star-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.review-comment {
+    width: 385px;
+    height: auto;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+.review-section {
+    padding: 70px 30px 0px 30px;
+}
+
+.reviews-title {
     display: flex;
     justify-content: center;
-    text-align: center;
-    font-size: 22px;
+    align-items: center;
+    font-size: 34px;
+    border-bottom: 1px solid black;
+    width: 420px;
+    margin: 10px 270px 0px auto;
 }
 
 .bottom-text {
@@ -178,10 +233,10 @@ body {
     left: 1120px;
 }
 
-review-button {
+.review-button {
     position: absolute;
     top: 1730px;
-    left:800px
+    left: 800px
 }
 
 .car-information {
@@ -209,36 +264,33 @@ review-button {
     margin-top: 25px;
     margin-left: 425px;
 }
-
 /* Next & previous buttons */
-.prev, .next {
+.image-buttons .prev, .next {
     cursor: pointer;
-    position: absolute;
-    top: 50%;
+    position: relative;
     width: 10px;
     margin-top: -130px;
     padding: 16px;
     color: white;
     font-weight: bold;
     font-size: 18px;
+    bottom: 300px;
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
     background-color: rgba(0,0,0,0.4);
 }
 
-/* Position the "next button" to the right */
-.next {
+.image-buttons .next {
     right: 0;
     border-radius: 3px 0 0 3px;
-    left: 1412px;
+    left: 913px;
     background-color: rgba(0,0,0,0.4);
 }
 
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover, .next:hover {
-        background-color: rgba(0,0,0,0.8);
-    }
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
 
 
 

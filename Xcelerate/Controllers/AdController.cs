@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
+using Xcelerate.Core.Models.Review;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data.Models;
 
@@ -12,13 +13,16 @@ namespace Xcelerate.Controllers
 	{
 		private readonly IAdService _adService;
 		private readonly IAccessoriesService _accessoriesService;
+		private readonly IReviewService _reviewService;
 
-		public AdController(IAdService adServiceContext, IAccessoriesService accessoriesServiceContext)
+		public AdController(IAdService adServiceContext, IAccessoriesService accessoriesServiceContext, IReviewService reviewServiceContext)
 		{
 			_adService = adServiceContext;
 			_accessoriesService = accessoriesServiceContext;
+			_reviewService = reviewServiceContext;
 		}
 
+		[AllowAnonymous]
 		public async Task<IActionResult> Index(int firstCarId, bool compareClicked = false)
 		{
 			ViewBag.FirstCarId = firstCarId;
@@ -34,7 +38,7 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Information(int? carId)
+		public async Task<IActionResult> Information(int? carId, int adId)
 		{
 			ViewBag.UserId = User.GetUserId();
 
@@ -56,6 +60,10 @@ namespace Xcelerate.Controllers
 			{
 				return NotFound();
 			}
+
+			var carReviews = await _reviewService.GetUserReviewsAsync(adId);
+
+			car.Reviews = carReviews;
 
 			car.Accessories = carAccessories;
 

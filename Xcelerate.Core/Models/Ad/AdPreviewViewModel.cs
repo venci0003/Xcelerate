@@ -9,6 +9,9 @@ namespace Xcelerate.Core.Models.Ad
 		[Required]
 		public int CarId { get; set; }
 
+		public int AdId { get; set; }
+
+
 		[Required]
 		public string Brand { get; set; } = null!;
 

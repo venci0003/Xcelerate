@@ -10,8 +10,10 @@
 			}
 			<img src="~/Images/Ad/@Model.ImageUrls[currentIndex]" alt="First image of the car ad" id="carImage" class="image-transition" fade />
 		</div>
-		<a class="prev" onclick="changeImage(-1)">&#10094;</a>
-		<a class="next" onclick="changeImage(1)">&#10095;</a>
+		<div class="image-buttons">
+			<a class="prev" onclick="changeImage(-1)">&#10094;</a>
+			<a class="next" onclick="changeImage(1)">&#10095;</a>
+		</div>
 		<h2 class="article-title">@Model.Brand @Model.Model</h2>
 		<div class="card-text">
 			<ul class="list-information-car">
@@ -62,7 +64,7 @@
 		</div>
 		</ul>
 		<section>
-			<h2 class="article-title">Accessories</h2>
+			<h2 class="accessories-title">Accessories</h2>
 			<button class="toggle-accessories-button" onclick="toggleAccessories()">Show More</button>
 
 
@@ -79,17 +81,36 @@
 
 		</section>
 		<section>
-			<h2 class="article-title">Description</h2>
-			<p>@Model.CarDescription</p>
+			<h2 class="description-title">Description</h2>
+			<p class="car-description">@Model.CarDescription</p>
 		</section>
-		<section>
-			<form asp-area="" asp-controller="Review" asp-action="Index" method="get">
-				<input type="hidden" name="adId" value="@Model.AdId" />
-				<button type="submit" class="review-button">VIEW REVIEWS</button>
-			</form>
-
+		<section class="review-section">
+			<h2 class="reviews-title">Reviews</h2>
+			<ul class="list-car-ad-reviews">
+					@{
+						foreach (var review in Model.Reviews)
+						{
+						<li>
+							<strong>
+									@review.FirstName @review.LastName @for (int i = 0; i < review.StarsCount; i++)
+									{
+									<img class="star-icon" src="~/Icons/icons8-rating-90.png" alt="Star icon" />
+									}
+							</strong>
+						</li>
+						<li class="review-comment">
+								@review.Comment
+						</li>
+						}
+					}
+				<form asp-area="" asp-controller="Review" asp-action="Add" method="post">
+					<textarea name="Comment" placeholder="Your comment" required></textarea><br>
+					<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required><br>
+					<button type="submit">POST</button>
+				</form>
+			</ul>
 		</section>
-		</div>
+		
 	</article>
 
 </section>
