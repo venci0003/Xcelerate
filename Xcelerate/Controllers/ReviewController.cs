@@ -15,13 +15,14 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Add(ReviewViewModel reviewViewModel)
+		public async Task<IActionResult> Add(ReviewViewModel reviewViewModel, int adId , int carId)
 		{
 			Guid userId = User.GetUserId();
 
-			await _reviewService.CreateReviewAsync(reviewViewModel, userId.ToString());
+			await _reviewService.CreateReviewAsync(reviewViewModel, userId.ToString(), adId);
 
-			return RedirectToAction("Information", "Ad");
+			return RedirectToAction("Information", "Ad", new { carId = carId, adId = adId });
+
 		}
 	}
 }

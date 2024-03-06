@@ -35,6 +35,9 @@
 							<form asp-area="" asp-controller="Ad" asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
 								<button type="submit" class="delete-button">Delete</button>
 							</form>
+							<form asp-area="" asp-controller="UserCars" asp-action="Cancel" asp-route-carId="@ad.CarId" asp-route-adId="@ad.AdId" method="post">
+								<button type="submit" class="cancel-button">Cancel</button>
+							</form>
 						</i>
 					</footer>
 				</div>

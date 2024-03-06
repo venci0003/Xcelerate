@@ -47,7 +47,7 @@ namespace Xcelerate.Controllers
 				return NotFound();
 			}
 
-			AdInformationViewModel car = await _adService.GetCarsInformationAsync(carId);
+			AdInformationViewModel car = await _adService.GetCarsInformationAsync(adId);
 
 			if (car == null)
 			{

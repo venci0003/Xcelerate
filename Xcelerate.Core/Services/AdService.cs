@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
-using Xcelerate.Core.Models.Review;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
 using static Xcelerate.Common.EntityValidation;
@@ -22,69 +21,84 @@ namespace Xcelerate.Core.Services
 		}
 		public async Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync()
 		{
-			IEnumerable<AdPreviewViewModel> cars = await _dbContext.Cars.Where(c => c.IsForSale == true).Select(car => new AdPreviewViewModel
-			{
-				CarId = car.CarId,
-				AdId = car.AdId,
-				ImageUrls = car.Images.Select(car => car.ImageUrl).ToList(),
-				Brand = car.Brand,
-				Model = car.Model,
-				Year = car.Year,
-				Engine = car.Engine.Model,
-				HorsePower = car.Engine.Horsepower,
-				Condition = car.Condition,
-				EuroStandard = car.EuroStandard,
-				FuelType = car.FuelType,
-				Price = car.Price,
-				FirstName = car.User.FirstName,
-				LastName = car.User.LastName,
-				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString()
-			}).ToListAsync();
+			IEnumerable<AdPreviewViewModel> carAds = await _dbContext.Ads
+				.Include(a => a.Car)
+				.Include(a => a.User)
+				.Where(a => a.Car.IsForSale)
+				.Select(ad => new AdPreviewViewModel
+				{
+					CarId = ad.Car.CarId,
+					AdId = ad.AdId,
+					ImageUrls = ad.Car.Images.Select(image => image.ImageUrl).ToList(),
+					Brand = ad.Car.Brand,
+					Model = ad.Car.Model,
+					Year = ad.Car.Year,
+					Engine = ad.Car.Engine.Model,
+					HorsePower = ad.Car.Engine.Horsepower,
+					Condition = ad.Car.Condition,
+					EuroStandard = ad.Car.EuroStandard,
+					FuelType = ad.Car.FuelType,
+					Price = ad.Car.Price,
+					FirstName = ad.User.FirstName,
+					LastName = ad.User.LastName,
+					CreatedOn = DateTime.ParseExact(ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString()
+				})
+				.ToListAsync();
 
-			return cars;
+			return carAds;
 		}
 
-		public async Task<AdInformationViewModel> GetCarsInformationAsync(int? carId)
+		public async Task<AdInformationViewModel> GetCarsInformationAsync(int? adId)
 		{
-			AdInformationViewModel? car = await _dbContext.Cars.Where(c => c.CarId == carId && c.IsForSale == true).Select(car => new AdInformationViewModel
-			{
-				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
-				Brand = car.Brand,
-				Model = car.Model,
-				Year = car.Year,
-				CarId = car.CarId,
-				Engine = car.Engine.Model,
-				HorsePower = car.Engine.Horsepower,
-				Condition = car.Condition,
-				EuroStandard = car.EuroStandard,
-				FuelType = car.FuelType,
-				Colour = car.Colour,
-				Transmition = car.Transmition,
-				DriveTrain = car.DriveTrain,
-				Weight = car.Weight,
-				Mileage = car.Mileage,
-				Price = car.Price,
-				BodyType = car.BodyType,
-				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
-				FirstName = car.User.FirstName,
-				LastName = car.User.LastName,
-				UserId = car.UserId,
-				Manufacturer = car.Manufacturer.Name,
-				Address = new AddressViewModel
-				{
-					CountryName = car.Address.CountryName,
-					TownName = car.Address.TownName,
-					StreetName = car.Address.StreetName,
-				},
-				CarDescription = car.Ad.CarDescription
-			}).FirstOrDefaultAsync();
+			var ad = await _dbContext.Ads
+	.Include(ad => ad.Car)
+		.ThenInclude(car => car.Images)
+	.Include(ad => ad.Car.Engine)
+	.Include(ad => ad.Car.Manufacturer)
+	.Include(ad => ad.Car.Address)
+	.Include(ad => ad.User)
+	.Where(ad => ad.AdId == adId)
+	.Select(ad => new AdInformationViewModel
+	{
+		ImageUrls = ad.Car.Images.Select(image => image.ImageUrl).ToList(),
+		Brand = ad.Car.Brand,
+		Model = ad.Car.Model,
+		Year = ad.Car.Year,
+		AdId = ad.AdId,
+		CarId = ad.CarId,
+		Engine = ad.Car.Engine.Model,
+		HorsePower = ad.Car.Engine.Horsepower,
+		Condition = ad.Car.Condition,
+		EuroStandard = ad.Car.EuroStandard,
+		FuelType = ad.Car.FuelType,
+		Colour = ad.Car.Colour,
+		Transmition = ad.Car.Transmition,
+		DriveTrain = ad.Car.DriveTrain,
+		Weight = ad.Car.Weight,
+		Mileage = ad.Car.Mileage,
+		Price = ad.Car.Price,
+		BodyType = ad.Car.BodyType,
+		CreatedOn = DateTime.ParseExact(ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
+		FirstName = ad.User.FirstName,
+		LastName = ad.User.LastName,
+		UserId = ad.UserId,
+		Manufacturer = ad.Car.Manufacturer.Name,
+		Address = new AddressViewModel
+		{
+			CountryName = ad.Car.Address.CountryName,
+			TownName = ad.Car.Address.TownName,
+			StreetName = ad.Car.Address.StreetName,
+		},
+		CarDescription = ad.CarDescription
+	})
+	.FirstOrDefaultAsync();
 
-			if (car == null)
+			if (ad == null)
 			{
 				return null;
 			}
 
-			return car;
+			return ad;
 		}
 		public async Task CreateAdAsync(AdCreateViewModel adViewModel, string userId)
 		{
@@ -174,6 +188,7 @@ namespace Xcelerate.Core.Services
 		.Where(ad => ad.UserId == userId && ad.Car.IsForSale == true)
 		.Select(car => new UserAdsViewModel
 		{
+			AdId = car.AdId,
 			CarId = car.CarId,
 			ImageUrls = car.Car.Images.Select(car => car.ImageUrl).ToList(),
 			Brand = car.Car.Brand,
@@ -565,7 +580,7 @@ namespace Xcelerate.Core.Services
 					StreetName = car.Address.StreetName,
 				},
 				CarDescription = car.Ad.CarDescription
-			}).FirstOrDefaultAsync(); 
+			}).FirstOrDefaultAsync();
 
 
 			if (firstCarDataModel == null || secondCarDataModel == null)

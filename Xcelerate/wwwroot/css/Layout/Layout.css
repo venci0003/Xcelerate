@@ -85,15 +85,16 @@ button {
     border-radius: 50px;
     transition: 0s ease-in-out;
     display: inline-flex;
-    position: absolute;
+  /*  position: absolute;*/
     direction: rtl;
-    right: 0; /* Adjust this value as needed */
+    /*right: 0;*/ /* Adjust this value as needed */
     height: 50px;
     width: 50px;
-    right: 1000px;
+   /* right: 1000px;*/
     margin-top: 5px;
     margin-left: auto;
-    margin-right: calc(50vw - 1505px);
+    margin-right:5px;
+/*    margin-right: calc(50vw - 1505px);*/
     transition: width .5s;
 }
 
@@ -158,15 +159,16 @@ button {
     border-radius: 50px;
     transition: 0s ease-in-out;
     display: inline-flex;
-    position: absolute;
+   /* position: absolute;*/
     direction: rtl;
-    right: 0; /* Adjust this value as needed */
+    /*right: 0;*/ /* Adjust this value as needed */
     height: 50px;
     width: 50px;
-    right: 1000px;
+ /*   right: 1000px;*/
     margin-top: 5px;
     margin-left: auto;
-    margin-right: calc(50vw - 1505px);
+    margin-right:6px;
+ /*   margin-right: calc(50vw - 1505px);*/
     transition: width .5s;
 }
 
@@ -247,6 +249,10 @@ button {
 .nav-bar {
     position: fixed;
     z-index: 5;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #ul-list-unauthorized {
@@ -255,6 +261,7 @@ button {
     padding: 15px;
     border-radius: 50px;
     width: 40px;
+    height:40px;
     margin-top: 5px;
     margin-left: 6px;
     transition: 0s ease-in-out;

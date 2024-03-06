@@ -21,7 +21,7 @@
 				@if (ViewBag.UserId != null && ViewBag.UserId == Model.UserId)
 				{
 					<!-- Display content for the owner -->
-					<form asp-area="" asp-controller="UserCars" asp-action="Cancel" asp-route-carId="@Model.CarId" method="post">
+					<form asp-area="" asp-controller="UserCars" asp-action="Cancel" asp-route-carId="@Model.CarId" asp-route-adId="@Model.AdId" method="post">
 						<button type="submit" class="cancel-button">Cancel Ad</button>
 					</form>
 				}
@@ -103,9 +103,10 @@
 						</li>
 						}
 					}
-				<form asp-area="" asp-controller="Review" asp-action="Add" method="post">
+				<form asp-area="" asp-controller="Review" asp-action="Add" asp-route-carId="@Model.CarId" method="post">
 					<textarea name="Comment" placeholder="Your comment" required></textarea><br>
 					<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required><br>
+					<input type="hidden" name="AdId" value="@Model.AdId" />
 					<button type="submit">POST</button>
 				</form>
 			</ul>

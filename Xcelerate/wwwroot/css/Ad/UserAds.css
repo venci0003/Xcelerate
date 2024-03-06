@@ -92,7 +92,7 @@ body {
     border-radius: 25px;
     text-decoration: none;
     position: absolute;
-    left: 90px;
+    left: 30px;
 }
 
 .delete-button {
@@ -105,8 +105,28 @@ body {
     border-radius: 25px;
     text-decoration: none;
     position: absolute;
-    left: 285px;
+    left: 335px;
 }
+
+.cancel-button {
+    height: 35%;
+    width: 35%;
+    color: white;
+    font-size: 10px;
+    padding: 12px 38px;
+    background-color: red;
+    border-radius: 25px;
+    text-decoration: none;
+    position: absolute;
+    font-size: 30px;
+    left: 155px;
+}
+
+
+    .cancel-button:hover {
+        cursor: pointer;
+        opacity: 0.8; /* Reduce opacity on hover for visual feedback */
+    }
 
 
 

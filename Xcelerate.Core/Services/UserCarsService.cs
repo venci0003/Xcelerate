@@ -1,11 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.UserCars;
@@ -50,7 +44,7 @@ namespace Xcelerate.Core.Services
 					Mileage = car.Mileage,
 					Price = car.Price,
 					BodyType = car.BodyType,
-					
+
 					FirstName = car.User.FirstName,
 					LastName = car.User.LastName,
 					Manufacturer = car.Manufacturer.Name,
@@ -140,7 +134,8 @@ namespace Xcelerate.Core.Services
 					CountryName = car.Address.CountryName,
 					TownName = car.Address.TownName,
 					StreetName = car.Address.StreetName,
-				}
+				},
+				CarDescription = car?.Ad?.CarDescription,
 			};
 
 			List<AccessoryViewModel> accessories = await _dbContext.Accessories
@@ -156,7 +151,7 @@ namespace Xcelerate.Core.Services
 			return adViewModel;
 		}
 
-		public async Task<bool> SellCarAsync(UserCarsSellViewModel adViewModel)
+		public async Task<bool> SellCarAsync(UserCarsSellViewModel adViewModel, string userId)
 		{
 			try
 			{
@@ -173,6 +168,18 @@ namespace Xcelerate.Core.Services
 				{
 					throw new ArgumentException("Car not found!");
 				}
+
+				if (car.Ad == null)
+				{
+					car.Ad = new Ad
+					{
+						UserId = Guid.Parse(userId),
+						CarDescription = adViewModel.CarDescription,
+						CreatedOn = adViewModel.CreatedOn.ToString(AdEntity.CreatedOnDateFormat)
+					};
+				}
+
+
 
 				// Update the properties of the existing car entity based on the ViewModel
 				car.Brand = adViewModel.Brand;
@@ -260,6 +267,8 @@ namespace Xcelerate.Core.Services
 					}
 				}
 
+				_dbContext.Ads.Add(car.Ad);
+
 				await _dbContext.SaveChangesAsync();
 
 				return true;
@@ -271,20 +280,45 @@ namespace Xcelerate.Core.Services
 			}
 		}
 
-		public async Task<bool> CancelSellAdAsync(int? carId)
+		public async Task<Car> GetCarByIdAsync(int carId)
 		{
-			var carAdToRemove = await _dbContext.Cars.FirstOrDefaultAsync(c => c.CarId == carId);
+			var carToFind = await _dbContext.Cars
+				.FirstOrDefaultAsync(c => c.CarId == carId);
 
-			if (carAdToRemove == null)
+			if (carToFind == null)
 			{
-				throw new ArgumentException("An error occurred removing the ad.");
+				throw new ArgumentException("Car not found!");
 			}
 
-			carAdToRemove.IsForSale = false;
+			carToFind.IsForSale = false;
 
-			await _dbContext.SaveChangesAsync();
+			return carToFind;
+		}
 
-			return true;
+		public async Task<bool> CancelSellAdAsync(Car car, int adId)
+		{
+			var adToRemove = await _dbContext.Ads.FirstOrDefaultAsync(a => a.AdId == adId);
+
+			if (adToRemove != null)
+			{
+				// Remove associated reviews
+				var reviewsToRemove = _dbContext.Reviews.Where(r => r.AdId == adToRemove.AdId);
+				_dbContext.Reviews.RemoveRange(reviewsToRemove);
+
+				// Now remove the ad
+				_dbContext.Ads.Remove(adToRemove);
+
+				// Update the car
+				_dbContext.Cars.Update(car);
+
+				await _dbContext.SaveChangesAsync();
+				return true;
+			}
+			else
+			{
+				// Handle the case where the associated ad is not found
+				return false;
+			}
 		}
 	}
 }

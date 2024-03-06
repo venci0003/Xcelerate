@@ -16,13 +16,13 @@ namespace Xcelerate.Core.Services
 			_dbContext = context;
 		}
 
-		public async Task CreateReviewAsync(ReviewViewModel reviewModel, string userId)
+		public async Task CreateReviewAsync(ReviewViewModel reviewModel, string userId, int adId)
 		{
 			try
 			{
 				var newReview = new Review
 				{
-					AdId = reviewModel.AdId,
+					AdId = adId,
 					UserId = Guid.Parse(userId),
 					Comment = reviewModel.Comment,
 					StarsCount = reviewModel.StarsCount,
@@ -39,9 +39,9 @@ namespace Xcelerate.Core.Services
 
 		}
 
-		public async Task<List<ReviewViewModel>> GetUserReviewsAsync(int adId)
+		public async Task<List<UsersReviewsViewModel>> GetUserReviewsAsync(int adId)
 		{
-			List<ReviewViewModel> reviews = await _dbContext.Reviews.Where(a => a.AdId == adId).Select(review => new ReviewViewModel
+			List<UsersReviewsViewModel> reviews = await _dbContext.Reviews.Where(a => a.AdId == adId).Select(review => new UsersReviewsViewModel
 			{
 				CarId = review.Ad.CarId,
 				FirstName = review.User.FirstName,

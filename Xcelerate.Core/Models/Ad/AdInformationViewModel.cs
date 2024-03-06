@@ -17,6 +17,8 @@ namespace Xcelerate.Core.Models.Ad
 		[Required]
 		[Comment("LastName")]
 		public string LastName { get; set; } = null!;
+
+		public int AdId { get; set; }
 		public int CarId { get; set; }
 		public List<string> ImageUrls { get; set; } = new List<string>();
 
@@ -24,7 +26,7 @@ namespace Xcelerate.Core.Models.Ad
 
 		public List<AccessoryViewModel> Accessories { get; set; } = new List<AccessoryViewModel>();
 
-		public List<ReviewViewModel> Reviews { get; set; } = new List<ReviewViewModel>();
+		public List<UsersReviewsViewModel> Reviews { get; set; } = new List<UsersReviewsViewModel>();
 
 		public List<int> SelectedCheckBoxId { get; set; } = new List<int>();
 

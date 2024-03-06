@@ -4,6 +4,7 @@ using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.UserCars;
 using Xcelerate.Extension;
+using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Controllers
 {
@@ -12,11 +13,13 @@ namespace Xcelerate.Controllers
 	{
 		private readonly IUserCarsService _userCarsService;
 		private readonly IAccessoriesService _accessoriesService;
+		private readonly IAdService _adService;
 
-		public UserCarsController(IUserCarsService _userCarsServiceContext, IAccessoriesService accessoriesServiceContext)
+		public UserCarsController(IUserCarsService _userCarsServiceContext, IAccessoriesService accessoriesServiceContext, IAdService _adServiceContext)
 		{
 			_userCarsService = _userCarsServiceContext;
 			_accessoriesService = accessoriesServiceContext;
+			_adService = _adServiceContext;
 		}
 
 		public async Task<IActionResult> Index()
@@ -74,20 +77,25 @@ namespace Xcelerate.Controllers
 		//[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Sell(UserCarsSellViewModel adViewModel)
 		{
-			/*var adEdit =*/
-			await _userCarsService.SellCarAsync(adViewModel);
+			Guid userId = User.GetUserId();
 
-			//if (adEdit)
-			//{
-			//	return "message";
-			//}
+			await _userCarsService.SellCarAsync(adViewModel, userId.ToString());
 
 			return RedirectToAction("Index", "Ad");
 		}
 
-		public async Task<IActionResult> Cancel(int carId)
+		public async Task<IActionResult> Cancel(int carId, int adId)
 		{
-			await _userCarsService.CancelSellAdAsync(carId);
+
+			Car adToCancel = await _adService.GetCarByIdAsync(carId);
+
+			if (adToCancel == null)
+			{
+				return NotFound();
+			}
+
+			//CancelCarAsync
+			await _userCarsService.CancelSellAdAsync(adToCancel, adId);
 
 			return RedirectToAction("Index", "UserCars");
 		}

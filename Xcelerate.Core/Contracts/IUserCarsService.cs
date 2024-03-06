@@ -1,4 +1,5 @@
 ﻿using Xcelerate.Core.Models.UserCars;
+using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Core.Contracts
 {
@@ -10,9 +11,9 @@ namespace Xcelerate.Core.Contracts
 
 		public Task<UserCarsSellViewModel> GetSellInformationForCarAsync(int? carId);
 
-		public Task<bool> SellCarAsync(UserCarsSellViewModel adViewModel);
+		public Task<bool> SellCarAsync(UserCarsSellViewModel adViewModel, string userId);
 
-		public Task<bool> CancelSellAdAsync(int? carId);
+		public Task<bool> CancelSellAdAsync(Car car, int adId);
 
 		//public Task<Car> GetCarByIdAsync(int carId);
 	}
