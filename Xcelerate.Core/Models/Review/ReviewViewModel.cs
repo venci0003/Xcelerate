@@ -11,6 +11,6 @@ namespace Xcelerate.Core.Models.Review
 		[Required]
 		public int StarsCount { get; set; }
 
-
+		public int ReviewId { get; set; }
 	}
 }

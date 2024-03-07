@@ -24,5 +24,14 @@ namespace Xcelerate.Controllers
 			return RedirectToAction("Information", "Ad", new { carId = carId, adId = adId });
 
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(int reviewId, int adId , int carId)
+		{
+			await _reviewService.DeleteReviewAsync(reviewId);
+
+			return RedirectToAction("Information", "Ad", new { carId = carId, adId = adId });
+
+		}
 	}
 }

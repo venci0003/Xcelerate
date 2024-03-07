@@ -39,11 +39,27 @@ namespace Xcelerate.Core.Services
 
 		}
 
+		public async Task<bool> DeleteReviewAsync(int? reviewId)
+		{
+			var reviewToDelete = await _dbContext.Reviews.FirstOrDefaultAsync(r => r.ReviewId == reviewId);
+
+			if (reviewToDelete != null)
+			{
+				_dbContext.Reviews.Remove(reviewToDelete);
+				await _dbContext.SaveChangesAsync();
+				return true;
+			}
+
+			return false;
+		}
+
 		public async Task<List<UsersReviewsViewModel>> GetUserReviewsAsync(int adId)
 		{
 			List<UsersReviewsViewModel> reviews = await _dbContext.Reviews.Where(a => a.AdId == adId).Select(review => new UsersReviewsViewModel
 			{
 				CarId = review.Ad.CarId,
+				UserId = review.UserId,
+				ReviewId = review.ReviewId,
 				FirstName = review.User.FirstName,
 				LastName = review.User.LastName,
 				Comment = review.Comment,

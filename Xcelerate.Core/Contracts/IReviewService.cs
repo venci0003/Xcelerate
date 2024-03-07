@@ -7,5 +7,7 @@ namespace Xcelerate.Core.Contracts
 		public Task<List<UsersReviewsViewModel>> GetUserReviewsAsync(int adId);
 
 		public Task CreateReviewAsync(ReviewViewModel reviewModel, string userId, int adId);
+
+		public Task<bool> DeleteReviewAsync(int? reviewId);
 	}
 }

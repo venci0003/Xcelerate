@@ -96,6 +96,21 @@
 									{
 									<img class="star-icon" src="~/Icons/icons8-rating-90.png" alt="Star icon" />
 									}
+									@if (ViewBag.UserId != null && ViewBag.UserId == review.UserId)
+									{
+									<div class="edit-and-delete-container">
+										<a href="#" class="edit-icon-link">
+											<img class="edit-icon" src="~/Icons/icons8-edit-120.png" alt="Edit icon">
+										</a>
+										<form asp-area="" asp-controller="Review" asp-action="Delete" asp-route-carId="@Model.CarId" method="post">
+											<input type="hidden" name="ReviewId" value="@review.ReviewId" />
+											<input type="hidden" name="AdId" value="@Model.AdId" />
+											<button type="submit" class="delete-icon-link">
+												<img class="delete-icon" src="~/Icons/icons8-garbage-can-65.png" alt="Delete icon">
+											</button>
+										</form>
+									</div>
+									}
 							</strong>
 						</li>
 						<li class="review-comment">
@@ -111,7 +126,7 @@
 				</form>
 			</ul>
 		</section>
-		
+
 	</article>
 
 </section>
