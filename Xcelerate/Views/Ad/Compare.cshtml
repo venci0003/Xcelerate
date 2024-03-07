@@ -34,8 +34,8 @@
 						var item1WeightColor = Model.Item1.Weight > Model.Item2.Weight ? "red" : (Model.Item1.Weight < Model.Item2.Weight ? "green" : "inherit");
 						var item2WeightColor = Model.Item2.Weight > Model.Item1.Weight ? "red" : (Model.Item2.Weight < Model.Item1.Weight ? "green" : "inherit");
 
-						var item1MileageColor = Model.Item1.Mileage > Model.Item2.Mileage ? "green" : (Model.Item1.Mileage < Model.Item2.Mileage ? "red" : "inherit");
-						var item2MileageColor = Model.Item2.Mileage > Model.Item1.Mileage ? "green" : (Model.Item2.Mileage < Model.Item1.Mileage ? "red" : "inherit");
+						var item1MileageColor = Model.Item1.Mileage > Model.Item2.Mileage ? "red" : (Model.Item1.Mileage < Model.Item2.Mileage ? "green" : "inherit");
+						var item2MileageColor = Model.Item2.Mileage > Model.Item1.Mileage ? "red" : (Model.Item2.Mileage < Model.Item1.Mileage ? "green" : "inherit");
 
 						var item1ConditionColor = string.Equals(Model.Item1.Condition, Model.Item2.Condition) ? "inherit" : (string.Equals(carInfo.Condition, Model.Item1.Condition) ? "blue" : "midnightblue");
 						var item2ConditionColor = string.Equals(Model.Item1.Condition, Model.Item2.Condition) ? "inherit" : (string.Equals(carInfo.Condition, Model.Item2.Condition) ? "midnightblue" : "blue");
