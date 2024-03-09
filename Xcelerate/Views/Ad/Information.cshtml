@@ -87,43 +87,44 @@
 		<section class="review-section">
 			<h2 class="reviews-title">Reviews</h2>
 			<ul class="list-car-ad-reviews">
+				<form asp-area="" asp-controller="Review" asp-action="Add" asp-route-carId="@Model.CarId" method="post">
+					<textarea name="Comment" placeholder="Your comment" required></textarea><br>
+					<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required><br>
+					<input type="hidden" name="AdId" value="@Model.AdId" />
+					<button class="post-review-button" type="submit">POST</button>
+				</form>
 					@{
 						foreach (var review in Model.Reviews)
 						{
-						<li>
+						<li class="username-container">
 							<strong>
 									@review.FirstName @review.LastName @for (int i = 0; i < review.StarsCount; i++)
 									{
 									<img class="star-icon" src="~/Icons/icons8-rating-90.png" alt="Star icon" />
 									}
-									@if (ViewBag.UserId != null && ViewBag.UserId == review.UserId)
-									{
-									<div class="edit-and-delete-container">
-										<a href="#" class="edit-icon-link">
-											<img class="edit-icon" src="~/Icons/icons8-edit-120.png" alt="Edit icon">
-										</a>
-										<form asp-area="" asp-controller="Review" asp-action="Delete" asp-route-carId="@Model.CarId" method="post">
-											<input type="hidden" name="ReviewId" value="@review.ReviewId" />
-											<input type="hidden" name="AdId" value="@Model.AdId" />
-											<button type="submit" class="delete-icon-link">
-												<img class="delete-icon" src="~/Icons/icons8-garbage-can-65.png" alt="Delete icon">
-											</button>
-										</form>
-									</div>
-									}
 							</strong>
+								@if (ViewBag.UserId != null && ViewBag.UserId == review.UserId)
+								{
+								<div class="edit-and-delete-container">
+									<form method="post">
+										<a href="#" class="edit-icon-link">
+											<img class="edit-icon" src="~/Icons/icons8-pencil-96.png" alt="Edit icon">
+										</a>
+
+										<input type="hidden" name="ReviewId" value="@review.ReviewId" />
+										<input type="hidden" name="AdId" value="@Model.AdId" />
+										<button asp-area="" asp-controller="Review" asp-action="Delete" asp-route-carId="@Model.CarId" type="submit" class="delete-icon-link">
+											<img class="delete-icon" src="~/Icons/icons8-garbage-can-65.png" alt="Delete icon">
+										</button>
+									</form>
+								</div>
+								}
 						</li>
 						<li class="review-comment">
 								@review.Comment
 						</li>
 						}
 					}
-				<form asp-area="" asp-controller="Review" asp-action="Add" asp-route-carId="@Model.CarId" method="post">
-					<textarea name="Comment" placeholder="Your comment" required></textarea><br>
-					<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required><br>
-					<input type="hidden" name="AdId" value="@Model.AdId" />
-					<button type="submit">POST</button>
-				</form>
 			</ul>
 		</section>
 
@@ -131,12 +132,36 @@
 
 </section>
 
-@section Scripts {
+@* @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 	<script src="~/js/Ad/Ad.js" asp-append-version="true"></script>
 	<script>
 		var currentIndex = 0;
 		var imageUrls = @Html.Raw(Json.Serialize(Model.ImageUrls));
+
+		function changeImage(step) {
+			currentIndex += step;
+
+			if (currentIndex < 0) {
+				currentIndex = imageUrls.length - 1;
+			} else if (currentIndex >= imageUrls.length) {
+				currentIndex = 0;
+			}
+
+			var imageUrl = '@Url.Content("~/Images/Ad/")' + imageUrls[currentIndex];
+			$("#carImage").fadeTo(200, 0, function () {
+				$(this).attr("src", imageUrl).fadeTo(200, 1);
+			});
+		}
+	</script>
+} *@
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/Ad/Ad.js" asp-append-version="true"></script>
+	<script>
+		var currentIndex = 0;
+		var imageUrls = @Json.Serialize(Model.ImageUrls);
 
 		function changeImage(step) {
 			currentIndex += step;

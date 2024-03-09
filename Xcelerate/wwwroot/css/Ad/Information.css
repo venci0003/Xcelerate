@@ -123,6 +123,7 @@ body {
     margin: 0px auto;
 }
 
+
 .list-car-ad-reviews {
     margin-left: 25%;
     overflow-y: scroll;
@@ -130,29 +131,35 @@ body {
     width: 400px;
 }
 
+    .list-car-ad-reviews li strong {
+        display: flex;
+        flex-direction: row;
+    }
+
+.username-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
 .star-icon {
     width: 20px;
     height: 20px;
 }
-
-.edit-and-delete-container {
-    margin-left: 220px;
-    height: 0px;
-    width: 0px;
-}
-
+/*changed*/
 .delete-icon {
     width: 20px;
     height: 20px;
-    position: relative;
-    bottom: 32px;
-    right: 44px;
 }
 
 .delete-icon-link {
     background: none;
     border: none;
     padding: 0;
+    width: 20px;
+    height: 20px;
+    cursor:pointer;
 }
 
 .edit-icon {
@@ -160,11 +167,22 @@ body {
     height: 20px;
 }
 
+.edit-icon-link {
+    text-decoration: none;
+}
+
+.edit-and-delete-container{
+    margin-right:10px;
+}
+
+
+
 .review-comment {
     width: 385px;
     height: auto;
     margin-bottom: 10px;
     word-wrap: break-word;
+    list-style-type: none;
 }
 
 .review-section {

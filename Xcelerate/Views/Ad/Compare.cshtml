@@ -129,7 +129,10 @@
 	<script src="~/js/Ad/Ad.js" asp-append-version="true"></script>
 	<script>
 		var currentIndex = [0, 0]; // Initialize current index for each car
-		var imageUrls = [@Html.Raw(Json.Serialize(Model.Item1.ImageUrls)), @Html.Raw(Json.Serialize(Model.Item2.ImageUrls))];
+		var imageUrls = [
+		@Json.Serialize(Model.Item1.ImageUrls),
+		@Json.Serialize(Model.Item2.ImageUrls)
+				];
 
 		function changeImage(carId, step) {
 			var index = carId === '@Model.Item1.CarId' ? 0 : 1; // Determine the index of the car
@@ -149,7 +152,7 @@
 				$(this).attr("src", imageUrl).fadeTo(200, 1);
 			});
 		}
-
 	</script>
 }
+
 
