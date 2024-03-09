@@ -19,6 +19,20 @@ html {
     }
 }
 
+.image-holder {
+    position: relative;
+    display: inline-block;
+    overflow: hidden; /* Ensure the overflow is hidden to prevent unwanted scrolling */
+}
+
+    .image-holder img {
+        transition: transform 0.3s ease; /* Smooth transition for scaling */
+    }
+
+    .image-holder:hover img {
+        transform: scale(1.5); /* Scale the image to 120% on hover */
+    }
+
 body {
     background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
     animation: gradient 5s ease infinite;
@@ -159,7 +173,7 @@ body {
     padding: 0;
     width: 20px;
     height: 20px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .edit-icon {
@@ -171,11 +185,21 @@ body {
     text-decoration: none;
 }
 
-.edit-and-delete-container{
-    margin-right:10px;
+.edit-and-delete-container {
+    margin-right: 10px;
 }
 
+.post-review-button {
+    width: 100px;
+    border-radius: 10px;
+    position: relative;
+    left: 64px;
+    bottom: 25px;
+    height: 34px;
+}
 
+.price-and-buy-cancel-button {
+}
 
 .review-comment {
     width: 385px;

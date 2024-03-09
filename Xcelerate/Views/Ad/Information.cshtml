@@ -1,6 +1,8 @@
 ﻿@model AdInformationViewModel
 <link rel="stylesheet" href="~/css/Ad/Information.css" asp-append-version="true" />
 
+
+
 <section class="card-holder" asp-action="Information">
 
 	<article class="car-information-card">
@@ -16,145 +18,125 @@
 		</div>
 		<h2 class="article-title">@Model.Brand @Model.Model</h2>
 		<div class="card-text">
-			<ul class="list-information-car">
-				<strong class="price-information">Price: @Model.Price$</strong>
-				@if (ViewBag.UserId != null && ViewBag.UserId == Model.UserId)
-				{
-					<!-- Display content for the owner -->
-					<form asp-area="" asp-controller="UserCars" asp-action="Cancel" asp-route-carId="@Model.CarId" asp-route-adId="@Model.AdId" method="post">
-						<button type="submit" class="cancel-button">Cancel Ad</button>
+			<div class="list-information-car">
+				<div class="price-and-buy-cancel-button">
+					<strong class="price-information">Price: @Model.Price$</strong>
+					@if (ViewBag.UserId != null && ViewBag.UserId == Model.UserId)
+					{
+						<!-- Display content for the owner -->
+						<form asp-area="" asp-controller="UserCars" asp-action="Cancel" asp-route-carId="@Model.CarId" asp-route-adId="@Model.AdId" method="post">
+							<button type="submit" class="cancel-button">Cancel Ad</button>
+						</form>
+					}
+					else
+					{
+						<!-- Display content for non-owner -->
+						<form asp-area="" asp-controller="Ad" asp-action="Buy" asp-route-carId="@Model.CarId" method="post">
+							<button type="submit" class="buy-button">BUY</button>
+						</form>
+					}
+
+					<form asp-area="" asp-controller="Ad" asp-action="Index" method="get">
+						<input type="hidden" name="firstCarId" value="@Model.CarId" />
+						<input type="hidden" name="compareClicked" value="true" />
+						<button type="submit" class="compare-button">COMPARE</button>
 					</form>
-				}
-				else
-				{
-					<!-- Display content for non-owner -->
-					<form asp-area="" asp-controller="Ad" asp-action="Buy" asp-route-carId="@Model.CarId" method="post">
-						<button type="submit" class="buy-button">BUY</button>
-					</form>
-				}
-
-				<form asp-area="" asp-controller="Ad" asp-action="Index" method="get">
-					<input type="hidden" name="firstCarId" value="@Model.CarId" />
-					<input type="hidden" name="compareClicked" value="true" />
-					<button type="submit" class="compare-button">COMPARE</button>
-				</form>
+				</div>
 
 
 
-				<div class="car-information">
-				<li><strong>Year:</strong> @Model.Year</li>
-				<li><strong>Engine:</strong> @Model.Engine</li>
-				<li><strong>HorsePower:</strong> @Model.HorsePower</li>
-				<li><strong>Condition:</strong> @Model.Condition</li>
-				<li><strong>Euro Standard:</strong> @Model.EuroStandard</li>
-				<li><strong>Fuel Type:</strong> @Model.FuelType</li>
-				<li><strong>Colour:</strong> @Model.Colour</li>
-				<li><strong>Transmission:</strong> @Model.Transmition</li>
-				<li><strong>Drive Train:</strong> @Model.DriveTrain</li>
-				<li><strong>Weight:</strong> @Model.Weight KG</li>
-				<li><strong>Mileage:</strong> @Model.Mileage KM</li>
-				<li><strong>Body Type:</strong> @Model.BodyType</li>
-				<li><strong>Manufacturer:</strong> @Model.Manufacturer</li>
-				<li><strong>Country:</strong> @Model.Address.CountryName</li>
-				<li><strong>Town:</strong> @Model.Address.TownName</li>
-				<li><strong>Street:</strong> @Model.Address.StreetName</li>
-				<li><strong>Owner:</strong> @Model.FirstName @Model.LastName</li>
-				<li><strong>Created On:</strong> @Model.CreatedOn</li>
-				<!-- Include necessary properties from Address, Ad, and User entities -->
-		</div>
-		</ul>
-		<section>
-			<h2 class="accessories-title">Accessories</h2>
-			<button class="toggle-accessories-button" onclick="toggleAccessories()">Show More</button>
+				<ul class="car-information">
+					<li><strong>Year:</strong> @Model.Year</li>
+					<li><strong>Engine:</strong> @Model.Engine</li>
+					<li><strong>HorsePower:</strong> @Model.HorsePower</li>
+					<li><strong>Condition:</strong> @Model.Condition</li>
+					<li><strong>Euro Standard:</strong> @Model.EuroStandard</li>
+					<li><strong>Fuel Type:</strong> @Model.FuelType</li>
+					<li><strong>Colour:</strong> @Model.Colour</li>
+					<li><strong>Transmission:</strong> @Model.Transmition</li>
+					<li><strong>Drive Train:</strong> @Model.DriveTrain</li>
+					<li><strong>Weight:</strong> @Model.Weight KG</li>
+					<li><strong>Mileage:</strong> @Model.Mileage KM</li>
+					<li><strong>Body Type:</strong> @Model.BodyType</li>
+					<li><strong>Manufacturer:</strong> @Model.Manufacturer</li>
+					<li><strong>Country:</strong> @Model.Address.CountryName</li>
+					<li><strong>Town:</strong> @Model.Address.TownName</li>
+					<li><strong>Street:</strong> @Model.Address.StreetName</li>
+					<li><strong>Owner:</strong> @Model.FirstName @Model.LastName</li>
+					<li><strong>Created On:</strong> @Model.CreatedOn</li>
+					<!-- Include necessary properties from Address, Ad, and User entities -->
+				</ul>
+
+			</div>
+
+			<section>
+				<h2 class="accessories-title">Accessories</h2>
+				<button class="toggle-accessories-button" onclick="toggleAccessories()">Show More</button>
 
 
-			<ul class="list-information-car-accessories">
+				<ul class="list-information-car-accessories">
 					@{
 						foreach (var accessory in Model.Accessories)
 						{
-						<li>
-							<strong>@accessory.Name</strong>
-						</li>
+							<li>
+								<strong>@accessory.Name</strong>
+							</li>
 						}
 					}
-			</ul>
+				</ul>
 
-		</section>
-		<section>
-			<h2 class="description-title">Description</h2>
-			<p class="car-description">@Model.CarDescription</p>
-		</section>
-		<section class="review-section">
-			<h2 class="reviews-title">Reviews</h2>
-			<ul class="list-car-ad-reviews">
-				<form asp-area="" asp-controller="Review" asp-action="Add" asp-route-carId="@Model.CarId" method="post">
-					<textarea name="Comment" placeholder="Your comment" required></textarea><br>
-					<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required><br>
-					<input type="hidden" name="AdId" value="@Model.AdId" />
-					<button class="post-review-button" type="submit">POST</button>
-				</form>
+			</section>
+			<section>
+				<h2 class="description-title">Description</h2>
+				<p class="car-description">@Model.CarDescription</p>
+			</section>
+			<section class="review-section">
+				<h2 class="reviews-title">Reviews</h2>
+				<ul class="list-car-ad-reviews">
+					<form asp-area="" asp-controller="Review" asp-action="Add" asp-route-carId="@Model.CarId" method="post">
+						<textarea name="Comment" placeholder="Your comment" required></textarea><br>
+						<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required><br>
+						<input type="hidden" name="AdId" value="@Model.AdId" />
+						<button class="post-review-button" type="submit">POST</button>
+					</form>
 					@{
 						foreach (var review in Model.Reviews)
 						{
-						<li class="username-container">
-							<strong>
+							<li class="username-container">
+								<strong>
 									@review.FirstName @review.LastName @for (int i = 0; i < review.StarsCount; i++)
 									{
-									<img class="star-icon" src="~/Icons/icons8-rating-90.png" alt="Star icon" />
+										<img class="star-icon" src="~/Icons/icons8-rating-90.png" alt="Star icon" />
 									}
-							</strong>
+								</strong>
 								@if (ViewBag.UserId != null && ViewBag.UserId == review.UserId)
 								{
-								<div class="edit-and-delete-container">
-									<form method="post">
-										<a href="#" class="edit-icon-link">
-											<img class="edit-icon" src="~/Icons/icons8-pencil-96.png" alt="Edit icon">
-										</a>
+									<div class="edit-and-delete-container">
+										<form method="post">
+											<a href="#" class="edit-icon-link">
+												<img class="edit-icon" src="~/Icons/icons8-edit-120.png" alt="Edit icon">
+											</a>
 
-										<input type="hidden" name="ReviewId" value="@review.ReviewId" />
-										<input type="hidden" name="AdId" value="@Model.AdId" />
-										<button asp-area="" asp-controller="Review" asp-action="Delete" asp-route-carId="@Model.CarId" type="submit" class="delete-icon-link">
-											<img class="delete-icon" src="~/Icons/icons8-garbage-can-65.png" alt="Delete icon">
-										</button>
-									</form>
-								</div>
+											<input type="hidden" name="ReviewId" value="@review.ReviewId" />
+											<input type="hidden" name="AdId" value="@Model.AdId" />
+											<button asp-area="" asp-controller="Review" asp-action="Delete" asp-route-carId="@Model.CarId" type="submit" class="delete-icon-link">
+												<img class="delete-icon" src="~/Icons/icons8-garbage-can-65.png" alt="Delete icon">
+											</button>
+										</form>
+									</div>
 								}
-						</li>
-						<li class="review-comment">
+							</li>
+							<li class="review-comment">
 								@review.Comment
-						</li>
+							</li>
 						}
 					}
-			</ul>
-		</section>
-
+				</ul>
+			</section>
+		</div>
 	</article>
 
 </section>
-
-@* @section Scripts {
-	<partial name="_ValidationScriptsPartial" />
-	<script src="~/js/Ad/Ad.js" asp-append-version="true"></script>
-	<script>
-		var currentIndex = 0;
-		var imageUrls = @Html.Raw(Json.Serialize(Model.ImageUrls));
-
-		function changeImage(step) {
-			currentIndex += step;
-
-			if (currentIndex < 0) {
-				currentIndex = imageUrls.length - 1;
-			} else if (currentIndex >= imageUrls.length) {
-				currentIndex = 0;
-			}
-
-			var imageUrl = '@Url.Content("~/Images/Ad/")' + imageUrls[currentIndex];
-			$("#carImage").fadeTo(200, 0, function () {
-				$(this).attr("src", imageUrl).fadeTo(200, 1);
-			});
-		}
-	</script>
-} *@
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
@@ -177,5 +159,23 @@
 				$(this).attr("src", imageUrl).fadeTo(200, 1);
 			});
 		}
+	</script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			var imageHolder = document.querySelector(".image-holder");
+			var image = imageHolder.querySelector("img");
+
+			imageHolder.addEventListener("mousemove", function (e) {
+				var rect = image.getBoundingClientRect();
+				var mouseX = e.clientX - rect.left; // Mouse X position relative to the image
+				var mouseY = e.clientY - rect.top; // Mouse Y position relative to the image
+
+				var offsetX = (mouseX / rect.width) * 100; // Convert mouse X position to percentage
+				var offsetY = (mouseY / rect.height) * 100; // Convert mouse Y position to percentage
+
+				image.style.transformOrigin = offsetX + "% " + offsetY + "%"; // Set transform origin based on mouse position
+			});
+		});
 	</script>
 }
