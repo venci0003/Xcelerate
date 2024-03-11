@@ -1,0 +1,26 @@
+﻿@model EditReviewViewModel
+<link rel="stylesheet" href="~/css/Review/Edit.css" asp-append-version="true" />
+
+<svg xmlns="http://www.w3.org/2000/svg">
+	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
+
+	<filter id="motion-blur-filter" filterUnits="userSpaceOnUse">
+		<!-- We only want horizontal blurring. x: 100, y: 0 -->
+
+		<feGaussianBlur stdDeviation="100 0"></feGaussianBlur>
+	</filter>
+</svg>
+
+<span class="website-name" filter-content="X">Xcelerate</span>
+
+<div class="centered-form">
+	<form asp-area="" asp-controller="Review" asp-action="Edit" method="post">
+		<input type="hidden" name="ReviewId" value="@Model.ReviewId" /> <!-- Add hidden input for ReviewId -->
+		<textarea name="Comment" placeholder="Your comment" required>@Model.Comment</textarea><br> <!-- Fill textarea with existing comment -->
+		<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required value="@Model.StarsCount"><br> <!-- Fill StarsCount with existing StarsCount -->
+		<input type="hidden" name="AdId" value="@Model.AdId" />
+		<input type="hidden" name="CarId" value="@Model.CarId" />
+		<button class="post-review-button" type="submit">UPDATE</button>
+	</form>
+</div>
+

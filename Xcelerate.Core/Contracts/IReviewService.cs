@@ -1,4 +1,5 @@
-﻿using Xcelerate.Core.Models.Review;
+﻿using Xcelerate.Core.Models.Ad;
+using Xcelerate.Core.Models.Review;
 
 namespace Xcelerate.Core.Contracts
 {
@@ -9,5 +10,9 @@ namespace Xcelerate.Core.Contracts
 		public Task CreateReviewAsync(ReviewViewModel reviewModel, string userId, int adId);
 
 		public Task<bool> DeleteReviewAsync(int? reviewId);
+
+		public Task<EditReviewViewModel> GetEditInformationAsync(int? reviewId , int carId);
+
+		public Task<bool> EditReviewAsync(EditReviewViewModel reviewViewModel);
 	}
 }

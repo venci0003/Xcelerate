@@ -112,10 +112,15 @@
 								@if (ViewBag.UserId != null && ViewBag.UserId == review.UserId)
 								{
 									<div class="edit-and-delete-container">
-										<form method="post">
-											<a href="#" class="edit-icon-link">
-												<img class="edit-icon" src="~/Icons/icons8-edit-120.png" alt="Edit icon">
-											</a>
+										<form class="edit-form" method="get">
+											<button asp-area="" asp-controller="Review" asp-action="Edit" asp-route-carId="@Model.CarId" type="submit" class="edit-icon-link">
+												<img class="edit-icon" src="~/Icons/icons8-pencil-96.png" alt="Edit icon">
+												<input type="hidden" name="ReviewId" value="@review.ReviewId" />
+												<input type="hidden" name="CarId" value="@Model.CarId" />
+												<input type="hidden" name="AdId" value="@Model.AdId" />
+											</button>
+										</form>
+										<form class="delete-form" method="post">
 
 											<input type="hidden" name="ReviewId" value="@review.ReviewId" />
 											<input type="hidden" name="AdId" value="@Model.AdId" />
