@@ -294,10 +294,10 @@ namespace Xcelerate.Core.Services
 				}
 
 				// Update the properties of the existing car entity based on the ViewModel
-				car.Brand = adViewModel.Brand;
-				car.Model = adViewModel.Model;
+				car.Brand = WebUtility.HtmlEncode(adViewModel.Brand);
+				car.Model = WebUtility.HtmlEncode(adViewModel.Model);
 				car.Year = adViewModel.Year;
-				car.Engine.Model = adViewModel.Engine;
+				car.Engine.Model = WebUtility.HtmlEncode(adViewModel.Engine);
 				car.Condition = adViewModel.Condition;
 				car.EuroStandard = adViewModel.EuroStandard;
 				car.FuelType = adViewModel.FuelType;
@@ -308,11 +308,11 @@ namespace Xcelerate.Core.Services
 				car.Mileage = adViewModel.Mileage;
 				car.Price = adViewModel.Price;
 				car.BodyType = adViewModel.BodyType;
-				car.Manufacturer.Name = adViewModel.Manufacturer;
-				car.Ad.CarDescription = adViewModel.CarDescription;
-				car.Address.CountryName = adViewModel.Address.CountryName;
-				car.Address.TownName = adViewModel.Address.TownName;
-				car.Address.StreetName = adViewModel.Address.StreetName;
+				car.Manufacturer.Name = WebUtility.HtmlEncode(adViewModel.Manufacturer);
+				car.Ad.CarDescription = WebUtility.HtmlEncode(adViewModel.CarDescription);
+				car.Address.CountryName = WebUtility.HtmlEncode(adViewModel.Address.CountryName);
+				car.Address.TownName = WebUtility.HtmlEncode(adViewModel.Address.TownName);
+				car.Address.StreetName = WebUtility.HtmlEncode(adViewModel.Address.StreetName);
 
 				// Update CarAccessories
 				var selectedAccessories = adViewModel.SelectedCheckBoxId;
