@@ -238,7 +238,7 @@ namespace Xcelerate.Core.Services
 						using (var stream = new FileStream(oldImagePath, FileMode.Open, FileAccess.ReadWrite))
 						{
 							// Close and dispose of the FileStream before deletion
-							stream.Close();
+							//stream.Close();
 						}
 						System.IO.File.Delete(oldImagePath);
 					}
@@ -255,7 +255,7 @@ namespace Xcelerate.Core.Services
 						var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
 						using (var stream = new FileStream(filePath, FileMode.Create))
 						{
-							image.CopyTo(stream);
+							await image.CopyToAsync(stream);
 						}
 
 						Image imageToCreate = new Image()
@@ -263,7 +263,7 @@ namespace Xcelerate.Core.Services
 							CarId = car.CarId,
 							ImageUrl = uniqueFileName
 						};
-						_dbContext.Images.Add(imageToCreate);
+						await _dbContext.Images.AddAsync(imageToCreate);
 					}
 				}
 

@@ -34,7 +34,7 @@ namespace Xcelerate.Core.Models.Ad
 
 		public string Brand { get; set; } = null!;
 
-		public DateTime CreatedOn { get; set; } = DateTime.Now;
+		public string CreatedOn { get; set; } = null!;
 
 		public bool IsForSale { get; set; }
 

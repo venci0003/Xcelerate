@@ -20,7 +20,6 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 builder.Services.AddControllersWithViews()
 	.AddMvcOptions(options =>
 	{
-		//This filter adds a guid on the forms
 		//options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 		options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
 	});
@@ -65,10 +64,16 @@ builder.Services.ConfigureApplicationCookie(options =>
 	options.ExpireTimeSpan = TimeSpan.FromMinutes(45);
 	options.SlidingExpiration = true;
 
-	//options.LoginPath = "/Identity/Account/Login";
+	options.LoginPath = "/Account/Login";
 	//options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-	//options.LogoutPath = "/Identity/Account/Logout";
+	options.LogoutPath = "/Home/HomePage";
 });
+
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//	.AddCookie(options =>
+//	{
+//		options.LoginPath = "/Account/Login";
+//	});
 
 
 var app = builder.Build();

@@ -20,14 +20,12 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpGet]
-		[AllowAnonymous]
 		public IActionResult Register()
 		{
 			return View(new RegisterViewModel());
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
 		{
 			if (!ModelState.IsValid)
@@ -57,13 +55,11 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpGet]
-		[AllowAnonymous]
 		public IActionResult Login(string returnUrl = "")
 		{
 			return View(new LoginViewModel() { ReturnUrl = returnUrl });
 		}
 		[HttpPost]
-		[AllowAnonymous]
 		public async Task<IActionResult> Login(LoginViewModel loginViewModel)
 		{
 			var user = await userManager.FindByEmailAsync(loginViewModel.Email);

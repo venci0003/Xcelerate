@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Net;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Infrastructure.Data;
@@ -25,6 +26,7 @@ namespace Xcelerate.Core.Services
 				.Include(a => a.Car)
 				.Include(a => a.User)
 				.Where(a => a.Car.IsForSale)
+				.AsNoTracking()
 				.Select(ad => new AdPreviewViewModel
 				{
 					CarId = ad.Car.CarId,
@@ -41,7 +43,7 @@ namespace Xcelerate.Core.Services
 					Price = ad.Car.Price,
 					FirstName = ad.User.FirstName,
 					LastName = ad.User.LastName,
-					CreatedOn = DateTime.ParseExact(ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString()
+					CreatedOn = DateTime.ParseExact(ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString(AdEntity.CreatedOnDateFormat)
 				})
 				.ToListAsync();
 
@@ -58,6 +60,7 @@ namespace Xcelerate.Core.Services
 	.Include(ad => ad.Car.Address)
 	.Include(ad => ad.User)
 	.Where(ad => ad.AdId == adId)
+	.AsNoTracking()
 	.Select(ad => new AdInformationViewModel
 	{
 		ImageUrls = ad.Car.Images.Select(image => image.ImageUrl).ToList(),
@@ -78,7 +81,7 @@ namespace Xcelerate.Core.Services
 		Mileage = ad.Car.Mileage,
 		Price = ad.Car.Price,
 		BodyType = ad.Car.BodyType,
-		CreatedOn = DateTime.ParseExact(ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
+		CreatedOn = DateTime.ParseExact(ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString(AdEntity.CreatedOnDateFormat),
 		FirstName = ad.User.FirstName,
 		LastName = ad.User.LastName,
 		UserId = ad.UserId,
@@ -107,13 +110,13 @@ namespace Xcelerate.Core.Services
 				var car = new Car
 				{
 					UserId = Guid.Parse(userId),
-					Brand = adViewModel.Brand,
-					Model = adViewModel.Model,
+					Brand = WebUtility.HtmlEncode(adViewModel.Brand),
+					Model = WebUtility.HtmlEncode(adViewModel.Model),
 					Year = adViewModel.Year,
 					IsForSale = adViewModel.IsForSale = true,
 					Engine = new Engine
 					{
-						Model = adViewModel.Engine,
+						Model = WebUtility.HtmlEncode(adViewModel.Engine),
 						Horsepower = adViewModel.HorsePower
 					},
 					Condition = adViewModel.Condition,
@@ -130,14 +133,14 @@ namespace Xcelerate.Core.Services
 					Ad = new Ad
 					{
 						UserId = Guid.Parse(userId),
-						CarDescription = adViewModel.CarDescription,
+						CarDescription = WebUtility.HtmlEncode(adViewModel.CarDescription),
 						CreatedOn = adViewModel.CreatedOn.ToString(AdEntity.CreatedOnDateFormat)
 					},
 					Address = new Address
 					{
-						CountryName = adViewModel.Address.CountryName,
-						TownName = adViewModel.Address.TownName,
-						StreetName = adViewModel.Address.StreetName
+						CountryName = WebUtility.HtmlEncode(adViewModel.Address.CountryName),
+						TownName = WebUtility.HtmlEncode(adViewModel.Address.TownName),
+						StreetName = WebUtility.HtmlEncode(adViewModel.Address.StreetName)
 					}
 				};
 
@@ -186,6 +189,7 @@ namespace Xcelerate.Core.Services
 
 			List<UserAdsViewModel> userAds = await _dbContext.Ads
 		.Where(ad => ad.UserId == userId && ad.Car.IsForSale == true)
+		.AsNoTracking()
 		.Select(car => new UserAdsViewModel
 		{
 			AdId = car.AdId,
@@ -354,7 +358,7 @@ namespace Xcelerate.Core.Services
 							var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
 							using (var stream = new FileStream(filePath, FileMode.Create))
 							{
-								image.CopyTo(stream);
+								await image.CopyToAsync(stream);
 							}
 
 							Image imageToCreate = new Image()
@@ -362,7 +366,7 @@ namespace Xcelerate.Core.Services
 								CarId = car.CarId,
 								ImageUrl = uniqueFileName
 							};
-							_dbContext.Images.Add(imageToCreate);
+							await _dbContext.Images.AddAsync(imageToCreate);
 						}
 					}
 				}
@@ -516,7 +520,7 @@ namespace Xcelerate.Core.Services
 
 		public async Task<(AdInformationViewModel firstCar, AdInformationViewModel secondCar)> GetTwoCarsByIdAsync(int firstCarId, int secondCarId)
 		{
-			var firstCarDataModel = await _dbContext.Cars.Where(c => c.CarId == firstCarId).Select(car => new AdInformationViewModel
+			var firstCarDataModel = await _dbContext.Cars.Where(c => c.CarId == firstCarId).AsNoTracking().Select(car => new AdInformationViewModel
 			{
 				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
 				Brand = car.Brand,
@@ -535,7 +539,7 @@ namespace Xcelerate.Core.Services
 				Mileage = car.Mileage,
 				Price = car.Price,
 				BodyType = car.BodyType,
-				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
+				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString(AdEntity.CreatedOnDateFormat),
 				FirstName = car.User.FirstName,
 				LastName = car.User.LastName,
 				UserId = car.UserId,
@@ -568,7 +572,7 @@ namespace Xcelerate.Core.Services
 				Mileage = car.Mileage,
 				Price = car.Price,
 				BodyType = car.BodyType,
-				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture),
+				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString(AdEntity.CreatedOnDateFormat),
 				FirstName = car.User.FirstName,
 				LastName = car.User.LastName,
 				UserId = car.UserId,

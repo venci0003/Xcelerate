@@ -74,7 +74,6 @@ namespace Xcelerate.Controllers
 
 
 		[HttpPost]
-		//[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Sell(UserCarsSellViewModel adViewModel)
 		{
 			Guid userId = User.GetUserId();

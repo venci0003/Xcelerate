@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.Review;
-using Xcelerate.Core.Services;
 using Xcelerate.Extension;
-using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Controllers
 {
@@ -42,7 +39,6 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpPost]
-		[AutoValidateAntiforgeryToken]
 		public async Task<IActionResult> Edit(EditReviewViewModel reviewViewModel, int adId, int carId)
 		{
 			await _reviewService.EditReviewAsync(reviewViewModel);

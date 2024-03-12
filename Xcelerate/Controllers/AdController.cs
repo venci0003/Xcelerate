@@ -38,10 +38,10 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Information(int? carId, int adId)
+		public async Task<IActionResult> Information(int carId, int adId)
 		{
 			ViewBag.UserId = User.GetUserId();
-
+			//fix id
 			if (carId == null)
 			{
 				return NotFound();
@@ -54,7 +54,7 @@ namespace Xcelerate.Controllers
 				return NotFound();
 			}
 
-			List<AccessoryViewModel> carAccessories = await _accessoriesService.GetCarAccessoriesAsync(carId.Value);
+			List<AccessoryViewModel> carAccessories = await _accessoriesService.GetCarAccessoriesAsync(carId);
 
 			if (carAccessories == null)
 			{
@@ -77,7 +77,6 @@ namespace Xcelerate.Controllers
 			return View(adViewModel);
 		}
 
-		//[ValidateAntiForgeryToken]
 		[HttpPost]
 		public async Task<IActionResult> Create(AdCreateViewModel adViewModel)
 		{
@@ -114,21 +113,13 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpPost]
-		//[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(AdEditViewModel adViewModel)
 		{
-			/*var adEdit =*/
 			await _adService.EditCarAdAsync(adViewModel);
-
-			//if (adEdit)
-			//{
-			//	return "message";
-			//}
 
 			return RedirectToAction("Index", "Ad");
 		}
 
-		//[ValidateAntiForgeryToken]
 		[HttpPost]
 		public async Task<IActionResult> Delete(int? carId)
 		{
@@ -144,7 +135,6 @@ namespace Xcelerate.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Buy(int? carId)
 		{
-
 			Guid buyerUserId = User.GetUserId();
 
 			Car carToBuy = await _adService.GetCarByIdAsync(carId.Value);
