@@ -6,7 +6,9 @@ namespace Xcelerate.Core.Contracts
 	{
 		Task<AdCreateViewModel> GetAccessories();
 
-		Task<List<AccessoryViewModel>> GetCarAccessoriesAsync(int carId);
+		Task<List<AccessoryViewModel>> GetCarAccessoriesForSaleAsync(int adId);
+
+		Task<List<AccessoryViewModel>> GetCarAccessoriesForOwnedCarsAsync(int carId);
 
 	}
 }

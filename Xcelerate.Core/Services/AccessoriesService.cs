@@ -35,7 +35,7 @@ namespace Xcelerate.Core.Services
 			return adViewModel;
 		}
 
-		public async Task<List<AccessoryViewModel>> GetCarAccessoriesAsync(int carId)
+		public async Task<List<AccessoryViewModel>> GetCarAccessoriesForOwnedCarsAsync(int carId)
 		{
 			var car = await _dbContext.Cars
 				.Include(c => c.CarAccessories)
@@ -45,6 +45,28 @@ namespace Xcelerate.Core.Services
 			if (car != null)
 			{
 				var accessories = car.CarAccessories.Select(ca => new AccessoryViewModel
+				{
+					AccessoryId = ca.AccessoryId,
+					Name = ca.Accessory.Name
+				}).ToList();
+
+				return accessories;
+			}
+
+			return null;
+		}
+
+		public async Task<List<AccessoryViewModel>> GetCarAccessoriesForSaleAsync(int adId)
+		{
+			var car = await _dbContext.Ads
+					.Include(c => c.Car)
+				.Include(c => c.Car.CarAccessories)
+					.ThenInclude(ca => ca.Accessory)
+				.FirstOrDefaultAsync(c => c.AdId == adId);
+
+			if (car != null)
+			{
+				var accessories = car.Car.CarAccessories.Select(ca => new AccessoryViewModel
 				{
 					AccessoryId = ca.AccessoryId,
 					Name = ca.Accessory.Name

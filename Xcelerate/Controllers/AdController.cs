@@ -38,14 +38,14 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Information(int carId, int adId)
+		public async Task<IActionResult> Information(int adId)
 		{
 			ViewBag.UserId = User.GetUserId();
 			//fix id
-			if (carId == null)
-			{
-				return NotFound();
-			}
+			//if (carId == null)
+			//{
+			//	return NotFound();
+			//}
 
 			AdInformationViewModel car = await _adService.GetCarsInformationAsync(adId);
 
@@ -54,7 +54,7 @@ namespace Xcelerate.Controllers
 				return NotFound();
 			}
 
-			List<AccessoryViewModel> carAccessories = await _accessoriesService.GetCarAccessoriesAsync(carId);
+			List<AccessoryViewModel> carAccessories = await _accessoriesService.GetCarAccessoriesForSaleAsync(adId);
 
 			if (carAccessories == null)
 			{
