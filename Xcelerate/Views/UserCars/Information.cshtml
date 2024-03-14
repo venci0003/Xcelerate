@@ -4,57 +4,62 @@
 
 <section class="card-holder" asp-action="Information">
 
-	<article class="hostel-home-card">
+	<article class="car-information-card">
 		<div class="image-holder">
 			@{
 				int currentIndex = 0;
 			}
 			<img src="~/Images/Ad/@Model.ImageUrls[currentIndex]" alt="First image of the car ad" id="carImage" class="image-transition" fade />
 		</div>
-		<a class="prev" onclick="changeImage(-1)">&#10094;</a>
-		<a class="next" onclick="changeImage(1)">&#10095;</a>
+		<div class="image-buttons">
+			<a class="prev" onclick="changeImage(-1)">&#10094;</a>
+			<a class="next" onclick="changeImage(1)">&#10095;</a>
+		</div>
 		<h2 class="article-title">@Model.Brand @Model.Model</h2>
 		<div class="card-text">
-			<ul class="list-information-car">
-				<strong class="price-information">Price: @Model.Price$</strong>
-				<div class="car-information">
-				<li><strong>Year:</strong> @Model.Year</li>
-				<li><strong>Engine:</strong> @Model.Engine</li>
-				<li><strong>HorsePower:</strong> @Model.HorsePower</li>
-				<li><strong>Condition:</strong> @Model.Condition</li>
-				<li><strong>Euro Standard:</strong> @Model.EuroStandard</li>
-				<li><strong>Fuel Type:</strong> @Model.FuelType</li>
-				<li><strong>Colour:</strong> @Model.Colour</li>
-				<li><strong>Transmission:</strong> @Model.Transmition</li>
-				<li><strong>Drive Train:</strong> @Model.DriveTrain</li>
-				<li><strong>Weight:</strong> @Model.Weight KG</li>
-				<li><strong>Mileage:</strong> @Model.Mileage KM</li>
-				<li><strong>Body Type:</strong> @Model.BodyType</li>
-				<li><strong>Manufacturer:</strong> @Model.Manufacturer</li>
-				<li><strong>Country:</strong> @Model.Address.CountryName</li>
-				<li><strong>Town:</strong> @Model.Address.TownName</li>
-				<li><strong>Street:</strong> @Model.Address.StreetName</li>
-				<li><strong>Owner:</strong> @Model.FirstName @Model.LastName</li>
-				<!-- Include necessary properties from Address, Ad, and User entities -->
-		</div>
-		</ul>
-		<section>
-			<h2 class="article-title">Accessories</h2>
-			<button class="toggle-accessories-button" onclick="toggleAccessories()">Show More</button>
+			<div class="list-information-car">
+				<div class="price-and-buy-cancel-button">
+					<strong class="price-information">Price: @Model.Price$</strong>
+				</div>
+
+				<ul class="car-information">
+					<li><strong>Year:</strong> @Model.Year</li>
+					<li><strong>Engine:</strong> @Model.Engine</li>
+					<li><strong>HorsePower:</strong> @Model.HorsePower</li>
+					<li><strong>Condition:</strong> @Model.Condition</li>
+					<li><strong>Euro Standard:</strong> @Model.EuroStandard</li>
+					<li><strong>Fuel Type:</strong> @Model.FuelType</li>
+					<li><strong>Colour:</strong> @Model.Colour</li>
+					<li><strong>Transmission:</strong> @Model.Transmition</li>
+					<li><strong>Drive Train:</strong> @Model.DriveTrain</li>
+					<li><strong>Weight:</strong> @Model.Weight KG</li>
+					<li><strong>Mileage:</strong> @Model.Mileage KM</li>
+					<li><strong>Body Type:</strong> @Model.BodyType</li>
+					<li><strong>Manufacturer:</strong> @Model.Manufacturer</li>
+					<li><strong>Country:</strong> @Model.Address.CountryName</li>
+					<li><strong>Town:</strong> @Model.Address.TownName</li>
+					<li><strong>Street:</strong> @Model.Address.StreetName</li>
+					<li><strong>Owner:</strong> @Model.FirstName @Model.LastName</li>
+				</ul>
+
+			</div>
+
+			<section>
+				<h2 class="accessories-title">Accessories</h2>
+				<button class="toggle-accessories-button" onclick="toggleAccessories()">Show More</button>
 
 
-			<ul class="list-information-car-accessories">
+				<ul class="list-information-car-accessories">
 					@{
 						foreach (var accessory in Model.Accessories)
 						{
-						<li>
-							<strong>@accessory.Name</strong>
-						</li>
+							<li>
+								<strong>@accessory.Name</strong>
+							</li>
 						}
 					}
-			</ul>
-
-		</section>
+				</ul>
+			</section>			
 		</div>
 	</article>
 
@@ -65,7 +70,7 @@
 	<script src="~/js/Ad/Ad.js" asp-append-version="true"></script>
 	<script>
 		var currentIndex = 0;
-		var imageUrls = @Html.Raw(Json.Serialize(Model.ImageUrls));
+		var imageUrls = @Json.Serialize(Model.ImageUrls);
 
 		function changeImage(step) {
 			currentIndex += step;
@@ -81,5 +86,23 @@
 				$(this).attr("src", imageUrl).fadeTo(200, 1);
 			});
 		}
+	</script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			var imageHolder = document.querySelector(".image-holder");
+			var image = imageHolder.querySelector("img");
+
+			imageHolder.addEventListener("mousemove", function (e) {
+				var rect = image.getBoundingClientRect();
+				var mouseX = e.clientX - rect.left; // Mouse X position relative to the image
+				var mouseY = e.clientY - rect.top; // Mouse Y position relative to the image
+
+				var offsetX = (mouseX / rect.width) * 100; // Convert mouse X position to percentage
+				var offsetY = (mouseY / rect.height) * 100; // Convert mouse Y position to percentage
+
+				image.style.transformOrigin = offsetX + "% " + offsetY + "%"; // Set transform origin based on mouse position
+			});
+		});
 	</script>
 }

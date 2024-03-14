@@ -19,8 +19,22 @@ html {
     }
 }
 
+.image-holder {
+    position: relative;
+    display: inline-block;
+    overflow: hidden; /* Ensure the overflow is hidden to prevent unwanted scrolling */
+}
+
+    .image-holder img {
+        transition: transform 0.3s ease; /* Smooth transition for scaling */
+    }
+
+    .image-holder:hover img {
+        transform: scale(1.5); /* Scale the image to 120% on hover */
+    }
+
 body {
-    background: linear-gradient(-45deg, #00264d, #004080, white, #0073e6);
+    background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
     animation: gradient 5s ease infinite;
     margin: 0px;
     padding: 0px;
@@ -57,7 +71,7 @@ body {
     color: rgba(203, 32, 36, 255);
 }
 
-.hostel-home-card {
+.car-information-card {
     margin-top: 70px;
     border-radius: 20px 20px 0px 0px;
     background-color: rgb(255, 255, 255);
@@ -67,16 +81,49 @@ body {
     width: 1000px;
     height: 600px;
     background-size: cover;
-    border-radius:20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;
 }
 
-.hostel-home-card {
+.car-information-card {
     display: flex;
     flex-direction: column;
-    height: 1950px;
+    height: auto;
     width: 1000px;
     margin-top: 50px;
     margin-bottom: 140px;
+}
+
+.description-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    border-bottom: 1px solid black;
+    padding: 10px 20px;
+    width: 420px;
+    margin: 0px auto;
+}
+
+.car-description {
+    margin: 0px auto 190px auto;
+    padding: 25px;
+    width: 600px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 22px;
+}
+
+.accessories-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    border-bottom: 1px solid black;
+    padding: 10px 20px;
+    width: 420px;
+    margin: 0px auto;
 }
 
 .article-title {
@@ -90,15 +137,103 @@ body {
     margin: 0px auto;
 }
 
-.hostel-home-card p {
-    margin: 0px auto;
-    padding: 25px;
-    width: 440px;
-    height: 100px;
+
+.list-car-ad-reviews {
+    margin-left: 25%;
+    overflow-y: scroll;
+    height: 255px;
+    width: 400px;
+}
+
+    .list-car-ad-reviews li strong {
+        display: flex;
+        flex-direction: row;
+    }
+
+.username-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+.star-icon {
+    width: 20px;
+    height: 20px;
+}
+/*changed*/
+.delete-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.delete-icon-link {
+    background: none;
+    border: none;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.edit-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.edit-icon-link {
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.edit-and-delete-container {
+    margin-right: 10px;
+    display: flex;
+}
+
+.post-review-button {
+    width: 100px;
+    border-radius: 10px;
+    position: relative;
+    left: 64px;
+    bottom: 25px;
+    height: 34px;
+}
+
+.price-and-buy-cancel-button {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-right: 30px;
+}
+
+.review-comment {
+    width: 385px;
+    height: auto;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    list-style-type: none;
+}
+
+.review-section {
+    padding: 70px 30px 0px 30px;
+}
+
+.reviews-title {
     display: flex;
     justify-content: center;
-    text-align: center;
-    font-size: 22px;
+    align-items: center;
+    font-size: 34px;
+    border-bottom: 1px solid black;
+    width: 420px;
+    margin: 10px 270px 0px auto;
 }
 
 .bottom-text {
@@ -124,7 +259,7 @@ body {
     }
 
 
-.hostel-home-card p i {
+.car-information-card p i {
     color: white;
     font-size: 15px;
     text-align: center;
@@ -149,24 +284,45 @@ body {
 
 .price-information {
     font-size: 50px;
-    position: absolute;
     margin-top: 15px;
-    left: 1040px;
 }
 
-.buy-button {
+
+.buy-button, .cancel-button, .compare-button {
     font-size: 35px;
-    position: absolute;
     margin-top: 10px;
-    bottom: 25px;
-    left: 1150px;
     padding: 0px 25px;
     border-radius: 25px;
 }
 
+    .buy-button:hover,
+    .cancel-button:hover,
+    .compare-button:hover {
+        cursor: pointer;
+        opacity: 0.8; /* Reduce opacity on hover for visual feedback */
+    }
+
+.compare-button {
+    top: 930px;
+    width: 240px;
+    left: 1120px;
+}
+
+.review-button {
+    position: absolute;
+    top: 1730px;
+    left: 800px
+}
+
 .car-information {
+    width: 550px;
     margin-top: 10px;
     font-size: 25px;
+}
+
+.list-information-car {
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .list-information-car-accessories {
@@ -175,7 +331,7 @@ body {
     transition: opacity 0.5s ease;
     flex-direction: column;
     align-items: center;
-    margin-right:28px;
+    margin-right: 28px;
 }
 
     .list-information-car-accessories.show-all {
@@ -185,40 +341,38 @@ body {
         opacity: 0;
     }
 
-.toggle-accessories-button{
-    margin-top:25px;
+.toggle-accessories-button {
+    margin-top: 25px;
     margin-left: 425px;
+    margin-bottom: 25px;
 }
-
 /* Next & previous buttons */
-.prev, .next {
+.image-buttons .prev, .next {
     cursor: pointer;
-    position: absolute;
-    top: 50%;
+    position: relative;
     width: 10px;
     margin-top: -130px;
     padding: 16px;
     color: white;
     font-weight: bold;
     font-size: 18px;
+    bottom: 300px;
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
     background-color: rgba(0,0,0,0.4);
 }
 
-/* Position the "next button" to the right */
-.next {
+.image-buttons .next {
     right: 0;
     border-radius: 3px 0 0 3px;
-    left: 1412px;
+    left: 913px;
     background-color: rgba(0,0,0,0.4);
 }
 
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover, .next:hover {
-        background-color: rgba(0,0,0,0.8);
-    }
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
 
 
 

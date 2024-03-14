@@ -47,7 +47,7 @@ namespace Xcelerate.Controllers
 				return NotFound();
 			}
 
-			List<AccessoryViewModel> carAccessories = await _accessoriesService.GetCarAccessoriesAsync(carId.Value);
+			List<AccessoryViewModel> carAccessories = await _accessoriesService.GetCarAccessoriesForOwnedCarsAsync(carId.Value);
 
 			if (carAccessories == null)
 			{
