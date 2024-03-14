@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Services;
+using Xcelerate.Extensions;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
 
@@ -24,13 +25,7 @@ builder.Services.AddControllersWithViews()
 		options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
 	});
 
-builder.Services.AddScoped<IAdService, АdService>();
-
-builder.Services.AddScoped<IAccessoriesService, AccessoriesService>();
-
-builder.Services.AddScoped<IUserCarsService, UserCarsService>();
-
-builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddServices();
 
 builder.Services.Configure<IISServerOptions>(options =>
 {
