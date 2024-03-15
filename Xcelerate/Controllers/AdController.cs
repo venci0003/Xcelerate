@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
+using Xcelerate.Core.Models.Car;
+using Xcelerate.Core.Models.Pager;
 using Xcelerate.Core.Models.Review;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data.Models;
@@ -23,16 +25,31 @@ namespace Xcelerate.Controllers
 		}
 
 		[AllowAnonymous]
-		public async Task<IActionResult> Index(int firstCarId, bool compareClicked = false)
+		[HttpGet]
+		public async Task<IActionResult> Index(AdPreviewViewModel adPreview, int firstCarId, bool compareClicked = false)
 		{
-			ViewBag.FirstCarId = firstCarId;
+			if (adPreview.CurrentPage < 1)
+			{
+				adPreview.CurrentPage = 1;
+			}
 
-			var cars = await _adService.GetCarsPreviewAsync();
+			ViewBag.FirstCarId = firstCarId;
 
 			if (compareClicked == true)
 			{
 				TempData["CompareButtonClicked"] = true;
 			}
+
+			Pager pager = new Pager(await _adService.GetCountAsync(adPreview), adPreview.CurrentPage);
+			adPreview.Pager = pager;
+
+			IEnumerable<AdPreviewViewModel> carsPreview = await _adService.GetCarsPreviewAsync(pager);	
+
+			CarModel cars = new CarModel()
+			{
+				Pager = pager,
+				Cars = carsPreview.ToList()
+			};
 
 			return View(cars);
 		}

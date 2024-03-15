@@ -1,8 +1,6 @@
 ﻿using BookingWebProject.ModelBinders.DecimalModelBinder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Services;
 using Xcelerate.Extensions;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Xcelerate.Common
+﻿namespace Xcelerate.Common
 {
-	internal class ApplicationConstants
+	public class ApplicationConstants
 	{
+		public const int DefaultPageSize = 6;
 	}
 }

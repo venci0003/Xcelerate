@@ -1,13 +1,14 @@
-﻿@model List<AdPreviewViewModel>
+﻿@using Xcelerate.Core.Models.Car
+@model CarModel
 
 <link rel="stylesheet" href="~/css/Ad/Index.css" asp-append-version="true" />
 
 @if (!User?.Identity?.IsAuthenticated ?? false)
 {
 	<section class="card-holder">
-		@for (int i = 0; i < 5 && i < Model.Count; i++)
+		@for (int i = 0; i < 5 && i < Model.Cars.Count(); i++)
 		{
-			var ad = Model[i];
+			var ad = Model.Cars[i];
 			<article class="hostel-home-card">
 				<div class="image-holder">
 					@{
@@ -63,7 +64,7 @@
 else
 {
 	<section class="card-holder">
-		@foreach (var ad in Model)
+		@foreach (var ad in Model.Cars)
 		{
 			<article class="hostel-home-card">
 				<div class="image-holder">
@@ -109,6 +110,43 @@ else
 			</article>
 		}
 	</section>
+	<div class="pagination-container">
+			@if (Model.Pager.TotalPages > 0)
+			{
+				<ul class="page-list">
+					@if (Model.Pager.CurrentPage > Model.Pager.StartPage)
+					{
+						<li class="page-item">
+							<a class="page-link"
+							   href="@Url.Action("Index", "Ad", new
+                            {
+                                currentPage = Model.Pager.CurrentPage - 1,
+                            })">Previous</a>
+						</li>
+					}
+
+					@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+					{
+						<li class="page-item">
+							<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
+							   href="@Url.Action("Index", "Ad", new{
+                                currentPage = page,
+                            })">@(page)</a>
+						</li>
+					}
+
+					@if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+					{
+						<li class="page-item">
+							<a class="page-link"
+							   href="@Url.Action("Index", "Ad", new{
+                                currentPage = Model.Pager.CurrentPage + 1,     
+                            })">Next</a>
+						</li>
+					}
+				</ul>
+			}
+		</div>
 }
 
 @if (TempData["AdCreatedSuccesfully"] != null && (bool)TempData["AdCreatedSuccesfully"])

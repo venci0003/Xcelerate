@@ -1,11 +1,12 @@
 ﻿using Xcelerate.Core.Models.Ad;
+using Xcelerate.Core.Models.Pager;
 using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Core.Contracts
 {
 	public interface IAdService
 	{
-		public Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync();
+		public Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync(Pager pager);
 		public Task<AdInformationViewModel> GetCarsInformationAsync(int? adId);
 		public Task CreateAdAsync(AdCreateViewModel adViewModel, string userId);
 		public Task<List<UserAdsViewModel>> GetUserAdsAsync(Guid userId);
@@ -14,6 +15,8 @@ namespace Xcelerate.Core.Contracts
 		public Task<bool> DeleteCarAdAsync(int? carId);
 		public Task<bool> BuyCarAsync(Car car);
 		public Task<Car> GetCarByIdAsync(int carId);
+
+		public Task<int> GetCountAsync(AdPreviewViewModel adPreview);
 		public Task<(AdInformationViewModel firstCar, AdInformationViewModel secondCar)> GetTwoCarsByIdAsync(int firstCarId, int secondCarId);
 
 

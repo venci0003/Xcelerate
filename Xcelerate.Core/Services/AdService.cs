@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Net;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
+using Xcelerate.Core.Models.Pager;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
 using static Xcelerate.Common.EntityValidation;
@@ -20,12 +21,14 @@ namespace Xcelerate.Core.Services
 			_dbContext = context;
 			_webHostEnvironment = webHostEnvironment;
 		}
-		public async Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync()
+		public async Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync(Pager pager)
 		{
 			IEnumerable<AdPreviewViewModel> carAds = await _dbContext.Ads
 				.Include(a => a.Car)
 				.Include(a => a.User)
 				.Where(a => a.Car.IsForSale)
+				.Skip((pager.CurrentPage - 1) * pager.PageSize)
+				.Take(pager.PageSize)
 				.AsNoTracking()
 				.Select(ad => new AdPreviewViewModel
 				{
@@ -520,71 +523,76 @@ namespace Xcelerate.Core.Services
 
 		public async Task<(AdInformationViewModel firstCar, AdInformationViewModel secondCar)> GetTwoCarsByIdAsync(int firstCarId, int secondCarId)
 		{
-			var firstCarDataModel = await _dbContext.Cars.Where(c => c.CarId == firstCarId).AsNoTracking().Select(car => new AdInformationViewModel
-			{
-				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
-				Brand = car.Brand,
-				Model = car.Model,
-				Year = car.Year,
-				CarId = car.CarId,
-				Engine = car.Engine.Model,
-				HorsePower = car.Engine.Horsepower,
-				Condition = car.Condition,
-				EuroStandard = car.EuroStandard,
-				FuelType = car.FuelType,
-				Colour = car.Colour,
-				Transmition = car.Transmition,
-				DriveTrain = car.DriveTrain,
-				Weight = car.Weight,
-				Mileage = car.Mileage,
-				Price = car.Price,
-				BodyType = car.BodyType,
-				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString(AdEntity.CreatedOnDateFormat),
-				FirstName = car.User.FirstName,
-				LastName = car.User.LastName,
-				UserId = car.UserId,
-				Manufacturer = car.Manufacturer.Name,
-				Address = new AddressViewModel
+			var firstCarDataModel = await _dbContext.Cars
+				.Where(c => c.CarId == firstCarId)
+				.AsNoTracking()
+				.Select(car => new AdInformationViewModel
 				{
-					CountryName = car.Address.CountryName,
-					TownName = car.Address.TownName,
-					StreetName = car.Address.StreetName,
-				},
-				CarDescription = car.Ad.CarDescription
-			}).FirstOrDefaultAsync();
+					ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
+					Brand = car.Brand,
+					Model = car.Model,
+					Year = car.Year,
+					CarId = car.CarId,
+					Engine = car.Engine.Model,
+					HorsePower = car.Engine.Horsepower,
+					Condition = car.Condition,
+					EuroStandard = car.EuroStandard,
+					FuelType = car.FuelType,
+					Colour = car.Colour,
+					Transmition = car.Transmition,
+					DriveTrain = car.DriveTrain,
+					Weight = car.Weight,
+					Mileage = car.Mileage,
+					Price = car.Price,
+					BodyType = car.BodyType,
+					CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString(AdEntity.CreatedOnDateFormat),
+					FirstName = car.User.FirstName,
+					LastName = car.User.LastName,
+					UserId = car.UserId,
+					Manufacturer = car.Manufacturer.Name,
+					Address = new AddressViewModel
+					{
+						CountryName = car.Address.CountryName,
+						TownName = car.Address.TownName,
+						StreetName = car.Address.StreetName,
+					},
+					CarDescription = car.Ad.CarDescription
+				}).FirstOrDefaultAsync();
 
-			var secondCarDataModel = await _dbContext.Cars.Where(c => c.CarId == secondCarId).Select(car => new AdInformationViewModel
-			{
-				ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
-				Brand = car.Brand,
-				Model = car.Model,
-				Year = car.Year,
-				CarId = car.CarId,
-				Engine = car.Engine.Model,
-				HorsePower = car.Engine.Horsepower,
-				Condition = car.Condition,
-				EuroStandard = car.EuroStandard,
-				FuelType = car.FuelType,
-				Colour = car.Colour,
-				Transmition = car.Transmition,
-				DriveTrain = car.DriveTrain,
-				Weight = car.Weight,
-				Mileage = car.Mileage,
-				Price = car.Price,
-				BodyType = car.BodyType,
-				CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString(AdEntity.CreatedOnDateFormat),
-				FirstName = car.User.FirstName,
-				LastName = car.User.LastName,
-				UserId = car.UserId,
-				Manufacturer = car.Manufacturer.Name,
-				Address = new AddressViewModel
+			var secondCarDataModel = await _dbContext.Cars
+				.Where(c => c.CarId == secondCarId)
+				.Select(car => new AdInformationViewModel
 				{
-					CountryName = car.Address.CountryName,
-					TownName = car.Address.TownName,
-					StreetName = car.Address.StreetName,
-				},
-				CarDescription = car.Ad.CarDescription
-			}).FirstOrDefaultAsync();
+					ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
+					Brand = car.Brand,
+					Model = car.Model,
+					Year = car.Year,
+					CarId = car.CarId,
+					Engine = car.Engine.Model,
+					HorsePower = car.Engine.Horsepower,
+					Condition = car.Condition,
+					EuroStandard = car.EuroStandard,
+					FuelType = car.FuelType,
+					Colour = car.Colour,
+					Transmition = car.Transmition,
+					DriveTrain = car.DriveTrain,
+					Weight = car.Weight,
+					Mileage = car.Mileage,
+					Price = car.Price,
+					BodyType = car.BodyType,
+					CreatedOn = DateTime.ParseExact(car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString(AdEntity.CreatedOnDateFormat),
+					FirstName = car.User.FirstName,
+					LastName = car.User.LastName,
+					UserId = car.UserId,
+					Manufacturer = car.Manufacturer.Name,
+					Address = new AddressViewModel
+					{
+						CountryName = car.Address.CountryName,
+						TownName = car.Address.TownName,
+						StreetName = car.Address.StreetName,
+					},
+					CarDescription = car.Ad.CarDescription
+				}).FirstOrDefaultAsync();
 
 
 			if (firstCarDataModel == null || secondCarDataModel == null)
@@ -595,5 +603,11 @@ namespace Xcelerate.Core.Services
 			return (firstCarDataModel, secondCarDataModel);
 		}
 
+		public Task<int> GetCountAsync(AdPreviewViewModel adPreview)
+		{
+			IQueryable<Ad> ads = _dbContext.Ads.AsQueryable();
+
+			return ads.CountAsync();
+		}
 	}
 }
