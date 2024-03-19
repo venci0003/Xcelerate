@@ -6,6 +6,7 @@ using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.Pager;
 using Xcelerate.Infrastructure.Data;
+using Xcelerate.Infrastructure.Data.Enums;
 using Xcelerate.Infrastructure.Data.Models;
 using static Xcelerate.Common.EntityValidation;
 
@@ -21,14 +22,20 @@ namespace Xcelerate.Core.Services
 			_dbContext = context;
 			_webHostEnvironment = webHostEnvironment;
 		}
-		public async Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync(Pager pager)
+		public async Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync(AdInformationViewModel adViewModel)
 		{
-			IEnumerable<AdPreviewViewModel> carAds = await _dbContext.Ads
+			IQueryable<Ad> ads = _dbContext.Ads
 				.Include(a => a.Car)
 				.Include(a => a.User)
 				.Where(a => a.Car.IsForSale)
-				.Skip((pager.CurrentPage - 1) * pager.PageSize)
-				.Take(pager.PageSize)
+				.AsQueryable();
+
+			// Apply filtering based on adViewModel
+			ads = FilterCars(adViewModel, ads);
+
+			IEnumerable<AdPreviewViewModel> carAds = await ads
+				.Skip((adViewModel.Pager.CurrentPage - 1) * adViewModel.Pager.PageSize)
+				.Take(adViewModel.Pager.PageSize)
 				.AsNoTracking()
 				.Select(ad => new AdPreviewViewModel
 				{
@@ -52,6 +59,16 @@ namespace Xcelerate.Core.Services
 
 			return carAds;
 		}
+
+		public Task<int> GetCountAsync(AdInformationViewModel adPreview)
+		{
+			IQueryable<Ad> ads = _dbContext.Ads.AsQueryable();
+
+			ads = FilterCars(adPreview, ads);
+
+			return ads.CountAsync();
+		}
+
 
 		public async Task<AdInformationViewModel> GetCarsInformationAsync(int? adId)
 		{
@@ -603,11 +620,49 @@ namespace Xcelerate.Core.Services
 			return (firstCarDataModel, secondCarDataModel);
 		}
 
-		public Task<int> GetCountAsync(AdPreviewViewModel adPreview)
+		public IQueryable<Ad> FilterCars(AdInformationViewModel adViewModel, IQueryable<Ad> cars)
 		{
-			IQueryable<Ad> ads = _dbContext.Ads.AsQueryable();
+			if (adViewModel.Year != 0)
+			{
+				cars = cars.Where(c => c.Car.Year == adViewModel.Year);
+			}
 
-			return ads.CountAsync();
+			if (adViewModel.EuroStandard != EuroStandardEnum.Default && adViewModel.EuroStandard.HasValue)
+			{
+				cars = cars.Where(c => c.Car.EuroStandard == adViewModel.EuroStandard);
+			}
+
+			if (adViewModel.Transmition != TransmissionEnum.Default && adViewModel.Transmition.HasValue)
+			{
+				cars = cars.Where(c => c.Car.Transmition == adViewModel.Transmition);
+			}
+
+			if (adViewModel.Colour != ColourEnum.Default && adViewModel.Colour.HasValue)
+			{
+				cars = cars.Where(c => c.Car.Colour == adViewModel.Colour);
+			}
+
+			if (adViewModel.FuelType != FuelTypeEnum.Default && adViewModel.FuelType.HasValue)
+			{
+				cars = cars.Where(c => c.Car.FuelType == adViewModel.FuelType);
+			}
+
+			if (adViewModel.Condition != ConditionEnum.Default && adViewModel.Condition.HasValue)
+			{
+				cars = cars.Where(c => c.Car.Condition == adViewModel.Condition);
+			}
+
+			if (adViewModel.BodyType != BodyTypeEnum.Default && adViewModel.BodyType.HasValue)
+			{
+				cars = cars.Where(c => c.Car.BodyType == adViewModel.BodyType);
+			}
+
+			if (adViewModel.DriveTrain != DriveTrainEnum.Default && adViewModel.DriveTrain.HasValue)
+			{
+				cars = cars.Where(c => c.Car.DriveTrain == adViewModel.DriveTrain);
+			}
+
+			return cars;
 		}
 	}
 }

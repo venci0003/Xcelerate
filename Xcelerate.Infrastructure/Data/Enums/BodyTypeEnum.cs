@@ -2,12 +2,13 @@
 {
 	public enum BodyTypeEnum
     {
-        Sedan = 0,
-        Coupe = 1,
-        Convertible = 2,
-        Hatchback = 3,
-        Wagon = 4,
-        SUV = 5,
-        Crossover = 6,
-    }
+		Default = 0,
+		Sedan = 1,
+		Coupe = 2,
+		Convertible = 3,
+		Hatchback = 4,
+		Wagon = 5,
+		SUV = 6,
+		Crossover = 7
+	}
 }

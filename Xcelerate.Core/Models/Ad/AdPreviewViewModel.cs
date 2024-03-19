@@ -4,18 +4,12 @@ using Xcelerate.Infrastructure.Data.Enums;
 
 namespace Xcelerate.Core.Models.Ad
 {
-using Xcelerate.Core.Models.Pager;
 	public class AdPreviewViewModel
 	{
 		[Required]
 		public int CarId { get; set; }
 
 		public int AdId { get; set; }
-
-		public Pager Pager { get; set; } = null!;
-
-		public int CurrentPage { get; set; }
-
 
 		[Required]
 		public string Brand { get; set; } = null!;

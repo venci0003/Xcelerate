@@ -1,8 +1,9 @@
 ﻿namespace Xcelerate.Infrastructure.Data.Enums
 {
-	public enum TransmitionEnum
-    {
-        Manual = 0,
-        Automatic = 1
-    }
+	public enum TransmissionEnum
+	{
+		Default = 0,
+		Manual = 1,
+		Automatic = 2
+	}
 }

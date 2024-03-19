@@ -1,153 +1,169 @@
-﻿@using Xcelerate.Core.Models.Car
-@model CarModel
+﻿@using Xcelerate.Infrastructure.Data.Enums
+@model AdInformationViewModel
 
 <link rel="stylesheet" href="~/css/Ad/Index.css" asp-append-version="true" />
 
-@if (!User?.Identity?.IsAuthenticated ?? false)
-{
-	<section class="card-holder">
-		@for (int i = 0; i < 5 && i < Model.Cars.Count(); i++)
-		{
-			var ad = Model.Cars[i];
-			<article class="hostel-home-card">
-				<div class="image-holder">
-					@{
-						// Display the first image
-						var firstImage = ad.ImageUrls.FirstOrDefault();
-						if (firstImage != null)
-						{
-							<img src="~/Images/Ad/@firstImage" alt="First image of the car ad" />
-						}
-					}
-				</div>
-				<h2 class="article-title">@ad.Brand @ad.Model</h2>
-				<div card-text>
-					<ul>
-						<li><strong>Price:</strong> @ad.Price$</li>
-						<li><strong>Year:</strong> @ad.Year</li>
-						<li><strong>Engine:</strong> @ad.Engine</li>
-						<li><strong>Condition:</strong> @ad.Condition</li>
-						<li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
-						<li><strong>Fuel Type:</strong> @ad.FuelType</li>
-						<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
-						<li><strong>Created On:</strong> @ad.CreatedOn</li>
-					</ul>
-					<footer class="bottom-text">
-						<i>
-							<a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-adId="@ad.AdId">View</a>
-						</i>
-					</footer>
-				</div>
-			</article>
-		}
-		<section class="card-holder-message">
-			<article class="car-card-message">
-				<h2 class="article-title-message"> </h2>
-				<div card-text>
-					<h2 class="message">Please register or login to continue with your car browsing.</h2>
-					<footer class="bottom-text-message">
-						<ul>
-							<i class="register-message-button">
-								<a asp-area="" asp-controller="Account" asp-action="Register">SIGN UP</a>
-							</i>
-							<i class="login-message-button">
-								<a asp-area="" asp-controller="Account" asp-action="Login">LOGIN</a>
-							</i>
-						</ul>
-					</footer>
-				</div>
-			</article>
-		</section>
-	</section>
 
-}
-else
-{
-	<section class="card-holder">
-		@foreach (var ad in Model.Cars)
-		{
-			<article class="hostel-home-card">
-				<div class="image-holder">
-					@{
-						// Display the first image
-						var firstImage = ad.ImageUrls.FirstOrDefault();
-						if (firstImage != null)
-						{
-							<img src="~/Images/Ad/@firstImage" alt="First image of the car ad" />
-						}
-					}
-				</div>
-				<h2 class="article-title">@ad.Brand @ad.Model</h2>
-				<div card-text>
-					<ul>
-						<li><strong>Price:</strong> @ad.Price$</li>
-						<li><strong>Year:</strong> @ad.Year</li>
-						<li><strong>Engine:</strong> @ad.Engine</li>
-						<li><strong>HorsePower:</strong> @ad.HorsePower</li>
-						<li><strong>Condition:</strong> @ad.Condition</li>
-						<li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
-						<li><strong>Fuel Type:</strong> @ad.FuelType</li>
-						<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
-						<li><strong>Created On:</strong> @ad.CreatedOn</li>
-					</ul>
-					<footer class="bottom-text">
-						<i>
-							@if (TempData["CompareButtonClicked"] != null && (bool)TempData["CompareButtonClicked"])
-							{
-								<form asp-area="" asp-controller="Ad" asp-action="Compare" method="get">
-									<input type="hidden" name="firstCarId" value="@ViewBag.FirstCarId" />
-									<input type="hidden" name="secondCarId" value="@ad.CarId" />
-									<button type="submit" class="compare-button">Compare</button>
-								</form>
-							}
-							else
-							{
-								<a asp-area="" asp-controller="Ad" asp-action="Information"  asp-route-adId="@ad.AdId">View</a>
-							}
-						</i>
-					</footer>
-				</div>
-			</article>
-		}
-	</section>
-	<div class="pagination-container">
-			@if (Model.Pager.TotalPages > 0)
+
+
+<section>
+	<partial name="_AllCarsPreview" model="Model.Ads">
+	</partial>
+</section>
+
+<div class="pagination-container">
+	@if (Model.Pager.TotalPages > 0)
+	{
+
+		<ul class="page-list">
+			@if (Model.Pager.CurrentPage > Model.Pager.StartPage)
 			{
-				<ul class="page-list">
-					@if (Model.Pager.CurrentPage > Model.Pager.StartPage)
-					{
-						<li class="page-item">
-							<a class="page-link"
-							   href="@Url.Action("Index", "Ad", new
+				<li class="page-item">
+					<a class="page-link"
+					   href="@Url.Action("Index", "Ad", new
                             {
                                 currentPage = Model.Pager.CurrentPage - 1,
+								year = Model.Year,
+								EuroStandard = Model.EuroStandard,
+								fuelType = Model.FuelType,
+								colour = Model.Colour,
+								transmission = Model.Transmition,
+								driveTrain = Model.DriveTrain,
+								bodyType = Model.BodyType,
+								condition = Model.Condition
                             })">Previous</a>
-						</li>
-					}
-
-					@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
-					{
-						<li class="page-item">
-							<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
-							   href="@Url.Action("Index", "Ad", new{
-                                currentPage = page,
-                            })">@(page)</a>
-						</li>
-					}
-
-					@if (Model.Pager.CurrentPage < Model.Pager.EndPage)
-					{
-						<li class="page-item">
-							<a class="page-link"
-							   href="@Url.Action("Index", "Ad", new{
-                                currentPage = Model.Pager.CurrentPage + 1,     
-                            })">Next</a>
-						</li>
-					}
-				</ul>
+				</li>
 			}
-		</div>
-}
+
+			@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+			{
+				<li class="page-item">
+					<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
+					   href="@Url.Action("Index", "Ad", new{
+                                currentPage = page,
+								year = Model.Year,
+								euroStandard = Model.EuroStandard,
+								fuelType = Model.FuelType,
+								colour = Model.Colour,
+								transmission = Model.Transmition,
+								driveTrain = Model.DriveTrain,
+								bodyType = Model.BodyType,
+								condition = Model.Condition
+                            })">@(page)</a>
+				</li>
+			}
+
+			@if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+			{
+				<li class="page-item">
+					<a class="page-link"
+					   href="@Url.Action("Index", "Ad", new{
+                                currentPage = Model.Pager.CurrentPage + 1,
+								year = Model.Year,
+								euroStandard = Model.EuroStandard,
+								fuelType = Model.FuelType,
+								colour = Model.Colour,
+								transmission = Model.Transmition,
+								driveTrain = Model.DriveTrain,
+								bodyType = Model.BodyType,
+								condition = Model.Condition
+                            })">Next</a>
+				</li>
+			}
+		</ul>
+	}
+</div>
+
+<form class="filters" method="get">
+
+	<select name="year" asp-for="@Model.Year" id="form-input" onchange="this.form.submit()">
+		@{
+			<option value="0">Default</option>
+			int currentYear = DateTime.Now.Year;
+			for (int year = currentYear; year >= 1900; year--)
+			{
+				<option value="@year">@year</option>
+			}
+		}
+	</select>
+
+	<div class="form-input">
+		<label asp-for="@Model.EuroStandard">Euro Standard</label>
+		<select name="EuroStandard" asp-for="@Model.EuroStandard" id="form-input" onchange="this.form.submit()">
+			@foreach (var standard in Enum.GetValues(typeof(EuroStandardEnum)))
+			{
+				<option value="@standard">@standard</option>
+			}
+		</select>
+		<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
+	</div>
+	<div class="form-input">
+		<label asp-for="@Model.FuelType">Fuel Type</label>
+		<select name="FuelType" asp-for="@Model.FuelType" id="form-input" onchange="this.form.submit()">
+			@foreach (var fuelType in Enum.GetValues(typeof(FuelTypeEnum)))
+			{
+				<option value="@fuelType">@fuelType</option>
+			}
+		</select>
+		<span asp-validation-for="@Model.FuelType" class="text-danger"></span>
+	</div>
+
+	<div class="form-input">
+		<label asp-for="@Model.Colour">Colour</label>
+		<select name="Colour" asp-for="@Model.Colour" id="form-input" onchange="this.form.submit()">
+			@foreach (var colour in Enum.GetValues(typeof(ColourEnum)))
+			{
+				<option value="@colour">@colour</option>
+			}
+		</select>
+		<span asp-validation-for="@Model.Colour" class="text-danger"></span>
+	</div>
+
+	<div class="form-input">
+		<label asp-for="@Model.Transmition">Transmission</label>
+		<select name="Transmission" asp-for="@Model.Transmition" id="form-input" onchange="this.form.submit()">
+			@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
+			{
+				<option value="@transmission">@transmission</option>
+			}
+		</select>
+		<span asp-validation-for="@Model.Transmition" class="text-danger"></span>
+	</div>
+
+	<div class="form-input">
+		<label asp-for="@Model.DriveTrain">Drive Train</label>
+		<select name="DriveTrain" asp-for="@Model.DriveTrain" id="form-input" onchange="this.form.submit()">
+			@foreach (var driveTrainType in Enum.GetValues(typeof(DriveTrainEnum)))
+			{
+				<option value="@driveTrainType">@driveTrainType</option>
+			}
+		</select>
+		<span asp-validation-for="@Model.DriveTrain" class="text-danger"></span>
+	</div>
+
+	<div class="form-input">
+		<label asp-for="@Model.BodyType">Body Type</label>
+		<select name="BodyType" asp-for="@Model.BodyType" id="form-input" onchange="this.form.submit()">
+			@foreach (var bodyType in Enum.GetValues(typeof(BodyTypeEnum)))
+			{
+				<option value="@bodyType">@bodyType</option>
+			}
+		</select>
+		<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
+	</div>
+
+	<div class="form-input">
+		<label asp-for="@Model.Condition">Condition</label>
+		<select name="Condition" asp-for="@Model.Condition" id="form-input" onchange="this.form.submit()">
+			@foreach (var condition in Enum.GetValues(typeof(ConditionEnum)))
+			{
+				<option value="@condition">@condition</option>
+			}
+		</select>
+		<span asp-validation-for="@Model.Condition" class="text-danger"></span>
+	</div>
+</form>
+
 
 @if (TempData["AdCreatedSuccesfully"] != null && (bool)TempData["AdCreatedSuccesfully"])
 {
@@ -160,7 +176,8 @@ else
 			text: 'You have succesfully created an ad!',
 		});
 	</script>
-	@TempData.Remove("AdCreatedSuccesfully");
+	@TempData.Remove("AdCreatedSuccesfully")
+	;
 }
 
 @if (TempData.ContainsKey("CompareError") && (bool)TempData["CompareError"])

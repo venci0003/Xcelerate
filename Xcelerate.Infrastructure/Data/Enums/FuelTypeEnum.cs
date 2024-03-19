@@ -2,7 +2,8 @@
 {
 	public enum FuelTypeEnum
     {
-        Petrol = 0,
-        Diesel = 1
-    }
+		Default = 0,
+		Petrol = 1,
+		Diesel = 2
+	}
 }

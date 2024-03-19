@@ -2,9 +2,10 @@
 {
 	public enum DriveTrainEnum
     {
-        FrontWheelDrive = 0, 
-        RearWheelDrive = 1,
-        AllWheelDrive = 2,
-        FourWheelDrive = 3
-    }
+		Default = 0,
+		FrontWheelDrive = 1,
+		RearWheelDrive = 2,
+		AllWheelDrive = 3,
+		FourWheelDrive = 4
+	}
 }

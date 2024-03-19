@@ -155,7 +155,7 @@
 			<div class="form-input">
 				<label asp-for="@Model.Transmition">Transmission</label>
 				<select name="Transmission" asp-for="@Model.Transmition" id="form-input">
-					@foreach (var transmission in Enum.GetValues(typeof(TransmitionEnum)))
+					@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
 					{
 						<option value="@transmission">@transmission</option>
 					}

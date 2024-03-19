@@ -55,7 +55,7 @@
 
 		[Required]
 		[Comment("Transmition")]
-		public TransmitionEnum Transmition { get; set; }
+		public TransmissionEnum Transmition { get; set; }
 
 		[Required]
 		[Comment("DriveTrain")]

@@ -2,7 +2,8 @@
 {
 	public enum ConditionEnum
     {
-        BrandNew = 0,
-        Used = 1
-    }
+		Default = 0,
+		BrandNew = 1,
+		Used = 2
+	}
 }

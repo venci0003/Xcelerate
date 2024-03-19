@@ -113,7 +113,10 @@
 				<select name="Condition" asp-for="@Model.Condition" id="form-input">
 					@foreach (var condition in Enum.GetValues(typeof(ConditionEnum)))
 					{
-						<option value="@condition">@condition</option>
+						if ((ConditionEnum)condition != ConditionEnum.Default)
+						{
+							<option value="@condition">@condition</option>
+						}
 					}
 				</select>
 				<span asp-validation-for="@Model.Condition" class="text-danger"></span>
@@ -138,7 +141,10 @@
 				<select name="FuelType" asp-for="@Model.FuelType" id="form-input">
 					@foreach (var fuelType in Enum.GetValues(typeof(FuelTypeEnum)))
 					{
-						<option value="@fuelType">@fuelType</option>
+						if ((FuelTypeEnum)fuelType != FuelTypeEnum.Default)
+						{
+							<option value="@fuelType">@fuelType</option>
+						}
 					}
 				</select>
 				<span asp-validation-for="@Model.FuelType" class="text-danger"></span>
@@ -149,7 +155,10 @@
 				<select name="Colour" asp-for="@Model.Colour" id="form-input">
 					@foreach (var colour in Enum.GetValues(typeof(ColourEnum)))
 					{
-						<option value="@colour">@colour</option>
+						if ((ColourEnum)colour != ColourEnum.Default)
+						{
+							<option value="@colour">@colour</option>
+						}
 					}
 				</select>
 				<span asp-validation-for="@Model.Colour" class="text-danger"></span>
@@ -158,9 +167,12 @@
 			<div class="form-input">
 				<label asp-for="@Model.Transmition">Transmission</label>
 				<select name="Transmission" asp-for="@Model.Transmition" id="form-input">
-					@foreach (var transmission in Enum.GetValues(typeof(TransmitionEnum)))
+					@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
 					{
-						<option value="@transmission">@transmission</option>
+						if ((TransmissionEnum)transmission != TransmissionEnum.Default)
+						{
+							<option value="@transmission">@transmission</option>
+						}
 					}
 				</select>
 				<span asp-validation-for="@Model.Transmition" class="text-danger"></span>
@@ -171,7 +183,10 @@
 				<select name="DriveTrain" asp-for="@Model.DriveTrain" id="form-input">
 					@foreach (var driveTrainType in Enum.GetValues(typeof(DriveTrainEnum)))
 					{
-						<option value="@driveTrainType">@driveTrainType</option>
+						if ((DriveTrainEnum)driveTrainType != DriveTrainEnum.Default)
+						{
+							<option value="@driveTrainType">@driveTrainType</option>
+						}
 					}
 				</select>
 				<span asp-validation-for="@Model.DriveTrain" class="text-danger"></span>
@@ -182,7 +197,10 @@
 				<select name="BodyType" asp-for="@Model.BodyType" id="form-input">
 					@foreach (var bodyType in Enum.GetValues(typeof(BodyTypeEnum)))
 					{
-						<option value="@bodyType">@bodyType</option>
+						if ((BodyTypeEnum)bodyType != BodyTypeEnum.Default)
+						{
+							<option value="@bodyType">@bodyType</option>
+						}
 					}
 				</select>
 				<span asp-validation-for="@Model.BodyType" class="text-danger"></span>

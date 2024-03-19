@@ -38,7 +38,7 @@ namespace Xcelerate.Core.Models.Ad
 
 		public ColourEnum Colour { get; set; }
 
-		public TransmitionEnum Transmition { get; set; }
+		public TransmissionEnum Transmition { get; set; }
 
 		public DriveTrainEnum DriveTrain { get; set; }
 

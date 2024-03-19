@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
-using Xcelerate.Core.Models.Car;
 using Xcelerate.Core.Models.Pager;
-using Xcelerate.Core.Models.Review;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data.Models;
 
@@ -26,11 +24,11 @@ namespace Xcelerate.Controllers
 
 		[AllowAnonymous]
 		[HttpGet]
-		public async Task<IActionResult> Index(AdPreviewViewModel adPreview, int firstCarId, bool compareClicked = false)
+		public async Task<IActionResult> Index(AdInformationViewModel adInformation, int firstCarId, bool compareClicked = false)
 		{
-			if (adPreview.CurrentPage < 1)
+			if (adInformation.CurrentPage < 1)
 			{
-				adPreview.CurrentPage = 1;
+				adInformation.CurrentPage = 1;
 			}
 
 			ViewBag.FirstCarId = firstCarId;
@@ -40,18 +38,14 @@ namespace Xcelerate.Controllers
 				TempData["CompareButtonClicked"] = true;
 			}
 
-			Pager pager = new Pager(await _adService.GetCountAsync(adPreview), adPreview.CurrentPage);
-			adPreview.Pager = pager;
+			Pager pager = new Pager(await _adService.GetCountAsync(adInformation), adInformation.CurrentPage);
+			adInformation.Pager = pager;
 
-			IEnumerable<AdPreviewViewModel> carsPreview = await _adService.GetCarsPreviewAsync(pager);	
+			IEnumerable<AdPreviewViewModel> carsPreview = await _adService.GetCarsPreviewAsync(adInformation);
 
-			CarModel cars = new CarModel()
-			{
-				Pager = pager,
-				Cars = carsPreview.ToList()
-			};
+			adInformation.Ads = carsPreview;
 
-			return View(cars);
+			return View(adInformation);
 		}
 
 		[HttpGet]
