@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Net;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
-using Xcelerate.Core.Models.Pager;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Enums;
 using Xcelerate.Infrastructure.Data.Models;
@@ -95,7 +94,7 @@ namespace Xcelerate.Core.Services
 		EuroStandard = ad.Car.EuroStandard,
 		FuelType = ad.Car.FuelType,
 		Colour = ad.Car.Colour,
-		Transmition = ad.Car.Transmition,
+		Transmission = ad.Car.Transmission,
 		DriveTrain = ad.Car.DriveTrain,
 		Weight = ad.Car.Weight,
 		Mileage = ad.Car.Mileage,
@@ -143,7 +142,7 @@ namespace Xcelerate.Core.Services
 					EuroStandard = adViewModel.EuroStandard,
 					FuelType = adViewModel.FuelType,
 					Colour = adViewModel.Colour,
-					Transmition = adViewModel.Transmition,
+					Transmission = adViewModel.Transmission,
 					DriveTrain = adViewModel.DriveTrain,
 					Weight = adViewModel.Weight,
 					Mileage = adViewModel.Mileage,
@@ -266,7 +265,7 @@ namespace Xcelerate.Core.Services
 				EuroStandard = car.EuroStandard,
 				FuelType = car.FuelType,
 				Colour = car.Colour,
-				Transmition = car.Transmition,
+				Transmission = car.Transmission,
 				DriveTrain = car.DriveTrain,
 				Weight = car.Weight,
 				Mileage = car.Mileage,
@@ -322,7 +321,7 @@ namespace Xcelerate.Core.Services
 				car.EuroStandard = adViewModel.EuroStandard;
 				car.FuelType = adViewModel.FuelType;
 				car.Colour = adViewModel.Colour;
-				car.Transmition = adViewModel.Transmition;
+				car.Transmission = adViewModel.Transmission;
 				car.DriveTrain = adViewModel.DriveTrain;
 				car.Weight = adViewModel.Weight;
 				car.Mileage = adViewModel.Mileage;
@@ -556,7 +555,7 @@ namespace Xcelerate.Core.Services
 					EuroStandard = car.EuroStandard,
 					FuelType = car.FuelType,
 					Colour = car.Colour,
-					Transmition = car.Transmition,
+					Transmission = car.Transmission,
 					DriveTrain = car.DriveTrain,
 					Weight = car.Weight,
 					Mileage = car.Mileage,
@@ -591,7 +590,7 @@ namespace Xcelerate.Core.Services
 					EuroStandard = car.EuroStandard,
 					FuelType = car.FuelType,
 					Colour = car.Colour,
-					Transmition = car.Transmition,
+					Transmission = car.Transmission,
 					DriveTrain = car.DriveTrain,
 					Weight = car.Weight,
 					Mileage = car.Mileage,
@@ -632,9 +631,9 @@ namespace Xcelerate.Core.Services
 				cars = cars.Where(c => c.Car.EuroStandard == adViewModel.EuroStandard);
 			}
 
-			if (adViewModel.Transmition != TransmissionEnum.Default && adViewModel.Transmition.HasValue)
+			if (adViewModel.Transmission != TransmissionEnum.Default && adViewModel.Transmission.HasValue)
 			{
-				cars = cars.Where(c => c.Car.Transmition == adViewModel.Transmition);
+				cars = cars.Where(c => c.Car.Transmission == adViewModel.Transmission);
 			}
 
 			if (adViewModel.Colour != ColourEnum.Default && adViewModel.Colour.HasValue)
@@ -660,6 +659,11 @@ namespace Xcelerate.Core.Services
 			if (adViewModel.DriveTrain != DriveTrainEnum.Default && adViewModel.DriveTrain.HasValue)
 			{
 				cars = cars.Where(c => c.Car.DriveTrain == adViewModel.DriveTrain);
+			}
+
+			if (!string.IsNullOrWhiteSpace(adViewModel.Manufacturer))
+			{
+				cars = cars.Where(c => c.Car.Manufacturer.ToString() == adViewModel.Manufacturer);
 			}
 
 			return cars;

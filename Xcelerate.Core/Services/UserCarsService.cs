@@ -38,7 +38,7 @@ namespace Xcelerate.Core.Services
 					EuroStandard = car.EuroStandard,
 					FuelType = car.FuelType,
 					Colour = car.Colour,
-					Transmition = car.Transmition,
+					Transmission = car.Transmission,
 					DriveTrain = car.DriveTrain,
 					Weight = car.Weight,
 					Mileage = car.Mileage,
@@ -122,7 +122,7 @@ namespace Xcelerate.Core.Services
 				EuroStandard = car.EuroStandard,
 				FuelType = car.FuelType,
 				Colour = car.Colour,
-				Transmition = car.Transmition,
+				Transmission = car.Transmission,
 				DriveTrain = car.DriveTrain,
 				Weight = car.Weight,
 				Mileage = car.Mileage,
@@ -190,7 +190,7 @@ namespace Xcelerate.Core.Services
 				car.EuroStandard = adViewModel.EuroStandard;
 				car.FuelType = adViewModel.FuelType;
 				car.Colour = adViewModel.Colour;
-				car.Transmition = adViewModel.Transmition;
+				car.Transmission = adViewModel.Transmission;
 				car.DriveTrain = adViewModel.DriveTrain;
 				car.Weight = adViewModel.Weight;
 				car.Mileage = adViewModel.Mileage;

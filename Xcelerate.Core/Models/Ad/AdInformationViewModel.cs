@@ -28,7 +28,7 @@ namespace Xcelerate.Core.Models.Ad
 		public EuroStandardEnum? EuroStandard { get; set; }
 		public FuelTypeEnum? FuelType { get; set; }
 		public ColourEnum? Colour { get; set; }
-		public TransmissionEnum? Transmition { get; set; }
+		public TransmissionEnum? Transmission { get; set; }
 		public DriveTrainEnum? DriveTrain { get; set; }
 		public decimal Weight { get; set; }
 		public int Mileage { get; set; }
@@ -38,7 +38,8 @@ namespace Xcelerate.Core.Models.Ad
 		public string CarDescription { get; set; }
 		public Pager Pager { get; set; }
 		public int CurrentPage { get; set; }
-		public string FirstName { get; set; }
+        public string SearchQuery { get; set; }
+        public string FirstName { get; set; }
 		public string LastName { get; set; }
 
 	}

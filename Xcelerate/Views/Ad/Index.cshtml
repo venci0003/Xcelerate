@@ -27,7 +27,7 @@
 								EuroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
 								colour = Model.Colour,
-								transmission = Model.Transmition,
+								transmission = Model.Transmission,
 								driveTrain = Model.DriveTrain,
 								bodyType = Model.BodyType,
 								condition = Model.Condition
@@ -45,7 +45,7 @@
 								euroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
 								colour = Model.Colour,
-								transmission = Model.Transmition,
+								transmission = Model.Transmission,
 								driveTrain = Model.DriveTrain,
 								bodyType = Model.BodyType,
 								condition = Model.Condition
@@ -63,7 +63,7 @@
 								euroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
 								colour = Model.Colour,
-								transmission = Model.Transmition,
+								transmission = Model.Transmission,
 								driveTrain = Model.DriveTrain,
 								bodyType = Model.BodyType,
 								condition = Model.Condition
@@ -120,14 +120,14 @@
 	</div>
 
 	<div class="form-input">
-		<label asp-for="@Model.Transmition">Transmission</label>
-		<select name="Transmission" asp-for="@Model.Transmition" id="form-input" onchange="this.form.submit()">
+		<label asp-for="@Model.Transmission">Transmission</label>
+		<select name="Transmission" asp-for="@Model.Transmission" id="form-input" onchange="this.form.submit()">
 			@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
 			{
 				<option value="@transmission">@transmission</option>
 			}
 		</select>
-		<span asp-validation-for="@Model.Transmition" class="text-danger"></span>
+		<span asp-validation-for="@Model.Transmission" class="text-danger"></span>
 	</div>
 
 	<div class="form-input">

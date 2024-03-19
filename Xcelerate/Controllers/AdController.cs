@@ -128,7 +128,7 @@ namespace Xcelerate.Controllers
 		{
 			await _adService.EditCarAdAsync(adViewModel);
 
-			return RedirectToAction("Index", "Ad");
+			return RedirectToAction("UserAds", "Ad");
 		}
 
 		[HttpPost]

@@ -50,8 +50,8 @@
 						var item1ColourColor = string.Equals(Model.Item1.Colour, Model.Item2.Colour) ? "inherit" : (string.Equals(carInfo.Colour, Model.Item1.Colour) ? "blue" : "midnightblue");
 						var item2ColourColor = string.Equals(Model.Item1.Colour, Model.Item2.Colour) ? "inherit" : (string.Equals(carInfo.Colour, Model.Item2.Colour) ? "midnightblue" : "blue");
 
-						var item1TransmissionColor = string.Equals(Model.Item1.Transmition, Model.Item2.Transmition) ? "inherit" : (string.Equals(carInfo.Transmition, Model.Item1.Transmition) ? "blue" : "midnightblue");
-						var item2TransmissionColor = string.Equals(Model.Item1.Transmition, Model.Item2.Transmition) ? "inherit" : (string.Equals(carInfo.Transmition, Model.Item2.Transmition) ? "midnightblue" : "blue");
+						var item1TransmissionColor = string.Equals(Model.Item1.Transmission, Model.Item2.Transmission) ? "inherit" : (string.Equals(carInfo.Transmission, Model.Item1.Transmission) ? "blue" : "midnightblue");
+						var item2TransmissionColor = string.Equals(Model.Item1.Transmission, Model.Item2.Transmission) ? "inherit" : (string.Equals(carInfo.Transmission, Model.Item2.Transmission) ? "midnightblue" : "blue");
 
 						var item1DriveTrainColor = string.Equals(Model.Item1.DriveTrain, Model.Item2.DriveTrain) ? "inherit" : (string.Equals(carInfo.DriveTrain, Model.Item1.DriveTrain) ? "blue" : "midnightblue");
 						var item2DriveTrainColor = string.Equals(Model.Item1.DriveTrain, Model.Item2.DriveTrain) ? "inherit" : (string.Equals(carInfo.DriveTrain, Model.Item2.DriveTrain) ? "midnightblue" : "blue");
@@ -90,7 +90,7 @@
 					</li>
 					<li>
 						<strong>Transmission:</strong>
-						<span style="color: @(carInfo == Model.Item1 ? item1TransmissionColor : item2TransmissionColor)">@carInfo.Transmition</span>
+						<span style="color: @(carInfo == Model.Item1 ? item1TransmissionColor : item2TransmissionColor)">@carInfo.Transmission</span>
 					</li>
 					<li>
 						<strong>Drive Train:</strong>
