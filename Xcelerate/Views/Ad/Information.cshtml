@@ -31,7 +31,7 @@
 					else
 					{
 						<!-- Display content for non-owner -->
-						<form asp-area="" asp-controller="Ad" asp-action="Buy" asp-route-carId="@Model.CarId" method="post">
+						<form asp-area="" asp-controller="Ad" asp-action="Buy" asp-route-carId="@Model.CarId" asp-route-adId="@Model.AdId" method="post">
 							<button type="submit" class="buy-button">BUY</button>
 						</form>
 					}

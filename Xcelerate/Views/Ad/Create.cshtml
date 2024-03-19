@@ -126,7 +126,10 @@
 				<select name="EuroStandard" asp-for="@Model.EuroStandard" id="form-input">
 					@foreach (var standard in Enum.GetValues(typeof(EuroStandardEnum)))
 					{
-						<option value="@standard">@standard</option>
+						if ((EuroStandardEnum)standard != EuroStandardEnum.Default)
+						{
+							<option value="@standard">@standard</option>
+						}
 					}
 				</select>
 				<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
