@@ -4,23 +4,23 @@
 <link rel="stylesheet" href="~/css/Ad/Index.css" asp-append-version="true" />
 
 
-
-
 <section>
 	<partial name="_AllCarsPreview" model="Model.Ads">
 	</partial>
 </section>
 
-<div class="pagination-container">
-	@if (Model.Pager.TotalPages > 0)
-	{
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+	<div class="pagination-container">
+		@if (Model.Pager.TotalPages > 0)
+		{
 
-		<ul class="page-list">
-			@if (Model.Pager.CurrentPage > Model.Pager.StartPage)
-			{
-				<li class="page-item">
-					<a class="page-link"
-					   href="@Url.Action("Index", "Ad", new
+			<ul class="page-list">
+				@if (Model.Pager.CurrentPage > Model.Pager.StartPage)
+				{
+					<li class="page-item">
+						<a class="page-link"
+						   href="@Url.Action("Index", "Ad", new
                             {
                                 currentPage = Model.Pager.CurrentPage - 1,
 								year = Model.Year,
@@ -32,14 +32,14 @@
 								bodyType = Model.BodyType,
 								condition = Model.Condition
                             })">Previous</a>
-				</li>
-			}
+					</li>
+				}
 
-			@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
-			{
-				<li class="page-item">
-					<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
-					   href="@Url.Action("Index", "Ad", new{
+				@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+				{
+					<li class="page-item">
+						<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
+						   href="@Url.Action("Index", "Ad", new{
                                 currentPage = page,
 								year = Model.Year,
 								euroStandard = Model.EuroStandard,
@@ -50,14 +50,14 @@
 								bodyType = Model.BodyType,
 								condition = Model.Condition
                             })">@(page)</a>
-				</li>
-			}
+					</li>
+				}
 
-			@if (Model.Pager.CurrentPage < Model.Pager.EndPage)
-			{
-				<li class="page-item">
-					<a class="page-link"
-					   href="@Url.Action("Index", "Ad", new{
+				@if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+				{
+					<li class="page-item">
+						<a class="page-link"
+						   href="@Url.Action("Index", "Ad", new{
                                 currentPage = Model.Pager.CurrentPage + 1,
 								year = Model.Year,
 								euroStandard = Model.EuroStandard,
@@ -68,101 +68,104 @@
 								bodyType = Model.BodyType,
 								condition = Model.Condition
                             })">Next</a>
-				</li>
-			}
-		</ul>
-	}
-</div>
-
-<form class="filters" method="get">
-
-	<select name="year" asp-for="@Model.Year" id="form-input" onchange="this.form.submit()">
-		@{
-			<option value="0">Default</option>
-			int currentYear = DateTime.Now.Year;
-			for (int year = currentYear; year >= 1900; year--)
-			{
-				<option value="@year">@year</option>
-			}
+					</li>
+				}
+			</ul>
 		}
-	</select>
-
-	<div class="form-input">
-		<label asp-for="@Model.EuroStandard">Euro Standard</label>
-		<select name="EuroStandard" asp-for="@Model.EuroStandard" id="form-input" onchange="this.form.submit()">
-			@foreach (var standard in Enum.GetValues(typeof(EuroStandardEnum)))
-			{
-				<option value="@standard">@standard</option>
-			}
-		</select>
-		<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
-	</div>
-	<div class="form-input">
-		<label asp-for="@Model.FuelType">Fuel Type</label>
-		<select name="FuelType" asp-for="@Model.FuelType" id="form-input" onchange="this.form.submit()">
-			@foreach (var fuelType in Enum.GetValues(typeof(FuelTypeEnum)))
-			{
-				<option value="@fuelType">@fuelType</option>
-			}
-		</select>
-		<span asp-validation-for="@Model.FuelType" class="text-danger"></span>
 	</div>
 
-	<div class="form-input">
-		<label asp-for="@Model.Colour">Colour</label>
-		<select name="Colour" asp-for="@Model.Colour" id="form-input" onchange="this.form.submit()">
-			@foreach (var colour in Enum.GetValues(typeof(ColourEnum)))
-			{
-				<option value="@colour">@colour</option>
-			}
-		</select>
-		<span asp-validation-for="@Model.Colour" class="text-danger"></span>
-	</div>
+	<form class="filters" method="get">
 
-	<div class="form-input">
-		<label asp-for="@Model.Transmission">Transmission</label>
-		<select name="Transmission" asp-for="@Model.Transmission" id="form-input" onchange="this.form.submit()">
-			@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
-			{
-				<option value="@transmission">@transmission</option>
+		<select name="year" asp-for="@Model.Year" id="form-input" onchange="this.form.submit()">
+			@{
+				<option value="0">Default</option>
+				int currentYear = DateTime.Now.Year;
+				for (int year = currentYear; year >= 1900; year--)
+				{
+					<option value="@year">@year</option>
+				}
 			}
 		</select>
-		<span asp-validation-for="@Model.Transmission" class="text-danger"></span>
-	</div>
 
-	<div class="form-input">
-		<label asp-for="@Model.DriveTrain">Drive Train</label>
-		<select name="DriveTrain" asp-for="@Model.DriveTrain" id="form-input" onchange="this.form.submit()">
-			@foreach (var driveTrainType in Enum.GetValues(typeof(DriveTrainEnum)))
-			{
-				<option value="@driveTrainType">@driveTrainType</option>
-			}
-		</select>
-		<span asp-validation-for="@Model.DriveTrain" class="text-danger"></span>
-	</div>
+		<div class="form-input">
+			<label asp-for="@Model.EuroStandard">Euro Standard</label>
+			<select name="EuroStandard" asp-for="@Model.EuroStandard" id="form-input" onchange="this.form.submit()">
+				@foreach (var standard in Enum.GetValues(typeof(EuroStandardEnum)))
+				{
+					<option value="@standard">@standard</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
+		</div>
+		<div class="form-input">
+			<label asp-for="@Model.FuelType">Fuel Type</label>
+			<select name="FuelType" asp-for="@Model.FuelType" id="form-input" onchange="this.form.submit()">
+				@foreach (var fuelType in Enum.GetValues(typeof(FuelTypeEnum)))
+				{
+					<option value="@fuelType">@fuelType</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.FuelType" class="text-danger"></span>
+		</div>
 
-	<div class="form-input">
-		<label asp-for="@Model.BodyType">Body Type</label>
-		<select name="BodyType" asp-for="@Model.BodyType" id="form-input" onchange="this.form.submit()">
-			@foreach (var bodyType in Enum.GetValues(typeof(BodyTypeEnum)))
-			{
-				<option value="@bodyType">@bodyType</option>
-			}
-		</select>
-		<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
-	</div>
+		<div class="form-input">
+			<label asp-for="@Model.Colour">Colour</label>
+			<select name="Colour" asp-for="@Model.Colour" id="form-input" onchange="this.form.submit()">
+				@foreach (var colour in Enum.GetValues(typeof(ColourEnum)))
+				{
+					<option value="@colour">@colour</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.Colour" class="text-danger"></span>
+		</div>
 
-	<div class="form-input">
-		<label asp-for="@Model.Condition">Condition</label>
-		<select name="Condition" asp-for="@Model.Condition" id="form-input" onchange="this.form.submit()">
-			@foreach (var condition in Enum.GetValues(typeof(ConditionEnum)))
-			{
-				<option value="@condition">@condition</option>
-			}
-		</select>
-		<span asp-validation-for="@Model.Condition" class="text-danger"></span>
-	</div>
-</form>
+		<div class="form-input">
+			<label asp-for="@Model.Transmission">Transmission</label>
+			<select name="Transmission" asp-for="@Model.Transmission" id="form-input" onchange="this.form.submit()">
+				@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
+				{
+					<option value="@transmission">@transmission</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.Transmission" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<label asp-for="@Model.DriveTrain">Drive Train</label>
+			<select name="DriveTrain" asp-for="@Model.DriveTrain" id="form-input" onchange="this.form.submit()">
+				@foreach (var driveTrainType in Enum.GetValues(typeof(DriveTrainEnum)))
+				{
+					<option value="@driveTrainType">@driveTrainType</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.DriveTrain" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<label asp-for="@Model.BodyType">Body Type</label>
+			<select name="BodyType" asp-for="@Model.BodyType" id="form-input" onchange="this.form.submit()">
+				@foreach (var bodyType in Enum.GetValues(typeof(BodyTypeEnum)))
+				{
+					<option value="@bodyType">@bodyType</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<label asp-for="@Model.Condition">Condition</label>
+			<select name="Condition" asp-for="@Model.Condition" id="form-input" onchange="this.form.submit()">
+				@foreach (var condition in Enum.GetValues(typeof(ConditionEnum)))
+				{
+					<option value="@condition">@condition</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.Condition" class="text-danger"></span>
+		</div>
+	</form>
+
+}
+
 
 @if (TempData.ContainsKey("CompareError") && (bool)TempData["CompareError"])
 {

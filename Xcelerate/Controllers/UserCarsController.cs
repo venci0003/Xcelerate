@@ -98,5 +98,28 @@ namespace Xcelerate.Controllers
 
 			return RedirectToAction("Index", "UserCars");
 		}
+
+		[HttpPost]
+		public IActionResult Delete(int? carId)
+		{
+			TempData["ConfirmUserCarDelete"] = true;
+			TempData["UserCarIdToDelete"] = carId;
+			return RedirectToAction("Index", "UserCars");
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int? carId)
+		{
+			if (carId == null)
+			{
+				return NotFound();
+			}
+
+			await _userCarsService.DeleteCarAdAsync(carId);
+
+			TempData["DeleteMessage"] = true;
+
+			return RedirectToAction("Index", "UserCars");
+		}
 	}
 }

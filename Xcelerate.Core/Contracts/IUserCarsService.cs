@@ -15,6 +15,8 @@ namespace Xcelerate.Core.Contracts
 
 		public Task<bool> CancelSellAdAsync(Car car, int adId);
 
+		public Task<bool> DeleteCarAdAsync(int? carId);
+
 		//public Task<Car> GetCarByIdAsync(int carId);
 	}
 }

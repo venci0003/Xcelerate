@@ -93,7 +93,7 @@ namespace Xcelerate.Core.Services
 				.Include(c => c.Engine)
 				.Include(c => c.Manufacturer)
 				.Include(c => c.Address)
-				.Include(c => c.Ad)
+				.Include(c => c.Ad) 
 				.Include(c => c.CarAccessories)
 					.ThenInclude(ca => ca.Accessory)
 				.Include(c => c.Images)
@@ -318,6 +318,86 @@ namespace Xcelerate.Core.Services
 			{
 				// Handle the case where the associated ad is not found
 				return false;
+			}
+		}
+
+		public async Task<bool> DeleteCarAdAsync(int? carId)
+		{
+			var car = await _dbContext.Cars
+				.Include(c => c.Images)
+				.Include(c => c.CarAccessories)
+					.ThenInclude(ca => ca.Accessory)
+					.Include(m => m.Manufacturer)
+					.Include(a => a.Address)
+					.Include(e => e.Engine)
+				.FirstOrDefaultAsync(c => c.CarId == carId);
+
+			if (car == null)
+			{
+				throw new ArgumentException("Car not found!");
+			}
+
+			try
+			{
+				foreach (var image in car.Images)
+				{
+					var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad", image.ImageUrl);
+
+					if (System.IO.File.Exists(imagePath))
+					{
+						try
+						{
+							using (var stream = new FileStream(imagePath, FileMode.Open, FileAccess.ReadWrite))
+							{
+								// Close the file stream before deletion
+								stream.Close();
+							}
+							// Attempt to delete the file
+							System.IO.File.Delete(imagePath);
+						}
+						catch (IOException)
+						{
+							throw new IOException("An error occurred while deleting the ad.");
+						}
+					}
+
+					_dbContext.Images.Remove(image);
+				}
+
+				// Remove associated car accessories
+				if (car.CarAccessories != null)
+				{
+					_dbContext.CarAccessories.RemoveRange(car.CarAccessories);
+				}
+
+				// Remove associated address
+				if (car.Address != null)
+				{
+					_dbContext.Addresses.Remove(car.Address);
+				}
+
+				// Remove associated manufacturer
+				if (car.Manufacturer != null)
+				{
+					_dbContext.Manufacturers.Remove(car.Manufacturer);
+				}
+
+				// Remove associated engine
+				if (car.Engine != null)
+				{
+					_dbContext.Engines.Remove(car.Engine);
+				}
+
+				// Remove car entity
+				_dbContext.Cars.Remove(car);
+
+				await _dbContext.SaveChangesAsync();
+
+				return true;
+			}
+			catch (Exception)
+			{
+				throw new ArgumentException("Delete failed!");
 			}
 		}
 	}
