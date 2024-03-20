@@ -97,7 +97,7 @@ namespace Xcelerate.Controllers
 
 			TempData["AdCreatedSuccesfully"] = true;
 
-			return RedirectToAction("Index", "Ad");
+			return RedirectToAction("UserAds", "Ad");
 		}
 
 		public async Task<IActionResult> UserAds()
@@ -132,15 +132,26 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Delete(int? carId)
+		public IActionResult Delete(int? carId)
 		{
+			TempData["ConfirmDelete"] = true;
+			TempData["CarIdToDelete"] = carId;
+			return RedirectToAction("UserAds", "Ad");
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int? carId)
+		{
+			if (carId == null)
+			{
+				return NotFound();
+			}
 
 			await _adService.DeleteCarAdAsync(carId);
 
 			TempData["DeleteMessage"] = true;
 
 			return RedirectToAction("UserAds", "Ad");
-
 		}
 
 		[HttpPost]

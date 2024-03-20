@@ -32,6 +32,9 @@
 					<footer class="bottom-text">
 						<i>
 							<a class="sell-button" asp-area="" asp-controller="UserCars" asp-action="Sell" asp-route-carId="@ad.CarId">Sell</a>
+							<form asp-area="" asp-controller="Ad" asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
+								<button type="submit" class="delete-button">Delete</button>
+							</form>
 							<a class="view-button" asp-area="" asp-controller="UserCars" asp-action="Information" asp-route-carId="@ad.CarId">View</a>
 						</i>
 					</footer>
