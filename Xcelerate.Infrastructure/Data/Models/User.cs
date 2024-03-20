@@ -15,10 +15,6 @@ namespace Xcelerate.Infrastructure.Data.Models
         [Comment("LastName")]
         public string LastName { get; set; } = null!;
 
-        [Required]
-        [Comment("Age")]
-        public int Age { get; set; }
-
 		public ICollection<Ad> Ads { get; set; } = new List<Ad>();
 
 		public ICollection<Review> Reviews { get; set; } = new List<Review>();

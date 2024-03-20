@@ -100,13 +100,23 @@ namespace Xcelerate.Controllers
 			return RedirectToAction("UserAds", "Ad");
 		}
 
-		public async Task<IActionResult> UserAds()
+		public async Task<IActionResult> UserAds(AdInformationViewModel adInformation)
 		{
 			var userId = User.GetUserId();
 
-			var userAds = await _adService.GetUserAdsAsync(userId);
+			if (adInformation.CurrentPage < 1)
+			{
+				adInformation.CurrentPage = 1;
+			}
 
-			return View(userAds);
+			Pager pager = new Pager(await _adService.GetCountAsync(adInformation), adInformation.CurrentPage);
+			adInformation.Pager = pager;
+
+			IEnumerable<AdPreviewViewModel> userAds = await _adService.GetUserAdsAsync(userId, adInformation);
+
+			adInformation.Ads = userAds;
+
+			return View(adInformation);
 		}
 
 

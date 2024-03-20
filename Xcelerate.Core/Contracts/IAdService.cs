@@ -8,7 +8,7 @@ namespace Xcelerate.Core.Contracts
 		public Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync(AdInformationViewModel adViewModel);
 		public Task<AdInformationViewModel> GetCarsInformationAsync(int? adId);
 		public Task CreateAdAsync(AdCreateViewModel adViewModel, string userId);
-		public Task<List<UserAdsViewModel>> GetUserAdsAsync(Guid userId);
+		public Task<IEnumerable<AdPreviewViewModel>> GetUserAdsAsync(Guid userId, AdInformationViewModel adViewModel);
 		public Task<AdEditViewModel> GetEditInformationAsync(int? carId);
 		public Task<bool> EditCarAdAsync(AdEditViewModel adViewModel);
 		public Task<bool> DeleteCarAdAsync(int? carId);

@@ -203,13 +203,22 @@ namespace Xcelerate.Core.Services
 			}
 		}
 
-		public async Task<List<UserAdsViewModel>> GetUserAdsAsync(Guid userId)
+		public async Task<IEnumerable<AdPreviewViewModel>> GetUserAdsAsync(Guid userId, AdInformationViewModel adViewModel)
 		{
 
-			List<UserAdsViewModel> userAds = await _dbContext.Ads
-		.Where(ad => ad.UserId == userId && ad.Car.IsForSale == true)
+			IQueryable<Ad> userAds = _dbContext.Ads.
+				Include(a => a.Car).
+		        Where(ad => ad.UserId == userId && ad.Car.IsForSale == true).
+				AsQueryable();
+
+			userAds = FilterCars(adViewModel, userAds);
+
+			IEnumerable<AdPreviewViewModel> carAds = await userAds
+				.Skip((adViewModel.Pager.CurrentPage - 1) * adViewModel.Pager.PageSize)
+				.Take(adViewModel.Pager.PageSize)
+				.AsNoTracking()
 		.AsNoTracking()
-		.Select(car => new UserAdsViewModel
+		.Select(car => new AdPreviewViewModel
 		{
 			AdId = car.AdId,
 			CarId = car.CarId,
@@ -227,7 +236,7 @@ namespace Xcelerate.Core.Services
 		})
 		.ToListAsync();
 
-			return userAds;
+			return carAds;
 		}
 
 		public async Task<AdEditViewModel> GetEditInformationAsync(int? carId)
