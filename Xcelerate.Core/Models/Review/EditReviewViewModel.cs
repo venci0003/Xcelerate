@@ -12,7 +12,5 @@ namespace Xcelerate.Core.Models.Review
 		public int ReviewId { get; set; }
 
         public int AdId { get; set; }
-
-		public int CarId { get; set; }
 	}
 }

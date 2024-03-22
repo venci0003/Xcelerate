@@ -24,14 +24,14 @@
 					@if (ViewBag.UserId != null && ViewBag.UserId == Model.UserId)
 					{
 						<!-- Display content for the owner -->
-						<form asp-area="" asp-controller="UserCars" asp-action="Cancel" asp-route-carId="@Model.CarId" asp-route-adId="@Model.AdId" method="post">
+						<form asp-area="" asp-controller="UserCars" asp-action="Cancel"  asp-route-adId="@Model.AdId" method="post">
 							<button type="submit" class="cancel-button">Cancel</button>
 						</form>
 					}
 					else
 					{
 						<!-- Display content for non-owner -->
-						<form asp-area="" asp-controller="Ad" asp-action="Buy" asp-route-carId="@Model.CarId" asp-route-adId="@Model.AdId" method="post">
+						<form asp-area="" asp-controller="Ad" asp-action="Buy"  asp-route-adId="@Model.AdId" method="post">
 							<button type="submit" class="buy-button">BUY</button>
 						</form>
 					}
@@ -93,7 +93,7 @@
 			<section class="review-section">
 				<h2 class="reviews-title">Reviews</h2>
 				<ul class="list-car-ad-reviews">
-					<form asp-area="" asp-controller="Review" asp-action="Add" asp-route-carId="@Model.CarId" method="post">
+					<form asp-area="" asp-controller="Review" asp-action="Add" method="post">
 						<textarea name="Comment" placeholder="Your comment" required></textarea><br>
 						<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required><br>
 						<input type="hidden" name="AdId" value="@Model.AdId" />
@@ -116,7 +116,6 @@
 											<button asp-area="" asp-controller="Review" asp-action="Edit" asp-route-carId="@Model.CarId" type="submit" class="edit-icon-link">
 												<img class="edit-icon" src="~/Icons/icons8-pencil-96.png" alt="Edit icon">
 												<input type="hidden" name="ReviewId" value="@review.ReviewId" />
-												<input type="hidden" name="CarId" value="@Model.CarId" />
 												<input type="hidden" name="AdId" value="@Model.AdId" />
 											</button>
 										</form>

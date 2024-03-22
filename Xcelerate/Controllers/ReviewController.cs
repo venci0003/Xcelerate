@@ -15,43 +15,43 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Add(ReviewViewModel reviewViewModel, int adId, int carId)
+		public async Task<IActionResult> Add(ReviewViewModel reviewViewModel, int adId)
 		{
 			Guid userId = User.GetUserId();
 
 			await _reviewService.CreateReviewAsync(reviewViewModel, userId.ToString(), adId);
 
-			return RedirectToAction("Information", "Ad", new { carId = carId, adId = adId });
+			return RedirectToAction("Information", "Ad", new { adId = adId });
 
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Edit(int? reviewId , int carId)
+		public async Task<IActionResult> Edit(int? reviewId)
 		{
 			if (reviewId == null)
 			{
 				return NotFound();
 			}
 
-			EditReviewViewModel editInformation = await _reviewService.GetEditInformationAsync(reviewId.Value, carId);
+			EditReviewViewModel editInformation = await _reviewService.GetEditInformationAsync(reviewId.Value);
 
 			return View(editInformation);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(EditReviewViewModel reviewViewModel, int adId, int carId)
+		public async Task<IActionResult> Edit(EditReviewViewModel reviewViewModel, int adId)
 		{
 			await _reviewService.EditReviewAsync(reviewViewModel);
 
-			return RedirectToAction("Information", "Ad", new { carId = carId, adId = adId });
+			return RedirectToAction("Information", "Ad", new { adId = adId });
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Delete(int reviewId, int adId, int carId)
+		public async Task<IActionResult> Delete(int reviewId, int adId)
 		{
 			await _reviewService.DeleteReviewAsync(reviewId);
 
-			return RedirectToAction("Information", "Ad", new { carId = carId, adId = adId });
+			return RedirectToAction("Information", "Ad", new { adId = adId });
 
 		}
 	}

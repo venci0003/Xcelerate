@@ -11,7 +11,7 @@ namespace Xcelerate.Core.Contracts
 
 		public Task<bool> DeleteReviewAsync(int? reviewId);
 
-		public Task<EditReviewViewModel> GetEditInformationAsync(int? reviewId , int carId);
+		public Task<EditReviewViewModel> GetEditInformationAsync(int? reviewId);
 
 		public Task<bool> EditReviewAsync(EditReviewViewModel reviewViewModel);
 	}

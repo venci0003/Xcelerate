@@ -54,7 +54,7 @@ namespace Xcelerate.Core.Services
             return false;
         }
 
-        public async Task<EditReviewViewModel> GetEditInformationAsync(int? reviewId, int carId)
+        public async Task<EditReviewViewModel> GetEditInformationAsync(int? reviewId)
         {
             var review = await _dbContext.Reviews
                 .FirstOrDefaultAsync(c => c.ReviewId == reviewId);
@@ -67,7 +67,6 @@ namespace Xcelerate.Core.Services
             EditReviewViewModel reviewViewModel = new EditReviewViewModel
             {
                 AdId = review.AdId,
-                CarId = carId,
                 ReviewId = review.ReviewId,
                 Comment = review.Comment,
                 StarsCount = review.StarsCount
