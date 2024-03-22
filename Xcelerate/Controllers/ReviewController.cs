@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Review;
+using Xcelerate.Core.Services;
 using Xcelerate.Extension;
+using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Controllers
 {
@@ -49,10 +51,19 @@ namespace Xcelerate.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Delete(int reviewId, int adId)
 		{
+			TempData["ConfirmDelete"] = true;
+			TempData["ReviewAdIdToDelete"] = reviewId;
+			TempData["AdId"] = adId;
+			return RedirectToAction("Information", "Ad", new { adId = adId });
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int reviewId, int? adId)
+		{
 			await _reviewService.DeleteReviewAsync(reviewId);
+			TempData["DeleteMessage"] = true;
 
 			return RedirectToAction("Information", "Ad", new { adId = adId });
-
 		}
 	}
 }
