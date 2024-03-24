@@ -1,4 +1,5 @@
-﻿<link rel="stylesheet" href="~/css/Home/HomePage/HomePage.css" asp-append-version="true" />
+﻿@model DataStatisticsViewModel
+<link rel="stylesheet" href="~/css/Home/HomePage/HomePage.css" asp-append-version="true" />
 
 <svg xmlns="http://www.w3.org/2000/svg">
 	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
@@ -15,6 +16,19 @@
 
 <article class="card-news">
 	<div id="clock"></div>
+	<div>
+		<ul>
+			<li>
+				Sold Cars: @Model.SoldCars
+			</li>
+			<li>
+				Created Cars: @Model.CreatedCars
+			</li>
+			<li>
+				Created Reviews: @Model.CreatedReviews
+			</li>
+		</ul>
+	</div>
 	<h1 class="news-text">NEWS</h1>
 
 	<ol>

@@ -1,4 +1,4 @@
-﻿@model UserCarsInformationViewModel
+﻿@model AdInformationViewModel
 
 <link rel="stylesheet" href="~/css/UserCars/Information.css" asp-append-version="true" />
 
@@ -95,13 +95,13 @@
 
 			imageHolder.addEventListener("mousemove", function (e) {
 				var rect = image.getBoundingClientRect();
-				var mouseX = e.clientX - rect.left; // Mouse X position relative to the image
-				var mouseY = e.clientY - rect.top; // Mouse Y position relative to the image
+				var mouseX = e.clientX - rect.left;
+				var mouseY = e.clientY - rect.top;
 
-				var offsetX = (mouseX / rect.width) * 100; // Convert mouse X position to percentage
-				var offsetY = (mouseY / rect.height) * 100; // Convert mouse Y position to percentage
+				var offsetX = (mouseX / rect.width) * 100; 
+				var offsetY = (mouseY / rect.height) * 100; 
 
-				image.style.transformOrigin = offsetX + "% " + offsetY + "%"; // Set transform origin based on mouse position
+				image.style.transformOrigin = offsetX + "% " + offsetY + "%";
 			});
 		});
 	</script>

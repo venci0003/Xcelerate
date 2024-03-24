@@ -9,6 +9,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 	{
 		public void Configure(EntityTypeBuilder<Car> builder)
 		{
+			builder.HasOne(c => c.Ad)
+	.WithOne(a => a.Car)
+	.OnDelete(DeleteBehavior.NoAction);
+
 			builder
 				.HasOne(c => c.User)
 				.WithMany(c => c.Cars)

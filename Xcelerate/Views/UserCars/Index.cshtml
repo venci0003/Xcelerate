@@ -1,65 +1,168 @@
-﻿@model List<UserCarsPreviewViewModel>
+﻿@using Xcelerate.Infrastructure.Data.Enums
+@model AdInformationViewModel
 
 <link rel="stylesheet" href="~/css/UserCars/Index.css" asp-append-version="true" />
 
-@if (Model != null && Model.Count > 0)
+<section>
+	<partial name="_AllUserCars" model="Model.Ads">
+	</partial>
+</section>
+
+@if (User?.Identity?.IsAuthenticated ?? false)
 {
-	<section class="card-holder">
-		@foreach (var ad in Model)
+	<div class="pagination-container">
+		@if (Model.Pager.TotalPages > 0)
 		{
-			<article class="car-card">
-				<div class="image-holder">
-					@{
-						// Display the first image
-						var firstImage = ad.ImageUrls.FirstOrDefault();
-						if (firstImage != null)
-						{
-							<img src="~/Images/Ad/@firstImage" alt="First image of the car ad" />
-						}
-					}
-				</div>
-				<h2 class="article-title">@ad.Brand @ad.Model</h2>
-				<div card-text>
-					<ul>
-						<li><strong>Price:</strong> @ad.Price$</li>
-						<li><strong>Year:</strong> @ad.Year</li>
-						<li><strong>Engine:</strong> @ad.Engine</li>
-						<li><strong>Condition:</strong> @ad.Condition</li>
-						<li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
-						<li><strong>Fuel Type:</strong> @ad.FuelType</li>
-						<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
-					</ul>
-					<footer class="bottom-text">
-						<i>
-							<a class="sell-button" asp-area="" asp-controller="UserCars" asp-action="Sell" asp-route-carId="@ad.CarId">Sell</a>
-							<form asp-area="" asp-controller="UserCars" asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
-								<button type="submit" class="delete-button">Delete</button>
-							</form>
-							<a class="view-button" asp-area="" asp-controller="UserCars" asp-action="Information" asp-route-carId="@ad.CarId">View</a>
-						</i>
-					</footer>
-				</div>
-			</article>
+
+			<ul class="page-list">
+				@if (Model.Pager.CurrentPage > Model.Pager.StartPage)
+				{
+					<li class="page-item">
+						<a class="page-link"
+						   href="@Url.Action("Index", "UserCars", new
+                            {
+                                currentPage = Model.Pager.CurrentPage - 1,
+								year = Model.Year,
+								EuroStandard = Model.EuroStandard,
+								fuelType = Model.FuelType,
+								colour = Model.Colour,
+								transmission = Model.Transmission,
+								driveTrain = Model.DriveTrain,
+								bodyType = Model.BodyType,
+								condition = Model.Condition
+                            })">Previous</a>
+					</li>
+				}
+
+				@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+				{
+					<li class="page-item">
+						<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
+						   href="@Url.Action("Index", "UserCars", new{
+                                currentPage = page,
+								year = Model.Year,
+								euroStandard = Model.EuroStandard,
+								fuelType = Model.FuelType,
+								colour = Model.Colour,
+								transmission = Model.Transmission,
+								driveTrain = Model.DriveTrain,
+								bodyType = Model.BodyType,
+								condition = Model.Condition
+                            })">@(page)</a>
+					</li>
+				}
+
+				@if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+				{
+					<li class="page-item">
+						<a class="page-link"
+						   href="@Url.Action("Index", "UserCars", new{
+                                currentPage = Model.Pager.CurrentPage + 1,
+								year = Model.Year,
+								euroStandard = Model.EuroStandard,
+								fuelType = Model.FuelType,
+								colour = Model.Colour,
+								transmission = Model.Transmission,
+								driveTrain = Model.DriveTrain,
+								bodyType = Model.BodyType,
+								condition = Model.Condition
+                            })">Next</a>
+					</li>
+				}
+			</ul>
 		}
-	</section>
-}
-else
-{
-	<section class="card-holder-message">
-		<article class="car-card-message">
-			<h2 class="article-title-message"> </h2>
-			<div card-text>
-				<h2 class="message">You don't have any cars yet. Consider buying one!</h2>
-				<footer class="bottom-text-message">
-					<ul>
-						<i class="create-message-button">
-							<a asp-area="" asp-controller="Ad" asp-action="Create">CREATE</a>
-						</i>
-					</ul>
-				</footer>
-			</div>
-		</article>
-	</section>
+	</div>
+
+	<form class="filters" method="get">
+
+		<select name="year" asp-for="@Model.Year" id="form-input" onchange="this.form.submit()">
+			@{
+				<option value="0">Default</option>
+				int currentYear = DateTime.Now.Year;
+				for (int year = currentYear; year >= 1900; year--)
+				{
+					<option value="@year">@year</option>
+				}
+			}
+		</select>
+
+		<div class="form-input">
+			<label asp-for="@Model.EuroStandard">Euro Standard</label>
+			<select name="EuroStandard" asp-for="@Model.EuroStandard" id="form-input" onchange="this.form.submit()">
+				@foreach (var standard in Enum.GetValues(typeof(EuroStandardEnum)))
+				{
+					<option value="@standard">@standard</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
+		</div>
+		<div class="form-input">
+			<label asp-for="@Model.FuelType">Fuel Type</label>
+			<select name="FuelType" asp-for="@Model.FuelType" id="form-input" onchange="this.form.submit()">
+				@foreach (var fuelType in Enum.GetValues(typeof(FuelTypeEnum)))
+				{
+					<option value="@fuelType">@fuelType</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.FuelType" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<label asp-for="@Model.Colour">Colour</label>
+			<select name="Colour" asp-for="@Model.Colour" id="form-input" onchange="this.form.submit()">
+				@foreach (var colour in Enum.GetValues(typeof(ColourEnum)))
+				{
+					<option value="@colour">@colour</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.Colour" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<label asp-for="@Model.Transmission">Transmission</label>
+			<select name="Transmission" asp-for="@Model.Transmission" id="form-input" onchange="this.form.submit()">
+				@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
+				{
+					<option value="@transmission">@transmission</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.Transmission" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<label asp-for="@Model.DriveTrain">Drive Train</label>
+			<select name="DriveTrain" asp-for="@Model.DriveTrain" id="form-input" onchange="this.form.submit()">
+				@foreach (var driveTrainType in Enum.GetValues(typeof(DriveTrainEnum)))
+				{
+					<option value="@driveTrainType">@driveTrainType</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.DriveTrain" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<label asp-for="@Model.BodyType">Body Type</label>
+			<select name="BodyType" asp-for="@Model.BodyType" id="form-input" onchange="this.form.submit()">
+				@foreach (var bodyType in Enum.GetValues(typeof(BodyTypeEnum)))
+				{
+					<option value="@bodyType">@bodyType</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<label asp-for="@Model.Condition">Condition</label>
+			<select name="Condition" asp-for="@Model.Condition" id="form-input" onchange="this.form.submit()">
+				@foreach (var condition in Enum.GetValues(typeof(ConditionEnum)))
+				{
+					<option value="@condition">@condition</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.Condition" class="text-danger"></span>
+		</div>
+	</form>
+
 }
 
 @if (TempData["ConfirmUserCarDelete"] != null && (bool)TempData["ConfirmUserCarDelete"])

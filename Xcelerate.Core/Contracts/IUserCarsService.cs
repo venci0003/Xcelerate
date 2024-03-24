@@ -1,13 +1,15 @@
-﻿using Xcelerate.Core.Models.UserCars;
+﻿using Microsoft.VisualBasic;
+using Xcelerate.Core.Models.Ad;
+using Xcelerate.Core.Models.UserCars;
 using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Core.Contracts
 {
 	public interface IUserCarsService
 	{
-		public Task<IEnumerable<UserCarsPreviewViewModel>> GetUserCarsPreviewAsync(Guid userId);
+		public Task<IEnumerable<AdPreviewViewModel>> GetUserCarsPreviewAsync(Guid userId, AdInformationViewModel adInformation);
 
-		public Task<UserCarsInformationViewModel> GetCarsInformationAsync(int? carId);
+		public Task<AdInformationViewModel> GetCarsInformationAsync(int? carId);
 
 		public Task<UserCarsSellViewModel> GetSellInformationForCarAsync(int? carId);
 

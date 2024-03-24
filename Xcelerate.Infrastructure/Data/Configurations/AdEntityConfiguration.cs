@@ -1,15 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Infrastructure.Data.Configurations
 {
-    public class AdEntityConfiguration : IEntityTypeConfiguration<Ad>
+	public class AdEntityConfiguration : IEntityTypeConfiguration<Ad>
     {
         public void Configure(EntityTypeBuilder<Ad> builder)
         {

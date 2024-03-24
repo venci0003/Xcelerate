@@ -26,6 +26,9 @@ namespace Xcelerate.Infrastructure.Data
 			modelBuilder.ApplyConfiguration(new ImageEntityConfiguration());
 			modelBuilder.ApplyConfiguration(new AccessoryEntityConfiguration());
 			modelBuilder.ApplyConfiguration(new CarAccessoryEntityConfiguration());
+			modelBuilder.Entity<StatisticalData>().HasData(
+			  new StatisticalData { StatisticId = 1, SoldCars = 160, CreatedCars = 210, CreatedReviews = 88 }
+		  );
 			base.OnModelCreating(modelBuilder);
 		}
 
@@ -40,5 +43,6 @@ namespace Xcelerate.Infrastructure.Data
 		public DbSet<Ad> Ads { get; set; } = null!;
 		public DbSet<Manufacturer> Manufacturers { get; set; } = null!;
 		public DbSet<Review> Reviews { get; set; } = null!;
+		public DbSet<StatisticalData> StatisticalData { get; set; } = null!;
 	}
 }

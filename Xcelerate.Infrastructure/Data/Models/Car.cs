@@ -77,19 +77,22 @@
 		[Comment("BodyType")]
 		public BodyTypeEnum BodyType { get; set; }
 
-
+		[Required]
 		[ForeignKey(nameof(Manufacturer))]
 		public int ManufacturerId { get; set; }
 		public Manufacturer Manufacturer { get; set; } = null!;
 
+		[Required]
 		[ForeignKey(nameof(Address))]
 		public int AddressId { get; set; }
 		public Address Address { get; set; } = null!;
 
+		[Required]
 		[ForeignKey(nameof(Ad))]
 		public int AdId { get; set; }
 		public Ad Ad { get; set; } = null!;
 
+		[Required]
 		[ForeignKey(nameof(User))]
 		public Guid UserId { get; set; }
 		public User User { get; set; } = null!;

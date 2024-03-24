@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.UserCars;
 using Xcelerate.Infrastructure.Data;
+using Xcelerate.Infrastructure.Data.Enums;
 using Xcelerate.Infrastructure.Data.Models;
 using static Xcelerate.Common.EntityValidation;
 
@@ -21,11 +23,11 @@ namespace Xcelerate.Core.Services
 			_webHostEnvironment = webHostEnvironment;
 		}
 
-		public async Task<UserCarsInformationViewModel> GetCarsInformationAsync(int? carId)
+		public async Task<AdInformationViewModel> GetCarsInformationAsync(int? carId)
 		{
-			UserCarsInformationViewModel? car = await _dbContext.Cars
+			AdInformationViewModel? car = await _dbContext.Cars
 				.Where(c => c.CarId == carId && c.IsForSale == false)
-				.Select(car => new UserCarsInformationViewModel
+				.Select(car => new AdInformationViewModel
 				{
 					ImageUrls = car.Images.Select(image => image.ImageUrl).ToList(),
 					Brand = car.Brand,
@@ -60,29 +62,39 @@ namespace Xcelerate.Core.Services
 			{
 				return null;
 			}
-
 			return car;
 		}
 
-		public async Task<IEnumerable<UserCarsPreviewViewModel>> GetUserCarsPreviewAsync(Guid userId)
+		public async Task<IEnumerable<AdPreviewViewModel>> GetUserCarsPreviewAsync(Guid userId, AdInformationViewModel adInformation)
 		{
-			IEnumerable<UserCarsPreviewViewModel> cars = await _dbContext.Cars.Where(c => c.IsForSale == false && c.UserId == userId).Select(car => new UserCarsPreviewViewModel
-			{
-				CarId = car.CarId,
-				ImageUrls = car.Images.Select(car => car.ImageUrl).ToList(),
-				Brand = car.Brand,
-				Model = car.Model,
-				Year = car.Year,
-				Engine = car.Engine.Model,
-				HorsePower = car.Engine.Horsepower,
-				Condition = car.Condition,
-				EuroStandard = car.EuroStandard,
-				FuelType = car.FuelType,
-				Price = car.Price,
-				FirstName = car.User.FirstName,
-				LastName = car.User.LastName,
-				CreatedOn = car.Ad.CreatedOn,
-			}).ToListAsync();
+			IQueryable<Car> userCars = _dbContext.Cars
+				.Include(a => a.User)
+				.Where(a => a.IsForSale == false && a.UserId == userId)
+				.AsQueryable();
+
+			userCars = FilterCars(adInformation, userCars);
+
+			IEnumerable<AdPreviewViewModel> cars = await userCars
+				.Skip((adInformation.Pager.CurrentPage - 1) * adInformation.Pager.PageSize)
+				.Take(adInformation.Pager.PageSize)
+				.AsNoTracking()
+				.Select(car => new AdPreviewViewModel
+				{
+					CarId = car.CarId,
+					ImageUrls = car.Images.Select(car => car.ImageUrl).ToList(),
+					Brand = car.Brand,
+					Model = car.Model,
+					Year = car.Year,
+					Engine = car.Engine.Model,
+					HorsePower = car.Engine.Horsepower,
+					Condition = car.Condition,
+					EuroStandard = car.EuroStandard,
+					FuelType = car.FuelType,
+					Price = car.Price,
+					FirstName = car.User.FirstName,
+					LastName = car.User.LastName,
+					CreatedOn = car.Ad.CreatedOn,
+				}).ToListAsync();
 
 			return cars;
 		}
@@ -93,7 +105,7 @@ namespace Xcelerate.Core.Services
 				.Include(c => c.Engine)
 				.Include(c => c.Manufacturer)
 				.Include(c => c.Address)
-				.Include(c => c.Ad) 
+				.Include(c => c.Ad)
 				.Include(c => c.CarAccessories)
 					.ThenInclude(ca => ca.Accessory)
 				.Include(c => c.Images)
@@ -399,6 +411,55 @@ namespace Xcelerate.Core.Services
 			{
 				throw new ArgumentException("Delete failed!");
 			}
+		}
+		public IQueryable<Car> FilterCars(AdInformationViewModel adViewModel, IQueryable<Car> cars)
+		{
+			if (adViewModel.Year != 0)
+			{
+				cars = cars.Where(c => c.Year == adViewModel.Year);
+			}
+
+			if (adViewModel.EuroStandard != EuroStandardEnum.Default && adViewModel.EuroStandard.HasValue)
+			{
+				cars = cars.Where(c => c.EuroStandard == adViewModel.EuroStandard);
+			}
+
+			if (adViewModel.Transmission != TransmissionEnum.Default && adViewModel.Transmission.HasValue)
+			{
+				cars = cars.Where(c => c.Transmission == adViewModel.Transmission);
+			}
+
+			if (adViewModel.Colour != ColourEnum.Default && adViewModel.Colour.HasValue)
+			{
+				cars = cars.Where(c => c.Colour == adViewModel.Colour);
+			}
+
+			if (adViewModel.FuelType != FuelTypeEnum.Default && adViewModel.FuelType.HasValue)
+			{
+				cars = cars.Where(c => c.FuelType == adViewModel.FuelType);
+			}
+
+			if (adViewModel.Condition != ConditionEnum.Default && adViewModel.Condition.HasValue)
+			{
+				cars = cars.Where(c => c.Condition == adViewModel.Condition);
+			}
+
+			if (adViewModel.BodyType != BodyTypeEnum.Default && adViewModel.BodyType.HasValue)
+			{
+				cars = cars.Where(c => c.BodyType == adViewModel.BodyType);
+			}
+
+			if (adViewModel.DriveTrain != DriveTrainEnum.Default && adViewModel.DriveTrain.HasValue)
+			{
+				cars = cars.Where(c => c.DriveTrain == adViewModel.DriveTrain);
+			}
+
+			if (!string.IsNullOrWhiteSpace(adViewModel.Manufacturer))
+			{
+				cars = cars.Where(c => c.Manufacturer.ToString() == adViewModel.Manufacturer);
+			}
+
+			return cars;
 		}
 	}
 }

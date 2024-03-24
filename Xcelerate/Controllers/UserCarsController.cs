@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
+using Xcelerate.Core.Models.Pager;
 using Xcelerate.Core.Models.UserCars;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data.Models;
@@ -22,13 +23,23 @@ namespace Xcelerate.Controllers
 			_adService = _adServiceContext;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(AdInformationViewModel adInformation)
 		{
+			if (adInformation.CurrentPage < 1)
+			{
+				adInformation.CurrentPage = 1;
+			}
+
+			Pager pager = new Pager(await _adService.GetCountAsync(adInformation), adInformation.CurrentPage);
+			adInformation.Pager = pager;
+
 			Guid userId = User.GetUserId();
 
-			var cars = await _userCarsService.GetUserCarsPreviewAsync(userId);
+			IEnumerable<AdPreviewViewModel> cars = await _userCarsService.GetUserCarsPreviewAsync(userId, adInformation);
 
-			return View(cars);
+			adInformation.Ads = cars;
+
+			return View(adInformation);
 		}
 
 		[HttpGet]
@@ -40,7 +51,7 @@ namespace Xcelerate.Controllers
 				return NotFound();
 			}
 
-			UserCarsInformationViewModel car = await _userCarsService.GetCarsInformationAsync(carId);
+			AdInformationViewModel car = await _userCarsService.GetCarsInformationAsync(carId);
 
 			if (car == null)
 			{

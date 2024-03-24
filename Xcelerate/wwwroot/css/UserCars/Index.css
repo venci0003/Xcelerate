@@ -216,3 +216,29 @@ body {
     position: absolute;
     left: -3%;
 }
+
+.pagination-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.page-list {
+    display: flex;
+    gap: 50px;
+    list-style: none;
+}
+
+.page-item a {
+    color: white;
+}
+
+.page-link {
+    border-radius: 12px;
+    padding: 20px;
+    background: black;
+    font-size: 18px;
+    text-decoration: none;
+}

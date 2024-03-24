@@ -11,6 +11,7 @@ namespace Xcelerate.Extensions
 			serviceDescriptors.AddScoped<IAccessoriesService, AccessoriesService>();
 			serviceDescriptors.AddScoped<IUserCarsService, UserCarsService>();
 			serviceDescriptors.AddScoped<IReviewService, ReviewService>();
+			serviceDescriptors.AddScoped<IHomeService, HomeService>();
 		}
 	}
 }

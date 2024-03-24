@@ -149,12 +149,6 @@ namespace Xcelerate.Core.Services
 					Price = adViewModel.Price,
 					BodyType = adViewModel.BodyType,
 					Manufacturer = new Manufacturer { Name = adViewModel.Manufacturer },
-					Ad = new Ad
-					{
-						UserId = Guid.Parse(userId),
-						CarDescription = WebUtility.HtmlEncode(adViewModel.CarDescription),
-						CreatedOn = adViewModel.CreatedOn.ToString(AdEntity.CreatedOnDateFormat)
-					},
 					Address = new Address
 					{
 						CountryName = WebUtility.HtmlEncode(adViewModel.Address.CountryName),
@@ -163,7 +157,22 @@ namespace Xcelerate.Core.Services
 					}
 				};
 
-				await _dbContext.AddAsync(car);
+				await _dbContext.Cars.AddAsync(car);
+				await _dbContext.SaveChangesAsync();
+
+				var ad = new Ad
+				{
+					UserId = Guid.Parse(userId),
+					CarId = car.CarId, // Assign the CarId to the Ad entity
+					CarDescription = WebUtility.HtmlEncode(adViewModel.CarDescription),
+					CreatedOn = adViewModel.CreatedOn.ToString(AdEntity.CreatedOnDateFormat)
+				};
+
+				await _dbContext.Ads.AddAsync(ad);
+				await _dbContext.SaveChangesAsync();
+
+				car.AdId = ad.AdId;
+				_dbContext.Cars.Update(car);
 				await _dbContext.SaveChangesAsync();
 
 				foreach (var accessoryId in adViewModel.SelectedCheckBoxId)
@@ -195,6 +204,10 @@ namespace Xcelerate.Core.Services
 					}
 				}
 
+				StatisticalData? statisticsUpdate = await _dbContext.StatisticalData.FirstOrDefaultAsync();
+
+				statisticsUpdate.CreatedCars += 1;
+
 				await _dbContext.SaveChangesAsync();
 			}
 			catch (Exception)
@@ -208,7 +221,7 @@ namespace Xcelerate.Core.Services
 
 			IQueryable<Ad> userAds = _dbContext.Ads.
 				Include(a => a.Car).
-		        Where(ad => ad.UserId == userId && ad.Car.IsForSale == true).
+				Where(ad => ad.UserId == userId && ad.Car.IsForSale == true).
 				AsQueryable();
 
 			userAds = FilterCars(adViewModel, userAds);
@@ -519,6 +532,10 @@ namespace Xcelerate.Core.Services
 
 				// Update the car
 				_dbContext.Cars.Update(car);
+
+				StatisticalData? statisticsUpdate = await _dbContext.StatisticalData.FirstOrDefaultAsync();
+
+				statisticsUpdate.SoldCars += 1;
 
 				await _dbContext.SaveChangesAsync();
 				return true;
