@@ -89,24 +89,40 @@ body {
     font-size: 22px;
     padding: 12px 38px;
     background-color: seagreen;
-    border-radius: 25px;
+    border-radius: 15px;
     text-decoration: none;
     position: absolute;
-    left: 90px;
+    left: 50px;
 }
 
 .view-button {
+    height: 29px;
     color: white;
     font-size: 22px;
     padding: 12px 38px;
     background-color: darkred;
-    border-radius: 25px;
+    border-radius: 15px;
     text-decoration: none;
     position: absolute;
-    left: 285px;
+    left: 309px;
 }
 
+.delete-button {
+    color: white;
+    font-size: 22px;
+    padding: 12px 38px;
+    background-color: darkred;
+    border-radius: 15px;
+    text-decoration: none;
+    position: absolute;
+    left: 168px;
+    width: 135px;
+    height: 53px;
+}
 
+.sell-delete-info-buttons {
+    display: flex;
+}
 
 
 .image-holder img {
@@ -241,9 +257,4 @@ body {
     background: black;
     font-size: 18px;
     text-decoration: none;
-}
-
-.sell-delete-info-buttons {
-    display: flex;
-    align-items: center;
 }
