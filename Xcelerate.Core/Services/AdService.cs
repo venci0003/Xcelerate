@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.FileIO;
 using System.Globalization;
 using System.Net;
 using Xcelerate.Core.Contracts;
@@ -48,7 +49,7 @@ namespace Xcelerate.Core.Services
 					HorsePower = ad.Car.Engine.Horsepower,
 					Condition = ad.Car.Condition,
 					EuroStandard = ad.Car.EuroStandard,
-					FuelType = ad.Car.FuelType,
+					FuelType = ad.Car.Engine.FuelType,
 					Price = ad.Car.Price,
 					FirstName = ad.User.FirstName,
 					LastName = ad.User.LastName,
@@ -92,7 +93,7 @@ namespace Xcelerate.Core.Services
 		HorsePower = ad.Car.Engine.Horsepower,
 		Condition = ad.Car.Condition,
 		EuroStandard = ad.Car.EuroStandard,
-		FuelType = ad.Car.FuelType,
+		FuelType = ad.Car.Engine.FuelType,
 		Colour = ad.Car.Colour,
 		Transmission = ad.Car.Transmission,
 		DriveTrain = ad.Car.DriveTrain,
@@ -136,11 +137,11 @@ namespace Xcelerate.Core.Services
 					Engine = new Engine
 					{
 						Model = WebUtility.HtmlEncode(adViewModel.Engine),
-						Horsepower = adViewModel.HorsePower
+						Horsepower = adViewModel.HorsePower,
+						FuelType = adViewModel.FuelType
 					},
 					Condition = adViewModel.Condition,
 					EuroStandard = adViewModel.EuroStandard,
-					FuelType = adViewModel.FuelType,
 					Colour = adViewModel.Colour,
 					Transmission = adViewModel.Transmission,
 					DriveTrain = adViewModel.DriveTrain,
@@ -242,7 +243,7 @@ namespace Xcelerate.Core.Services
 			Engine = car.Car.Engine.Model,
 			Condition = car.Car.Condition,
 			EuroStandard = car.Car.EuroStandard,
-			FuelType = car.Car.FuelType,
+			FuelType = car.Car.Engine.FuelType,
 			Price = car.Car.Price,
 			FirstName = car.User.FirstName,
 			LastName = car.User.LastName,
@@ -285,7 +286,7 @@ namespace Xcelerate.Core.Services
 				HorsePower = car.Engine.Horsepower,
 				Condition = car.Condition,
 				EuroStandard = car.EuroStandard,
-				FuelType = car.FuelType,
+				FuelType = car.Engine.FuelType,
 				Colour = car.Colour,
 				Transmission = car.Transmission,
 				DriveTrain = car.DriveTrain,
@@ -341,7 +342,7 @@ namespace Xcelerate.Core.Services
 				car.Engine.Model = WebUtility.HtmlEncode(adViewModel.Engine);
 				car.Condition = adViewModel.Condition;
 				car.EuroStandard = adViewModel.EuroStandard;
-				car.FuelType = adViewModel.FuelType;
+				car.Engine.FuelType = adViewModel.FuelType;
 				car.Colour = adViewModel.Colour;
 				car.Transmission = adViewModel.Transmission;
 				car.DriveTrain = adViewModel.DriveTrain;
@@ -579,7 +580,7 @@ namespace Xcelerate.Core.Services
 					HorsePower = car.Engine.Horsepower,
 					Condition = car.Condition,
 					EuroStandard = car.EuroStandard,
-					FuelType = car.FuelType,
+					FuelType = car.Engine.FuelType,
 					Colour = car.Colour,
 					Transmission = car.Transmission,
 					DriveTrain = car.DriveTrain,
@@ -614,7 +615,7 @@ namespace Xcelerate.Core.Services
 					HorsePower = car.Engine.Horsepower,
 					Condition = car.Condition,
 					EuroStandard = car.EuroStandard,
-					FuelType = car.FuelType,
+					FuelType = car.Engine.FuelType,
 					Colour = car.Colour,
 					Transmission = car.Transmission,
 					DriveTrain = car.DriveTrain,
@@ -669,7 +670,7 @@ namespace Xcelerate.Core.Services
 
 			if (adViewModel.FuelType != FuelTypeEnum.Default && adViewModel.FuelType.HasValue)
 			{
-				cars = cars.Where(c => c.Car.FuelType == adViewModel.FuelType);
+				cars = cars.Where(c => c.Car.Engine.FuelType == adViewModel.FuelType);
 			}
 
 			if (adViewModel.Condition != ConditionEnum.Default && adViewModel.Condition.HasValue)

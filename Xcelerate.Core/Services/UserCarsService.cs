@@ -38,7 +38,7 @@ namespace Xcelerate.Core.Services
 					HorsePower = car.Engine.Horsepower,
 					Condition = car.Condition,
 					EuroStandard = car.EuroStandard,
-					FuelType = car.FuelType,
+					FuelType = car.Engine.FuelType,
 					Colour = car.Colour,
 					Transmission = car.Transmission,
 					DriveTrain = car.DriveTrain,
@@ -89,7 +89,7 @@ namespace Xcelerate.Core.Services
 					HorsePower = car.Engine.Horsepower,
 					Condition = car.Condition,
 					EuroStandard = car.EuroStandard,
-					FuelType = car.FuelType,
+					FuelType = car.Engine.FuelType,
 					Price = car.Price,
 					FirstName = car.User.FirstName,
 					LastName = car.User.LastName,
@@ -132,7 +132,7 @@ namespace Xcelerate.Core.Services
 				HorsePower = car.Engine.Horsepower,
 				Condition = car.Condition,
 				EuroStandard = car.EuroStandard,
-				FuelType = car.FuelType,
+				FuelType = car.Engine.FuelType,
 				Colour = car.Colour,
 				Transmission = car.Transmission,
 				DriveTrain = car.DriveTrain,
@@ -200,7 +200,7 @@ namespace Xcelerate.Core.Services
 				car.Engine.Model = adViewModel.Engine;
 				car.Condition = adViewModel.Condition;
 				car.EuroStandard = adViewModel.EuroStandard;
-				car.FuelType = adViewModel.FuelType;
+				car.Engine.FuelType = adViewModel.FuelType;
 				car.Colour = adViewModel.Colour;
 				car.Transmission = adViewModel.Transmission;
 				car.DriveTrain = adViewModel.DriveTrain;
@@ -436,7 +436,7 @@ namespace Xcelerate.Core.Services
 
 			if (adViewModel.FuelType != FuelTypeEnum.Default && adViewModel.FuelType.HasValue)
 			{
-				cars = cars.Where(c => c.FuelType == adViewModel.FuelType);
+				cars = cars.Where(c => c.Engine.FuelType == adViewModel.FuelType);
 			}
 
 			if (adViewModel.Condition != ConditionEnum.Default && adViewModel.Condition.HasValue)

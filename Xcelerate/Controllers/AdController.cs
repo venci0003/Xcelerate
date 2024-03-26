@@ -24,7 +24,7 @@ namespace Xcelerate.Controllers
 
 		[AllowAnonymous]
 		[HttpGet]
-		public async Task<IActionResult> Index(AdInformationViewModel adInformation, int firstCarId, bool compareClicked = false)
+		public async Task<IActionResult> Index(AdInformationViewModel adInformation, int firstCarId, bool compareClicked)
 		{
 			if (adInformation.CurrentPage < 1)
 			{

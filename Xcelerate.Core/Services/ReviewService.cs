@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.Review;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;

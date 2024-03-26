@@ -23,6 +23,8 @@
 						   href="@Url.Action("Index", "Ad", new
                             {
                                 currentPage = Model.Pager.CurrentPage - 1,
+								compareClicked = TempData["CompareButtonClicked"],
+								firstCarId = ViewBag.FirstCarId,
 								year = Model.Year,
 								EuroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
@@ -41,6 +43,8 @@
 						<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
 						   href="@Url.Action("Index", "Ad", new{
                                 currentPage = page,
+								compareClicked = TempData["CompareButtonClicked"],
+							    firstCarId = ViewBag.FirstCarId,
 								year = Model.Year,
 								euroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
@@ -59,6 +63,8 @@
 						<a class="page-link"
 						   href="@Url.Action("Index", "Ad", new{
                                 currentPage = Model.Pager.CurrentPage + 1,
+								compareClicked = TempData["CompareButtonClicked"],
+								firstCarId = ViewBag.FirstCarId,
 								year = Model.Year,
 								euroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,

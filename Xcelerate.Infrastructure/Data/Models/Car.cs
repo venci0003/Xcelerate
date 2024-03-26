@@ -46,10 +46,6 @@
 		public EuroStandardEnum EuroStandard { get; set; }
 
 		[Required]
-		[Comment("FuelType")]
-		public FuelTypeEnum FuelType { get; set; }
-
-		[Required]
 		[Comment("Colour")]
 		public ColourEnum Colour { get; set; }
 

@@ -242,3 +242,8 @@ body {
     font-size: 18px;
     text-decoration: none;
 }
+
+.sell-delete-info-buttons {
+    display: flex;
+    align-items: center;
+}
