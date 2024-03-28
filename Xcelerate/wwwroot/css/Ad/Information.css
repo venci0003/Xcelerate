@@ -288,7 +288,7 @@ body {
 }
 
 
-.buy-button, .cancel-button, .compare-button {
+.buy-button, .owner-div, .compare-button {
     font-size: 35px;
     margin-top: 10px;
     padding: 0px 25px;
@@ -296,11 +296,14 @@ body {
 }
 
     .buy-button:hover,
-    .cancel-button:hover,
     .compare-button:hover {
         cursor: pointer;
         opacity: 0.8; /* Reduce opacity on hover for visual feedback */
     }
+
+.owner-div {
+    background-color:orange;
+}
 
 .compare-button {
     top: 930px;

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic.FileIO;
 using System.Globalization;
 using System.Net;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
+using Xcelerate.Core.Models.Sorting;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Enums;
 using Xcelerate.Infrastructure.Data.Models;
@@ -130,7 +130,7 @@ namespace Xcelerate.Core.Services
 				var car = new Car
 				{
 					UserId = Guid.Parse(userId),
-					Brand = WebUtility.HtmlEncode(adViewModel.Brand),
+					Brand = adViewModel.Brand,
 					Model = WebUtility.HtmlEncode(adViewModel.Model),
 					Year = adViewModel.Year,
 					IsForSale = adViewModel.IsForSale = true,
@@ -336,7 +336,7 @@ namespace Xcelerate.Core.Services
 				}
 
 				// Update the properties of the existing car entity based on the ViewModel
-				car.Brand = WebUtility.HtmlEncode(adViewModel.Brand);
+				car.Brand = adViewModel.Brand;
 				car.Model = WebUtility.HtmlEncode(adViewModel.Model);
 				car.Year = adViewModel.Year;
 				car.Engine.Model = WebUtility.HtmlEncode(adViewModel.Engine);
@@ -648,9 +648,58 @@ namespace Xcelerate.Core.Services
 
 		public IQueryable<Ad> FilterCars(AdInformationViewModel adViewModel, IQueryable<Ad> cars)
 		{
+			if (adViewModel.Sorting == SortingEnums.PriceAscending)
+			{
+				cars = cars.OrderBy(c => c.Car.Price);
+			}
+			else if (adViewModel.Sorting == SortingEnums.PriceDescending)
+			{
+				cars = cars.OrderByDescending(c => c.Car.Price);
+			}
+			else if (adViewModel.Sorting == SortingEnums.YearAscending)
+			{
+				cars = cars.OrderBy(c => c.Car.Year);
+			}
+			else if (adViewModel.Sorting == SortingEnums.YearDescending)
+			{
+				cars = cars.OrderByDescending(c => c.Car.Year);
+			}
+
+
 			if (adViewModel.Year != 0)
 			{
 				cars = cars.Where(c => c.Car.Year == adViewModel.Year);
+			}
+
+			if (adViewModel.Brand != BrandsEnum.Default && adViewModel.Brand.HasValue)
+			{
+				cars = cars.Where(c => c.Car.Brand == adViewModel.Brand);
+			}
+
+			if (!string.IsNullOrWhiteSpace(adViewModel.Model))
+			{
+				cars = cars.Where(c => c.Car.Model.ToLower().Contains(adViewModel.Model.ToLower()));
+			}
+
+
+			if (adViewModel.MinMileage.HasValue && adViewModel.MaxMileage.HasValue)
+			{
+				cars = cars.Where(c => c.Car.Mileage >= adViewModel.MinMileage && c.Car.Mileage <= adViewModel.MaxMileage);
+			}
+
+			if (adViewModel.MinPrice.HasValue && adViewModel.MaxPrice.HasValue)
+			{
+				cars = cars.Where(c => c.Car.Price >= adViewModel.MinPrice && c.Car.Price <= adViewModel.MaxPrice);
+			}
+
+			if (adViewModel.MinHorsePower.HasValue && adViewModel.MaxHorsePower.HasValue)
+			{
+				cars = cars.Where(c => c.Car.Engine.Horsepower >= adViewModel.MinHorsePower && c.Car.Engine.Horsepower <= adViewModel.MaxHorsePower);
+			}
+
+			if (adViewModel.StartYear != 0 && adViewModel.EndYear != 0)
+			{
+				cars = cars.Where(c => c.Car.Year >= adViewModel.StartYear && c.Car.Year <= adViewModel.EndYear);
 			}
 
 			if (adViewModel.EuroStandard != EuroStandardEnum.Default && adViewModel.EuroStandard.HasValue)

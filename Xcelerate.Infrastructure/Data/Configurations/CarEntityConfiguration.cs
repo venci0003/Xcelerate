@@ -45,7 +45,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car firstCar = new Car()
 			{
 				CarId = 1,
-				Brand = "Toyota",
+				Brand = BrandsEnum.Toyota,
 				Model = "Camry TRD",
 				Year = 2020,
 				IsForSale = true,
@@ -57,7 +57,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1623.5m,
 				Mileage = 30000,
-				Price = 25000.50m,
+				Price = 25000,
 				BodyType = BodyTypeEnum.Sedan,
 				ManufacturerId = 1, // Assuming you have a Manufacturer with ManufacturerId = 1
 				AddressId = 1, // Assuming you have an Address with AddressId = 1
@@ -69,7 +69,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car secondCar = new Car()
 			{
 				CarId = 2,
-				Brand = "Honda",
+				Brand = BrandsEnum.Honda,
 				Model = "Civic Type R",
 				Year = 2021,
 				IsForSale = true,
@@ -81,7 +81,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1395.75m,
 				Mileage = 15000,
-				Price = 62000.75m,
+				Price = 62000,
 				BodyType = BodyTypeEnum.Hatchback,
 				ManufacturerId = 2, // Assuming you have a Manufacturer with ManufacturerId = 2
 				AddressId = 2, // Assuming you have an Address with AddressId = 2
@@ -93,7 +93,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car thirdCar = new Car()
 			{
 				CarId = 3,
-				Brand = "Ford",
+				Brand = BrandsEnum.Ford,
 				Model = "Mustang GT350R",
 				Year = 2020,
 				IsForSale = true,
@@ -105,7 +105,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.RearWheelDrive,
 				Weight = 1600.25m,
 				Mileage = 25000,
-				Price = 30000.25m,
+				Price = 30000,
 				BodyType = BodyTypeEnum.Sedan,
 				ManufacturerId = 3, // Assuming you have a Manufacturer with ManufacturerId = 3
 				AddressId = 3, // Assuming you have an Address with AddressId = 3
@@ -118,7 +118,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car fourthCar = new Car()
 			{
 				CarId = 4,
-				Brand = "Volkswagen",
+				Brand = BrandsEnum.Volkswagen,
 				Model = "Golf",
 				Year = 2019,
 				IsForSale = true,
@@ -130,7 +130,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1400.75m,
 				Mileage = 20000,
-				Price = 18000.75m,
+				Price = 18000,
 				BodyType = BodyTypeEnum.Hatchback,
 				ManufacturerId = 4, // Assuming you have a Manufacturer with ManufacturerId = 4
 				AddressId = 4, // Assuming you have an Address with AddressId = 4
@@ -144,19 +144,19 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car fifthCar = new Car()
 			{
 				CarId = 5,
-				Brand = "Mercedes-Benz",
+				Brand = BrandsEnum.MercedesBenz,
 				Model = "C-Class",
 				Year = 2022,
 				IsForSale = true,
 				EngineId = 5, // Assuming you have an Engine with EngineId = 5
 				Condition = ConditionEnum.BrandNew,
 				EuroStandard = EuroStandardEnum.Six,
-				Colour = ColourEnum.White,
+				Colour = ColourEnum.SlateGray,
 				Transmission = TransmissionEnum.Automatic,
 				DriveTrain = DriveTrainEnum.AllWheelDrive,
 				Weight = 1800.5m,
 				Mileage = 10000,
-				Price = 40000.5m,
+				Price = 40000,
 				BodyType = BodyTypeEnum.Sedan,
 				ManufacturerId = 5, // Assuming you have a Manufacturer with ManufacturerId = 5
 				AddressId = 5, // Assuming you have an Address with AddressId = 5
@@ -168,7 +168,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car sixthCar = new Car()
 			{
 				CarId = 6,
-				Brand = "Audi",
+				Brand = BrandsEnum.Audi,
 				Model = "A3",
 				Year = 2022,
 				IsForSale = true,
@@ -180,7 +180,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1500.25m,
 				Mileage = 30000,
-				Price = 28000.25m,
+				Price = 28000,
 				BodyType = BodyTypeEnum.Sedan,
 				ManufacturerId = 6, // Assuming you have a Manufacturer with ManufacturerId = 6
 				AddressId = 6, // Assuming you have an Address with AddressId = 6
@@ -192,19 +192,19 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car seventhCar = new Car()
 			{
 				CarId = 7,
-				Brand = "Infiniti",
+				Brand = BrandsEnum.Infiniti,
 				Model = "QX80",
 				Year = 2022,
 				IsForSale = true,
 				EngineId = 7, // Assuming you have an Engine with EngineId = 7
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Two,
-				Colour = ColourEnum.Brown,
+				Colour = ColourEnum.SlateGray,
 				Transmission = TransmissionEnum.Automatic,
 				DriveTrain = DriveTrainEnum.AllWheelDrive,
 				Weight = 2000.0m,
 				Mileage = 25000,
-				Price = 35000.0m,
+				Price = 35000,
 				BodyType = BodyTypeEnum.SUV,
 				ManufacturerId = 7, // Assuming you have a Manufacturer with ManufacturerId = 7
 				AddressId = 7, // Assuming you have an Address with AddressId = 7
@@ -217,19 +217,19 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car eighthCar = new Car()
 			{
 				CarId = 8,
-				Brand = "Hyundai",
+				Brand = BrandsEnum.Hyundai,
 				Model = "Elantra",
 				Year = 2021,
 				IsForSale = true,
 				EngineId = 8, // Assuming you have an Engine with EngineId = 8
 				Condition = ConditionEnum.BrandNew,
 				EuroStandard = EuroStandardEnum.Five,
-				Colour = ColourEnum.White,
+				Colour = ColourEnum.Red,
 				Transmission = TransmissionEnum.Automatic,
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1400.5m,
 				Mileage = 15000,
-				Price = 23000.5m,
+				Price = 23000,
 				BodyType = BodyTypeEnum.Sedan,
 				ManufacturerId = 8, // Assuming you have a Manufacturer with ManufacturerId = 8
 				AddressId = 8, // Assuming you have an Address with AddressId = 8
@@ -241,7 +241,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car ninthCar = new Car()
 			{
 				CarId = 9,
-				Brand = "BMW",
+				Brand = BrandsEnum.BMW,
 				Model = "3 Series",
 				Year = 2022,
 				IsForSale = true,
@@ -253,7 +253,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.AllWheelDrive,
 				Weight = 1700.0m,
 				Mileage = 320000,
-				Price = 42000.0m,
+				Price = 42000,
 				BodyType = BodyTypeEnum.Sedan,
 				ManufacturerId = 9, // Assuming you have a Manufacturer with ManufacturerId = 9
 				AddressId = 9, // Assuming you have an Address with AddressId = 9
@@ -265,7 +265,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car tenthCar = new Car()
 			{
 				CarId = 10,
-				Brand = "Nissan",
+				Brand = BrandsEnum.Nissan,
 				Model = "Rogue",
 				Year = 2021,
 				IsForSale = true,
@@ -277,7 +277,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1600.75m,
 				Mileage = 18000,
-				Price = 28000.75m,
+				Price = 28000,
 				BodyType = BodyTypeEnum.SUV,
 				ManufacturerId = 10, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 10, // Assuming you have an Address with AddressId = 10
@@ -290,7 +290,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car eleventhCar = new Car()
 			{
 				CarId = 11,
-				Brand = "Chevrolet",
+				Brand = BrandsEnum.Chevrolet,
 				Model = "El Camino SS",
 				Year = 1969,
 				IsForSale = true,
@@ -302,7 +302,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.RearWheelDrive,
 				Weight = 1742.85m,
 				Mileage = 310000,
-				Price = 308000.75m,
+				Price = 308000,
 				BodyType = BodyTypeEnum.SUV,
 				ManufacturerId = 11, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 11, // Assuming you have an Address with AddressId = 10
@@ -314,7 +314,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car twelfthCar = new Car()
 			{
 				CarId = 12,
-				Brand = "Chevrolet",
+				Brand = BrandsEnum.Chevrolet,
 				Model = "Tahoe",
 				Year = 2013,
 				IsForSale = true,
@@ -326,7 +326,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FourWheelDrive,
 				Weight = 2583.05m,
 				Mileage = 230000,
-				Price = 30000.15m,
+				Price = 30000,
 				BodyType = BodyTypeEnum.SUV,
 				ManufacturerId = 12, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 12, // Assuming you have an Address with AddressId = 10
@@ -338,19 +338,19 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car thirteenthCar = new Car()
 			{
 				CarId = 13,
-				Brand = "Ford",
+				Brand = BrandsEnum.Ford,
 				Model = " F-350 Super Duty",
 				Year = 2000,
 				IsForSale = true,
 				EngineId = 13, // Assuming you have an Engine with EngineId = 10
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Two,
-				Colour = ColourEnum.Purple,
+				Colour = ColourEnum.Black,
 				Transmission = TransmissionEnum.Manual,
 				DriveTrain = DriveTrainEnum.FourWheelDrive,
 				Weight = 1353.05m,
 				Mileage = 190000,
-				Price = 42000.15m,
+				Price = 42000,
 				BodyType = BodyTypeEnum.SUV,
 				ManufacturerId = 13, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 13, // Assuming you have an Address with AddressId = 10
@@ -362,7 +362,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car fourteenthCar = new Car()
 			{
 				CarId = 14,
-				Brand = "Renault",
+				Brand = BrandsEnum.Renault,
 				Model = "Clio",
 				Year = 2013,
 				IsForSale = true,
@@ -374,7 +374,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FourWheelDrive,
 				Weight = 1240.55m,
 				Mileage = 10000,
-				Price = 22000.15m,
+				Price = 22000,
 				BodyType = BodyTypeEnum.Hatchback,
 				ManufacturerId = 14, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 14, // Assuming you have an Address with AddressId = 10
@@ -386,7 +386,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car fifteenthCar = new Car()
 			{
 				CarId = 15,
-				Brand = "Mercedes-Benz",
+				Brand = BrandsEnum.MercedesBenz,
 				Model = "W140",
 				Year = 1998,
 				IsForSale = true,
@@ -398,7 +398,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.RearWheelDrive,
 				Weight = 1240.55m,
 				Mileage = 40186,
-				Price = 280000.80m,
+				Price = 280000,
 				BodyType = BodyTypeEnum.Sedan,
 				ManufacturerId = 15, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 15, // Assuming you have an Address with AddressId = 10
@@ -410,7 +410,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car sixteenthCar = new Car()
 			{
 				CarId = 16,
-				Brand = "Acura",
+				Brand = BrandsEnum.Acura,
 				Model = "RSX Type-S",
 				Year = 2005,
 				IsForSale = true,
@@ -422,7 +422,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1420.15m,
 				Mileage = 100200,
-				Price = 80000.80m,
+				Price = 80000,
 				BodyType = BodyTypeEnum.Coupe,
 				ManufacturerId = 16, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 16, // Assuming you have an Address with AddressId = 10
@@ -434,7 +434,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car seventeenthCar = new Car()
 			{
 				CarId = 17,
-				Brand = "Acura",
+				Brand = BrandsEnum.Acura,
 				Model = "NSX",
 				Year = 2005,
 				IsForSale = true,
@@ -446,7 +446,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.RearWheelDrive,
 				Weight = 1510.25m,
 				Mileage = 210000,
-				Price = 230000.80m,
+				Price = 230000,
 				BodyType = BodyTypeEnum.Sedan,
 				ManufacturerId = 17, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 17, // Assuming you have an Address with AddressId = 10
@@ -458,7 +458,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car eighteenthCar = new Car()
 			{
 				CarId = 18,
-				Brand = "Saab",
+				Brand = BrandsEnum.Saab,
 				Model = "9-3 Aero",
 				Year = 2001,
 				IsForSale = true,
@@ -470,7 +470,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1710.25m,
 				Mileage = 170000,
-				Price = 50000.30m,
+				Price = 50000,
 				BodyType = BodyTypeEnum.Sedan,
 				ManufacturerId = 18, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 18, // Assuming you have an Address with AddressId = 10
@@ -482,7 +482,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car nineteenthCar = new Car()
 			{
 				CarId = 19,
-				Brand = "Saab",
+				Brand = BrandsEnum.Saab,
 				Model = "93 SportCombi",
 				Year = 2006,
 				IsForSale = true,
@@ -494,7 +494,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1810.15m,
 				Mileage = 152000,
-				Price = 70000.30m,
+				Price = 70000,
 				BodyType = BodyTypeEnum.Wagon,
 				ManufacturerId = 19, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 19, // Assuming you have an Address with AddressId = 10
@@ -506,7 +506,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			Car twentiethCar = new Car()
 			{
 				CarId = 20,
-				Brand = "Renault",
+				Brand = BrandsEnum.Renault,
 				Model = "Megane II",
 				Year = 2003,
 				IsForSale = true,
@@ -518,7 +518,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				DriveTrain = DriveTrainEnum.FrontWheelDrive,
 				Weight = 1510.15m,
 				Mileage = 213000,
-				Price = 40000.80m,
+				Price = 40000,
 				BodyType = BodyTypeEnum.Coupe,
 				ManufacturerId = 20, // Assuming you have a Manufacturer with ManufacturerId = 10
 				AddressId = 20, // Assuming you have an Address with AddressId = 10

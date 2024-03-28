@@ -16,7 +16,7 @@ namespace Xcelerate.Core.Models.Ad
 
 		public AddressViewModel Address { get; set; } = new AddressViewModel();
 
-		public string Brand { get; set; } = null!;
+		public BrandsEnum Brand { get; set; }
 
 		public DateTime CreatedOn { get; set; } = DateTime.Now;
 
@@ -46,7 +46,7 @@ namespace Xcelerate.Core.Models.Ad
 
 		public int Mileage { get; set; }
 
-		public decimal Price { get; set; }
+		public int Price { get; set; }
 
 		public BodyTypeEnum BodyType { get; set; }
 

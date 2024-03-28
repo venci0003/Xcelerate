@@ -24,9 +24,9 @@
 					@if (ViewBag.UserId != null && ViewBag.UserId == Model.UserId)
 					{
 						<!-- Display content for the owner -->
-						<form asp-area="" asp-controller="UserCars" asp-action="Cancel"  asp-route-adId="@Model.AdId" method="post">
-							<button type="submit" class="cancel-button">Cancel</button>
-						</form>
+						
+							<div type="submit" class="owner-div">You own this ad!</div>
+
 					}
 					else
 					{

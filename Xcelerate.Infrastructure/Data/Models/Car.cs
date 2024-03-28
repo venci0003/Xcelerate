@@ -19,7 +19,7 @@
 
 		[Required]
 		[Comment("Brand")]
-		public string Brand { get; set; } = null!;
+		public BrandsEnum Brand { get; set; }
 
 		[Required]
 		[Comment("Model")]
@@ -67,7 +67,7 @@
 
 		[Required]
 		[Comment("Price")]
-		public decimal Price { get; set; }
+		public int Price { get; set; }
 
 		[Required]
 		[Comment("BodyType")]

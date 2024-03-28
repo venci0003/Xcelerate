@@ -32,7 +32,17 @@
 								transmission = Model.Transmission,
 								driveTrain = Model.DriveTrain,
 								bodyType = Model.BodyType,
-								condition = Model.Condition
+								condition = Model.Condition,
+								minPrice = Model.MinPrice,
+                                maxPrice = Model.MaxPrice,
+                                startYear = Model.StartYear,
+                                endYear = Model.EndYear,
+								minHorsePower = Model.MinHorsePower,
+								maxHorsePower = Model.MaxHorsePower,
+								brand = Model.Brand,
+                                minMileage = Model.MinMileage,
+                                maxMileage = Model.MaxMileage,
+                                sorting = Model.Sorting
                             })">Previous</a>
 					</li>
 				}
@@ -52,7 +62,17 @@
 								transmission = Model.Transmission,
 								driveTrain = Model.DriveTrain,
 								bodyType = Model.BodyType,
-								condition = Model.Condition
+								condition = Model.Condition,
+								minPrice = Model.MinPrice,
+                                maxPrice = Model.MaxPrice,
+                                startYear = Model.StartYear,
+                                endYear = Model.EndYear,
+								minHorsePower = Model.MinHorsePower,
+								maxHorsePower = Model.MaxHorsePower,
+								brand = Model.Brand,
+                                minMileage = Model.MinMileage,
+                                maxMileage = Model.MaxMileage,
+                                sorting = Model.Sorting
                             })">@(page)</a>
 					</li>
 				}
@@ -72,7 +92,18 @@
 								transmission = Model.Transmission,
 								driveTrain = Model.DriveTrain,
 								bodyType = Model.BodyType,
-								condition = Model.Condition
+								condition = Model.Condition,
+								minPrice = Model.MinPrice,
+                                maxPrice = Model.MaxPrice,
+                                startYear = Model.StartYear,
+                                endYear = Model.EndYear,
+								minHorsePower = Model.MinHorsePower,
+								maxHorsePower = Model.MaxHorsePower,
+								brand = Model.Brand,
+                                model = Model.Model,
+                                minMileage = Model.MinMileage,
+                                maxMileage = Model.MaxMileage,
+                                sorting = Model.Sorting
                             })">Next</a>
 					</li>
 				}
@@ -81,6 +112,17 @@
 	</div>
 
 	<form class="filters" method="get">
+		<div class="form-input">
+			<label for="sorting">Sorting</label>
+			<select name="sorting" id="sorting" onchange="this.form.submit()">
+				<option value="0">Default</option>
+				<option value="1">Price Ascending</option>
+				<option value="2">Price Descending</option>
+				<option value="3">Year Ascending</option>
+				<option value="4">Year Descending</option>
+				<!-- Add other sorting options as needed -->
+			</select>
+		</div>
 
 		<select name="year" asp-for="@Model.Year" id="form-input" onchange="this.form.submit()">
 			@{
@@ -92,6 +134,94 @@
 				}
 			}
 		</select>
+
+		<div class="form-input">
+			<label asp-for="@Model.Brand">Brand</label>
+			<select name="Brand" asp-for="@Model.Brand" id="form-input" onchange="this.form.submit()">
+				@foreach (var brandType in Enum.GetValues(typeof(BrandsEnum)))
+				{
+					<option value="@brandType">@brandType</option>
+				}
+			</select>
+			<span asp-validation-for="@Model.Brand" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<label for="model">Model</label>
+			<input type="text" name="model" id="model" value="@Model.Model" placeholder="Enter model">
+		</div>
+
+		<div class="form-input">
+			<label for="minHorsePower">Minimum HorsePower</label>
+			<input type="number" name="minHorsePower" id="minHorsePower" value="@Model.MinHorsePower" placeholder="Enter minimum horsepower">
+		</div>
+		<div class="form-input">
+			<label for="maxHorsePower">Maximum HorsePower</label>
+			<input type="number" name="maxHorsePower" id="maxHorsePower" value="@Model.MaxHorsePower" placeholder="Enter maximum horsepower">
+		</div>
+
+		<div class="form-input">
+			<label for="minPrice">Minimum Price</label>
+			<input type="number" name="minPrice" id="minPrice" value="@Model.MinPrice" placeholder="Enter minimum price">
+		</div>
+		<div class="form-input">
+			<label for="maxPrice">Maximum Price</label>
+			<input type="number" name="maxPrice" id="maxPrice" value="@Model.MaxPrice" placeholder="Enter maximum price">
+		</div>
+
+		<div class="form-input">
+			<label for="minMileage">Minimum Mileage</label>
+			<input type="number" name="minMileage" id="minMileage" value="@Model.MinMileage" placeholder="Enter minimum mileage">
+		</div>
+		<div class="form-input">
+			<label for="maxMileage">Maximum Mileage</label>
+			<input type="number" name="maxMileage" id="maxMileage" value="@Model.MaxMileage" placeholder="Enter maximum mileage">
+		</div>
+
+		<div class="form-input">
+			<label for="endYear">End Year</label>
+			<select name="endYear" id="endYear">
+				<option value="">Select End Year</option>
+				@{
+					var endCurrentYear = DateTime.Now.Year;
+					for (int year = endCurrentYear; year >= 1900; year--)
+					{
+						if (Model.EndYear == year)
+						{
+							<text>
+							<option value="@year" selected>@year</option></text>
+						}
+						else
+						{
+							<text>
+							<option value="@year">@year</option></text>
+						}
+					}
+				}
+			</select>
+		</div>
+		<div class="form-input">
+			<label for="startYear">Start Year</label>
+			<select name="startYear" id="startYear">
+				<option value="">Select Start Year</option>
+				@{
+					var startCurrentYear = DateTime.Now.Year;
+					for (int year = startCurrentYear; year >= 1900; year--)
+					{
+						if (Model.StartYear == year)
+						{
+							<text>
+							<option value="@year" selected>@year</option></text>
+						}
+						else
+						{
+							<text>
+							<option value="@year">@year</option></text>
+						}
+					}
+				}
+			</select>
+		</div>
 
 		<div class="form-input">
 			<label asp-for="@Model.EuroStandard">Euro Standard</label>
@@ -167,6 +297,10 @@
 				}
 			</select>
 			<span asp-validation-for="@Model.Condition" class="text-danger"></span>
+		</div>
+
+		<div class="form-input">
+			<button type="submit">Apply Filter</button>
 		</div>
 	</form>
 

@@ -12,7 +12,7 @@ namespace Xcelerate.Core.Models.Ad
 		public int AdId { get; set; }
 
 		[Required]
-		public string Brand { get; set; } = null!;
+		public BrandsEnum Brand { get; set; }
 
 		[Required]
 		public string Model { get; set; } = null!;
@@ -40,7 +40,7 @@ namespace Xcelerate.Core.Models.Ad
 
 		[Required]
 		[DataType(DataType.Currency)]
-		public decimal Price { get; set; }
+		public int Price { get; set; }
 
 		[Required]
 		[Comment("FirstName")]

@@ -21,7 +21,12 @@
 		<section class="information-inputs">
 			<div class="form-input">
 				<label asp-for="@Model.Brand">Brand</label>
-				<input type="text" name="Brand" asp-for="@Model.Brand" id="form-input" />
+				<select name="Brand" asp-for="@Model.Brand" id="form-input">
+					@foreach (var brandType in Enum.GetValues(typeof(BrandsEnum)))
+					{
+						<option value="@brandType">@brandType</option>
+					}
+				</select>
 				<span asp-validation-for="@Model.Brand" class="text-danger"></span>
 			</div>
 
