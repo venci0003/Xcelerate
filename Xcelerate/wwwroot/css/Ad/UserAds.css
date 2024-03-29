@@ -83,47 +83,50 @@ body {
     bottom: -20px;
     border-radius: 0px 0px 20px 20px;
 }
+.edit-delete-cancel-buttons {
+    display: flex;
+}
 
 .edit-button {
     color: white;
     font-size: 22px;
     padding: 12px 38px;
     background-color: seagreen;
-    border-radius: 25px;
+    border-radius: 15px;
     text-decoration: none;
     position: absolute;
-    left: 30px;
+    left: 50px;
 }
 
 .delete-button {
-    height: 35%;
-    width: 28%;
+    height: 52px;
     color: white;
     font-size: 22px;
     padding: 12px 38px;
     background-color: darkred;
-    border-radius: 25px;
+    border-radius: 15px;
     text-decoration: none;
     position: absolute;
-    left: 335px;
+    left: 309px;
 }
 
 .cancel-button {
-    height: 35%;
-    width: 35%;
     color: white;
-    font-size: 10px;
+    font-size: 22px;
     padding: 12px 38px;
-    background-color: red;
-    border-radius: 25px;
+    background-color: dimgray;
+    border-radius: 15px;
     text-decoration: none;
     position: absolute;
-    font-size: 30px;
-    left: 155px;
+    left: 170px;
+    width: 135px;
+    height: 52px;
 }
 
 
-    .cancel-button:hover {
+    .cancel-button:hover,
+    .delete-button:hover,
+    .edit-button:hover {
         cursor: pointer;
         opacity: 0.8; /* Reduce opacity on hover for visual feedback */
     }

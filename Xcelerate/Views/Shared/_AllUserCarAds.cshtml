@@ -30,7 +30,7 @@
 						<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
 					</ul>
 					<footer class="bottom-text">
-						<i>
+						<i class="edit-delete-cancel-buttons">
 							<a class="edit-button" asp-area="" asp-controller="Ad" asp-action="Edit" asp-route-carId="@ad.CarId">Edit</a>
 							<form asp-area="" asp-controller="Ad" asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
 								<button type="submit" class="delete-button">Delete</button>

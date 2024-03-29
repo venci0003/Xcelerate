@@ -292,7 +292,14 @@ body {
     font-size: 35px;
     margin-top: 10px;
     padding: 0px 25px;
-    border-radius: 25px;
+    border-radius: 15px;
+    height:45px;
+}
+
+.buy-button, .compare-button {
+    background: linear-gradient(80deg, darkred, rgba(0, 0, 0, 0.37));
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
     .buy-button:hover,
@@ -304,6 +311,8 @@ body {
 .owner-div {
     background-color:orange;
 }
+
+
 
 .compare-button {
     top: 930px;
