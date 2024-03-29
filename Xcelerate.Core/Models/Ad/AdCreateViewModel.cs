@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
 using Xcelerate.Infrastructure.Data.Enums;
 
 namespace Xcelerate.Core.Models.Ad

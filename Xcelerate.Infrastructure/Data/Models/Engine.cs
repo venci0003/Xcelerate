@@ -1,16 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xcelerate.Infrastructure.Data.Enums;
 
 namespace Xcelerate.Infrastructure.Data.Models
 {
-    public class Engine
+	public class Engine
     {
         [Key]
         [Comment("EngineId")]

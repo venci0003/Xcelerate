@@ -21,17 +21,11 @@
             public const int PasswordMinLength = 8;
 
             public const int PasswordMaxLength = 20;
-
-            //// Age validations
-            //public const int AgeMinValue = 16;
-
-            //public const int AgeMaxValue = 99;
         };
 
 
         public static class ReviewEntity
         {
-            // Stars validations
             public const int StarsCountMinValue = 1;
 
             public const int StarsCountMaxValue = 6;
@@ -55,7 +49,7 @@
             // HorsePower validations
             public const int HorsePowerMinValue = 0;
 
-            public const int HorsePowerMaxValue = 2000;
+            public const int HorsePowerMaxValue = 4000;
 
             // Cylinder validations
             public const int CylinderMinValue = 2;
