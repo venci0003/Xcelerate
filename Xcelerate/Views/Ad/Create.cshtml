@@ -24,7 +24,10 @@
 				<select name="Brand" asp-for="@Model.Brand" id="form-input">
 					@foreach (var brandType in Enum.GetValues(typeof(BrandsEnum)))
 					{
-						<option value="@brandType">@brandType</option>
+						if ((BrandsEnum)brandType != BrandsEnum.Default)
+						{
+							<option value="@brandType">@brandType</option>
+						}
 					}
 				</select>
 				<span asp-validation-for="@Model.Brand" class="text-danger"></span>
