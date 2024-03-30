@@ -91,7 +91,7 @@ body {
     color: white;
     font-size: 22px;
     padding: 12px 38px;
-    background-color: seagreen;
+    background: linear-gradient(180deg, seagreen, rgba(255, 255, 255, 0.2));
     border-radius: 15px;
     text-decoration: none;
     position: absolute;
@@ -103,7 +103,7 @@ body {
     color: white;
     font-size: 22px;
     padding: 12px 38px;
-    background-color: darkred;
+    background: linear-gradient(180deg, darkred, rgba(255, 255, 255, 0.2));
     border-radius: 15px;
     text-decoration: none;
     position: absolute;
@@ -114,7 +114,7 @@ body {
     color: white;
     font-size: 22px;
     padding: 12px 38px;
-    background-color: dimgray;
+    background: linear-gradient(180deg, dimgray, rgba(255, 255, 255, 0.2));
     border-radius: 15px;
     text-decoration: none;
     position: absolute;
