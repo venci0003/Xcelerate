@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using System.Diagnostics;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Home;
+using Xcelerate.Core.Models.Pager;
+using Xcelerate.Core.Services;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Models;
 
@@ -29,10 +32,23 @@ namespace Xcelerate.Controllers
 			return View();
 		}
 
-		public async Task<IActionResult> HomePage(DataStatisticsViewModel dataStatisticsView)
+		public async Task<IActionResult> HomePage(HomePageViewModel homePageView)
 		{
-			var statistics = await _homeService.GetDataStatisticsAsync(dataStatisticsView);
-			return View(statistics);
+			if (homePageView.CurrentPage < 1)
+			{
+				homePageView.CurrentPage = 1;
+			}
+
+			Pager pager = new Pager(await _homeService.GetNewsCountAsync(), homePageView.CurrentPage);
+			homePageView.Pager = pager;
+
+
+			HomePageViewModel viewModel = await _homeService.GetHomePageDataAsync(homePageView);
+
+			homePageView.DataStatistics = viewModel.DataStatistics;
+			homePageView.NewsPreview = viewModel.NewsPreview;
+
+			return View(homePageView);
 		}
 
 

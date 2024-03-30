@@ -1,0 +1,11 @@
+﻿@model List<Xcelerate.Core.Models.Home.NewsPreviewViewModel>
+
+<ul class="news">
+	@foreach (var newsItem in Model)
+	{
+		<li>
+			<h2 class="news-title">@newsItem.Title</h2>
+			<p class="news-content">@newsItem.Content</p>
+		</li>
+	}
+</ul>

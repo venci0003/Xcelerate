@@ -1,4 +1,5 @@
-﻿@model DataStatisticsViewModel
+﻿@model HomePageViewModel
+
 <link rel="stylesheet" href="~/css/Home/HomePage/HomePage.css" asp-append-version="true" />
 
 <svg xmlns="http://www.w3.org/2000/svg">
@@ -16,39 +17,64 @@
 
 <article class="card-news">
 	<div id="clock"></div>
-	<div>
-		<ul>
+	<div class="0">
+		<ul class="stats">
 			<li>
-				Sold Cars: @Model.SoldCars
+				Sold Cars: @Model.DataStatistics.SoldCars
 			</li>
 			<li>
-				Created Cars: @Model.CreatedCars
+				Created Cars: @Model.DataStatistics.CreatedCars
 			</li>
 			<li>
-				Created Reviews: @Model.CreatedReviews
+				Created Reviews: @Model.DataStatistics.CreatedReviews
 			</li>
 		</ul>
 	</div>
-	<h1 class="news-text">NEWS</h1>
+	<h1 class="news-section-text">NEWS</h1>
 
-	<ol>
-		<li>
-			<strong>Electric Revolution:</strong>
-			<p>Electric vehicles (EVs) continue to gain momentum, with major automakers investing heavily in eco-friendly mobility solutions. The rise of electric cars is not just a trend; it's a paradigm shift towards a more sustainable future.</p>
-		</li>
-		<li>
-			<strong>Autonomous Driving:</strong>
-			<p>The dream of self-driving cars is becoming a reality. Advanced driver-assistance systems (ADAS) and artificial intelligence are paving the way for safer and more efficient transportation. The concept of hands-free driving is no longer confined to science fiction.</p>
-		</li>
-		<li>
-			<strong>Hypercar Marvels:</strong>
-			<p>Hypercars are pushing the boundaries of speed and performance. Cutting-edge engineering and aerodynamics are giving birth to machines that redefine what's possible on the road. These cars are not just a mode of transportation; they're a statement of engineering prowess.</p>
-		</li>
-		<li>
-			<strong>Sustainable Materials:</strong>
-			<p>Automakers are embracing sustainable practices by incorporating eco-friendly materials in car manufacturing. From recycled plastics to plant-based components, the industry is moving towards a greener approach, reducing the environmental impact of vehicle production.</p>
-		</li>
-	</ol>
+	<section>
+		<partial name="_AllNewsPreview" model="Model.NewsPreview">
+		</partial>
+	</section>
+
+	<div class="pagination-container">
+		@if (Model.Pager.TotalPages > 0)
+		{
+
+			<ul class="page-list">
+				@if (Model.Pager.CurrentPage > Model.Pager.StartPage)
+				{
+					<li class="page-item">
+						<a class="page-link"
+						   href="@Url.Action("HomePage", "Home", new
+                            {
+                                currentPage = Model.Pager.CurrentPage - 1,							
+                            })">Previous</a>
+					</li>
+				}
+
+				@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+				{
+					<li class="page-item">
+						<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
+						   href="@Url.Action("HomePage", "Home", new{
+                                currentPage = page,
+                            })">@(page)</a>
+					</li>
+				}
+
+				@if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+				{
+					<li class="page-item">
+						<a class="page-link"
+						   href="@Url.Action("HomePage", "Home", new{
+                                currentPage = Model.Pager.CurrentPage + 1,
+                            })">Next</a>
+					</li>
+				}
+			</ul>
+		}
+	</div>
 
 </article>
 

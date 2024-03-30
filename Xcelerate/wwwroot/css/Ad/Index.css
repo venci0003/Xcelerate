@@ -38,13 +38,6 @@ body {
     margin-bottom: 10px;
 }
 
-.card-title {
-    left: 590px;
-    margin-bottom: 0px;
-    font-size: 60px;
-    font-weight: 100;
-    position: relative;
-}
 
 .sub-title {
     margin-top: 0px;
@@ -119,8 +112,8 @@ body {
 
 
 .image-holder img {
-    width: 500px;
-    height: 300px;
+    width: 31.25rem; /* 500px */
+    height: 18.75rem;
     border-radius: 20px 20px 0px 0px;
     background-size: cover;
 }

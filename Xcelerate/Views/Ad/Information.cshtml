@@ -24,8 +24,8 @@
 					@if (ViewBag.UserId != null && ViewBag.UserId == Model.UserId)
 					{
 						<!-- Display content for the owner -->
-						
-							<div type="submit" class="owner-div">You own this ad!</div>
+
+						<div type="submit" class="owner-div">You own this ad!</div>
 
 					}
 					else
@@ -90,7 +90,7 @@
 				<h2 class="description-title">Description</h2>
 				<p class="car-description">@Model.CarDescription</p>
 			</section>
-			<section class="review-section">
+			<section class="review-section" id="reviews-section">
 				<h2 class="reviews-title">Reviews</h2>
 				<ul class="list-car-ad-reviews">
 					<form asp-area="" asp-controller="Review" asp-action="Add" method="post">
@@ -142,6 +142,25 @@
 
 </section>
 
+@* @if (TempData["FormSubmitted"] != null && (bool)TempData["FormSubmitted"])
+{
+	<script>
+		// Function to scroll to the reviews section
+		function scrollToReviews() {
+			var reviewsSection = document.getElementById("reviews-section");
+			if (reviewsSection) {
+				reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		}
+
+		// Scroll to the reviews section when the page loads
+		window.onload = function () {
+			scrollToReviews();
+		};
+	</script>
+		TempData.Remove("FormSubmitted");
+}
+ *@
 @if (TempData["DeleteMessage"] != null && (bool)TempData["DeleteMessage"])
 {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -200,7 +219,7 @@
 		@TempData.Remove("ConfirmDelete")
 		@TempData.Remove("ReviewAdIdToDelete")
 		@TempData.Remove("AdId")
-					}
+							}
 		});
 	</script>
 }

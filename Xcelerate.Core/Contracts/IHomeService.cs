@@ -4,6 +4,7 @@ namespace Xcelerate.Core.Contracts
 {
 	public interface IHomeService
 	{
-		public Task<DataStatisticsViewModel> GetDataStatisticsAsync(DataStatisticsViewModel dataStatisticsViewModel);
+		public Task<int> GetNewsCountAsync();
+		public Task<HomePageViewModel> GetHomePageDataAsync(HomePageViewModel homePageView);
 	}
 }

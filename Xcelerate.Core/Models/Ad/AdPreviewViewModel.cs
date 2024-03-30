@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Xcelerate.Infrastructure.Data.Enums;
+using static Xcelerate.Common.EntityValidation;
 
 namespace Xcelerate.Core.Models.Ad
 {
@@ -14,15 +15,18 @@ namespace Xcelerate.Core.Models.Ad
 		[Required]
 		public BrandsEnum Brand { get; set; }
 
-		[Required]
+		[Required(ErrorMessage = "Model name is required.")]
+		[StringLength(CarEntity.ModelNameMaxLength, ErrorMessage = "Model name must be between {2} and {1} characters.", MinimumLength = CarEntity.ModelNameMinLength)]
 		public string Model { get; set; } = null!;
 
 		[Required]
 		public int Year { get; set; }
 
-		[Required]
+		[Required(ErrorMessage = "Engine name is required.")]
+		[StringLength(EngineEntity.ModelNameMaxLength, ErrorMessage = "Engine name must be between {2} and {1} characters.", MinimumLength = EngineEntity.ModelNameMinLength)]
 		public string Engine { get; set; } = null!;
 
+		[Range(EngineEntity.HorsePowerMinValue, EngineEntity.HorsePowerMaxValue, ErrorMessage = "Horsepower must be between {1} and {2}.")]
 		public int HorsePower { get; set; }
 
 		public string CreatedOn { get; set; } = null!;
@@ -38,8 +42,10 @@ namespace Xcelerate.Core.Models.Ad
 		[Required]
 		public FuelTypeEnum FuelType { get; set; }
 
-		[Required]
+
 		[DataType(DataType.Currency)]
+		[Required(ErrorMessage = "Price value is required.")]
+		[Range(CarEntity.PriceMinValue, CarEntity.PriceMaxValue, ErrorMessage = "Price must be between {1}$ and {2}$.")]
 		public int Price { get; set; }
 
 		[Required]

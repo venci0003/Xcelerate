@@ -23,6 +23,8 @@ namespace Xcelerate.Controllers
 
 			await _reviewService.CreateReviewAsync(reviewViewModel, userId.ToString(), adId);
 
+			//TempData["FormSubmitted"] = true;
+
 			return RedirectToAction("Information", "Ad", new { adId = adId });
 
 		}
