@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using Xcelerate.Core.Models.Ad;
+﻿using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.UserCars;
 using Xcelerate.Infrastructure.Data.Models;
 
@@ -19,6 +18,6 @@ namespace Xcelerate.Core.Contracts
 
 		public Task<bool> DeleteCarAdAsync(int? carId);
 
-		//public Task<Car> GetCarByIdAsync(int carId);
+		public Task<int> GetUserCarsCountAsync(AdInformationViewModel adPreview, string userId);
 	}
 }

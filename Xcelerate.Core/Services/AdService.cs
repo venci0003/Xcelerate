@@ -60,9 +60,18 @@ namespace Xcelerate.Core.Services
 			return carAds;
 		}
 
-		public Task<int> GetCountAsync(AdInformationViewModel adPreview)
+		public Task<int> GetCarAdsCountAsync(AdInformationViewModel adPreview)
 		{
 			IQueryable<Ad> ads = _dbContext.Ads.AsQueryable();
+
+			ads = FilterCars(adPreview, ads);
+
+			return ads.CountAsync();
+		}
+
+		public Task<int> GetUserAdsCountAsync(AdInformationViewModel adPreview, string userId)
+		{
+			IQueryable<Ad> ads = _dbContext.Ads.Where(u => u.UserId == Guid.Parse(userId)).AsQueryable();
 
 			ads = FilterCars(adPreview, ads);
 

@@ -25,15 +25,15 @@ namespace Xcelerate.Controllers
 
 		public async Task<IActionResult> Index(AdInformationViewModel adInformation)
 		{
+			Guid userId = User.GetUserId();
+
 			if (adInformation.CurrentPage < 1)
 			{
 				adInformation.CurrentPage = 1;
 			}
 
-			Pager pager = new Pager(await _adService.GetCountAsync(adInformation), adInformation.CurrentPage);
+			Pager pager = new Pager(await _userCarsService.GetUserCarsCountAsync(adInformation, userId.ToString()), adInformation.CurrentPage);
 			adInformation.Pager = pager;
-
-			Guid userId = User.GetUserId();
 
 			IEnumerable<AdPreviewViewModel> cars = await _userCarsService.GetUserCarsPreviewAsync(userId, adInformation);
 

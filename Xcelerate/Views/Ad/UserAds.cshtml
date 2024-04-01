@@ -8,6 +8,9 @@
 	</partial>
 </section>
 
+@if (Model.Ads.Count() != 0)
+{
+	
 <div class="pagination-container">
 	@if (Model.Pager.TotalPages > 0)
 	{
@@ -70,6 +73,8 @@
 		</ul>
 	}
 </div>
+}
+
 
 <form class="filters" method="get">
 
