@@ -227,8 +227,37 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			engines.Add(engineTwenty);
 
+			Engine engineTwentyOne = new Engine()
+			{
+				EngineId = 21,
+				Model = "F20C",
+				Horsepower = 240,
+				CylinderCount = 4,
+				FuelType = FuelTypeEnum.Petrol,
+			};
+			engines.Add(engineTwentyOne);
+
+			Engine engineTwentyTwo = new Engine()
+			{
+				EngineId = 22,
+				Model = "K-Series K20A3",
+				Horsepower = 160,
+				CylinderCount = 4,
+				FuelType = FuelTypeEnum.Petrol,
+			};
+			engines.Add(engineTwentyTwo);
+
+			Engine engineTwentyThree = new Engine()
+			{
+				EngineId = 23,
+				Model = "F20B 1.8L VTEC",
+				Horsepower = 130,
+				CylinderCount = 4,
+				FuelType = FuelTypeEnum.Petrol,
+			};
+			engines.Add(engineTwentyThree);
+
 			return engines;
 		}
-
 	}
 }

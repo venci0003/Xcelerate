@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Infrastructure.Data.Configurations
@@ -164,6 +159,27 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Name = "Renault"
 			};
 			manufacturers.Add(manufacturerTwenty);
+
+			Manufacturer manufacturerTwentyOne = new Manufacturer()
+			{
+				ManufacturerId = 21,
+				Name = "Honda"
+			};
+			manufacturers.Add(manufacturerTwentyOne);
+
+			Manufacturer manufacturerTwentyTwo = new Manufacturer()
+			{
+				ManufacturerId = 22,
+				Name = "Honda"
+			};
+			manufacturers.Add(manufacturerTwentyTwo);
+
+			Manufacturer manufacturerTwentyThree = new Manufacturer()
+			{
+				ManufacturerId = 23,
+				Name = "Honda"
+			};
+			manufacturers.Add(manufacturerTwentyThree);
 
 			return manufacturers;
 		}

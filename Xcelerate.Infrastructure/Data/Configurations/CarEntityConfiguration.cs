@@ -49,7 +49,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "Camry TRD",
 				Year = 2020,
 				IsForSale = true,
-				EngineId = 1, // Assuming you have an Engine with EngineId = 1
+				EngineId = 1,
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Four,
 				Colour = ColourEnum.White,
@@ -59,10 +59,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 30000,
 				Price = 25000,
 				BodyType = BodyTypeEnum.Sedan,
-				ManufacturerId = 1, // Assuming you have a Manufacturer with ManufacturerId = 1
-				AddressId = 1, // Assuming you have an Address with AddressId = 1
-				AdId = 1, // Assuming you have an Ad with AdId = 1
-				UserId = Guid.Parse("9ABB04A0-36A0-4A35-8C1A-34D324AA169E") // Assuming you have a User with UserId = 1
+				ManufacturerId = 1,
+				AddressId = 1,
+				AdId = 1,
+				UserId = Guid.Parse("9ABB04A0-36A0-4A35-8C1A-34D324AA169E")
 			};
 			cars.Add(firstCar);
 
@@ -73,7 +73,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "Civic Type R",
 				Year = 2021,
 				IsForSale = true,
-				EngineId = 2, // Assuming you have an Engine with EngineId = 2
+				EngineId = 2,
 				Condition = ConditionEnum.BrandNew,
 				EuroStandard = EuroStandardEnum.Six,
 				Colour = ColourEnum.Yellow,
@@ -83,10 +83,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 15000,
 				Price = 62000,
 				BodyType = BodyTypeEnum.Hatchback,
-				ManufacturerId = 2, // Assuming you have a Manufacturer with ManufacturerId = 2
-				AddressId = 2, // Assuming you have an Address with AddressId = 2
-				AdId = 2, // Assuming you have an Ad with AdId = 2
-				UserId = Guid.Parse("2CC5DA14-F51C-4B51-96B3-0C296C2EE8DC") // Assuming you have a User with UserId = 2
+				ManufacturerId = 2,
+				AddressId = 2,
+				AdId = 2,
+				UserId = Guid.Parse("2CC5DA14-F51C-4B51-96B3-0C296C2EE8DC")
 			};
 			cars.Add(secondCar);
 
@@ -97,7 +97,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "Mustang GT350R",
 				Year = 2020,
 				IsForSale = true,
-				EngineId = 3, // Assuming you have an Engine with EngineId = 3
+				EngineId = 3,
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Six,
 				Colour = ColourEnum.White,
@@ -107,10 +107,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 25000,
 				Price = 30000,
 				BodyType = BodyTypeEnum.Sedan,
-				ManufacturerId = 3, // Assuming you have a Manufacturer with ManufacturerId = 3
-				AddressId = 3, // Assuming you have an Address with AddressId = 3
-				AdId = 3, // Assuming you have an Ad with AdId = 3
-				UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6") // Assuming you have a User with UserId = 3
+				ManufacturerId = 3,
+				AddressId = 3,
+				AdId = 3,
+				UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6")
 			};
 			cars.Add(thirdCar);
 
@@ -122,7 +122,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "Golf",
 				Year = 2019,
 				IsForSale = true,
-				EngineId = 4, // Assuming you have an Engine with EngineId = 4
+				EngineId = 4,
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Five,
 				Colour = ColourEnum.White,
@@ -132,14 +132,12 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 20000,
 				Price = 18000,
 				BodyType = BodyTypeEnum.Hatchback,
-				ManufacturerId = 4, // Assuming you have a Manufacturer with ManufacturerId = 4
-				AddressId = 4, // Assuming you have an Address with AddressId = 4
-				AdId = 4, // Assuming you have an Ad with AdId = 4
-				UserId = Guid.Parse("495CC255-9E57-40E1-A4DE-B1ADBFDBC0FC") // Assuming you have a User with UserId = 4
+				ManufacturerId = 4,
+				AddressId = 4,
+				AdId = 4,
+				UserId = Guid.Parse("495CC255-9E57-40E1-A4DE-B1ADBFDBC0FC")
 			};
 			cars.Add(fourthCar);
-
-			// Add six more cars as needed
 
 			Car fifthCar = new Car()
 			{
@@ -148,7 +146,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "C-Class",
 				Year = 2022,
 				IsForSale = true,
-				EngineId = 5, // Assuming you have an Engine with EngineId = 5
+				EngineId = 5,
 				Condition = ConditionEnum.BrandNew,
 				EuroStandard = EuroStandardEnum.Six,
 				Colour = ColourEnum.SlateGray,
@@ -158,10 +156,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 10000,
 				Price = 40000,
 				BodyType = BodyTypeEnum.Sedan,
-				ManufacturerId = 5, // Assuming you have a Manufacturer with ManufacturerId = 5
-				AddressId = 5, // Assuming you have an Address with AddressId = 5
-				AdId = 5, // Assuming you have an Ad with AdId = 5
-				UserId = Guid.Parse("B0B378DD-78AA-4884-AFA7-7EC6626C9CDF") // Assuming you have a User with UserId = 5
+				ManufacturerId = 5,
+				AddressId = 5,
+				AdId = 5,
+				UserId = Guid.Parse("B0B378DD-78AA-4884-AFA7-7EC6626C9CDF")
 			};
 			cars.Add(fifthCar);
 
@@ -172,7 +170,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "A3",
 				Year = 2022,
 				IsForSale = true,
-				EngineId = 6, // Assuming you have an Engine with EngineId = 6
+				EngineId = 6, 
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Six,
 				Colour = ColourEnum.Red,
@@ -182,10 +180,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 30000,
 				Price = 28000,
 				BodyType = BodyTypeEnum.Sedan,
-				ManufacturerId = 6, // Assuming you have a Manufacturer with ManufacturerId = 6
-				AddressId = 6, // Assuming you have an Address with AddressId = 6
-				AdId = 6, // Assuming you have an Ad with AdId = 6
-				UserId = Guid.Parse("9173EFB3-6DC6-4C27-8D1A-555107353AEA") // Assuming you have a User with UserId = 6
+				ManufacturerId = 6,
+				AddressId = 6, 
+				AdId = 6, 
+				UserId = Guid.Parse("9173EFB3-6DC6-4C27-8D1A-555107353AEA")
 			};
 			cars.Add(sixthCar);
 
@@ -196,7 +194,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "QX80",
 				Year = 2022,
 				IsForSale = true,
-				EngineId = 7, // Assuming you have an Engine with EngineId = 7
+				EngineId = 7,
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Two,
 				Colour = ColourEnum.SlateGray,
@@ -206,10 +204,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 25000,
 				Price = 35000,
 				BodyType = BodyTypeEnum.SUV,
-				ManufacturerId = 7, // Assuming you have a Manufacturer with ManufacturerId = 7
-				AddressId = 7, // Assuming you have an Address with AddressId = 7
-				AdId = 7, // Assuming you have an Ad with AdId = 7
-				UserId = Guid.Parse("0C106D5A-7440-44DD-B8D3-3C1B7ACA8020") // Assuming you have a User with UserId = 7
+				ManufacturerId = 7,
+				AddressId = 7,
+				AdId = 7,
+				UserId = Guid.Parse("0C106D5A-7440-44DD-B8D3-3C1B7ACA8020")
 			};
 			cars.Add(seventhCar);
 
@@ -221,7 +219,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "Elantra",
 				Year = 2021,
 				IsForSale = true,
-				EngineId = 8, // Assuming you have an Engine with EngineId = 8
+				EngineId = 8,
 				Condition = ConditionEnum.BrandNew,
 				EuroStandard = EuroStandardEnum.Five,
 				Colour = ColourEnum.Red,
@@ -231,10 +229,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 15000,
 				Price = 23000,
 				BodyType = BodyTypeEnum.Sedan,
-				ManufacturerId = 8, // Assuming you have a Manufacturer with ManufacturerId = 8
-				AddressId = 8, // Assuming you have an Address with AddressId = 8
-				AdId = 8, // Assuming you have an Ad with AdId = 8
-				UserId = Guid.Parse("B4D7DDAD-411E-4FE8-A7D9-C2638F376F1C") // Assuming you have a User with UserId = 8
+				ManufacturerId = 8,
+				AddressId = 8,
+				AdId = 8,
+				UserId = Guid.Parse("B4D7DDAD-411E-4FE8-A7D9-C2638F376F1C")
 			};
 			cars.Add(eighthCar);
 
@@ -245,7 +243,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "3 Series",
 				Year = 2022,
 				IsForSale = true,
-				EngineId = 9, // Assuming you have an Engine with EngineId = 9
+				EngineId = 9,
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.One,
 				Colour = ColourEnum.SlateGray,
@@ -255,10 +253,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 320000,
 				Price = 42000,
 				BodyType = BodyTypeEnum.Sedan,
-				ManufacturerId = 9, // Assuming you have a Manufacturer with ManufacturerId = 9
-				AddressId = 9, // Assuming you have an Address with AddressId = 9
-				AdId = 9, // Assuming you have an Ad with AdId = 9
-				UserId = Guid.Parse("B13EDF51-1FF3-46D7-BF4C-C55CAAC1A7C0") // Assuming you have a User with UserId = 9
+				ManufacturerId = 9, 
+				AddressId = 9, 
+				AdId = 9, 
+				UserId = Guid.Parse("B13EDF51-1FF3-46D7-BF4C-C55CAAC1A7C0")
 			};
 			cars.Add(ninthCar);
 
@@ -269,7 +267,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "Rogue",
 				Year = 2021,
 				IsForSale = true,
-				EngineId = 10, // Assuming you have an Engine with EngineId = 10
+				EngineId = 10,  
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Four,
 				Colour = ColourEnum.Red,
@@ -279,10 +277,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 18000,
 				Price = 28000,
 				BodyType = BodyTypeEnum.SUV,
-				ManufacturerId = 10, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 10, // Assuming you have an Address with AddressId = 10
-				AdId = 10, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("1B6F6E67-5ADF-4F78-A74E-27B02430C709") // Assuming you have a User with UserId = 10
+				ManufacturerId = 10,  
+				AddressId = 10,  
+				AdId = 10,  
+				UserId = Guid.Parse("1B6F6E67-5ADF-4F78-A74E-27B02430C709")  
 			};
 			cars.Add(tenthCar);
 
@@ -294,7 +292,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "El Camino SS",
 				Year = 1969,
 				IsForSale = true,
-				EngineId = 11, // Assuming you have an Engine with EngineId = 10
+				EngineId = 11,  
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Two,
 				Colour = ColourEnum.Blue,
@@ -304,10 +302,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 310000,
 				Price = 308000,
 				BodyType = BodyTypeEnum.SUV,
-				ManufacturerId = 11, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 11, // Assuming you have an Address with AddressId = 10
-				AdId = 11, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("0C106D5A-7440-44DD-B8D3-3C1B7ACA8020") // Assuming you have a User with UserId = 10
+				ManufacturerId = 11,  
+				AddressId = 11,  
+				AdId = 11,  
+				UserId = Guid.Parse("0C106D5A-7440-44DD-B8D3-3C1B7ACA8020")  
 			};
 			cars.Add(eleventhCar);
 
@@ -318,7 +316,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "Tahoe",
 				Year = 2013,
 				IsForSale = true,
-				EngineId = 12, // Assuming you have an Engine with EngineId = 10
+				EngineId = 12,  
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Three,
 				Colour = ColourEnum.White,
@@ -328,10 +326,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 230000,
 				Price = 30000,
 				BodyType = BodyTypeEnum.SUV,
-				ManufacturerId = 12, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 12, // Assuming you have an Address with AddressId = 10
-				AdId = 12, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("B4D7DDAD-411E-4FE8-A7D9-C2638F376F1C") // Assuming you have a User with UserId = 10
+				ManufacturerId = 12,  
+				AddressId = 12,  
+				AdId = 12,  
+				UserId = Guid.Parse("B4D7DDAD-411E-4FE8-A7D9-C2638F376F1C")  
 			};
 			cars.Add(twelfthCar);
 
@@ -342,7 +340,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = " F-350 Super Duty",
 				Year = 2000,
 				IsForSale = true,
-				EngineId = 13, // Assuming you have an Engine with EngineId = 10
+				EngineId = 13,  
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Two,
 				Colour = ColourEnum.Black,
@@ -352,10 +350,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 190000,
 				Price = 42000,
 				BodyType = BodyTypeEnum.SUV,
-				ManufacturerId = 13, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 13, // Assuming you have an Address with AddressId = 10
-				AdId = 13, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("9173EFB3-6DC6-4C27-8D1A-555107353AEA") // Assuming you have a User with UserId = 10
+				ManufacturerId = 13,  
+				AddressId = 13,  
+				AdId = 13,  
+				UserId = Guid.Parse("9173EFB3-6DC6-4C27-8D1A-555107353AEA")  
 			};
 			cars.Add(thirteenthCar);
 
@@ -366,7 +364,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "Clio",
 				Year = 2013,
 				IsForSale = true,
-				EngineId = 14, // Assuming you have an Engine with EngineId = 10
+				EngineId = 14,  
 				Condition = ConditionEnum.BrandNew,
 				EuroStandard = EuroStandardEnum.Five,
 				Colour = ColourEnum.Red,
@@ -376,10 +374,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 10000,
 				Price = 22000,
 				BodyType = BodyTypeEnum.Hatchback,
-				ManufacturerId = 14, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 14, // Assuming you have an Address with AddressId = 10
-				AdId = 14, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6") // Assuming you have a User with UserId = 10
+				ManufacturerId = 14,  
+				AddressId = 14,  
+				AdId = 14,  
+				UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6")  
 			};
 			cars.Add(fourteenthCar);
 
@@ -390,7 +388,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "W140",
 				Year = 1998,
 				IsForSale = true,
-				EngineId = 15, // Assuming you have an Engine with EngineId = 10
+				EngineId = 15,  
 				Condition = ConditionEnum.BrandNew,
 				EuroStandard = EuroStandardEnum.Three,
 				Colour = ColourEnum.Black,
@@ -400,10 +398,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 40186,
 				Price = 280000,
 				BodyType = BodyTypeEnum.Sedan,
-				ManufacturerId = 15, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 15, // Assuming you have an Address with AddressId = 10
-				AdId = 15, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("B0B378DD-78AA-4884-AFA7-7EC6626C9CDF") // Assuming you have a User with UserId = 10
+				ManufacturerId = 15,  
+				AddressId = 15,  
+				AdId = 15,  
+				UserId = Guid.Parse("B0B378DD-78AA-4884-AFA7-7EC6626C9CDF")  
 			};
 			cars.Add(fifteenthCar);
 
@@ -414,7 +412,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "RSX Type-S",
 				Year = 2005,
 				IsForSale = true,
-				EngineId = 16, // Assuming you have an Engine with EngineId = 10
+				EngineId = 16,  
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Three,
 				Colour = ColourEnum.Red,
@@ -424,10 +422,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 100200,
 				Price = 80000,
 				BodyType = BodyTypeEnum.Coupe,
-				ManufacturerId = 16, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 16, // Assuming you have an Address with AddressId = 10
-				AdId = 16, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("1B6F6E67-5ADF-4F78-A74E-27B02430C709") // Assuming you have a User with UserId = 10
+				ManufacturerId = 16,  
+				AddressId = 16,  
+				AdId = 16,  
+				UserId = Guid.Parse("1B6F6E67-5ADF-4F78-A74E-27B02430C709")  
 			};
 			cars.Add(sixteenthCar);
 
@@ -438,7 +436,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "NSX",
 				Year = 2005,
 				IsForSale = true,
-				EngineId = 16, // Assuming you have an Engine with EngineId = 10
+				EngineId = 16,  
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Four,
 				Colour = ColourEnum.Blue,
@@ -448,10 +446,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 210000,
 				Price = 230000,
 				BodyType = BodyTypeEnum.Sedan,
-				ManufacturerId = 17, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 17, // Assuming you have an Address with AddressId = 10
-				AdId = 17, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6") // Assuming you have a User with UserId = 10
+				ManufacturerId = 17,  
+				AddressId = 17,  
+				AdId = 17,  
+				UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6")  
 			};
 			cars.Add(seventeenthCar);
 
@@ -462,7 +460,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "9-3 Aero",
 				Year = 2001,
 				IsForSale = true,
-				EngineId = 18, // Assuming you have an Engine with EngineId = 10
+				EngineId = 18,  
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Three,
 				Colour = ColourEnum.SlateGray,
@@ -472,10 +470,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 170000,
 				Price = 50000,
 				BodyType = BodyTypeEnum.Sedan,
-				ManufacturerId = 18, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 18, // Assuming you have an Address with AddressId = 10
-				AdId = 18, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("2CC5DA14-F51C-4B51-96B3-0C296C2EE8DC") // Assuming you have a User with UserId = 10
+				ManufacturerId = 18,  
+				AddressId = 18,  
+				AdId = 18,  
+				UserId = Guid.Parse("2CC5DA14-F51C-4B51-96B3-0C296C2EE8DC")  
 			};
 			cars.Add(eighteenthCar);
 
@@ -486,7 +484,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "93 SportCombi",
 				Year = 2006,
 				IsForSale = true,
-				EngineId = 19, // Assuming you have an Engine with EngineId = 10
+				EngineId = 19,  
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Four,
 				Colour = ColourEnum.White,
@@ -496,10 +494,10 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 152000,
 				Price = 70000,
 				BodyType = BodyTypeEnum.Wagon,
-				ManufacturerId = 19, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 19, // Assuming you have an Address with AddressId = 10
-				AdId = 19, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("B13EDF51-1FF3-46D7-BF4C-C55CAAC1A7C0") // Assuming you have a User with UserId = 10
+				ManufacturerId = 19,  
+				AddressId = 19,  
+				AdId = 19,  
+				UserId = Guid.Parse("B13EDF51-1FF3-46D7-BF4C-C55CAAC1A7C0")  
 			};
 			cars.Add(nineteenthCar);
 
@@ -510,7 +508,7 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Model = "Megane II",
 				Year = 2003,
 				IsForSale = true,
-				EngineId = 20, // Assuming you have an Engine with EngineId = 10
+				EngineId = 20,  
 				Condition = ConditionEnum.Used,
 				EuroStandard = EuroStandardEnum.Five,
 				Colour = ColourEnum.Teal,
@@ -520,12 +518,85 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Mileage = 213000,
 				Price = 40000,
 				BodyType = BodyTypeEnum.Coupe,
-				ManufacturerId = 20, // Assuming you have a Manufacturer with ManufacturerId = 10
-				AddressId = 20, // Assuming you have an Address with AddressId = 10
-				AdId = 20, // Assuming you have an Ad with AdId = 10
-				UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6") // Assuming you have a User with UserId = 10
+				ManufacturerId = 20,  
+				AddressId = 20,  
+				AdId = 20,  
+				UserId = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6")  
 			};
 			cars.Add(twentiethCar);
+
+			Car twentiethFirstCar = new Car()
+			{
+				CarId = 21,
+				Brand = BrandsEnum.Honda,
+				Model = "S2000",
+				Year = 2004,
+				IsForSale = true,
+				EngineId = 21,  
+				Condition = ConditionEnum.Used,
+				EuroStandard = EuroStandardEnum.Four,
+				Colour = ColourEnum.Red,
+				Transmission = TransmissionEnum.Manual,
+				DriveTrain = DriveTrainEnum.RearWheelDrive,
+				Weight = 1320.25m,
+				Mileage = 113000,
+				Price = 30000,
+				BodyType = BodyTypeEnum.Coupe,
+				ManufacturerId = 21, 
+				AddressId = 21,
+				AdId = 21, 
+				UserId = Guid.Parse("2CC5DA14-F51C-4B51-96B3-0C296C2EE8DC") 
+			};
+			cars.Add(twentiethFirstCar);
+
+			Car twentiethSecondCar = new Car()
+			{
+				CarId = 22,
+				Brand = BrandsEnum.Honda,
+				Model = "Civic Si",
+				Year = 2004,
+				IsForSale = true,
+				EngineId = 22,
+				Condition = ConditionEnum.Used,
+				EuroStandard = EuroStandardEnum.Five,
+				Colour = ColourEnum.White,
+				Transmission = TransmissionEnum.Manual,
+				DriveTrain = DriveTrainEnum.FrontWheelDrive,
+				Weight = 1360.25m,
+				Mileage = 123000,
+				Price = 15000,
+				BodyType = BodyTypeEnum.Hatchback,
+				ManufacturerId = 22, 
+				AddressId = 22, 
+				AdId = 22, 
+				UserId = Guid.Parse("B0B378DD-78AA-4884-AFA7-7EC6626C9CDF") 
+			};
+			cars.Add(twentiethSecondCar);
+
+			Car twentiethThirdCar = new Car()
+			{
+				CarId = 23,
+				Brand = BrandsEnum.Honda,
+				Model = "Accord",
+				Year = 1993,
+				IsForSale = true,
+				EngineId = 23,
+				Condition = ConditionEnum.Used,
+				EuroStandard = EuroStandardEnum.Three,
+				Colour = ColourEnum.Black,
+				Transmission = TransmissionEnum.Manual,
+				DriveTrain = DriveTrainEnum.FrontWheelDrive,
+				Weight = 1410.35m,
+				Mileage = 212000,
+				Price = 180000,
+				BodyType = BodyTypeEnum.Sedan,
+				ManufacturerId = 23,
+				AddressId = 23,
+				AdId = 23,
+				UserId = Guid.Parse("0C106D5A-7440-44DD-B8D3-3C1B7ACA8020")
+			};
+			cars.Add(twentiethThirdCar);
+
 
 			return cars;
 		}

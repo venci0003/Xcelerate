@@ -81,14 +81,14 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			var twentiethCarAccessories = new List<int> { 6, 9, 12, 14, 18, 22, 24, 26, 31, 33, 35, 38, 40, 43 };
 			carAccessories.AddRange(twentiethCarAccessories.Select(accessoryId => new CarAccessory { AccessoryId = accessoryId, CarId = 20 }));
 
-			//var twentyFirstCarAccessories = new List<int> { 1, 3, 5, 7, 10, 13, 15, 17, 19, 30, 42, 37, 44, 45 };
-			//carAccessories.AddRange(twentyFirstCarAccessories.Select(accessoryId => new CarAccessory { AccessoryId = accessoryId, CarId = 21 }));
+			var twentyFirstCarAccessories = new List<int> { 1, 3, 5, 7, 10, 13, 15, 17, 19, 30, 42, 37, 44, 45 };
+			carAccessories.AddRange(twentyFirstCarAccessories.Select(accessoryId => new CarAccessory { AccessoryId = accessoryId, CarId = 21 }));
 
-			//var twentySecondCarAccessories = new List<int> { 2, 4, 6, 8, 11, 14, 16, 18, 20, 22, 24, 26, 28, 32 };
-			//carAccessories.AddRange(twentySecondCarAccessories.Select(accessoryId => new CarAccessory { AccessoryId = accessoryId, CarId = 22 }));
+			var twentySecondCarAccessories = new List<int> { 2, 4, 6, 8, 11, 14, 16, 18, 20, 22, 24, 26, 28, 32 };
+			carAccessories.AddRange(twentySecondCarAccessories.Select(accessoryId => new CarAccessory { AccessoryId = accessoryId, CarId = 22 }));
 
-			//var twentyThirdCarAccessories = new List<int> { 1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45 };
-			//carAccessories.AddRange(twentyThirdCarAccessories.Select(accessoryId => new CarAccessory { AccessoryId = accessoryId, CarId = 23 }));
+			var twentyThirdCarAccessories = new List<int> { 1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45 };
+			carAccessories.AddRange(twentyThirdCarAccessories.Select(accessoryId => new CarAccessory { AccessoryId = accessoryId, CarId = 23 }));
 
 			//var twentyFourthCarAccessories = new List<int> { 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 44 };
 			//carAccessories.AddRange(twentyFourthCarAccessories.Select(accessoryId => new CarAccessory { AccessoryId = accessoryId, CarId = 24 }));
