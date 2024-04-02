@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 using System.Diagnostics;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Home;
 using Xcelerate.Core.Models.Pager;
-using Xcelerate.Core.Services;
-using Xcelerate.Infrastructure.Data;
 using Xcelerate.Models;
+using static Xcelerate.Common.ApplicationConstants;
 
 namespace Xcelerate.Controllers
 {
@@ -39,7 +37,7 @@ namespace Xcelerate.Controllers
 				homePageView.CurrentPage = 1;
 			}
 
-			Pager pager = new Pager(await _homeService.GetNewsCountAsync(), homePageView.CurrentPage);
+			Pager pager = new Pager(await _homeService.GetNewsCountAsync(), homePageView.CurrentPage, DefaultPageSizeForNews);
 			homePageView.Pager = pager;
 
 

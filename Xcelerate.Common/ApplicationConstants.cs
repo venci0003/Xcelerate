@@ -2,6 +2,8 @@
 {
 	public class ApplicationConstants
 	{
-		public const int DefaultPageSize = 6;
+		public const int DefaultPageSizeForAds = 6;
+
+		public const int DefaultPageSizeForNews = 3;
 	}
 }

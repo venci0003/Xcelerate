@@ -5,6 +5,7 @@ using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.Pager;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data.Models;
+using static Xcelerate.Common.ApplicationConstants;
 
 namespace Xcelerate.Controllers
 {
@@ -38,7 +39,7 @@ namespace Xcelerate.Controllers
 				TempData["CompareButtonClicked"] = true;
 			}
 
-			Pager pager = new Pager(await _adService.GetCarAdsCountAsync(adInformation), adInformation.CurrentPage);
+			Pager pager = new Pager(await _adService.GetCarAdsCountAsync(adInformation), adInformation.CurrentPage, DefaultPageSizeForAds);
 			adInformation.Pager = pager;
 
 			IEnumerable<AdPreviewViewModel> carsPreview = await _adService.GetCarsPreviewAsync(adInformation);
@@ -109,7 +110,7 @@ namespace Xcelerate.Controllers
 				adInformation.CurrentPage = 1;
 			}
 
-			Pager pager = new Pager(await _adService.GetUserAdsCountAsync(adInformation, userId.ToString()), adInformation.CurrentPage);
+			Pager pager = new Pager(await _adService.GetUserAdsCountAsync(adInformation, userId.ToString()), adInformation.CurrentPage, DefaultPageSizeForAds);
 			adInformation.Pager = pager;
 
 			IEnumerable<AdPreviewViewModel> userAds = await _adService.GetUserAdsAsync(userId, adInformation);

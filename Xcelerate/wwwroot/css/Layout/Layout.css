@@ -1,4 +1,6 @@
-﻿/* Width and height for the scrollbar track */
+﻿@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css);
+
+/* Width and height for the scrollbar track */
 ::-webkit-scrollbar {
     width: 12px;
     border-radius: 6px;

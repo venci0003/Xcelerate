@@ -61,7 +61,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsFive);
 
-			// News 6
 			News newsSix = new News()
 			{
 				NewsId = 6,
@@ -71,7 +70,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsSix);
 
-			// News 7
 			News newsSeven = new News()
 			{
 				NewsId = 7,
@@ -90,7 +88,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsEight);
 
-			// News 9
 			News newsNine = new News()
 			{
 				NewsId = 9,
@@ -100,7 +97,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsNine);
 
-			// News 10
 			News newsTen = new News()
 			{
 				NewsId = 10,
@@ -110,7 +106,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsTen);
 
-			// News 11
 			News newsEleven = new News()
 			{
 				NewsId = 11,
@@ -120,7 +115,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsEleven);
 
-			// News 12
 			News newsTwelve = new News()
 			{
 				NewsId = 12,
@@ -130,7 +124,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsTwelve);
 
-			// News 13
 			News newsThirteen = new News()
 			{
 				NewsId = 13,
@@ -147,7 +140,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsFourteen);
 
-			// News 15
 			News newsFifteen = new News()
 			{
 				NewsId = 15,
@@ -157,7 +149,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsFifteen);
 
-			// News 16
 			News newsSixteen = new News()
 			{
 				NewsId = 16,
@@ -167,7 +158,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsSixteen);
 
-			// News 17
 			News newsSeventeen = new News()
 			{
 				NewsId = 17,
@@ -177,7 +167,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsSeventeen);
 
-			// News 18
 			News newsEighteen = new News()
 			{
 				NewsId = 18,
@@ -187,7 +176,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsEighteen);
 
-			// News 19
 			News newsNineteen = new News()
 			{
 				NewsId = 19,
@@ -197,7 +185,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsNineteen);
 
-			// News 20
 			News newsTwenty = new News()
 			{
 				NewsId = 20,
@@ -207,102 +194,102 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			};
 			news.Add(newsTwenty);
 
-			// News 21
 			News newsTwentyOne = new News()
 			{
 				NewsId = 21,
-				Title = "Test21",
-				Content = "Test21"
+				Title = "Car Manufacturers Launch \"Selfie Mode\" for Cars",
+				Content = "In a bid to appeal to the younger generation, car manufacturers unveil \"selfie mode\" for cars." +
+				" Now your car can take better selfies than you, complete with flattering angles and Instagram filters."
 			};
 			news.Add(newsTwentyOne);
 
-			// News 22
 			News newsTwentyTwo = new News()
 			{
 				NewsId = 22,
-				Title = "Test22",
-				Content = "Test22"
+				Title = "Study Reveals: Car Horns to be Replaced by Laughter",
+				Content = "A groundbreaking study suggests that car horns will soon be replaced by laughter." +
+				" Imagine traffic jams turning into laugh fests, with drivers honking out giggles instead of frustrations." +
+				" Get ready for a happier commute!"
 			};
 			news.Add(newsTwentyTwo);
 
-			// News 23
 			News newsTwentyThree = new News()
 			{
 				NewsId = 23,
-				Title = "Test23",
-				Content = "Test23"
+				Title = "Breakthrough: Cars Now Run on Coffee",
+				Content = "In a remarkable breakthrough, scientists have developed a new engine that runs entirely on coffee." +
+				" Now, not only can you get your caffeine fix, but you can also fuel your car with it!" +
+				" Say goodbye to gas stations and hello to coffee shops on every corner."
 			};
 			news.Add(newsTwentyThree);
 
-			// News 24
 			News newsTwentyFour = new News()
 			{
 				NewsId = 24,
-				Title = "Test24",
-				Content = "Test24"
+				Title = "Traffic Jam Transformed into World's Longest Dance Party",
+				Content = "What started as a typical traffic jam turned into an unexpected celebration as drivers stepped out of their cars and broke into dance." +
+				" The impromptu party lasted for hours, with motorists grooving to the beat of their favorite tunes, turning frustration into fun."
 			};
 			news.Add(newsTwentyFour);
 
-			// News 25
 			News newsTwentyFive = new News()
 			{
 				NewsId = 25,
-				Title = "Test25",
-				Content = "Test25"
+				Title = "City Introduces 'Honk-Free' Day",
+				Content = "In an effort to reduce noise pollution and promote tranquility, the city council has declared a 'honk-free' day." +
+				" Drivers are encouraged to use alternative means of communication, such as waving or smiling, instead of honking."
 			};
 			news.Add(newsTwentyFive);
 
-			// News 26
 			News newsTwentySix = new News()
 			{
 				NewsId = 26,
-				Title = "Test26",
-				Content = "Test26"
+				Title = "Cat Drives Owner's Car to Pet Store",
+				Content = "In a purr-fectly surprising turn of events, a clever cat managed to start its owner's car and drive to the pet store." +
+				" Witnesses were amazed as the feline calmly navigated traffic and even signaled for turns. Looks like cats aren't just experts at napping—they're mastering driving too!"
 			};
 			news.Add(newsTwentySix);
 
-			// News 27
 			News newsTwentySeven = new News()
 			{
 				NewsId = 27,
-				Title = "Test27",
-				Content = "Test27"
+				Title = "New Study Reveals: Dogs Can Drive Cars!",
+				Content = "In a groundbreaking study, researchers have discovered that dogs can be trained to operate vehicles. Doggie drivers? It's not just a dream anymore!"
 			};
 			news.Add(newsTwentySeven);
 
-			// News 28
 			News newsTwentyEight = new News()
 			{
 				NewsId = 28,
-				Title = "Test28",
-				Content = "Test28"
+				Title = "Giant Rubber Duck Causes Traffic Chaos",
+				Content = "A larger-than-life rubber duck sculpture broke free from its moorings and waddled down the streets, causing hilarious chaos and bringing traffic to a standstill."
 			};
 			news.Add(newsTwentyEight);
 
-			// News 29
 			News newsTwentyNine = new News()
 			{
 				NewsId = 29,
-				Title = "Test29",
-				Content = "Test29"
+				Title = "Local Grandma Wins Street Racing Competition",
+				Content = "In an unexpected turn of events, a local grandmother shocked everyone by winning a street racing competition." +
+				" Her secret? She's been playing video games for decades!"
 			};
 			news.Add(newsTwentyNine);
 
-			// News 30
 			News newsThirty = new News()
 			{
 				NewsId = 30,
-				Title = "Test30",
-				Content = "Test30"
+				Title = "World's First Flying Car Takes Off",
+				Content = "The world's first flying car successfully completed its maiden flight, soaring through the skies and marking a new era in transportation." +
+				" The future is here!"
 			};
 			news.Add(newsThirty);
 
-			// News 31
 			News newsThirtyOne = new News()
 			{
 				NewsId = 31,
-				Title = "Test31",
-				Content = "Test31"
+				Title = "Scientists Discover Cars Can Communicate with Each Other",
+				Content = "In a fascinating discovery, scientists have found that cars possess a hidden language, allowing them to communicate with each other on the road." +
+				" Are they plotting traffic jams or just chatting about the weather?"
 			};
 			news.Add(newsThirtyOne);
 

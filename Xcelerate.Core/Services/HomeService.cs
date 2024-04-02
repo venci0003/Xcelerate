@@ -26,17 +26,6 @@ namespace Xcelerate.Core.Services
 			return statistics;
 		}
 
-		public async Task<IEnumerable<NewsPreviewViewModel>> GetNewsAsync(NewsPreviewViewModel newsPreviewViewModel)
-		{
-			List<NewsPreviewViewModel> news = await _dbContext.NewsData.AsNoTracking().Select(n => new NewsPreviewViewModel
-			{
-				Title = newsPreviewViewModel.Title,
-				Content = newsPreviewViewModel.Content,
-			}).ToListAsync();
-
-			return news;
-		}
-
 		public async Task<HomePageViewModel> GetHomePageDataAsync(HomePageViewModel homePageView)
 		{
 			// Get data statistics
@@ -49,7 +38,7 @@ namespace Xcelerate.Core.Services
 				})
 				.FirstOrDefaultAsync();
 
-			int pageSize = 3; // Number of news items per page
+			int pageSize = 3;
 
 			var news = await _dbContext.NewsData
 				.Skip((homePageView.CurrentPage - 1) * pageSize)

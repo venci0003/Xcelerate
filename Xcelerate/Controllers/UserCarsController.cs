@@ -6,6 +6,7 @@ using Xcelerate.Core.Models.Pager;
 using Xcelerate.Core.Models.UserCars;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data.Models;
+using static Xcelerate.Common.ApplicationConstants;
 
 namespace Xcelerate.Controllers
 {
@@ -32,7 +33,7 @@ namespace Xcelerate.Controllers
 				adInformation.CurrentPage = 1;
 			}
 
-			Pager pager = new Pager(await _userCarsService.GetUserCarsCountAsync(adInformation, userId.ToString()), adInformation.CurrentPage);
+			Pager pager = new Pager(await _userCarsService.GetUserCarsCountAsync(adInformation, userId.ToString()), adInformation.CurrentPage,DefaultPageSizeForAds);
 			adInformation.Pager = pager;
 
 			IEnumerable<AdPreviewViewModel> cars = await _userCarsService.GetUserCarsPreviewAsync(userId, adInformation);

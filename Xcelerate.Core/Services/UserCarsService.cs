@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.UserCars;
