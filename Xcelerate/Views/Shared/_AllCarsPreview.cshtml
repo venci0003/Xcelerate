@@ -62,51 +62,67 @@
 }
 else
 {
-	<section class="card-holder">
-		@foreach (var ad in Model)
-		{
-			<article class="hostel-home-card">
-				<div class="image-holder">
-					@{
-						// Display the first image
-						var firstImage = ad.ImageUrls.FirstOrDefault();
-						if (firstImage != null)
-						{
-							<img src="~/Images/Ad/@firstImage" alt="First image of the car ad" />
+	@if (Model.Count > 0)
+	{
+		<section class="card-holder">
+			@foreach (var ad in Model)
+			{
+				<article class="hostel-home-card">
+					<div class="image-holder">
+						@{
+							// Display the first image
+							var firstImage = ad.ImageUrls.FirstOrDefault();
+							if (firstImage != null)
+							{
+								<img src="~/Images/Ad/@firstImage" alt="First image of the car ad" />
+							}
 						}
-					}
-				</div>
-				<h2 class="article-title">@ad.Brand @ad.Model</h2>
+					</div>
+					<h2 class="article-title">@ad.Brand @ad.Model</h2>
+					<div card-text>
+						<ul>
+							<li><strong>Price:</strong> @ad.Price$</li>
+							<li><strong>Year:</strong> @ad.Year</li>
+							<li><strong>Engine:</strong> @ad.Engine</li>
+							<li><strong>HorsePower:</strong> @ad.HorsePower</li>
+							<li><strong>Condition:</strong> @ad.Condition</li>
+							<li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
+							<li><strong>Fuel Type:</strong> @ad.FuelType</li>
+							<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
+							<li><strong>Created On:</strong> @ad.CreatedOn</li>
+						</ul>
+						<footer class="bottom-text">
+							<i>
+								@if (TempData["CompareButtonClicked"] != null && (bool)TempData["CompareButtonClicked"])
+								{
+									<form asp-area="" asp-controller="Ad" asp-action="Compare" method="get">
+										<input type="hidden" name="firstCarId" value="@ViewBag.FirstCarId" />
+										<input type="hidden" name="secondCarId" value="@ad.CarId" />
+										<button type="submit" class="compare-button">Compare</button>
+									</form>
+								}
+								else
+								{
+									<a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-adId="@ad.AdId">View</a>
+								}
+							</i>
+						</footer>
+					</div>
+				</article>
+			}
+		</section>
+	}
+	else
+	{
+		<section class="card-holder-message">
+			<article class="car-card-message">
+				<h2 class="article-title-message"> </h2>
 				<div card-text>
-					<ul>
-						<li><strong>Price:</strong> @ad.Price$</li>
-						<li><strong>Year:</strong> @ad.Year</li>
-						<li><strong>Engine:</strong> @ad.Engine</li>
-						<li><strong>HorsePower:</strong> @ad.HorsePower</li>
-						<li><strong>Condition:</strong> @ad.Condition</li>
-						<li><strong>Euro Standard:</strong> @ad.EuroStandard</li>
-						<li><strong>Fuel Type:</strong> @ad.FuelType</li>
-						<li><strong>Owner:</strong> @ad.FirstName @ad.LastName</li>
-						<li><strong>Created On:</strong> @ad.CreatedOn</li>
-					</ul>
-					<footer class="bottom-text">
-						<i>
-							@if (TempData["CompareButtonClicked"] != null && (bool)TempData["CompareButtonClicked"])
-							{
-								<form asp-area="" asp-controller="Ad" asp-action="Compare" method="get">
-									<input type="hidden" name="firstCarId" value="@ViewBag.FirstCarId" />
-									<input type="hidden" name="secondCarId" value="@ad.CarId" />
-									<button type="submit" class="compare-button">Compare</button>
-								</form>
-							}
-							else
-							{
-								<a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-adId="@ad.AdId">View</a>
-							}
-						</i>
+					<h2 class="message">Uh-oh! No matches found with your filters. Try tweaking them or check out our full inventory for more options. Happy browsing!</h2>
+					<footer class="bottom-text-message">
 					</footer>
 				</div>
 			</article>
-		}
-	</section>
+		</section>
+	}
 }

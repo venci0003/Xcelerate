@@ -258,3 +258,175 @@ body {
     font-size: 18px;
     text-decoration: none;
 }
+
+.filters {
+    display: flex;
+    padding: 0px 60px 0px 60px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 70%;
+}
+
+.filter-card {
+    margin: 45px 108px 0px 222px;
+    border-radius: 24px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: auto;
+    background: linear-gradient(135deg, black, rgba(255, 255, 255, 0.1));
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.information-inputs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    width: 1409px;
+    margin-left: -35px;
+    margin-bottom: 20px;
+    justify-content: center;
+    row-gap: 25px;
+    column-gap: 10px;
+}
+
+    .information-inputs label {
+        margin-bottom: 5px;
+    }
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    margin: 1px 0px;
+}
+
+    .form-input input {
+        height: 35px;
+        width: 160px;
+        border: none;
+        color: white;
+        background: none;
+        background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
+    }
+
+    .form-input label {
+        color: white;
+        font-size: 18px;
+        text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    }
+
+input {
+    border-radius: 4px;
+    height: 30px;
+}
+
+.submit-button {
+    position: absolute;
+    left: 40%;
+    bottom: 170px;
+    border-radius: 24px;
+    padding: 10px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    background-color: rgba(174, 60, 51, 255);
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+
+.title-text {
+    margin-top: 15px;
+    color: white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    font-size: 35px;
+    margin-left: 35%;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    color: white;
+    background: none;
+    background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
+}
+
+/* Style for the options within the select element */
+option {
+    background-color: #f0f0f0;
+    color: white;
+    font-weight: bold;
+    background: none;
+    background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
+}
+
+
+select:focus {
+    background-color: rgb(41, 40, 40);
+}
+
+    select:focus > option:checked {
+        background: #000 !important;
+    }
+
+
+#model {
+    width: 90px;
+}
+
+#brand {
+    width: 90px;
+}
+
+#minHorsePower {
+    width: 91px;
+}
+
+#maxHorsePower {
+    width: 94px;
+}
+
+#minPrice {
+    width: 108px;
+}
+
+#maxPrice {
+    width: 108px;
+}
+
+#minMileage {
+    width: 122px;
+}
+
+#maxMileage {
+    width: 126px;
+}
+
+#endYear {
+    width: 87px;
+}
+
+#startYear {
+    width: 87px;
+}
+
+#sorting {
+    width: 93px;
+}
+
+.filter-button {
+    border-radius: 15px;
+    margin-top: 88px;
+    position: relative;
+    right: 342%;
+}
+
+.second-form-inputs {
+    display: flex;
+    margin-left: 122px;
+    grid-column-gap: 13px;
+}
+

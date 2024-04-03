@@ -231,13 +231,23 @@
 					   href="@Url.Action("UserAds", "Ad", new{
                                 currentPage = page,
 								year = Model.Year,
-								euroStandard = Model.EuroStandard,
+								EuroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
 								colour = Model.Colour,
 								transmission = Model.Transmission,
 								driveTrain = Model.DriveTrain,
 								bodyType = Model.BodyType,
-								condition = Model.Condition
+								condition = Model.Condition,
+								minPrice = Model.MinPrice,
+                                maxPrice = Model.MaxPrice,
+                                startYear = Model.StartYear,
+                                endYear = Model.EndYear,
+								minHorsePower = Model.MinHorsePower,
+								maxHorsePower = Model.MaxHorsePower,
+								brand = Model.Brand,
+                                minMileage = Model.MinMileage,
+                                maxMileage = Model.MaxMileage,
+                                sorting = Model.Sorting
                             })">@(page)</a>
 				</li>
 			}
@@ -249,13 +259,23 @@
 					   href="@Url.Action("UserAds", "Ad", new{
                                 currentPage = Model.Pager.CurrentPage + 1,
 								year = Model.Year,
-								euroStandard = Model.EuroStandard,
+								EuroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
 								colour = Model.Colour,
 								transmission = Model.Transmission,
 								driveTrain = Model.DriveTrain,
 								bodyType = Model.BodyType,
-								condition = Model.Condition
+								condition = Model.Condition,
+								minPrice = Model.MinPrice,
+                                maxPrice = Model.MaxPrice,
+                                startYear = Model.StartYear,
+                                endYear = Model.EndYear,
+								minHorsePower = Model.MinHorsePower,
+								maxHorsePower = Model.MaxHorsePower,
+								brand = Model.Brand,
+                                minMileage = Model.MinMileage,
+                                maxMileage = Model.MaxMileage,
+                                sorting = Model.Sorting
                             })">Next</a>
 				</li>
 			}
