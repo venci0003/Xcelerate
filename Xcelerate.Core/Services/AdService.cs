@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Linq.Expressions;
 using System.Net;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
@@ -8,6 +9,7 @@ using Xcelerate.Core.Models.Sorting;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Enums;
 using Xcelerate.Infrastructure.Data.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
 using static Xcelerate.Common.EntityValidation;
 
 namespace Xcelerate.Core.Services
@@ -58,6 +60,28 @@ namespace Xcelerate.Core.Services
 				.ToListAsync();
 
 			return carAds;
+		}
+
+		public async Task<bool> IdExists<TEntity>(int id) where TEntity : class
+		{
+			DbSet<TEntity> dbSet = _dbContext.Set<TEntity>();
+
+			IProperty? primaryKeyProperty = _dbContext.Model.FindEntityType(typeof(TEntity))
+													 .FindPrimaryKey()
+													 .Properties
+													 .FirstOrDefault();
+
+			if (primaryKeyProperty == null)
+			{
+				throw new InvalidOperationException($"Entity type {typeof(TEntity).Name} does not have a primary key property.");
+			}
+
+			ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "e");
+			MemberExpression propertyAccess = Expression.Property(parameter, primaryKeyProperty.PropertyInfo);
+			BinaryExpression equality = Expression.Equal(propertyAccess, Expression.Constant(id));
+			Expression<Func<TEntity, bool>> lambda = Expression.Lambda<Func<TEntity, bool>>(equality, parameter);
+
+			return await dbSet.AnyAsync(lambda);
 		}
 
 		public Task<int> GetCarAdsCountAsync(AdInformationViewModel adPreview)

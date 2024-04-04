@@ -14,6 +14,7 @@ namespace Xcelerate.Core.Contracts
 		public Task<bool> DeleteCarAdAsync(int? carId);
 		public Task<bool> BuyCarAsync(Car car);
 		public Task<Car> GetCarByIdAsync(int carId);
+		public Task<bool> IdExists<TEntity>(int id) where TEntity : class;
 		public Task<int> GetCarAdsCountAsync(AdInformationViewModel adPreview);
 		public Task<int> GetUserAdsCountAsync(AdInformationViewModel adPreview, string userId);
 		public Task<(AdInformationViewModel firstCar, AdInformationViewModel secondCar)> GetTwoCarsByIdAsync(int firstCarId, int secondCarId);

@@ -53,11 +53,12 @@ namespace Xcelerate.Controllers
 		public async Task<IActionResult> Information(int adId)
 		{
 			ViewBag.UserId = User.GetUserId();
-			//fix id
-			//if (carId == null)
-			//{
-			//	return NotFound();
-			//}
+
+			if (await _adService.IdExists<Ad>(adId) == false)
+			{
+				//RETURN TO ERROR PAGE 
+				return RedirectToAction("Index");
+			}
 
 			AdInformationViewModel car = await _adService.GetCarsInformationAsync(adId);
 
@@ -122,14 +123,15 @@ namespace Xcelerate.Controllers
 
 
 		[HttpGet]
-		public async Task<IActionResult> Edit(int? carId)
+		public async Task<IActionResult> Edit(int carId)
 		{
-			if (carId == null)
+			if (await _adService.IdExists<Car>(carId) == false)
 			{
+				//RETURN TO ERROR PAGE 
 				return NotFound();
 			}
 
-			AdEditViewModel editInformation = await _adService.GetEditInformationAsync(carId.Value);
+			AdEditViewModel editInformation = await _adService.GetEditInformationAsync(carId);
 
 			return View(editInformation);
 		}
@@ -151,10 +153,11 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> DeleteConfirmed(int? carId)
+		public async Task<IActionResult> DeleteConfirmed(int carId)
 		{
-			if (carId == null)
+			if (await _adService.IdExists<Car>(carId) == false)
 			{
+				//RETURN TO ERROR PAGE 
 				return NotFound();
 			}
 
@@ -166,11 +169,17 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Buy(int? carId)
+		public async Task<IActionResult> Buy(int carId)
 		{
 			Guid buyerUserId = User.GetUserId();
 
-			Car carToBuy = await _adService.GetCarByIdAsync(carId.Value);
+			if (await _adService.IdExists<Car>(carId) == false)
+			{
+				//RETURN TO ERROR PAGE 
+				return NotFound();
+			}
+
+			Car carToBuy = await _adService.GetCarByIdAsync(carId);
 
 			if (carToBuy == null)
 			{
@@ -189,6 +198,19 @@ namespace Xcelerate.Controllers
 		{
 			try
 			{
+
+				if (await _adService.IdExists<Car>(firstCarId) == false)
+				{
+					//RETURN TO ERROR PAGE 
+					return NotFound();
+				}
+
+				if (await _adService.IdExists<Car>(secondCarId) == false)
+				{
+					//RETURN TO ERROR PAGE 
+					return NotFound();
+				}
+
 				var (firstCar, secondCar) = await _adService.GetTwoCarsByIdAsync(firstCarId, secondCarId);
 
 				if (firstCar.CarId == secondCar.CarId)
