@@ -199,13 +199,7 @@ namespace Xcelerate.Controllers
 			try
 			{
 
-				if (await _adService.IdExists<Car>(firstCarId) == false)
-				{
-					//RETURN TO ERROR PAGE 
-					return NotFound();
-				}
-
-				if (await _adService.IdExists<Car>(secondCarId) == false)
+				if (await _adService.IdExists<Car>(firstCarId) == false || await _adService.IdExists<Car>(secondCarId) == false)
 				{
 					//RETURN TO ERROR PAGE 
 					return NotFound();

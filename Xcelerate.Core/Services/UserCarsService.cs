@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Linq.Expressions;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.UserCars;
@@ -64,6 +66,28 @@ namespace Xcelerate.Core.Services
 			return car;
 		}
 
+		public async Task<bool> IdExists<TEntity>(int id) where TEntity : class
+		{
+			DbSet<TEntity> dbSet = _dbContext.Set<TEntity>();
+
+			IProperty? primaryKeyProperty = _dbContext.Model.FindEntityType(typeof(TEntity))
+													 .FindPrimaryKey()
+													 .Properties
+													 .FirstOrDefault();
+
+			if (primaryKeyProperty == null)
+			{
+				throw new InvalidOperationException($"Entity type {typeof(TEntity).Name} does not have a primary key property.");
+			}
+
+			ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "e");
+			MemberExpression propertyAccess = Expression.Property(parameter, primaryKeyProperty.PropertyInfo);
+			BinaryExpression equality = Expression.Equal(propertyAccess, Expression.Constant(id));
+			Expression<Func<TEntity, bool>> lambda = Expression.Lambda<Func<TEntity, bool>>(equality, parameter);
+
+			return await dbSet.AnyAsync(lambda);
+		}
+
 		public Task<int> GetUserCarsCountAsync(AdInformationViewModel adPreview, string userId)
 		{
 			IQueryable<Car> cars = _dbContext.Cars.Where(u => u.UserId == Guid.Parse(userId) && u.IsForSale == false).AsQueryable();
@@ -101,7 +125,6 @@ namespace Xcelerate.Core.Services
 					Price = car.Price,
 					FirstName = car.User.FirstName,
 					LastName = car.User.LastName,
-					CreatedOn = car.Ad.CreatedOn,
 				}).ToListAsync();
 
 			return cars;

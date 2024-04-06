@@ -7,14 +7,11 @@ using Xcelerate.Infrastructure.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<XcelerateContext>(options =>
-	options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddApplicationDbContext(builder.Configuration);
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-	.AddEntityFrameworkStores<XcelerateContext>();
+builder.Services.AddApplicationIdentity(builder.Configuration);
+
+builder.Services.AddMemoryCache();
 
 builder.Services.AddControllersWithViews()
 	.AddMvcOptions(options =>
@@ -90,6 +87,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.SeedAdministrator("F3B1E0A3-0F36-4E83-AA76-DEB9AF5D5F07");
 
 //app.MapControllerRoute(
 //    name: "default",

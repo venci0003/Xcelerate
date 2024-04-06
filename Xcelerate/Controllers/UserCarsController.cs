@@ -33,7 +33,7 @@ namespace Xcelerate.Controllers
 				adInformation.CurrentPage = 1;
 			}
 
-			Pager pager = new Pager(await _userCarsService.GetUserCarsCountAsync(adInformation, userId.ToString()), adInformation.CurrentPage,DefaultPageSizeForAds);
+			Pager pager = new Pager(await _userCarsService.GetUserCarsCountAsync(adInformation, userId.ToString()), adInformation.CurrentPage, DefaultPageSizeForAds);
 			adInformation.Pager = pager;
 
 			IEnumerable<AdPreviewViewModel> cars = await _userCarsService.GetUserCarsPreviewAsync(userId, adInformation);
@@ -44,12 +44,13 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Information(int? carId)
+		public async Task<IActionResult> Information(int carId)
 		{
 
-			if (carId == null)
+			if (await _userCarsService.IdExists<Car>(carId) == false)
 			{
-				return NotFound();
+				//RETURN TO ERROR PAGE 
+				return RedirectToAction("Index");
 			}
 
 			AdInformationViewModel car = await _userCarsService.GetCarsInformationAsync(carId);
@@ -59,7 +60,7 @@ namespace Xcelerate.Controllers
 				return NotFound();
 			}
 
-			List<AccessoryViewModel> carAccessories = await _accessoriesService.GetCarAccessoriesForOwnedCarsAsync(carId.Value);
+			List<AccessoryViewModel> carAccessories = await _accessoriesService.GetCarAccessoriesForOwnedCarsAsync(carId);
 
 			if (carAccessories == null)
 			{
@@ -72,14 +73,15 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Sell(int? carId)
+		public async Task<IActionResult> Sell(int carId)
 		{
-			if (carId == null)
+			if (await _userCarsService.IdExists<Car>(carId) == false)
 			{
-				return NotFound();
+				//RETURN TO ERROR PAGE 
+				return RedirectToAction("Index");
 			}
 
-			UserCarsSellViewModel sellInformation = await _userCarsService.GetSellInformationForCarAsync(carId.Value);
+			UserCarsSellViewModel sellInformation = await _userCarsService.GetSellInformationForCarAsync(carId);
 
 			return View(sellInformation);
 		}
@@ -97,7 +99,18 @@ namespace Xcelerate.Controllers
 
 		public async Task<IActionResult> Cancel(int carId, int adId)
 		{
+			if (await _userCarsService.IdExists<Car>(carId) == false)
+			{
+				//RETURN TO ERROR PAGE 
+				return RedirectToAction("Index");
+			}
 
+
+			if (await _userCarsService.IdExists<Ad>(adId) == false)
+			{
+				//RETURN TO ERROR PAGE 
+				return RedirectToAction("Index");
+			}
 			Car adToCancel = await _adService.GetCarByIdAsync(carId);
 
 			if (adToCancel == null)
@@ -112,19 +125,26 @@ namespace Xcelerate.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Delete(int? carId)
+		public async Task<IActionResult> Delete(int carId)
 		{
+			if (await _userCarsService.IdExists<Car>(carId) == false)
+			{
+				//RETURN TO ERROR PAGE 
+				return RedirectToAction("Index");
+			}
+
 			TempData["ConfirmUserCarDelete"] = true;
 			TempData["UserCarIdToDelete"] = carId;
 			return RedirectToAction("Index", "UserCars");
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> DeleteConfirmed(int? carId)
+		public async Task<IActionResult> DeleteConfirmed(int carId)
 		{
-			if (carId == null)
+			if (await _userCarsService.IdExists<Car>(carId) == false)
 			{
-				return NotFound();
+				//RETURN TO ERROR PAGE 
+				return RedirectToAction("Index");
 			}
 
 			await _userCarsService.DeleteCarAdAsync(carId);

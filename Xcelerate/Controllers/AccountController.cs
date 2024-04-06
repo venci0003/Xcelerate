@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Xcelerate.Core.Models.Account;
@@ -13,10 +12,12 @@ namespace Xcelerate.Controllers
 	{
 		private readonly SignInManager<User> signInManager;
 		private readonly UserManager<User> userManager;
-		public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
+		private readonly RoleManager<IdentityRole<Guid>> roleManager;
+		public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<IdentityRole<Guid>> roleManager)
 		{
 			this.signInManager = signInManager;
 			this.userManager = userManager;
+			this.roleManager = roleManager;
 		}
 
 		[HttpGet]
@@ -45,6 +46,8 @@ namespace Xcelerate.Controllers
 
 			if (result.Succeeded)
 			{
+				await userManager.AddToRoleAsync(user, "User");
+
 				return RedirectToAction(nameof(Login));
 			}
 			foreach (var error in result.Errors)
@@ -71,14 +74,14 @@ namespace Xcelerate.Controllers
 					await signInManager.SignInAsync(user, isPersistent: false);
 					if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl) && Url.IsLocalUrl(loginViewModel.ReturnUrl))
 					{
-                        return Redirect(loginViewModel.ReturnUrl);
-                    }
-					return RedirectToAction("HomePage","Home");
+						return Redirect(loginViewModel.ReturnUrl);
+					}
+					return RedirectToAction("HomePage", "Home");
 				}
 			}
 			ModelState.AddModelError("", "Invalid email or password");
-            return View(loginViewModel);
-        }
+			return View(loginViewModel);
+		}
 		public async Task<IActionResult> Logout()
 		{
 			await signInManager.SignOutAsync();
@@ -89,30 +92,23 @@ namespace Xcelerate.Controllers
 		{
 			var userId = User.GetUserId();
 
-			// Check if the user ID is not null
 			if (userId != null)
 			{
-				// Retrieve the user by ID
 				var user = await userManager.FindByIdAsync(userId.ToString());
 
-				// Check if the user is not null
 				if (user != null)
 				{
-					// Create a UserProfileViewModel and set the properties
 					var userProfileModel = new UserProfileViewModel
 					{
 						FirstName = user.FirstName,
 						LastName = user.LastName,
 						Email = user.Email
-						// Set other properties as needed
 					};
 
-					// Pass the UserProfileViewModel to the view
 					return View("UserProfile/Profile", userProfileModel);
 				}
 			}
 
-			// Handle the case when the user ID is not found or the user is not found
 			return NotFound();
 		}
 	}

@@ -139,6 +139,16 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 			tenthUser.PasswordHash = passwordHasher.HashPassword(tenthUser, "S7*xC6@G3&K");
 			users.Add(tenthUser);
 
+			User eleventhUser = new User()
+			{
+				Id = Guid.Parse("F3B1E0A3-0F36-4E83-AA76-DEB9AF5D5F07"),
+				FirstName = "Admin",
+				LastName = "Userov",
+				Email = "admin.xcelerate@example.com"
+			};
+			tenthUser.PasswordHash = passwordHasher.HashPassword(tenthUser, "admin12345-");
+			users.Add(eleventhUser);
+
 			return users;
 		}
 
