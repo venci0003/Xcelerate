@@ -5544,13 +5544,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("9abb04a0-36a0-4a35-8c1a-34d324aa169e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d0101c25-a74b-4393-8d56-5d1f02184fca",
+                            ConcurrencyStamp = "88460ed4-0b63-467b-9426-461175c0be04",
                             Email = "alice.smith@example.com",
                             EmailConfirmed = false,
                             FirstName = "Alice",
                             LastName = "Smith",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMO+Q5KMAnuUBXgNwSjHoiD8TWngbRpPEvEaFjOXHvK8/u6WWDAbs666fzFKpDrsPg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN2qARPM9AmH13SW7JWMvhWL/p3BIDEE3E9zPMKiISp/KO9EGbUcoU6LuajZNzVBHQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5558,13 +5558,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("2cc5da14-f51c-4b51-96b3-0c296c2ee8dc"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5b0ce898-dd0b-4693-965e-09281825ef18",
+                            ConcurrencyStamp = "e0636506-8cf5-418f-9b0b-a70adea8a400",
                             Email = "bob.johnson@example.com",
                             EmailConfirmed = false,
                             FirstName = "Bob",
                             LastName = "Johnson",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAECEAnlmls1+2fI+a4NrWHz9DiTd/5z2DqWfSkD0wBAP1wUeP5f9YVrVtAi6Q+TxnQA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENiFMPaKDGLLBlyFggYaU3kpzqrrV+1Ela4/3ldXpmEpcXLVeycFSydtZ76C3/nmHw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5572,13 +5572,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("6a31bb92-7ec2-45e3-81a8-912542b314c6"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a5e5bd1e-f75e-4e65-88fd-251b546e977e",
+                            ConcurrencyStamp = "d57de749-7957-49c5-ac5a-29abf9b5fe4d",
                             Email = "charlie.williams@example.com",
                             EmailConfirmed = false,
                             FirstName = "Charlie",
                             LastName = "Williams",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEB4EHeZ9N4dFcJUZIb+gk1jEKkTzUvjzeYUHPMqCT9kIhKx7Mpb7sBX/EW9Crz9dTQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBMdqmS+R3NaksGY+iUgP2O5F02mre3GXZGvT3II0oGlxX5sSY+yLefbp+s/Iri17Q==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5586,13 +5586,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("495cc255-9e57-40e1-a4de-b1adbfdbc0fc"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1c95ca7-4934-4108-9e05-dec4abe5b7f2",
+                            ConcurrencyStamp = "f54d7264-bf51-4e1d-b487-29d894f43699",
                             Email = "david.brown@example.com",
                             EmailConfirmed = false,
                             FirstName = "David",
                             LastName = "Brown",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEAI/pRLp9on6YqdkuQqcJ0tQ8bgCWCNtAiQDLseZnzknMQ0y8+1bBUp4iMJwoMdOzw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFiPjWSHPysMh7Snn7snNpEL+QDVzFzj8j8D6EECRese/w9DvkUtnq1CjKYPGTKI6w==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5600,13 +5600,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("b0b378dd-78aa-4884-afa7-7ec6626c9cdf"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7cce85d8-8215-4ea1-927a-df30ee73de06",
+                            ConcurrencyStamp = "5bc00e85-9396-40b4-b4d9-f9eec225b59b",
                             Email = "eva.miller@example.com",
                             EmailConfirmed = false,
                             FirstName = "Eva",
                             LastName = "Miller",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEPb56d8rcRaqZvj+oN0gt5WSUMjA1yO2lJ/PuxLVCekI0aAgtD9wlzXlrv5ZI0Gs0w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOmj/ZhhhKcC9Ic1A+dBllRj1dVRzAkqeJ/nwH45b6pFkOk8vJCk/v0zXIhfeKKlqg==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5614,13 +5614,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("9173efb3-6dc6-4c27-8d1a-555107353aea"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "51444a4a-7f5f-43d5-8221-401a46b9fcb9",
+                            ConcurrencyStamp = "0e100068-014c-4685-9214-9da9a888e257",
                             Email = "frank.davis@example.com",
                             EmailConfirmed = false,
                             FirstName = "Frank",
                             LastName = "Davis",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEBIN2Qv00EU2qw9Ju2ghZkSrr+lb8MeCpBB9q6/Kv3kOOaLaN146NvsPODQZMxyJCg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB/bLmDw3/vSoLp4uvy2nNhV7a5IaAEurOIWY1+f0I0FFQMqNJC4M/M49dMdGghQHA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5628,13 +5628,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("0c106d5a-7440-44dd-b8d3-3c1b7aca8020"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "af1c75f4-a04e-408a-b333-529e2952214b",
+                            ConcurrencyStamp = "c0ec1832-eb37-4aa4-9cc7-9285d306bf8c",
                             Email = "grace.taylor@example.com",
                             EmailConfirmed = false,
                             FirstName = "Grace",
                             LastName = "Taylor",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEEt6NA/wOOFSzxQSEcp5/TRpfHtqPfJiVl+VYklZVOMyD1+fDEkWD4uq3XJ0KXv0pw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIbjHWuzQikgqtGgPpMR30MVPhr/VUqNEcgA25Akoa2jKYofBdQLXN0CPopBeGtQ1w==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5642,13 +5642,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("b4d7ddad-411e-4fe8-a7d9-c2638f376f1c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1b1820e1-f2d1-47e7-8dbe-57de5ab12ed7",
+                            ConcurrencyStamp = "28088086-a49b-4acd-aa6e-9a1f573fb645",
                             Email = "henry.clark@example.com",
                             EmailConfirmed = false,
                             FirstName = "Henry",
                             LastName = "Clark",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEL8iv+iOgrgn+fY4lNwRaurl+5Xrh11ad0eXUu1fYWzde/u+OMfMw1RAVsRucjTlQQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKK2xzvEt13lYxPCob3+4KpdSjwnEU4dlGF3iHA2JghB6DCfi8xEzL5fOsjzERzMNQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5656,13 +5656,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("b13edf51-1ff3-46d7-bf4c-c55caac1a7c0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b0870586-bd4a-4d09-b17c-d65e47474ef0",
+                            ConcurrencyStamp = "c0d16743-1e86-42d3-9b3a-101c9d58af26",
                             Email = "ivy.walker@example.com",
                             EmailConfirmed = false,
                             FirstName = "Ivy",
                             LastName = "Walker",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMs3x0w68dWGrjzuyegiRxwDNHtiVsubMNWQylWU/sy1rgHQ/eWt2CAygoJVzHfIog==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHccfBvjGxHq3EyQjP6ZzURtyPKxzsF4V2rdgkXcHC4bLN56wOe/Y9r8Dy0tezEsew==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5670,13 +5670,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("1b6f6e67-5adf-4f78-a74e-27b02430c709"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b82251c5-20f0-4c08-a5a7-fe53c1440f53",
+                            ConcurrencyStamp = "68768c74-51d3-443d-9a88-e18dc65e7d58",
                             Email = "jack.anderson@example.com",
                             EmailConfirmed = false,
                             FirstName = "Jack",
                             LastName = "Anderson",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEPuif7kMH85Itj2UXvBQNh2RhnSC6kxgFbQ9cyNgQcC63EMpfQFWoo3xvtJMcMR2Sg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELQtOMBoADnKRipAAEVasDXMjzPdZ9Y+vvAqN8fmtmINdyDBP2rrH+gnpnOMwhlTNA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5684,14 +5684,19 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("f3b1e0a3-0f36-4e83-aa76-deb9af5d5f07"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "37dcc881-bd1f-4b6a-b7d8-f96b141c4ad0",
+                            ConcurrencyStamp = "513dc84d-3c6f-4806-ad0b-9c2241e8ebd9",
                             Email = "admin.xcelerate@example.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
                             LastName = "Userov",
                             LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN.XCELERATE@EXAMPLE.COM",
+                            NormalizedUserName = "ADMIN.XCELERATE@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA7OGk0XQvPpeoAs6Cm6ijyO75vbTP+sp6h+BVAwX/ANqfKL6zpNSV28+ui88lob8g==",
                             PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false
+                            SecurityStamp = "2d493f89-0c9f-499f-8df7-f859422f4bbc",
+                            TwoFactorEnabled = false,
+                            UserName = "admin.xcelerate@example.com"
                         });
                 });
 

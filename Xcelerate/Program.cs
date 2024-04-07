@@ -1,6 +1,5 @@
 ﻿using BookingWebProject.ModelBinders.DecimalModelBinder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Xcelerate.Extensions;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
@@ -9,7 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationDbContext(builder.Configuration);
 
-builder.Services.AddApplicationIdentity(builder.Configuration);
+//builder.Services.AddApplicationIdentity(builder.Configuration);
+
+builder.Services.AddDefaultIdentity<User>(options =>
+{
+	options.Password.RequireDigit = true;
+	options.SignIn.RequireConfirmedAccount = false;
+	options.Password.RequireNonAlphanumeric = false;
+	options.Password.RequireUppercase = false;
+	options.Lockout.MaxFailedAccessAttempts = 5;
+	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+})
+	.AddRoles<IdentityRole<Guid>>()
+	.AddEntityFrameworkStores<XcelerateContext>();
 
 builder.Services.AddMemoryCache();
 
@@ -27,25 +38,25 @@ builder.Services.Configure<IISServerOptions>(options =>
 	options.AllowSynchronousIO = true;
 });
 
-builder.Services.Configure<IdentityOptions>(options =>
-{
-	// Password settings.
-	//options.Password.RequireDigit = true;
-	//options.Password.RequireLowercase = true;
-	//options.Password.RequireNonAlphanumeric = true;
-	//options.Password.RequireUppercase = true;
-	//options.Password.RequiredLength = 6;
-	//options.Password.RequiredUniqueChars = 1;
+//builder.Services.Configure<IdentityOptions>(options =>
+//{
+//	// Password settings.
+//	//options.Password.RequireDigit = true;
+//	//options.Password.RequireLowercase = true;
+//	//options.Password.RequireNonAlphanumeric = true;
+//	//options.Password.RequireUppercase = true;
+//	//options.Password.RequiredLength = 6;
+//	//options.Password.RequiredUniqueChars = 1;
 
-	// Lockout settings.
-	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-	options.Lockout.MaxFailedAccessAttempts = 5;
-	options.Lockout.AllowedForNewUsers = true;
+//	// Lockout settings.
+//	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+//	options.Lockout.MaxFailedAccessAttempts = 5;
+//	options.Lockout.AllowedForNewUsers = true;
 
-	// User settings.
-	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-	options.User.RequireUniqueEmail = false;
-});
+//	// User settings.
+//	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+//	options.User.RequireUniqueEmail = false;
+//});
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -103,16 +114,9 @@ app.UseEndpoints(config =>
 	);
 
 	config.MapControllerRoute(
-		name: "ad",
-		pattern: "{controller=Ad}/{action=Information}/{carId?}");
-
-	config.MapControllerRoute(
-	  name: "adCreate",
-	  pattern: "{controller=Ad}/{action=Create}");
-
-	config.MapControllerRoute(
-	   name: "adBuy",
-	pattern: "{controller=Ad}/{action=Buy}/{carId?}");
+	name: "admin",
+	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
 	config.MapRazorPages();
 });
 

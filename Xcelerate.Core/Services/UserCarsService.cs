@@ -222,9 +222,6 @@ namespace Xcelerate.Core.Services
 					};
 				}
 
-
-
-				// Update the properties of the existing car entity based on the ViewModel
 				car.Brand = adViewModel.Brand;
 				car.Model = adViewModel.Model;
 				car.Year = adViewModel.Year;
@@ -247,7 +244,6 @@ namespace Xcelerate.Core.Services
 				car.Ad.CreatedOn = DateTime.Now.ToString(AdEntity.CreatedOnDateFormat);
 				car.IsForSale = true;
 
-				// Update CarAccessories
 				var selectedAccessories = adViewModel.SelectedCheckBoxId;
 				var existingAccessories = car.CarAccessories.Select(ca => ca.AccessoryId).ToList();
 
@@ -280,8 +276,6 @@ namespace Xcelerate.Core.Services
 					{
 						using (var stream = new FileStream(oldImagePath, FileMode.Open, FileAccess.ReadWrite))
 						{
-							// Close and dispose of the FileStream before deletion
-							//stream.Close();
 						}
 						System.IO.File.Delete(oldImagePath);
 					}

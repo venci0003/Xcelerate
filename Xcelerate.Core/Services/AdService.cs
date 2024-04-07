@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Net;
@@ -9,7 +10,6 @@ using Xcelerate.Core.Models.Sorting;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Enums;
 using Xcelerate.Infrastructure.Data.Models;
-using Microsoft.EntityFrameworkCore.Metadata;
 using static Xcelerate.Common.EntityValidation;
 
 namespace Xcelerate.Core.Services
@@ -32,7 +32,6 @@ namespace Xcelerate.Core.Services
 				.Where(a => a.Car.IsForSale)
 				.AsQueryable();
 
-			// Apply filtering based on adViewModel
 			ads = FilterCars(adViewModel, ads);
 
 			IEnumerable<AdPreviewViewModel> carAds = await ads
@@ -197,7 +196,7 @@ namespace Xcelerate.Core.Services
 				var ad = new Ad
 				{
 					UserId = Guid.Parse(userId),
-					CarId = car.CarId, // Assign the CarId to the Ad entity
+					CarId = car.CarId,
 					CarDescription = WebUtility.HtmlEncode(adViewModel.CarDescription),
 					CreatedOn = adViewModel.CreatedOn.ToString(AdEntity.CreatedOnDateFormat)
 				};
@@ -227,7 +226,11 @@ namespace Xcelerate.Core.Services
 					{
 						var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
 						var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
-						await image.CopyToAsync(new FileStream(filePath, FileMode.Create));
+
+						using (var stream = new FileStream(filePath, FileMode.Create))
+						{
+							await image.CopyToAsync(stream);
+						}
 
 						Image imageToCreate = new Image()
 						{
@@ -368,7 +371,6 @@ namespace Xcelerate.Core.Services
 					throw new ArgumentException("Car not found!");
 				}
 
-				// Update the properties of the existing car entity based on the ViewModel
 				car.Brand = adViewModel.Brand;
 				car.Model = WebUtility.HtmlEncode(adViewModel.Model);
 				car.Year = adViewModel.Year;
@@ -389,7 +391,6 @@ namespace Xcelerate.Core.Services
 				car.Address.TownName = WebUtility.HtmlEncode(adViewModel.Address.TownName);
 				car.Address.StreetName = WebUtility.HtmlEncode(adViewModel.Address.StreetName);
 
-				// Update CarAccessories
 				var selectedAccessories = adViewModel.SelectedCheckBoxId;
 				var existingAccessories = car.CarAccessories.Select(ca => ca.AccessoryId).ToList();
 
@@ -416,11 +417,9 @@ namespace Xcelerate.Core.Services
 
 				if (adViewModel.UploadedImages == null || !adViewModel.UploadedImages.Any())
 				{
-					// User wants to keep existing images, do nothing
 				}
 				else
 				{
-					// User wants to upload new images, remove existing images and add new ones
 					_dbContext.Images.RemoveRange(car.Images);
 
 
@@ -481,64 +480,64 @@ namespace Xcelerate.Core.Services
 				{
 					var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad", image.ImageUrl);
 
-					if (System.IO.File.Exists(imagePath))
+					if (await Task.Run(() => System.IO.File.Exists(imagePath)))
 					{
-						try
+						bool fileDeleted = false;
+						int retries = 3;
+
+						while (!fileDeleted && retries > 0)
 						{
-							using (var stream = new FileStream(imagePath, FileMode.Open, FileAccess.ReadWrite))
+							try
 							{
-								// Close the file stream before deletion
-								stream.Close();
+								await Task.Run(() => System.IO.File.Delete(imagePath));
+								fileDeleted = true;
 							}
-							// Attempt to delete the file
-							System.IO.File.Delete(imagePath);
+							catch (IOException)
+							{
+								await Task.Delay(500);
+								retries--;
+							}
 						}
-						catch (IOException)
+
+						if (!fileDeleted)
 						{
-							throw new IOException("An error occurred while deleting the ad.");
+							throw new IOException("Failed to delete the file because it is in use by another process.");
 						}
 					}
 
 					_dbContext.Images.Remove(image);
 				}
 
-				// Remove associated reviews
 				if (car.Ad != null && car.Ad.Reviews != null)
 				{
 					_dbContext.Reviews.RemoveRange(car.Ad.Reviews);
 				}
 
-				// Remove associated ad
 				if (car.Ad != null)
 				{
 					_dbContext.Ads.Remove(car.Ad);
 				}
 
-				// Remove associated car accessories
 				if (car.CarAccessories != null)
 				{
 					_dbContext.CarAccessories.RemoveRange(car.CarAccessories);
 				}
 
-				// Remove associated address
 				if (car.Address != null)
 				{
 					_dbContext.Addresses.Remove(car.Address);
 				}
 
-				// Remove associated manufacturer
 				if (car.Manufacturer != null)
 				{
 					_dbContext.Manufacturers.Remove(car.Manufacturer);
 				}
 
-				// Remove associated engine
 				if (car.Engine != null)
 				{
 					_dbContext.Engines.Remove(car.Engine);
 				}
 
-				// Remove car entity
 				_dbContext.Cars.Remove(car);
 
 				await _dbContext.SaveChangesAsync();
@@ -557,14 +556,11 @@ namespace Xcelerate.Core.Services
 
 			if (adToRemove != null)
 			{
-				// Remove associated reviews
 				var reviewsToRemove = _dbContext.Reviews.Where(r => r.AdId == adToRemove.AdId);
 				_dbContext.Reviews.RemoveRange(reviewsToRemove);
 
-				// Now remove the ad
 				_dbContext.Ads.Remove(adToRemove);
 
-				// Update the car
 				_dbContext.Cars.Update(car);
 
 				StatisticalData? statisticsUpdate = await _dbContext.StatisticalData.FirstOrDefaultAsync();
@@ -576,7 +572,6 @@ namespace Xcelerate.Core.Services
 			}
 			else
 			{
-				// Handle the case where the associated ad is not found
 				return false;
 			}
 		}

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Xcelerate.Core.Models.Account;
 using Xcelerate.Core.Models.Account.UserProfile;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data.Models;
+using static Xcelerate.Common.ApplicationConstants;
 
 namespace Xcelerate.Controllers
 {
@@ -65,6 +67,12 @@ namespace Xcelerate.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel loginViewModel)
 		{
+			if (!ModelState.IsValid)
+			{
+				IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+				return RedirectToAction(nameof(Login));
+			}
+
 			var user = await userManager.FindByEmailAsync(loginViewModel.Email);
 			if (user != null)
 			{
@@ -72,6 +80,15 @@ namespace Xcelerate.Controllers
 				if (result.Succeeded)
 				{
 					await signInManager.SignInAsync(user, isPersistent: false);
+
+					bool isAdmin = await userManager.IsInRoleAsync(user, "Administrator");
+
+					// Redirect to admin area if the user is admin
+					if (isAdmin)
+					{
+						return RedirectToAction("Index", "Home", new { area = "Admin" });
+					}
+
 					if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl) && Url.IsLocalUrl(loginViewModel.ReturnUrl))
 					{
 						return Redirect(loginViewModel.ReturnUrl);
@@ -111,5 +128,49 @@ namespace Xcelerate.Controllers
 
 			return NotFound();
 		}
+
+		//[HttpPost]
+		//[Authorize(Roles = AdminRoleName)]
+		//public async Task<IActionResult> ChangeRole(Guid id, string? role = null)
+		//{
+		//	User userToFind = await userManager.FindByIdAsync(id.ToString());
+		//	if (!string.IsNullOrWhiteSpace(role))
+		//	{
+		//		if (!await roleManager.RoleExistsAsync(role))
+		//		{
+		//			IdentityRole<Guid> newRole = new IdentityRole<Guid>(role);
+		//			await roleManager.CreateAsync(newRole);
+		//		}
+		//		if (!await userManager.IsInRoleAsync(userToFind, role))
+		//		{
+		//			await userManager.AddToRoleAsync(userToFind, role);
+		//			//To save the changes on SeedUsers
+		//			await xcelerateContext.SaveChangesAsync();
+		//		}
+		//	}
+		//	else
+		//	{
+		//		if (await userManager.IsInRoleAsync(userToFind, ModeratorRoleName))
+		//		{
+		//			await userManager.RemoveFromRoleAsync(userToFind, ModeratorRoleName);
+		//			if (!await roleManager.RoleExistsAsync(UserRoleName))
+		//			{
+		//				IdentityRole<Guid> userRole = new IdentityRole<Guid>(UserRoleName);
+		//				await roleManager.CreateAsync(userRole);
+		//			}
+		//			if (!await userManager.IsInRoleAsync(userToFind, UserRoleName))
+		//			{
+		//				await userManager.AddToRoleAsync(userToFind, UserRoleName);
+		//			}
+		//			//To save the changes on SeedUsers
+		//			await bookingContext.SaveChangesAsync();
+		//		}
+		//		else
+		//		{
+		//			return NotFound();
+		//		}
+		//	}
+		//	return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+		//}
 	}
 }

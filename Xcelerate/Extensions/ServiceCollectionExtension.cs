@@ -52,7 +52,8 @@ namespace Xcelerate.Extensions
 					options.User.RequireUniqueEmail = true;
 				})
 				.AddRoles<IdentityRole<Guid>>()
-				.AddEntityFrameworkStores<XcelerateContext>();
+				.AddEntityFrameworkStores<XcelerateContext>()
+			    .AddDefaultTokenProviders();
 
 			return services;
 		}

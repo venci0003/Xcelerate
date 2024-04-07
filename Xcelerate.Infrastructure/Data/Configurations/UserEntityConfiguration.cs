@@ -144,9 +144,13 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				Id = Guid.Parse("F3B1E0A3-0F36-4E83-AA76-DEB9AF5D5F07"),
 				FirstName = "Admin",
 				LastName = "Userov",
-				Email = "admin.xcelerate@example.com"
+				Email = "admin.xcelerate@example.com",
+				UserName = "admin.xcelerate@example.com",
+				NormalizedUserName = "ADMIN.XCELERATE@EXAMPLE.COM",
+				NormalizedEmail = "ADMIN.XCELERATE@EXAMPLE.COM",
+				SecurityStamp = Guid.NewGuid().ToString(),
 			};
-			tenthUser.PasswordHash = passwordHasher.HashPassword(tenthUser, "admin12345-");
+			eleventhUser.PasswordHash = passwordHasher.HashPassword(eleventhUser, "admin12345-");
 			users.Add(eleventhUser);
 
 			return users;

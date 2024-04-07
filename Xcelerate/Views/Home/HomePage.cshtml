@@ -14,8 +14,7 @@
 
 <span class="website-name" filter-content="X">Xcelerate</span>
 
-
-<article class="card-news">
+<article class="card-news" asp-area="" asp-controller="Home" asp-action="HomePage">
 	<div id="clock"></div>
 	<div class="0">
 		<ul class="stats">
@@ -48,7 +47,7 @@
 						<a class="page-link"
 						   href="@Url.Action("HomePage", "Home", new
                             {
-                                currentPage = Model.Pager.CurrentPage - 1,							
+                                currentPage = Model.Pager.CurrentPage - 1,
                             })">Previous</a>
 					</li>
 				}
