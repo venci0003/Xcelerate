@@ -1,0 +1,144 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Xcelerate.Infrastructure.Data.Models
+@model AdminHomeViewModel
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<link rel="stylesheet" href="~/css/Admin/Index.css" asp-append-version="true" />
+
+<svg xmlns="http://www.w3.org/2000/svg">
+	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
+
+	<filter id="motion-blur-filter" filterUnits="userSpaceOnUse">
+		<!-- We only want horizontal blurring. x: 100, y: 0 -->
+
+		<feGaussianBlur stdDeviation="100 0"></feGaussianBlur>
+	</filter>
+</svg>
+
+<span class="website-name" filter-content="X">Xcelerate</span>
+
+<div class="flexed-news-reviews">
+
+	<article class="card-news" asp-area="Admin" asp-controller="Home" asp-action="Index">
+		<div id="clock"></div>
+
+		<h1>This is the admin panel!</h1>
+
+
+	</article>
+
+	<article class="card-reviews" asp-area="Admin" asp-controller="Home" asp-action="Index">
+		<div id="clock"></div>
+
+		<section class="review-section" id="reviews-section">
+			<h2 class="reviews-title">Reviews</h2>
+			<ul class="list-car-ad-reviews">
+				@{
+					foreach (var review in Model.Reviews)
+					{
+						<li class="username-container">
+							<strong>
+								@review.FirstName @review.LastName @for (int i = 0; i < review.StarsCount; i++)
+								{
+									<img class="star-icon" src="~/Icons/icons8-star-96-white.png" alt="Star icon" />
+								}
+							</strong>
+							@if (User.IsInRole("Administrator"))
+							{
+								<div class="edit-and-delete-container">
+									<form class="delete-form" action="@Url.Action("Delete","AdminReview", new {area = "Admin"})" method="post">
+										<input type="hidden" name="ReviewId" value="@review.ReviewId" />
+										<input type="hidden" name="AdId" value="@Model.AdId" />
+										<button type="submit" class="delete-icon-link">
+											<img class="delete-icon" src="~/Icons/icons8-garbage-can-65-white.png" alt="Delete icon">
+										</button>
+									</form>
+								</div>
+							}
+
+						</li>
+						<li class="review-comment">
+							@review.Comment
+						</li>
+					}
+				}
+			</ul>
+
+			<p class="instructions-reviews">Here you can look at reviews and decide if they have to be deleted based on if they are offensive or not. Be careful :) .</p>
+		</section>
+
+
+	</article>
+
+
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+<script src="~/js/Admin/Index.js" asp-append-version="true"></script>
+
+@if (TempData["DeleteMessage"] != null && (bool)TempData["DeleteMessage"])
+{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: 'Ad deleted!',
+			text: 'You have succesfully deleted an ad!',
+		});
+	</script>
+	@TempData.Remove("DeleteMessage")
+	;
+}
+
+@if (TempData["ConfirmDelete"] != null && (bool)TempData["ConfirmDelete"])
+{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		Swal.fire({
+			title: 'Confirm Delete',
+			text: 'Are you sure you want to delete this car ad?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#3085d6',
+			confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+
+				var form = document.createElement('form');
+				form.method = 'post';
+				form.action = '/Admin/AdminReview/DeleteConfirmed';
+
+				var input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = 'reviewId';
+				input.value = '@TempData["ReviewAdIdToDelete"]';
+
+				form.appendChild(input);
+
+				// Append the form to the document body and submit it
+				document.body.appendChild(form);
+
+				var input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = 'adId';
+				input.value = '@TempData["AdId"]';
+
+				form.appendChild(input);
+
+				// Append the form to the document body and submit it
+				document.body.appendChild(form);
+				form.submit();
+
+		@TempData.Remove("ConfirmDelete")
+		@TempData.Remove("ReviewAdIdToDelete")
+		@TempData.Remove("AdId")
+									}
+		});
+	</script>
+}

@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Xcelerate</title>
+	<link rel="stylesheet" href="~/css/Layout/Layout.css" asp-append-version="true" />
+</head>
+<body>
+	<header>
+		<nav class="nav-bar">
+			@if (!User?.Identity?.IsAuthenticated ?? false)
+			{
+				<ul id="ul-list-unauthorized">
+					<img id="wheelIcon"
+						 src="~/Icons/icons8-tire-100 white.png"
+						 alt="Icon Description" />
+					<li><a asp-area="" asp-controller="Home" asp-action="HomePage">Home</a></li>
+					<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+					<li><a asp-area="" asp-controller="Ad" asp-action="Index">Ads</a></li>
+				</ul>
+			}
+			else
+			{
+				<ul id="ul-list-authorized">
+					<img id="wheelIcon"
+						 src="~/Icons/icons8-tire-100 white.png"
+						 alt="Icon Description" />
+					<li><a asp-area="" asp-controller="Home" asp-action="HomePage">Home</a></li>
+					<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+					<li><a asp-area="" asp-controller="Ad" asp-action="Index">Ads</a></li>
+					<li><a asp-area="" asp-controller="Ad" asp-action="Create">Create</a></li>
+					<li><a asp-area="" asp-controller="Ad" asp-action="UserAds">My Ads</a></li>
+				</ul>
+			}
+			@if (!User?.Identity?.IsAuthenticated ?? false)
+			{
+				<ul id="authorize-list-unauthorized">
+					<img id="keyIcon"
+						 src="~/Icons/icons8-key-100.png"
+						 alt="Icon Description" />
+					<li><a asp-area="" asp-controller="Account" asp-action="Login" class="login-button-submit">LOGIN</a></li>
+					<li><a asp-area="" asp-controller="Account" asp-action="Register" class="register-button-submit">SIGN UP</a></li>
+				</ul>
+			}
+			else
+			{
+				<ul id="authorize-list-authorized">
+					<img id="keyIcon"
+						 src="~/Icons/icons8-key-100.png"
+						 alt="Icon Description" />
+					<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Logout" class="logout-button-submit">LOG OUT</a></li>
+					<li class="logout-state"><a asp-area="" asp-controller="UserCars" asp-action="Index" class="logout-button-submit">MY CARS</a></li>
+					<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Profile" class="logout-button-submit">ACCOUNT</a></li>
+				</ul>
+			}
+		</nav>
+	</header>
+
+
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+
+
+	<footer>
+		<h2 class="footer-title">Xcelerate</h2>
+		<nav class="footer-nav">
+			<ul>
+				<li><a href="">Tour packages</a></li>
+				<li><a href="">Personalized offers</a></li>
+				<li><a href=""> Special deals</a></li>
+				<li><a href="">Summer holiday</a></li>
+			</ul>
+			<ul>
+				<li><a href="">About us</a></li>
+				<li><a href="">FAQ</a></li>
+				<li><a href="">Terms and conditions</a></li>
+				<li><a href="">Contact</a></li>
+			</ul>
+			<ul class="social">
+				<h2 class="social-title">Follow us on</h2>
+				<div class="wrapper">
+				<li>
+					<a href=""><i class="fab fa-instagram"></i></a>
+				</li>
+				<li>
+					<a href=""><i class="fab fa-facebook-f"></i></a>
+				</li>
+				<li>
+					<a href=""><i class="fab fa-twitter"></i></a>
+				</li>
+				</div>
+			</ul>
+		</nav>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
