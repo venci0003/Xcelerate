@@ -1,5 +1,6 @@
 ﻿using BookingWebProject.ModelBinders.DecimalModelBinder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Extensions;
 using Xcelerate.Infrastructure.Data;
 using Xcelerate.Infrastructure.Data.Models;
@@ -27,7 +28,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddControllersWithViews()
 	.AddMvcOptions(options =>
 	{
-		//options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+		options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 		options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
 	});
 

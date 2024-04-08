@@ -41,6 +41,7 @@ namespace Xcelerate.Core.Services
 			int pageSize = 3;
 
 			var news = await _dbContext.NewsData
+				.OrderByDescending(n => n.NewsId)
 				.Skip((homePageView.CurrentPage - 1) * pageSize)
 			    .Take(pageSize)
 				.Select(n => new NewsPreviewViewModel

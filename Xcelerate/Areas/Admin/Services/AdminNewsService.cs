@@ -22,17 +22,17 @@ namespace Xcelerate.Areas.Admin.Services
 			int pageSize = 3;
 
 			var news = await _dbContext.NewsData
-				.Skip((homePageView.CurrentPage - 1) * pageSize)
-				.Take(pageSize)
-				.Select(n => new NewsPreviewViewModel
-				{
-					NewsId = n.NewsId,
-					Title = n.Title,
-					Content = n.Content
-				})
-				.ToListAsync();
+			   .OrderByDescending(n => n.NewsId)
+			   .Skip((homePageView.CurrentPage - 1) * pageSize)
+			   .Take(pageSize)
+			   .Select(n => new NewsPreviewViewModel
+			   {
+				   NewsId = n.NewsId,
+				   Title = n.Title,
+				   Content = n.Content
+			   })
+			   .ToListAsync();
 
-			// Create an instance of HomePageViewModel
 			var viewModel = new AdminHomeViewModel
 			{
 				NewsPreview = news,
