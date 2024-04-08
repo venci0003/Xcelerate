@@ -1,5 +1,4 @@
-﻿using Xcelerate.Core.Models.Ad;
-using Xcelerate.Core.Models.Review;
+﻿using Xcelerate.Core.Models.Review;
 
 namespace Xcelerate.Core.Contracts
 {

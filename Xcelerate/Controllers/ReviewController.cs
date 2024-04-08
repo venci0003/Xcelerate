@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Review;
-using Xcelerate.Core.Services;
 using Xcelerate.Extension;
-using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Controllers
 {
@@ -22,8 +20,6 @@ namespace Xcelerate.Controllers
 			Guid userId = User.GetUserId();
 
 			await _reviewService.CreateReviewAsync(reviewViewModel, userId.ToString(), adId);
-
-			//TempData["FormSubmitted"] = true;
 
 			return RedirectToAction("Information", "Ad", new { adId = adId });
 

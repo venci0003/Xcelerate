@@ -109,14 +109,16 @@ app.SeedAdministrator("F3B1E0A3-0F36-4E83-AA76-DEB9AF5D5F07");
 app.UseEndpoints(config =>
 {
 	config.MapControllerRoute(
+	name: "areas",
+	pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+	config.MapControllerRoute(
 		name: "home",
 		pattern: "{controller=Home}/{action=HomePage}/{id?}"
 	);
 
-	config.MapControllerRoute(
-	name: "admin",
-	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-);
+	config.MapDefaultControllerRoute();
+
 	config.MapRazorPages();
 });
 

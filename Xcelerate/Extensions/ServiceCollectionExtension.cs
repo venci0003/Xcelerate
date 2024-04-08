@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Xcelerate.Areas.Admin.Contracts;
+using Xcelerate.Areas.Admin.Services;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Services;
 using Xcelerate.Infrastructure.Data;
@@ -7,7 +9,7 @@ using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Extensions
 {
-	public static class ServiceCollectionExtension
+    public static class ServiceCollectionExtension
 	{
 		public static void AddServices(this IServiceCollection serviceDescriptors)
 		{
@@ -16,6 +18,8 @@ namespace Xcelerate.Extensions
 			serviceDescriptors.AddScoped<IUserCarsService, UserCarsService>();
 			serviceDescriptors.AddScoped<IReviewService, ReviewService>();
 			serviceDescriptors.AddScoped<IHomeService, HomeService>();
+
+			serviceDescriptors.AddScoped<IAdminReviewService, AdminReviewService>();
 		}
 
 		public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)
@@ -53,7 +57,7 @@ namespace Xcelerate.Extensions
 				})
 				.AddRoles<IdentityRole<Guid>>()
 				.AddEntityFrameworkStores<XcelerateContext>()
-			    .AddDefaultTokenProviders();
+				.AddDefaultTokenProviders();
 
 			return services;
 		}

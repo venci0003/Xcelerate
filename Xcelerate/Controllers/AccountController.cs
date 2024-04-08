@@ -86,7 +86,7 @@ namespace Xcelerate.Controllers
 					// Redirect to admin area if the user is admin
 					if (isAdmin)
 					{
-						return RedirectToAction("Index", "Home", new { area = "Admin" });
+						return RedirectToAction("Index", "Home", new { Area = "Admin" });
 					}
 
 					if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl) && Url.IsLocalUrl(loginViewModel.ReturnUrl))
