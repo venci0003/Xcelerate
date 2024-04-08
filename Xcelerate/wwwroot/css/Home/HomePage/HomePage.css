@@ -21,11 +21,11 @@ body {
     font-size: 60px;
     margin-top: 0px;
     margin-bottom: 0px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
 }
 
 #clock {
@@ -47,7 +47,6 @@ body {
 }
 
 .card-news {
-    opacity: 1;
     margin: 100px 10px 0px 30%;
     border-radius: 24px;
     /* background-image: url(2021_honda_civic_type_r_9_1920x1080.png); */
@@ -57,23 +56,8 @@ body {
     height: 630px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(7px);
-    transition: opacity 0.5s; /* Add a transition effect */
+    transition: opacity 0.5s;
 }
-
-
-
-
-/* @keyframes changeColor {
-  0% { color: #ffffff; }
-  25% { color: #ece3e2; }
-  50% { color: #e1ebe5; }
-  75% { color: #f0ece7; }
-  100% { color: #ffffff; }
-}
-
-.website-name {
-  animation: changeColor 6s infinite; 
-} */
 
 span {
     position: relative;

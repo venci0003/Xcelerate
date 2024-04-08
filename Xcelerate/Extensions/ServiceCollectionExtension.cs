@@ -9,7 +9,7 @@ using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Extensions
 {
-    public static class ServiceCollectionExtension
+	public static class ServiceCollectionExtension
 	{
 		public static void AddServices(this IServiceCollection serviceDescriptors)
 		{
@@ -20,6 +20,7 @@ namespace Xcelerate.Extensions
 			serviceDescriptors.AddScoped<IHomeService, HomeService>();
 
 			serviceDescriptors.AddScoped<IAdminReviewService, AdminReviewService>();
+			serviceDescriptors.AddScoped<IAdminNewsService, AdminNewsService>();
 		}
 
 		public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)

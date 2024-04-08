@@ -5,7 +5,7 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-<link rel="stylesheet" href="~/css/Admin/Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Admin/Home/Index.css" asp-append-version="true" />
 
 <svg xmlns="http://www.w3.org/2000/svg">
 	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
@@ -24,7 +24,55 @@
 	<article class="card-news" asp-area="Admin" asp-controller="Home" asp-action="Index">
 		<div id="clock"></div>
 
-		<h1>This is the admin panel!</h1>
+		<h1 class="news-section-text">NEWS</h1>
+
+		<form asp-area="Admin" asp-controller="AdminNews" asp-action="AddGeneratedNews" method="post">
+			<button type="submit" class="generate-button">GENERATE NEWS</button>
+		</form>
+
+		<section>
+			<partial name="_AllNewsPreview" model="Model.NewsPreview">
+			</partial>
+		</section>
+
+		<div class="pagination-container">
+			@if (Model.Pager.TotalPages > 0)
+			{
+
+				<ul class="page-list">
+					@if (Model.Pager.CurrentPage > Model.Pager.StartPage)
+					{
+						<li class="page-item">
+							<a class="page-link"
+							   href="@Url.Action("Index", "Home", new
+                            {
+                                currentPage = Model.Pager.CurrentPage - 1,
+                            })">Previous</a>
+						</li>
+					}
+
+					@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+					{
+						<li class="page-item">
+							<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
+							   href="@Url.Action("Index", "Home", new{
+                                currentPage = page,
+                            })">@(page)</a>
+						</li>
+					}
+
+					@if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+					{
+						<li class="page-item">
+							<a class="page-link"
+							   href="@Url.Action("Index", "Home", new{
+                                currentPage = Model.Pager.CurrentPage + 1,
+                            })">Next</a>
+						</li>
+					}
+				</ul>
+			}
+		</div>
 
 
 	</article>
@@ -35,34 +83,42 @@
 		<section class="review-section" id="reviews-section">
 			<h2 class="reviews-title">Reviews</h2>
 			<ul class="list-car-ad-reviews">
-				@{
-					foreach (var review in Model.Reviews)
+				@if (Model.Reviews.Count != 0)
+				{
 					{
-						<li class="username-container">
-							<strong>
-								@review.FirstName @review.LastName @for (int i = 0; i < review.StarsCount; i++)
+						foreach (var review in Model.Reviews)
+						{
+							<li class="username-container">
+								<strong>
+									@review.FirstName @review.LastName @for (int i = 0; i < review.StarsCount; i++)
+									{
+										<img class="star-icon" src="~/Icons/icons8-star-96-white.png" alt="Star icon" />
+									}
+								</strong>
+								@if (User.IsInRole("Administrator"))
 								{
-									<img class="star-icon" src="~/Icons/icons8-star-96-white.png" alt="Star icon" />
+									<div class="edit-and-delete-container">
+										<form class="delete-form" action="@Url.Action("Delete","AdminReview", new {area = "Admin"})" method="post">
+											<input type="hidden" name="ReviewId" value="@review.ReviewId" />
+											<input type="hidden" name="AdId" value="@Model.AdId" />
+											<button type="submit" class="delete-icon-link">
+												<img class="delete-icon" src="~/Icons/icons8-garbage-can-65-white.png" alt="Delete icon">
+											</button>
+										</form>
+									</div>
 								}
-							</strong>
-							@if (User.IsInRole("Administrator"))
-							{
-								<div class="edit-and-delete-container">
-									<form class="delete-form" action="@Url.Action("Delete","AdminReview", new {area = "Admin"})" method="post">
-										<input type="hidden" name="ReviewId" value="@review.ReviewId" />
-										<input type="hidden" name="AdId" value="@Model.AdId" />
-										<button type="submit" class="delete-icon-link">
-											<img class="delete-icon" src="~/Icons/icons8-garbage-can-65-white.png" alt="Delete icon">
-										</button>
-									</form>
-								</div>
-							}
 
-						</li>
-						<li class="review-comment">
-							@review.Comment
-						</li>
+							</li>
+							<li class="review-comment">
+								@review.Comment
+							</li>
+						}
 					}
+
+				}
+				else
+				{
+					<p class="no-reviews-message">No comments to review at the moment...</p>
 				}
 			</ul>
 
@@ -138,7 +194,7 @@
 		@TempData.Remove("ConfirmDelete")
 		@TempData.Remove("ReviewAdIdToDelete")
 		@TempData.Remove("AdId")
-									}
+																	}
 		});
 	</script>
 }

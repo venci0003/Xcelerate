@@ -83,7 +83,6 @@ namespace Xcelerate.Controllers
 
 					bool isAdmin = await userManager.IsInRoleAsync(user, "Administrator");
 
-					// Redirect to admin area if the user is admin
 					if (isAdmin)
 					{
 						return RedirectToAction("Index", "Home", new { Area = "Admin" });
