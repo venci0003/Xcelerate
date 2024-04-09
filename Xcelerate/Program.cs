@@ -1,9 +1,4 @@
-﻿using BookingWebProject.ModelBinders.DecimalModelBinder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Xcelerate.Extensions;
-using Xcelerate.Infrastructure.Data;
-using Xcelerate.Infrastructure.Data.Models;
+﻿using Xcelerate.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

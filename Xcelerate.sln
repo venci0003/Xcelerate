@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xcelerate.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xcelerate.Core", "Xcelerate.Core\Xcelerate.Core.csproj", "{2884C126-E715-4AC3-AD0C-4048A3332BAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xcelerate.Common", "Xcelerate.Common\Xcelerate.Common.csproj", "{873A2ED3-05B9-4EC4-84D7-1CA8B14E1021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xcelerate.Common", "Xcelerate.Common\Xcelerate.Common.csproj", "{873A2ED3-05B9-4EC4-84D7-1CA8B14E1021}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xcelerate.Tests", "Xcelerate.Tests\Xcelerate.Tests.csproj", "{5D0008C7-3B03-4EC8-8A2D-079A7155F9BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{873A2ED3-05B9-4EC4-84D7-1CA8B14E1021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{873A2ED3-05B9-4EC4-84D7-1CA8B14E1021}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{873A2ED3-05B9-4EC4-84D7-1CA8B14E1021}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D0008C7-3B03-4EC8-8A2D-079A7155F9BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D0008C7-3B03-4EC8-8A2D-079A7155F9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D0008C7-3B03-4EC8-8A2D-079A7155F9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D0008C7-3B03-4EC8-8A2D-079A7155F9BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
