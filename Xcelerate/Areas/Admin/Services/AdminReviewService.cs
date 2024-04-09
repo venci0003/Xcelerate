@@ -25,7 +25,7 @@ namespace Xcelerate.Areas.Admin.Services
 				.ToListAsync();
 
 			List<AdminReviewViewModel> filteredReviews = allReviews
-				.Where(review => badWords.Any(badWord => review.Comment.Contains(badWord)))
+				.Where(review => badWords.Any(badWord => review.Comment.ToLower().Contains(badWord)))
 				.Select(review => new AdminReviewViewModel
 				{
 					UserId = review.UserId,

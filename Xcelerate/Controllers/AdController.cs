@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.Pager;
+using Xcelerate.Core.Models.Review;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data.Models;
 using static Xcelerate.Common.ApplicationConstants;
@@ -66,7 +67,11 @@ namespace Xcelerate.Controllers
 				return RedirectToAction("Index");
 			}
 
-			var carAdInfo = _memoryCache.Get<AdInformationViewModel>(CarAdInformationCacheKey);
+			string carAdInformationCacheKey = $"{CarAdInformationCacheKey}_{adId}";
+			string carAccessoriesCacheKey = $"{CarAccessoriesCacheKey}_{adId}";
+			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
+
+			AdInformationViewModel? carAdInfo = _memoryCache.Get<AdInformationViewModel>(carAdInformationCacheKey);
 
 			if (carAdInfo == null)
 			{
@@ -74,23 +79,40 @@ namespace Xcelerate.Controllers
 
 				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarAdInformationExpirationToMinutes));
 
-				_memoryCache.Set(AdminNewsCacheKey, carAdInfo, cacheOptions);
+				_memoryCache.Set(carAdInformationCacheKey, carAdInfo, cacheOptions);
 			}
-
 
 			if (carAdInfo == null)
 			{
 				return NotFound();
 			}
 
-			List<AccessoryViewModel> carAccessories = await _accessoriesService.GetCarAccessoriesForSaleAsync(adId);
+			List<AccessoryViewModel> carAccessories = _memoryCache.Get<List<AccessoryViewModel>>(carAccessoriesCacheKey);
+
+			if (carAccessories == null || carAccessories.Any() == false)
+			{
+				carAccessories = await _accessoriesService.GetCarAccessoriesForSaleAsync(adId);
+
+				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarAccessoriesExpirationToMinutes));
+
+				_memoryCache.Set(carAccessoriesCacheKey, carAccessories, cacheOptions);
+			}
 
 			if (carAccessories == null)
 			{
 				return NotFound();
 			}
 
-			var carReviews = await _reviewService.GetUserReviewsAsync(adId);
+			List<UsersReviewsViewModel> carReviews = _memoryCache.Get<List<UsersReviewsViewModel>>(carReviewsCacheKey);
+
+			if (carReviews == null || carReviews.Any() == false)
+			{
+				carReviews = await _reviewService.GetUserReviewsAsync(adId);
+
+				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarReviewsExpirationToMinutes));
+
+				_memoryCache.Set(carReviewsCacheKey, carReviews, cacheOptions);
+			}
 
 			carAdInfo.Reviews = carReviews;
 

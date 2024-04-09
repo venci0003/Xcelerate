@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Xcelerate.Areas.Admin.Contracts;
 
 namespace Xcelerate.Areas.Admin.Controllers
 {
-    public class AdminReviewController : BaseAdminController
+	public class AdminReviewController : BaseAdminController
 	{
 		private readonly IAdminReviewService _adminReviewService;
+		private readonly IMemoryCache _memoryCache;
 
-		public AdminReviewController(IAdminReviewService reviewServiceContext)
+		public AdminReviewController(IAdminReviewService reviewServiceContext, IMemoryCache _memoryCacheContext)
 		{
 			_adminReviewService = reviewServiceContext;
+			_memoryCache = _memoryCacheContext;
 		}
 
 		[HttpPost]

@@ -1,17 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Review;
 using Xcelerate.Extension;
+using static Xcelerate.Common.ApplicationConstants;
+
 
 namespace Xcelerate.Controllers
 {
 	public class ReviewController : Controller
 	{
 		private readonly IReviewService _reviewService;
+		private readonly IMemoryCache _memoryCache;
 
-		public ReviewController(IReviewService reviewServiceContext)
+		public ReviewController(IReviewService reviewServiceContext, IMemoryCache _memoryCacheContext)
 		{
 			_reviewService = reviewServiceContext;
+			_memoryCache = _memoryCacheContext;
 		}
 
 		[HttpPost]
@@ -20,6 +25,10 @@ namespace Xcelerate.Controllers
 			Guid userId = User.GetUserId();
 
 			await _reviewService.CreateReviewAsync(reviewViewModel, userId.ToString(), adId);
+
+			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
+
+			_memoryCache.Remove(carReviewsCacheKey);
 
 			return RedirectToAction("Information", "Ad", new { adId = adId });
 
@@ -43,6 +52,10 @@ namespace Xcelerate.Controllers
 		{
 			await _reviewService.EditReviewAsync(reviewViewModel);
 
+			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
+
+			_memoryCache.Remove(carReviewsCacheKey);
+
 			return RedirectToAction("Information", "Ad", new { adId = adId });
 		}
 
@@ -60,6 +73,10 @@ namespace Xcelerate.Controllers
 		{
 			await _reviewService.DeleteReviewAsync(reviewId);
 			TempData["DeleteMessage"] = true;
+
+			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
+
+			_memoryCache.Remove(carReviewsCacheKey);
 
 			return RedirectToAction("Information", "Ad", new { adId = adId });
 		}
