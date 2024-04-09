@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Xcelerate.Areas.Admin.Contracts;
+using static Xcelerate.Common.ApplicationConstants;
 
 namespace Xcelerate.Areas.Admin.Controllers
 {
@@ -29,6 +30,8 @@ namespace Xcelerate.Areas.Admin.Controllers
 		{
 			await _adminReviewService.DeleteReviewAsync(reviewId);
 			TempData["DeleteMessage"] = true;
+
+			_memoryCache.Remove(AdminReviewsCacheKey);
 
 			return RedirectToAction("Index", "Home", new { Area = "Admin" });
 		}

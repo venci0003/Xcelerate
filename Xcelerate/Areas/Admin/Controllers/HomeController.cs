@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Generic;
 using Xcelerate.Areas.Admin.Contracts;
 using Xcelerate.Areas.Admin.Models;
 using Xcelerate.Core.Models.Pager;
@@ -44,7 +45,17 @@ namespace Xcelerate.Areas.Admin.Controllers
 
 			adminHomeView.NewsPreview = viewModel.NewsPreview;
 
-			var reviewsToCheck = await _adminReviewService.GetUserReviewsForCheckAsync();
+			List<AdminReviewViewModel> reviewsToCheck = _memoryCache.Get<List<AdminReviewViewModel>>(AdminReviewsCacheKey);
+
+			if (reviewsToCheck == null || reviewsToCheck.Any() == false)
+			{
+				reviewsToCheck = await _adminReviewService.GetUserReviewsForCheckAsync();
+
+				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(AdminReviewsExpirationFromMinutes));
+
+				_memoryCache.Set(AdminReviewsCacheKey, reviewsToCheck, cacheOptions);
+			}
+
 
 			adminHomeView.Reviews = reviewsToCheck;
 

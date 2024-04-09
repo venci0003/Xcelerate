@@ -20,6 +20,10 @@
 
 		public const int AdminNewsExpirationFromMinutes = 10;
 
+		public const string AdminReviewsCacheKey = "AdminReviewsCacheKey";
+
+		public const int AdminReviewsExpirationFromMinutes = 10;
+
 		//For car ad information in information page.
 		public const string CarAdInformationCacheKey = "CarAdInformationCacheKey";
 
