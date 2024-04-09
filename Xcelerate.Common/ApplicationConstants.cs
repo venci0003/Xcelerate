@@ -38,5 +38,13 @@
 		public const string CarReviewsCacheKey = "CarReviewsCacheKey";
 
 		public const int CarReviewsExpirationToMinutes = 15;
+
+		public const string UserCarsInformationCacheKey = "UserCarsInformationCacheKey";
+
+		public const int UserCarsInformationExpirationToMinutes = 3;
+
+		public const string UserCarsAccessoriesCacheKey = "UserCarsAccessoriesCacheKey";
+
+		public const int UserCarsAccessoriesExpirationToMinutes = 3;
 	}
 }

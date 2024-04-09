@@ -68,8 +68,6 @@ namespace Xcelerate.Controllers
 			}
 
 			string carAdInformationCacheKey = $"{CarAdInformationCacheKey}_{adId}";
-			string carAccessoriesCacheKey = $"{CarAccessoriesCacheKey}_{adId}";
-			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
 
 			AdInformationViewModel? carAdInfo = _memoryCache.Get<AdInformationViewModel>(carAdInformationCacheKey);
 
@@ -87,6 +85,8 @@ namespace Xcelerate.Controllers
 				return NotFound();
 			}
 
+			string carAccessoriesCacheKey = $"{CarAccessoriesCacheKey}_{adId}";
+
 			List<AccessoryViewModel> carAccessories = _memoryCache.Get<List<AccessoryViewModel>>(carAccessoriesCacheKey);
 
 			if (carAccessories == null || carAccessories.Any() == false)
@@ -102,6 +102,8 @@ namespace Xcelerate.Controllers
 			{
 				return NotFound();
 			}
+
+			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
 
 			List<UsersReviewsViewModel> carReviews = _memoryCache.Get<List<UsersReviewsViewModel>>(carReviewsCacheKey);
 
