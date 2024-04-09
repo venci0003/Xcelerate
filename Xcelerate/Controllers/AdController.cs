@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.Pager;
@@ -15,12 +16,17 @@ namespace Xcelerate.Controllers
 		private readonly IAdService _adService;
 		private readonly IAccessoriesService _accessoriesService;
 		private readonly IReviewService _reviewService;
+		private readonly IMemoryCache _memoryCache;
 
-		public AdController(IAdService adServiceContext, IAccessoriesService accessoriesServiceContext, IReviewService reviewServiceContext)
+		public AdController(IAdService adServiceContext,
+			IAccessoriesService accessoriesServiceContext,
+			IReviewService reviewServiceContext,
+			IMemoryCache _memoryCacheContext)
 		{
 			_adService = adServiceContext;
 			_accessoriesService = accessoriesServiceContext;
 			_reviewService = reviewServiceContext;
+			_memoryCache = _memoryCacheContext;
 		}
 
 		[AllowAnonymous]
@@ -60,9 +66,19 @@ namespace Xcelerate.Controllers
 				return RedirectToAction("Index");
 			}
 
-			AdInformationViewModel car = await _adService.GetCarsInformationAsync(adId);
+			var carAdInfo = _memoryCache.Get<AdInformationViewModel>(CarAdInformationCacheKey);
 
-			if (car == null)
+			if (carAdInfo == null)
+			{
+				carAdInfo = await _adService.GetCarsInformationAsync(adId);
+
+				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarAdInformationExpirationToMinutes));
+
+				_memoryCache.Set(AdminNewsCacheKey, carAdInfo, cacheOptions);
+			}
+
+
+			if (carAdInfo == null)
 			{
 				return NotFound();
 			}
@@ -76,11 +92,11 @@ namespace Xcelerate.Controllers
 
 			var carReviews = await _reviewService.GetUserReviewsAsync(adId);
 
-			car.Reviews = carReviews;
+			carAdInfo.Reviews = carReviews;
 
-			car.Accessories = carAccessories;
+			carAdInfo.Accessories = carAccessories;
 
-			return View(car);
+			return View(carAdInfo);
 		}
 
 		[HttpGet]

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Xcelerate.Areas.Admin.Contracts;
 using Xcelerate.Areas.Admin.Models;
+using static Xcelerate.Common.ApplicationConstants;
 
 namespace Xcelerate.Areas.Admin.Controllers
 {
@@ -8,9 +10,12 @@ namespace Xcelerate.Areas.Admin.Controllers
 	{
 		private readonly IAdminNewsService _adminNewsService;
 
-		public AdminNewsController(IAdminNewsService _adminNewsServiceContext)
+		private readonly IMemoryCache _memoryCache;
+
+		public AdminNewsController(IAdminNewsService _adminNewsServiceContext, IMemoryCache _memoryCacheContext)
 		{
 			_adminNewsService = _adminNewsServiceContext;
+			_memoryCache = _memoryCacheContext;
 		}
 		public async Task<IActionResult> AddGeneratedNews()
 		{
@@ -33,6 +38,8 @@ namespace Xcelerate.Areas.Admin.Controllers
 			generatedNewsView.Content = content;
 
 			await _adminNewsService.ApproveNewsAsync(generatedNewsView);
+
+			_memoryCache.Remove(AdminNewsCacheKey);
 
 			return RedirectToAction("Index", "Home", new { Area = "Admin" });
 		}

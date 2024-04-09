@@ -55,7 +55,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     width: 650px;
-    height: 630px;
+    height: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: opacity 0.5s;
 }
@@ -211,7 +211,7 @@ svg {
     flex-direction: row;
     justify-content: center;
     margin-top: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 15px;
 }
 
 .page-list {

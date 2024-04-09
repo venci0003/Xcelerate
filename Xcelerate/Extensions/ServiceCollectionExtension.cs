@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BookingWebProject.ModelBinders.DecimalModelBinder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xcelerate.Areas.Admin.Contracts;
 using Xcelerate.Areas.Admin.Services;
@@ -61,6 +63,15 @@ namespace Xcelerate.Extensions
 				.AddDefaultTokenProviders();
 
 			return services;
+		}
+
+		public static void AddGlobalFilters(this IServiceCollection services)
+		{
+			services.Configure<MvcOptions>(options =>
+			{
+				options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+				//options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+			});
 		}
 	}
 }

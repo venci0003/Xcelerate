@@ -99,6 +99,7 @@
 								{
 									<div class="edit-and-delete-container">
 										<form class="delete-form" action="@Url.Action("Delete","AdminReview", new {area = "Admin"})" method="post">
+											@Html.AntiForgeryToken()
 											<input type="hidden" name="ReviewId" value="@review.ReviewId" />
 											<input type="hidden" name="AdId" value="@Model.AdId" />
 											<button type="submit" class="delete-icon-link">
@@ -194,7 +195,7 @@
 		@TempData.Remove("ConfirmDelete")
 		@TempData.Remove("ReviewAdIdToDelete")
 		@TempData.Remove("AdId")
-																	}
+																					}
 		});
 	</script>
 }
