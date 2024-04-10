@@ -1,4 +1,5 @@
-﻿using Xcelerate.Infrastructure.Data.Models;
+﻿using Xcelerate.Infrastructure.Data.Enums;
+using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Tests
 {
@@ -68,7 +69,7 @@ namespace Xcelerate.Tests
 		{
 			List<Ad> adsToSeed = new List<Ad>();
 
-			Ad adOne = new Ad()
+			Ad firstAd = new Ad()
 			{
 				AdId = 1,
 				CarId = 1,
@@ -78,9 +79,9 @@ namespace Xcelerate.Tests
 				" It’s equipped with stiffer springs and larger-diameter anti-roll bars, stiffer underbody braces, and a V-brace behind the rear seats.",
 				CreatedOn = "2023-11-08"
 			};
-			adsToSeed.Add(adOne);
+			adsToSeed.Add(firstAd);
 			//CHANGE USERIDS
-			Ad adTwo = new Ad()
+			Ad secondAd = new Ad()
 			{
 				AdId = 2,
 				CarId = 2,
@@ -89,9 +90,9 @@ namespace Xcelerate.Tests
 				" Despite its bold and somewhat juvenile bodywork, it offers a transformative driving experience, volcanic acceleration, and is entirely practical for daily use.\r\n\r\nThe car is powered by a 306-hp turbocharged four-cylinder engine and a six-speed manual transmission, making it one of the quickest sport compacts. Honda has managed to virtually eliminate the dreaded torque steer that plagues powerful front-drive cars, providing talkative steering, tremendous cornering grip, and a ride that’s surprisingly smooth",
 				CreatedOn = "2019-03-04"
 			};
-			adsToSeed.Add(adTwo);
+			adsToSeed.Add(secondAd);
 			//CHANGE USERIDS
-			Ad adThree = new Ad()
+			Ad thirdAd = new Ad()
 			{
 				AdId = 3,
 				CarId = 3,
@@ -101,9 +102,9 @@ namespace Xcelerate.Tests
 				" The GT350R has been designed to handle cornering at race-track speeds without being too harsh on the street. It’s equipped with a tautly tuned suspension and robust brakes.",
 				CreatedOn = "2020-22-01"
 			};
-			adsToSeed.Add(adThree);
+			adsToSeed.Add(thirdAd);
 			//CHANGE USERIDS
-			Ad adFour = new Ad()
+			Ad fourthAd = new Ad()
 			{
 				AdId = 4,
 				CarId = 4,
@@ -113,7 +114,7 @@ namespace Xcelerate.Tests
 				" It’s not as fast as its sportier GTI counterpart, but it’s still enjoyable to drive.",
 				CreatedOn = "2022-18-09"
 			};
-			adsToSeed.Add(adFour);
+			adsToSeed.Add(fourthAd);
 			//CHANGE USERIDS
 			return adsToSeed;
 		}
@@ -135,6 +136,165 @@ namespace Xcelerate.Tests
 			carAccessories.AddRange(fourthcarAccessories.Select(accessoryId => new CarAccessory { AccessoryId = accessoryId, CarId = 4 }));
 
 			return carAccessories;
+		}
+
+		public static Car firstCar;
+
+		public static Car secondCar;
+
+		public static Car thirdCar;
+
+		public static Car fourthCar;
+
+		public static IEnumerable<Car> SeedCars()
+		{
+			List<Car> cars = new List<Car>();
+
+			Car firstCar = new Car()
+			{
+				CarId = 1,
+				Brand = BrandsEnum.BMW,
+				Model = "M5 Competition",
+				Year = 2022,
+				IsForSale = true,
+				EngineId = 1,
+				Condition = ConditionEnum.BrandNew,
+				EuroStandard = EuroStandardEnum.Six,
+				Colour = ColourEnum.Black,
+				Transmission = TransmissionEnum.Automatic,
+				DriveTrain = DriveTrainEnum.RearWheelDrive,
+				Weight = 1850.8m,
+				Mileage = 0,
+				Price = 110000,
+				BodyType = BodyTypeEnum.Sedan,
+				ManufacturerId = 1,
+				AddressId = 1,
+				AdId = 1,
+				UserId = Guid.NewGuid()
+			};
+			cars.Add(firstCar);
+
+			Car secondCar = new Car()
+			{
+				CarId = 2,
+				Brand = BrandsEnum.MercedesBenz,
+				Model = "E63 AMG",
+				Year = 2023,
+				IsForSale = true,
+				EngineId = 2,
+				Condition = ConditionEnum.BrandNew,
+				EuroStandard = EuroStandardEnum.Six,
+				Colour = ColourEnum.Blue,
+				Transmission = TransmissionEnum.Automatic,
+				DriveTrain = DriveTrainEnum.AllWheelDrive,
+				Weight = 1980.6m,
+				Mileage = 0,
+				Price = 120000,
+				BodyType = BodyTypeEnum.Sedan,
+				ManufacturerId = 2,
+				AddressId = 2,
+				AdId = 2,
+				UserId = Guid.NewGuid()
+			};
+			cars.Add(secondCar);
+
+			Car thirdCar = new Car()
+			{
+				CarId = 3,
+				Brand = BrandsEnum.Audi,
+				Model = "RS7",
+				Year = 2022,
+				IsForSale = true,
+				EngineId = 3,
+				Condition = ConditionEnum.Used,
+				EuroStandard = EuroStandardEnum.Six,
+				Colour = ColourEnum.Red,
+				Transmission = TransmissionEnum.Automatic,
+				DriveTrain = DriveTrainEnum.AllWheelDrive,
+				Weight = 2060.4m,
+				Mileage = 20000,
+				Price = 130000,
+				BodyType = BodyTypeEnum.Sedan,
+				ManufacturerId = 3,
+				AddressId = 3,
+				AdId = 3,
+				UserId = Guid.NewGuid()
+			};
+			cars.Add(thirdCar);
+
+			Car fourthCar = new Car()
+			{
+				CarId = 4,
+				Brand = BrandsEnum.Chevrolet,
+				Model = "Corvette",
+				Year = 2023,
+				IsForSale = true,
+				EngineId = 4,
+				Condition = ConditionEnum.Used,
+				EuroStandard = EuroStandardEnum.Six,
+				Colour = ColourEnum.SlateGray,
+				Transmission = TransmissionEnum.Automatic,
+				DriveTrain = DriveTrainEnum.AllWheelDrive,
+				Weight = 2250.2m,
+				Mileage = 12000,
+				Price = 140000,
+				BodyType = BodyTypeEnum.Sedan,
+				ManufacturerId = 4,
+				AddressId = 4,
+				AdId = 4,
+				UserId = Guid.NewGuid()
+			};
+			cars.Add(fourthCar);
+
+			return cars;
+
+		}
+
+		public static IEnumerable<Engine> SeedEngines()
+		{
+			List<Engine> engines = new List<Engine>();
+
+			Engine engineOne = new Engine()
+			{
+				EngineId = 1,
+				Model = "V6",
+				Horsepower = 301,
+				CylinderCount = 6,
+				FuelType = FuelTypeEnum.Petrol,
+			};
+			engines.Add(engineOne);
+
+			Engine engineTwo = new Engine()
+			{
+				EngineId = 2,
+				Model = "In-Line 4-Cylinder with Turbocharger",
+				Horsepower = 306,
+				CylinderCount = 4,
+				FuelType = FuelTypeEnum.Petrol,
+			};
+			engines.Add(engineTwo);
+
+			Engine engineThree = new Engine()
+			{
+				EngineId = 3,
+				Model = "5.2-liter V-8 engine",
+				Horsepower = 526,
+				CylinderCount = 8,
+				FuelType = FuelTypeEnum.Diesel,
+			};
+			engines.Add(engineThree);
+
+			Engine engineFour = new Engine()
+			{
+				EngineId = 4,
+				Model = "1.4L Turbo Inline-4",
+				Horsepower = 147,
+				CylinderCount = 4,
+				FuelType = FuelTypeEnum.Petrol,
+			};
+			engines.Add(engineFour);
+
+			return engines;
 		}
 	}
 }
