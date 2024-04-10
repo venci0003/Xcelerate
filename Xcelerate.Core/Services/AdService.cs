@@ -478,33 +478,35 @@ namespace Xcelerate.Core.Services
 			{
 				foreach (var image in car.Images)
 				{
-					var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad", image.ImageUrl);
-
-					if (await Task.Run(() => System.IO.File.Exists(imagePath)))
+					if (image != null && image.ImageUrl != null)
 					{
-						bool fileDeleted = false;
-						int retries = 3;
+						var imagePath = Path.Combine(_webHostEnvironment.WebRootPath ?? string.Empty, "Images", "Ad", image.ImageUrl);
 
-						while (!fileDeleted && retries > 0)
+						if (await Task.Run(() => System.IO.File.Exists(imagePath)))
 						{
-							try
-							{
-								await Task.Run(() => System.IO.File.Delete(imagePath));
-								fileDeleted = true;
-							}
-							catch (IOException)
-							{
-								await Task.Delay(500);
-								retries--;
-							}
-						}
+							bool fileDeleted = false;
+							int retries = 3;
 
-						if (!fileDeleted)
-						{
-							throw new IOException("Failed to delete the file because it is in use by another process.");
+							while (!fileDeleted && retries > 0)
+							{
+								try
+								{
+									await Task.Run(() => System.IO.File.Delete(imagePath));
+									fileDeleted = true;
+								}
+								catch (IOException)
+								{
+									await Task.Delay(500);
+									retries--;
+								}
+							}
+
+							if (!fileDeleted)
+							{
+								throw new IOException("Failed to delete the file because it is in use by another process.");
+							}
 						}
 					}
-
 					_dbContext.Images.Remove(image);
 				}
 
@@ -544,9 +546,10 @@ namespace Xcelerate.Core.Services
 
 				return true;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw new ArgumentException("Delete failed!");
+				Console.WriteLine($"Error deleting car ad: {ex}");
+				throw; // Rethrow the exception to propagate it up
 			}
 		}
 
