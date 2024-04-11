@@ -25,7 +25,7 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; 
+    user-select: none;
 }
 
 #clock {
@@ -53,7 +53,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     width: 650px;
-    height: 630px;
+    height: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(7px);
     transition: opacity 0.5s;
@@ -117,18 +117,22 @@ svg {
     flex-direction: row;
     justify-content: center;
     margin-top: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 15px;
 }
 
 .page-list {
     display: flex;
-    gap: 35px;
+    gap: 28px;
     list-style: none;
 }
 
 .page-item a {
     color: white;
     text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.page-item {
+    margin-bottom: 10px;
 }
 
 .page-link {
