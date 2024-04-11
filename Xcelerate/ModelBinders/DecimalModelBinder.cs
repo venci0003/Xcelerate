@@ -1,7 +1,8 @@
-﻿namespace BookingWebProject.ModelBinders.DecimalModelBinder
+﻿namespace Xcelerate.ModelBinders
 {
 	using Microsoft.AspNetCore.Mvc.ModelBinding;
 	using System.Globalization;
+
 	public class DecimalModelBinder : IModelBinder
 	{
 		public Task BindModelAsync(ModelBindingContext? bindingContext)
