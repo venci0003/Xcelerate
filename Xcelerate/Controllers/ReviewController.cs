@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Models.Review;
-using Xcelerate.Extension;
-using static Xcelerate.Common.ApplicationConstants;
-
-
-namespace Xcelerate.Controllers
+﻿namespace Xcelerate.Controllers
 {
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.Extensions.Caching.Memory;
+	using Core.Contracts;
+	using Core.Models.Review;
+	using Extension;
+	using static Common.ApplicationConstants;
+
 	public class ReviewController : Controller
 	{
 		private readonly IReviewService _reviewService;

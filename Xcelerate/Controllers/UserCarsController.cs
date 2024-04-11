@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Models.Ad;
-using Xcelerate.Core.Models.Pager;
-using Xcelerate.Core.Models.UserCars;
-using Xcelerate.Extension;
-using Xcelerate.Infrastructure.Data.Models;
-using static Xcelerate.Common.ApplicationConstants;
-
-namespace Xcelerate.Controllers
+﻿namespace Xcelerate.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.Extensions.Caching.Memory;
+	using Core.Contracts;
+	using Core.Models.Ad;
+	using Core.Models.Pager;
+	using Core.Models.UserCars;
+	using Extension;
+	using Infrastructure.Data.Models;
+	using static Common.ApplicationConstants;
+
 	[Authorize]
 	public class UserCarsController : Controller
 	{
@@ -122,7 +122,7 @@ namespace Xcelerate.Controllers
 
 			await _userCarsService.SellCarAsync(adViewModel, userId.ToString());
 
-			return RedirectToAction("Index", "Ad");
+			return RedirectToAction("UserAds", "Ad");
 		}
 
 		public async Task<IActionResult> Cancel(int carId, int adId)

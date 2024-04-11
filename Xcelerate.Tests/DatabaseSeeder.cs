@@ -1,9 +1,9 @@
-﻿using Xcelerate.Infrastructure.Data;
-using Xcelerate.Infrastructure.Data.Enums;
-using Xcelerate.Infrastructure.Data.Models;
-
+﻿
 namespace Xcelerate.Tests
 {
+	using Infrastructure.Data;
+	using Infrastructure.Data.Enums;
+	using Infrastructure.Data.Models;
 	public static class DatabaseSeeder
 	{
 
@@ -324,7 +324,7 @@ namespace Xcelerate.Tests
 			imageCollections!.Add(new Image() { CarId = 100, ImageId = 400, ImageUrl = "2020_toyota_camry_trd_6.jpg" });
 			imageCollections!.Add(new Image() { CarId = 100, ImageId = 500, ImageUrl = "2020_toyota_camry_trd_7.jpg" });
 			imageCollections!.Add(new Image() { CarId = 100, ImageId = 600, ImageUrl = "2020_toyota_camry_trd_11.jpg" });
-														 
+
 			// Car 2
 			imageCollections!.Add(new Image() { CarId = 200, ImageId = 700, ImageUrl = "2021_honda_civic_type_r_limited_edition.jpg" });
 			imageCollections!.Add(new Image() { CarId = 200, ImageId = 800, ImageUrl = "2021_honda_civic_type_r_limited_edition_2.jpg" });

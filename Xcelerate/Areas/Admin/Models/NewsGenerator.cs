@@ -36,7 +36,7 @@
 			 "zero-emission logistics", "air quality sensors", "vehicle emissions control regulations"
 			};
 
-			public async Task<(string Title, string Content)> GenerateCarNewsAsync()
+			public (string Title, string Content) GenerateCarNewsAsync()
 			{
 				string title = GenerateTitle();
 				string content = GenerateContent();
@@ -46,10 +46,8 @@
 
 			private List<string> GetRandomKeywords(int count)
 			{
-				// Shuffle the keywords list
 				List<string> shuffledKeywords = keywords.OrderBy(x => random.Next()).ToList();
 
-				// Take a random subset of count keywords
 				List<string> selectedKeywords = shuffledKeywords.Take(count).ToList();
 
 				return selectedKeywords;
@@ -57,10 +55,8 @@
 
 			private string GenerateTitle()
 			{
-				// Randomly select a few keywords for the title
 				List<string> selectedKeywords = GetRandomKeywords(random.Next());
 
-				// Randomly select a structure for the title
 				int structureIndex = random.Next(20);
 				string title;
 

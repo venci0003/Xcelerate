@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Xcelerate.Core.Models.Account;
-using Xcelerate.Core.Models.Account.UserProfile;
-using Xcelerate.Extension;
-using Xcelerate.Infrastructure.Data.Models;
-using static Xcelerate.Common.ApplicationConstants;
-
-namespace Xcelerate.Controllers
+﻿namespace Xcelerate.Controllers
 {
+	using Microsoft.AspNetCore.Identity;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Mvc.ModelBinding;
+	using Core.Models.Account;
+	using Core.Models.Account.UserProfile;
+	using Extension;
+	using Infrastructure.Data.Models;
+	using static Common.ApplicationConstants;
 	public class AccountController : Controller
 	{
 		private readonly SignInManager<User> signInManager;
@@ -37,14 +35,14 @@ namespace Xcelerate.Controllers
 				return RedirectToAction(nameof(Login));
 			}
 
-			var user = new User()
+			User user = new User()
 			{
 				UserName = registerViewModel.Email,
 				FirstName = registerViewModel.FirstName,
 				LastName = registerViewModel.LastName,
 				Email = registerViewModel.Email,
 			};
-			var result = await userManager.CreateAsync(user, registerViewModel.Password);
+			IdentityResult result = await userManager.CreateAsync(user, registerViewModel.Password);
 
 			if (result.Succeeded)
 			{
@@ -52,7 +50,7 @@ namespace Xcelerate.Controllers
 
 				return RedirectToAction(nameof(Login));
 			}
-			foreach (var error in result.Errors)
+			foreach (IdentityError? error in result.Errors)
 			{
 				ModelState.AddModelError("", error.Description);
 			}
@@ -73,7 +71,7 @@ namespace Xcelerate.Controllers
 				return RedirectToAction(nameof(Login));
 			}
 
-			var user = await userManager.FindByEmailAsync(loginViewModel.Email);
+			User user = await userManager.FindByEmailAsync(loginViewModel.Email);
 			if (user != null)
 			{
 				var result = await signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
@@ -81,7 +79,7 @@ namespace Xcelerate.Controllers
 				{
 					await signInManager.SignInAsync(user, isPersistent: false);
 
-					bool isAdmin = await userManager.IsInRoleAsync(user, "Administrator");
+					bool isAdmin = await userManager.IsInRoleAsync(user, AdminRoleName);
 
 					if (isAdmin)
 					{
@@ -106,15 +104,15 @@ namespace Xcelerate.Controllers
 
 		public async Task<IActionResult> Profile()
 		{
-			var userId = User.GetUserId();
+			Guid userId = User.GetUserId();
 
 			if (userId != null)
 			{
-				var user = await userManager.FindByIdAsync(userId.ToString());
+				User user = await userManager.FindByIdAsync(userId.ToString());
 
 				if (user != null)
 				{
-					var userProfileModel = new UserProfileViewModel
+					UserProfileViewModel userProfileModel = new UserProfileViewModel
 					{
 						FirstName = user.FirstName,
 						LastName = user.LastName,

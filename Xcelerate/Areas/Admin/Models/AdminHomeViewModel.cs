@@ -1,8 +1,7 @@
-﻿using Xcelerate.Core.Models.Home;
-using Xcelerate.Core.Models.Pager;
-
-namespace Xcelerate.Areas.Admin.Models
+﻿namespace Xcelerate.Areas.Admin.Models
 {
+	using Core.Models.Home;
+	using Core.Models.Pager;
 	public class AdminHomeViewModel
 	{
 		public int AdId { get; set; }

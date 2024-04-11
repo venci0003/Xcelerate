@@ -6,12 +6,12 @@ using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Ad;
 using Xcelerate.Core.Models.UserCars;
 using Xcelerate.Infrastructure.Data;
-using Xcelerate.Infrastructure.Data.Enums;
-using Xcelerate.Infrastructure.Data.Models;
-using static Xcelerate.Common.EntityValidation;
 
 namespace Xcelerate.Core.Services
 {
+	using Infrastructure.Data.Enums;
+	using Infrastructure.Data.Models;
+	using static Common.EntityValidation;
 	public class UserCarsService : IUserCarsService
 	{
 		private readonly XcelerateContext _dbContext;

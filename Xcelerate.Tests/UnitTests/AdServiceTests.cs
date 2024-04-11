@@ -1,13 +1,13 @@
 ﻿namespace Xcelerate.Tests.UnitTests
 {
+	using static DatabaseSeeder;
 	using Microsoft.EntityFrameworkCore;
 	using Infrastructure.Data;
 	using Core.Services;
 	using Core.Contracts;
-	using static Xcelerate.Tests.DatabaseSeeder;
 	using Microsoft.AspNetCore.Hosting;
 	using Infrastructure.Data.Models;
-	using NUnit.Framework.Legacy;
+	using NUnit.Framework.Legacy; 
 	using Moq;
 
 	[TestFixture]

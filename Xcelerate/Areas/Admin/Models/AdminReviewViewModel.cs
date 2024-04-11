@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Xcelerate.Areas.Admin.Models
+﻿namespace Xcelerate.Areas.Admin.Models
 {
+	using System.ComponentModel.DataAnnotations;
 	public class AdminReviewViewModel
 	{
 		public string FirstName { get; set; } = null!;

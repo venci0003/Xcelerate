@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using System.Collections.Generic;
-using Xcelerate.Areas.Admin.Contracts;
-using Xcelerate.Areas.Admin.Models;
-using Xcelerate.Core.Models.Pager;
-using static Xcelerate.Common.ApplicationConstants;
-
-namespace Xcelerate.Areas.Admin.Controllers
+﻿namespace Xcelerate.Areas.Admin.Controllers
 {
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.Extensions.Caching.Memory;
+	using Contracts;
+	using Models;
+	using Core.Models.Pager;
+	using static Common.ApplicationConstants;
 	public class HomeController : BaseAdminController
 	{
 		private readonly IAdminReviewService _adminReviewService;

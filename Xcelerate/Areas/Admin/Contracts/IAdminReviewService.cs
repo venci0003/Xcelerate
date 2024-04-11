@@ -1,11 +1,10 @@
-﻿using Xcelerate.Areas.Admin.Models;
-
-namespace Xcelerate.Areas.Admin.Contracts
+﻿namespace Xcelerate.Areas.Admin.Contracts
 {
-    public interface IAdminReviewService
-    {
-        public Task<List<AdminReviewViewModel>> GetUserReviewsForCheckAsync();
+	using Models;
+	public interface IAdminReviewService
+	{
+		public Task<List<AdminReviewViewModel>> GetUserReviewsForCheckAsync();
 
-        public Task<bool> DeleteReviewAsync(int? reviewId);
-    }
+		public Task<bool> DeleteReviewAsync(int? reviewId);
+	}
 }

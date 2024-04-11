@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Xcelerate.Areas.Admin.Contracts;
-using Xcelerate.Areas.Admin.Models;
-using static Xcelerate.Common.ApplicationConstants;
-
-namespace Xcelerate.Areas.Admin.Controllers
+﻿namespace Xcelerate.Areas.Admin.Controllers
 {
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.Extensions.Caching.Memory;
+	using Contracts;
+	using Models;
+	using static Common.ApplicationConstants;
 	public class AdminNewsController : BaseAdminController
 	{
 		private readonly IAdminNewsService _adminNewsService;
@@ -17,9 +16,9 @@ namespace Xcelerate.Areas.Admin.Controllers
 			_adminNewsService = _adminNewsServiceContext;
 			_memoryCache = _memoryCacheContext;
 		}
-		public async Task<IActionResult> AddGeneratedNews()
+		public IActionResult AddGeneratedNews()
 		{
-			var result = await _adminNewsService.GenerateNewsAsync();
+			var result = _adminNewsService.GenerateNews();
 			return View(result);
 		}
 

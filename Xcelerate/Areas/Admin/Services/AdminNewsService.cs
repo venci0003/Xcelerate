@@ -1,13 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Xcelerate.Areas.Admin.Contracts;
-using Xcelerate.Areas.Admin.Models;
-using Xcelerate.Core.Models.Home;
-using Xcelerate.Infrastructure.Data;
-using Xcelerate.Infrastructure.Data.Models;
-using static Xcelerate.Areas.Admin.Models.NewsGenerator;
-
-namespace Xcelerate.Areas.Admin.Services
+﻿namespace Xcelerate.Areas.Admin.Services
 {
+	using Microsoft.EntityFrameworkCore;
+	using Contracts;
+	using Models;
+	using Core.Models.Home;
+	using Infrastructure.Data;
+	using Infrastructure.Data.Models;
+	using static Models.NewsGenerator;
 	public class AdminNewsService : IAdminNewsService
 	{
 		private readonly XcelerateContext _dbContext;
@@ -18,10 +17,9 @@ namespace Xcelerate.Areas.Admin.Services
 		}
 		public async Task<AdminHomeViewModel> GetHomePageDataAsync(AdminHomeViewModel homePageView)
 		{
-
 			int pageSize = 3;
 
-			var news = await _dbContext.NewsData
+			List<NewsPreviewViewModel> news = await _dbContext.NewsData
 			   .OrderByDescending(n => n.NewsId)
 			   .Skip((homePageView.CurrentPage - 1) * pageSize)
 			   .Take(pageSize)
@@ -33,7 +31,7 @@ namespace Xcelerate.Areas.Admin.Services
 			   })
 			   .ToListAsync();
 
-			var viewModel = new AdminHomeViewModel
+			AdminHomeViewModel viewModel = new AdminHomeViewModel
 			{
 				NewsPreview = news,
 			};
@@ -48,21 +46,18 @@ namespace Xcelerate.Areas.Admin.Services
 			return news.CountAsync();
 		}
 
-		public async Task<GeneratedNewsViewModel> GenerateNewsAsync()
+		public GeneratedNewsViewModel GenerateNews()
 		{
-			// Create an instance of CarNewsGenerator
-			var carNewsGenerator = new CarNewsGenerator();
+			CarNewsGenerator carNewsGenerator = new CarNewsGenerator();
 
-			// Generate car news asynchronously
-			var (title, content) = await carNewsGenerator.GenerateCarNewsAsync();
+			(string title, string content) = carNewsGenerator.GenerateCarNewsAsync();
 
-			var generatedNews = new GeneratedNewsViewModel
+			GeneratedNewsViewModel generatedNews = new GeneratedNewsViewModel
 			{
 				Title = title,
 				Content = content
 			};
 
-			// Return the generated news
 			return generatedNews;
 		}
 

@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Xcelerate.Areas.Admin.Contracts;
-using Xcelerate.Areas.Admin.Models;
-using Xcelerate.Infrastructure.Data;
-using Xcelerate.Infrastructure.Data.Models;
-
-namespace Xcelerate.Areas.Admin.Services
+﻿namespace Xcelerate.Areas.Admin.Services
 {
+	using Microsoft.EntityFrameworkCore;
+	using Contracts;
+	using Models;
+	using Infrastructure.Data;
+	using Infrastructure.Data.Models;
 	public class AdminReviewService : IAdminReviewService
 	{
 		private readonly XcelerateContext _dbContext;

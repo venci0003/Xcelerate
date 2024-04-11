@@ -1,12 +1,11 @@
-﻿using Xcelerate.Areas.Admin.Models;
-
-namespace Xcelerate.Areas.Admin.Contracts
+﻿namespace Xcelerate.Areas.Admin.Contracts
 {
+	using Models;
 	public interface IAdminNewsService
 	{
 		public Task<int> GetNewsCountAsync();
 		public Task<AdminHomeViewModel> GetHomePageDataAsync(AdminHomeViewModel adminHomeViewModel);
-		public Task<GeneratedNewsViewModel> GenerateNewsAsync();
+		public GeneratedNewsViewModel GenerateNews();
 		public Task ApproveNewsAsync(GeneratedNewsViewModel generatedNewsView);
 	}
 }

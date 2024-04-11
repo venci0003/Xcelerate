@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System.Globalization;
-using System.Linq.Expressions;
-using System.Net;
-using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Models.Ad;
-using Xcelerate.Core.Models.Sorting;
-using Xcelerate.Infrastructure.Data;
-using Xcelerate.Infrastructure.Data.Enums;
-using Xcelerate.Infrastructure.Data.Models;
-using static Xcelerate.Common.EntityValidation;
-
-namespace Xcelerate.Core.Services
+﻿namespace Xcelerate.Core.Services
 {
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore.Metadata;
+	using System.Globalization;
+	using System.Linq.Expressions;
+	using System.Net;
+	using Contracts;
+	using Models.Ad;
+	using Models.Sorting;
+	using Infrastructure.Data;
+	using Infrastructure.Data.Enums;
+	using Infrastructure.Data.Models;
+	using static Xcelerate.Common.EntityValidation;
+
 	public class АdService : IAdService
 	{
 		private readonly XcelerateContext _dbContext;
