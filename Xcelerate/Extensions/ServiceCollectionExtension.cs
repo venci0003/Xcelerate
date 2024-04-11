@@ -1,16 +1,15 @@
-﻿using BookingWebProject.ModelBinders.DecimalModelBinder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Xcelerate.Areas.Admin.Contracts;
-using Xcelerate.Areas.Admin.Services;
-using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Services;
-using Xcelerate.Infrastructure.Data;
-using Xcelerate.Infrastructure.Data.Models;
-
-namespace Xcelerate.Extensions
+﻿namespace Xcelerate.Extensions
 {
+	using Microsoft.AspNetCore.Identity;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.EntityFrameworkCore;
+	using Areas.Admin.Contracts;
+	using Areas.Admin.Services;
+	using Core.Contracts;
+	using Core.Services;
+	using Infrastructure.Data;
+	using Infrastructure.Data.Models;
+	using ModelBinders;
 	public static class ServiceCollectionExtension
 	{
 		public static void AddServices(this IServiceCollection serviceDescriptors)

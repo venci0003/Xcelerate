@@ -1,7 +1,6 @@
-﻿using Xcelerate.Core.Models.Ad;
-
-namespace Xcelerate.Core.Contracts
+﻿namespace Xcelerate.Core.Contracts
 {
+	using Models.Ad;
 	public interface IAccessoriesService
 	{
 		Task<AdCreateViewModel> GetAccessories();

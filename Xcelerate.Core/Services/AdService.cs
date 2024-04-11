@@ -67,13 +67,8 @@
 
 			IProperty? primaryKeyProperty = _dbContext.Model.FindEntityType(typeof(TEntity))
 													 .FindPrimaryKey()
-													 .Properties
+													 ?.Properties
 													 .FirstOrDefault();
-
-			if (primaryKeyProperty == null)
-			{
-				throw new InvalidOperationException($"Entity type {typeof(TEntity).Name} does not have a primary key property.");
-			}
 
 			ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "e");
 			MemberExpression propertyAccess = Expression.Property(parameter, primaryKeyProperty.PropertyInfo);
@@ -696,11 +691,6 @@
 				cars = cars.OrderByDescending(c => c.Car.Year);
 			}
 
-
-			if (adViewModel.Year != 0)
-			{
-				cars = cars.Where(c => c.Car.Year == adViewModel.Year);
-			}
 
 			if (adViewModel.Brand != BrandsEnum.Default && adViewModel.Brand.HasValue)
 			{

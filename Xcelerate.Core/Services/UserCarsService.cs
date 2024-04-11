@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System.Linq.Expressions;
-using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Models.Ad;
-using Xcelerate.Core.Models.UserCars;
-using Xcelerate.Infrastructure.Data;
-
-namespace Xcelerate.Core.Services
+﻿namespace Xcelerate.Core.Services
 {
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore.Metadata;
+	using System.Linq.Expressions;
+	using Contracts;
+	using Models.Ad;
+	using Models.UserCars;
+	using Infrastructure.Data;
 	using Infrastructure.Data.Enums;
 	using Infrastructure.Data.Models;
 	using static Common.EntityValidation;

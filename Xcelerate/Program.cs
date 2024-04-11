@@ -10,7 +10,7 @@ builder.Services.AddMemoryCache();
 
 builder.Services.AddServices();
 
-builder.Services.AddGlobalFilters();
+//builder.Services.AddGlobalFilters();
 
 builder.Services.Configure<IISServerOptions>(options =>
 {

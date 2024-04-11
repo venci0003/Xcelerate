@@ -9,27 +9,36 @@ namespace Xcelerate.Infrastructure.Data
 	public class XcelerateContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 
 	{
-		public XcelerateContext() { }
-
-		public XcelerateContext(DbContextOptions options) : base(options) { }
+		private readonly bool seedDb;
+		public XcelerateContext(DbContextOptions<XcelerateContext> options, bool seedDb = true)
+		: base(options)
+		{
+			this.seedDb = seedDb;
+		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-
-			modelBuilder.ApplyConfiguration(new AddressEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new AdEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new CarEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new EngineEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new ReviewEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new ManufacturerEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new ImageEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new AccessoryEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new CarAccessoryEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new NewsEntityConfiguration());
-			modelBuilder.Entity<StatisticalData>().HasData(
-			  new StatisticalData { StatisticId = 1, SoldCars = 160, CreatedCars = 210, CreatedReviews = 88 }
-		  );
+			if (this.seedDb)
+			{
+				modelBuilder.ApplyConfiguration(new AddressEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new AdEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new CarEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new EngineEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new ReviewEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new ManufacturerEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new ImageEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new AccessoryEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new CarAccessoryEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new NewsEntityConfiguration());
+				modelBuilder.Entity<StatisticalData>().HasData(
+				  new StatisticalData { StatisticId = 1, SoldCars = 160, CreatedCars = 210, CreatedReviews = 88 }
+			  );
+			}
+			else
+			{
+				modelBuilder.Entity<CarAccessory>().HasKey(ca => new { ca.AccessoryId, ca.CarId });
+			}
 			base.OnModelCreating(modelBuilder);
 		}
 

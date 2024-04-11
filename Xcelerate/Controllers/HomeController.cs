@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Models.Home;
-using Xcelerate.Core.Models.Pager;
-using Xcelerate.Models;
-using static Xcelerate.Common.ApplicationConstants;
-
-namespace Xcelerate.Controllers
+﻿namespace Xcelerate.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
+	using System.Diagnostics;
+	using Core.Contracts;
+	using Core.Models.Home;
+	using Core.Models.Pager;
+	using Models;
+	using static Common.ApplicationConstants;
 	[AllowAnonymous]
 	public class HomeController : Controller
 	{
