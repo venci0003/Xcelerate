@@ -1,4 +1,5 @@
-﻿@using Xcelerate.Infrastructure.Data.Enums
+﻿@using Xcelerate.Core.Models.Sorting
+@using Xcelerate.Infrastructure.Data.Enums
 @model AdInformationViewModel
 
 <link rel="stylesheet" href="~/css/Ad/Index.css" asp-append-version="true" />
@@ -10,19 +11,18 @@
 			<h1 class="title-text">Filter and Sort your search!</h1>
 			<section class="information-inputs">
 				<div class="form-input">
-					<label for="sorting">Sorting</label>
-					<select name="sorting" id="sorting" onchange="this.form.submit()">
-						<option value="0">Default</option>
-						<option value="1">Price Ascending</option>
-						<option value="2">Price Descending</option>
-						<option value="3">Year Ascending</option>
-						<option value="4">Year Descending</option>
-						<!-- Add other sorting options as needed -->
+					<label for="sorting-select">Sorting</label>
+					<select name="Sorting" asp-for="@Model.Sorting" id="sorting-select" onchange="this.form.submit()">
+						@foreach (var sorting in Enum.GetValues(typeof(SortingEnums)))
+						{
+							<option value="@sorting">@sorting</option>
+						}
 					</select>
+					<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
 				</div>
 
 				<div class="form-input">
-					<label asp-for="@Model.Brand">Brand</label>
+					<label for="brand-select">Brand</label>
 					<select name="Brand" asp-for="@Model.Brand" id="brand-select" onchange="this.form.submit()">
 						@foreach (var brandType in Enum.GetValues(typeof(BrandsEnum)))
 						{
@@ -35,6 +35,11 @@
 				<div class="form-input">
 					<label for="model">Model</label>
 					<input type="text" name="model" id="model" value="@Model.Model" placeholder="Enter model">
+				</div>
+
+				<div class="form-input">
+					<label for="manufacturer">Manufacturer</label>
+					<input type="text" name="manufacturer" id="manufacturer" value="@Model.Manufacturer" placeholder="Enter manufacturer">
 				</div>
 
 				<div class="form-input">
@@ -64,55 +69,55 @@
 					<input type="number" name="maxMileage" id="maxMileage" value="@Model.MaxMileage" placeholder="Enter max mileage">
 				</div>
 
-				<div class="form-input">
-					<label for="endYear">End Year</label>
-					<select name="endYear" id="endYear">
-						<option value="">Select End Year</option>
-						@{
-							var endCurrentYear = DateTime.Now.Year;
-							for (int year = endCurrentYear; year >= 1900; year--)
-							{
-								if (Model.EndYear == year)
-								{
-									<text>
-									<option value="@year" selected>@year</option></text>
-								}
-								else
-								{
-									<text>
-									<option value="@year">@year</option></text>
-								}
-							}
-						}
-					</select>
-				</div>
-				<div class="form-input">
-					<label for="startYear">Start Year</label>
-					<select name="startYear" id="startYear">
-						<option value="">Select Start Year</option>
-						@{
-							var startCurrentYear = DateTime.Now.Year;
-							for (int year = startCurrentYear; year >= 1900; year--)
-							{
-								if (Model.StartYear == year)
-								{
-									<text>
-									<option value="@year" selected>@year</option></text>
-								}
-								else
-								{
-									<text>
-									<option value="@year">@year</option></text>
-								}
-							}
-						}
-					</select>
-				</div>
 
 				<div class="second-form-inputs">
 
 					<div class="form-input">
-						<label asp-for="@Model.EuroStandard">Euro Standard</label>
+						<label for="endYear">End Year</label>
+						<select name="endYear" id="endYear">
+							<option value="">Select End Year</option>
+							@{
+								var endCurrentYear = DateTime.Now.Year;
+								for (int year = endCurrentYear; year >= 1900; year--)
+								{
+									if (Model.EndYear == year)
+									{
+										<text>
+										<option value="@year" selected>@year</option></text>
+									}
+									else
+									{
+										<text>
+										<option value="@year">@year</option></text>
+									}
+								}
+							}
+						</select>
+					</div>
+					<div class="form-input">
+						<label for="startYear">Start Year</label>
+						<select name="startYear" id="startYear">
+							<option value="">Select Start Year</option>
+							@{
+								var startCurrentYear = DateTime.Now.Year;
+								for (int year = startCurrentYear; year >= 1900; year--)
+								{
+									if (Model.StartYear == year)
+									{
+										<text>
+										<option value="@year" selected>@year</option></text>
+									}
+									else
+									{
+										<text>
+										<option value="@year">@year</option></text>
+									}
+								}
+							}
+						</select>
+					</div>
+					<div class="form-input">
+						<label for="eurostandard-select">Euro Standard</label>
 						<select name="EuroStandard" asp-for="@Model.EuroStandard" id="eurostandard-select" onchange="this.form.submit()">
 							@foreach (var standard in Enum.GetValues(typeof(EuroStandardEnum)))
 							{
@@ -122,7 +127,7 @@
 						<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
 					</div>
 					<div class="form-input">
-						<label asp-for="@Model.FuelType">Fuel Type</label>
+						<label for="fueltype-select">Fuel Type</label>
 						<select name="FuelType" asp-for="@Model.FuelType" id="fueltype-select" onchange="this.form.submit()">
 							@foreach (var fuelType in Enum.GetValues(typeof(FuelTypeEnum)))
 							{
@@ -133,7 +138,7 @@
 					</div>
 
 					<div class="form-input">
-						<label asp-for="@Model.Colour">Colour</label>
+						<label for="colour-select">Colour</label>
 						<select name="Colour" asp-for="@Model.Colour" id="colour-select" onchange="this.form.submit()">
 							@foreach (var colour in Enum.GetValues(typeof(ColourEnum)))
 							{
@@ -144,7 +149,7 @@
 					</div>
 
 					<div class="form-input">
-						<label asp-for="@Model.Transmission">Transmission</label>
+						<label for="transmission-select">Transmission</label>
 						<select name="Transmission" asp-for="@Model.Transmission" id="transmission-select" onchange="this.form.submit()">
 							@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
 							{
@@ -155,7 +160,7 @@
 					</div>
 
 					<div class="form-input">
-						<label asp-for="@Model.DriveTrain">Drive Train</label>
+						<label for="drivetrain-select">Drive Train</label>
 						<select name="DriveTrain" asp-for="@Model.DriveTrain" id="drivetrain-select" onchange="this.form.submit()">
 							@foreach (var driveTrainType in Enum.GetValues(typeof(DriveTrainEnum)))
 							{
@@ -166,7 +171,7 @@
 					</div>
 
 					<div class="form-input">
-						<label asp-for="@Model.BodyType">Body Type</label>
+						<label for="bodytype-select">Body Type</label>
 						<select name="BodyType" asp-for="@Model.BodyType" id="bodytype-select" onchange="this.form.submit()">
 							@foreach (var bodyType in Enum.GetValues(typeof(BodyTypeEnum)))
 							{
@@ -177,7 +182,7 @@
 					</div>
 
 					<div class="form-input">
-						<label asp-for="@Model.Condition">Condition</label>
+						<label for="condition-select">Condition</label>
 						<select name="Condition" asp-for="@Model.Condition" id="condition-select" onchange="this.form.submit()">
 							@foreach (var condition in Enum.GetValues(typeof(ConditionEnum)))
 							{
@@ -220,7 +225,6 @@
                                 currentPage = Model.Pager.CurrentPage - 1,
 								compareClicked = TempData["CompareButtonClicked"],
 								firstCarId = ViewBag.FirstCarId,
-								year = Model.Year,
 								EuroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
 								colour = Model.Colour,
@@ -235,6 +239,7 @@
 								minHorsePower = Model.MinHorsePower,
 								maxHorsePower = Model.MaxHorsePower,
 								brand = Model.Brand,
+								manufacturer = Model.Manufacturer,
                                 minMileage = Model.MinMileage,
                                 maxMileage = Model.MaxMileage,
                                 sorting = Model.Sorting
@@ -265,6 +270,7 @@
 								minHorsePower = Model.MinHorsePower,
 								maxHorsePower = Model.MaxHorsePower,
 								brand = Model.Brand,
+								manufacturer = Model.Manufacturer,
                                 minMileage = Model.MinMileage,
                                 maxMileage = Model.MaxMileage,
                                 sorting = Model.Sorting
@@ -295,6 +301,7 @@
 								minHorsePower = Model.MinHorsePower,
 								maxHorsePower = Model.MaxHorsePower,
 								brand = Model.Brand,
+								manufacturer = Model.Manufacturer,
                                 model = Model.Model,
                                 minMileage = Model.MinMileage,
                                 maxMileage = Model.MaxMileage,

@@ -11,6 +11,8 @@
 	using Infrastructure.Data.Enums;
 	using Infrastructure.Data.Models;
 	using static Common.EntityValidation;
+	using Xcelerate.Core.Models.Sorting;
+
 	public class UserCarsService : IUserCarsService
 	{
 		private readonly XcelerateContext _dbContext;
@@ -438,9 +440,53 @@
 		}
 		public IQueryable<Car> FilterCars(AdInformationViewModel adViewModel, IQueryable<Car> cars)
 		{
-			if (adViewModel.Year != 0)
+			if (adViewModel.Sorting == SortingEnums.PriceAscending)
 			{
-				cars = cars.Where(c => c.Year == adViewModel.Year);
+				cars = cars.OrderBy(c => c.Price);
+			}
+			else if (adViewModel.Sorting == SortingEnums.PriceDescending)
+			{
+				cars = cars.OrderByDescending(c => c.Price);
+			}
+			else if (adViewModel.Sorting == SortingEnums.YearAscending)
+			{
+				cars = cars.OrderBy(c => c.Year);
+			}
+			else if (adViewModel.Sorting == SortingEnums.YearDescending)
+			{
+				cars = cars.OrderByDescending(c => c.Year);
+			}
+
+
+			if (adViewModel.Brand != BrandsEnum.Default && adViewModel.Brand.HasValue)
+			{
+				cars = cars.Where(c => c.Brand == adViewModel.Brand);
+			}
+
+			if (!string.IsNullOrWhiteSpace(adViewModel.Model))
+			{
+				cars = cars.Where(c => c.Model.ToLower().Contains(adViewModel.Model.ToLower()));
+			}
+
+
+			if (adViewModel.MinMileage.HasValue && adViewModel.MaxMileage.HasValue)
+			{
+				cars = cars.Where(c => c.Mileage >= adViewModel.MinMileage && c.Mileage <= adViewModel.MaxMileage);
+			}
+
+			if (adViewModel.MinPrice.HasValue && adViewModel.MaxPrice.HasValue)
+			{
+				cars = cars.Where(c => c.Price >= adViewModel.MinPrice && c.Price <= adViewModel.MaxPrice);
+			}
+
+			if (adViewModel.MinHorsePower.HasValue && adViewModel.MaxHorsePower.HasValue)
+			{
+				cars = cars.Where(c => c.Engine.Horsepower >= adViewModel.MinHorsePower && c.Engine.Horsepower <= adViewModel.MaxHorsePower);
+			}
+
+			if (adViewModel.StartYear != 0 && adViewModel.EndYear != 0)
+			{
+				cars = cars.Where(c => c.Year >= adViewModel.StartYear && c.Year <= adViewModel.EndYear);
 			}
 
 			if (adViewModel.EuroStandard != EuroStandardEnum.Default && adViewModel.EuroStandard.HasValue)
@@ -480,7 +526,7 @@
 
 			if (!string.IsNullOrWhiteSpace(adViewModel.Manufacturer))
 			{
-				cars = cars.Where(c => c.Manufacturer.ToString() == adViewModel.Manufacturer);
+				cars = cars.Where(c => c.Manufacturer.Name.ToLower().Contains(adViewModel.Manufacturer.ToLower()));
 			}
 
 			return cars;

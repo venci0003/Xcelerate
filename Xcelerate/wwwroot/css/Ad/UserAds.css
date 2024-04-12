@@ -389,6 +389,10 @@ select:focus {
     width: 90px;
 }
 
+#manufacturer {
+    width: 120px;
+}
+
 #minHorsePower {
     width: 91px;
 }
@@ -429,7 +433,7 @@ select:focus {
     border-radius: 15px;
     margin-top: 88px;
     position: relative;
-    right: 342%;
+    right: 415%;
 }
 
 .second-form-inputs {

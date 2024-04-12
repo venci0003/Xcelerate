@@ -4,7 +4,7 @@ using Xcelerate.Infrastructure.Data.Models;
 
 namespace Xcelerate.Core.Contracts
 {
-	public interface IUserCarsService : IBaseService
+	public interface IUserCarsService : IBaseService<Car>
 	{
 		public Task<IEnumerable<AdPreviewViewModel>> GetUserCarsPreviewAsync(Guid userId, AdInformationViewModel adInformation);
 

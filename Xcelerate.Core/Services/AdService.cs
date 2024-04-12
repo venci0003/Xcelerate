@@ -760,7 +760,7 @@
 
 			if (!string.IsNullOrWhiteSpace(adViewModel.Manufacturer))
 			{
-				cars = cars.Where(c => c.Car.Manufacturer.ToString() == adViewModel.Manufacturer);
+				cars = cars.Where(c => c.Car.Manufacturer.Name.ToLower().Contains(adViewModel.Manufacturer.ToLower()));
 			}
 
 			return cars;
