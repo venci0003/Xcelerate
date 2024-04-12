@@ -25,9 +25,26 @@ namespace Xcelerate.Tests
 			var imageCollection = SeedImages();
 			xcelerateContext.Accessories.AddRange(SeedAccesories());
 
+			if (!xcelerateContext.StatisticalData.Any())
+			{
+				SeedStatisticalData(xcelerateContext);
+			}
+
 			xcelerateContext.Images.AddRange(imageCollection);
 			xcelerateContext.SaveChanges();
 
+		}
+
+		private static void SeedStatisticalData(XcelerateContext xcelerateContext)
+		{
+			var statistics = new StatisticalData
+			{
+				SoldCars = 20, // Set your initial value for sold cars
+				CreatedCars = 30, // Set your initial value for created cars
+				CreatedReviews = 50 // Set your initial value for created reviews
+			};
+
+			xcelerateContext.StatisticalData.Add(statistics);
 		}
 
 		public static IEnumerable<Image> SeedImages()
@@ -190,7 +207,7 @@ namespace Xcelerate.Tests
 			{
 				AdId = 1,
 				CarId = 1,
-				UserId = Guid.Parse("9ABB04A0-36A0-4A35-8C1A-34D324AA169E"),
+				UserId = Guid.Parse("8ABB04A0-36A0-4A35-8C1A-34D324AA169E"),
 				CarDescription = "The 2020 Toyota Camry TRD is a sporty, performance-oriented version of the long-standing mid-size sedan1." +
 			   " It’s the first Camry that could be construed as \"sporty\".\nPerformance The TRD’s front brake rotors are larger than those on the next-sportiest Camry, the XSE V-6 model, and are squeezed by two-piston calipers instead of single-piston units." +
 			   " It’s equipped with stiffer springs and larger-diameter anti-roll bars, stiffer underbody braces, and a V-brace behind the rear seats.",
@@ -287,7 +304,7 @@ namespace Xcelerate.Tests
 				ManufacturerId = 1,
 				AddressId = 1,
 				AdId = 1,
-				UserId = Guid.NewGuid()
+				UserId = Guid.Parse("8ABB04A0-36A0-4A35-8C1A-34D324AA169E")
 			};
 			cars.Add(firstCar);
 

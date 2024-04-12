@@ -9,6 +9,7 @@
 	using Microsoft.EntityFrameworkCore;
 	using Moq;
 	using NUnit.Framework;
+	using System;
 	using Xcelerate.Core.Models.Ad;
 	using Xcelerate.Core.Models.Pager;
 	using Xcelerate.Core.Models.Review;
@@ -34,7 +35,10 @@
 			this._dbContext.Database.EnsureCreated();
 			SeedDatabase(this._dbContext);
 
-			this._webHostEnvironment = new Mock<IWebHostEnvironment>().Object;
+			var mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
+			mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns("fake/web/root/path");
+
+			this._webHostEnvironment = mockWebHostEnvironment.Object;
 
 			this._adService = new АdService(this._dbContext, this._webHostEnvironment);
 		}
@@ -77,18 +81,56 @@
 		}
 
 		[Test]
-		public async Task DeleteCarAdAsync_CarDoesNotExist_ExceptionThrown()
+		public void DeleteCarAdAsync_CarDoesNotExist_ExceptionThrown()
 		{
 			int carId = -100;
 
-			// Act & Assert
-			ArgumentException? exception = Assert.ThrowsAsync<ArgumentException>(async () =>
+			string expectedErrorMessage = "Car not found!";
+
+			var exception = Assert.Throws<ArgumentException>(() =>
 			{
-				await _adService.DeleteCarAdAsync(carId);
+				_adService.DeleteCarAdAsync(carId).GetAwaiter().GetResult();
 			});
 
-			Assert.That(exception.Message, Is.EqualTo("Car not found!"));
+			// Check if the exception message exactly matches the expected error message
+			Assert.AreEqual(expectedErrorMessage, exception.Message);
 		}
+
+		[Test]
+		public async Task GetCarByIdAsync_CarExists_ReturnsCar()
+		{
+			// Arrange
+			int carId = 1; // Provide an existing car ID here
+
+			// Act
+			var result = await _adService.GetCarByIdAsync(carId);
+
+			// Assert
+			Assert.IsNotNull(result);
+			Assert.AreEqual(carId, result.CarId);
+		}
+
+		[Test]
+		public async Task GetCarByIdAsync_CarDoesNotExist_ExceptionThrown()
+		{
+			// Arrange
+			int carId = -100;
+
+			// Act & Assert
+			ArgumentException exception = null;
+			try
+			{
+				await _adService.GetCarByIdAsync(carId);
+			}
+			catch (ArgumentException ex)
+			{
+				exception = ex;
+			}
+
+			Assert.IsNotNull(exception);
+			Assert.AreEqual("Car not found!", exception.Message);
+		}
+
 
 
 
@@ -112,9 +154,7 @@
 		[Test]
 		public async Task GetCarAdsCountAsync_Returns_CorrectCount()
 		{
-
 			var expectedCount = 4;
-			// Arrange
 			var adPreview = new AdInformationViewModel
 			{
 				UserId = Guid.NewGuid(),
@@ -157,29 +197,130 @@
 
 			var actualCount = await _adService.GetCarAdsCountAsync(adPreview);
 
-			// Assert
 			Assert.AreEqual(expectedCount, actualCount);
 		}
 
-		[Test]
-		public async Task GetCarAdsCountAsync_Returns_CorrectCount_WithFilter()
-		{
 
-			var expectedCount = 1;
-			// Arrange
+		[Test]
+		public async Task GetUserAdsCountAsync_Returns_CorrectCount()
+		{
+			int expectedCount = 1;
+			var userId = "8ABB04A0-36A0-4A35-8C1A-34D324AA169E";
 			var adPreview = new AdInformationViewModel
 			{
-				UserId = Guid.NewGuid(),
+				UserId = Guid.Parse("8ABB04A0-36A0-4A35-8C1A-34D324AA169E"),
 				AdId = 1,
 				CarId = 1,
+				ImageUrls = new List<string> { "url1", "url2", "url3" },
+				Brand = BrandsEnum.Default,
+				CreatedOn = DateTime.Now.ToString(),
+				IsForSale = false,
+				Model = string.Empty,
+				Year = 0,
+				Engine = "V6",
+				HorsePower = 0,
+				Condition = ConditionEnum.Default,
+				EuroStandard = EuroStandardEnum.Default,
+				FuelType = FuelTypeEnum.Default,
+				Colour = ColourEnum.Default,
+				Transmission = TransmissionEnum.Default,
+				DriveTrain = DriveTrainEnum.Default,
+				Weight = 0,
+				Mileage = 0,
+				Price = 0,
+				BodyType = BodyTypeEnum.Default,
+				Manufacturer = string.Empty,
+				CarDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				Pager = new Pager(totalItems: 1, currentPage: 1, defaultPageSize: 1),
+				SearchQuery = string.Empty,
+				FirstName = "John",
+				LastName = "Doe",
+				Sorting = SortingEnums.Default,
+				StartYear = 0,
+				EndYear = 0,
+				MinPrice = null,
+				MaxPrice = null,
+				MinHorsePower = null,
+				MaxHorsePower = null,
+				MinMileage = null,
+				MaxMileage = null
+			};
+
+			var result = await _adService.GetUserAdsCountAsync(adPreview, userId);
+
+			Assert.AreEqual(expectedCount, result);
+		}
+
+		//[Test]
+		//public async Task GetCarsPreviewAsync_Returns_CorrectCount()
+		//{
+
+		//	var expectedCount = 4;
+		//	// Arrange
+		//	var adPreview = new AdInformationViewModel
+		//	{
+		//		UserId = Guid.NewGuid(),
+		//		AdId = 1,
+		//		CarId = 1,
+		//		ImageUrls = new List<string> { "url1", "url2", "url3" },
+		//		Brand = BrandsEnum.Default,
+		//		CreatedOn = DateTime.Now.ToString(),
+		//		IsForSale = true,
+		//		Model = string.Empty,
+		//		Year = 0,
+		//		Engine = "V6",
+		//		HorsePower = 0,
+		//		Condition = ConditionEnum.Default,
+		//		EuroStandard = EuroStandardEnum.Default,
+		//		FuelType = FuelTypeEnum.Default,
+		//		Colour = ColourEnum.Default,
+		//		Transmission = TransmissionEnum.Default,
+		//		DriveTrain = DriveTrainEnum.Default,
+		//		Weight = 0,
+		//		Mileage = 0,
+		//		Price = 0,
+		//		BodyType = BodyTypeEnum.Default,
+		//		Manufacturer = string.Empty,
+		//		CarDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+		//		Pager = new Pager(totalItems: 1, currentPage: 1, defaultPageSize: 1),
+		//		SearchQuery = string.Empty,
+		//		FirstName = "John",
+		//		LastName = "Doe",
+		//		Sorting = SortingEnums.Default,
+		//		StartYear = 0,
+		//		EndYear = 0,
+		//		MinPrice = null,
+		//		MaxPrice = null,
+		//		MinHorsePower = null,
+		//		MaxHorsePower = null,
+		//		MinMileage = null,
+		//		MaxMileage = null
+		//	};
+
+		//	IEnumerable<AdPreviewViewModel> actualCount = await _adService.GetCarsPreviewAsync(adPreview);
+
+		//	// Assert
+		//	Assert.IsNotNull(actualCount); // Ensure actualCount is not null
+		//	Assert.IsInstanceOf<IEnumerable<AdPreviewViewModel>>(actualCount); // Ensure actualCount is of the correct type
+		//	Assert.AreEqual(expectedCount, actualCount.Count());
+		//}
+
+		[Test]
+		public async Task GetCarAdsCountAsync_Returns_CorrectCount_WithFilters(
+	[Values] SortingEnums sorting)
+		{
+			var expectedCount = 1;
+
+			var adPreview = new AdInformationViewModel
+			{
 				ImageUrls = new List<string> { "url1", "url2", "url3" },
 				Brand = BrandsEnum.BMW,
 				CreatedOn = DateTime.Now.ToString(),
 				IsForSale = true,
 				Model = "M5 Competition",
-				Year = 0,
+				Year = 2020,
 				Engine = "V6",
-				HorsePower = 0,
+				HorsePower = 300,
 				Condition = ConditionEnum.BrandNew,
 				EuroStandard = EuroStandardEnum.Six,
 				FuelType = FuelTypeEnum.Petrol,
@@ -196,23 +337,113 @@
 				SearchQuery = "BMW",
 				FirstName = "John",
 				LastName = "Doe",
-				Sorting = SortingEnums.Default,
-				StartYear = 0,
-				EndYear = 0,
-				MinPrice = null,
-				MaxPrice = null,
-				MinHorsePower = null,
-				MaxHorsePower = null,
-				MinMileage = null,
-				MaxMileage = null
+				Sorting = sorting, // Set sorting option here
+				StartYear = 2020,
+				EndYear = 2023,
+				MinPrice = 100,
+				MaxPrice = 120000,
+				MinHorsePower = 100,
+				MaxHorsePower = 400,
+				MinMileage = 100,
+				MaxMileage = 30000
 			};
 
 			var actualCount = await _adService.GetCarAdsCountAsync(adPreview);
 
-			// Assert
 			Assert.AreEqual(expectedCount, actualCount);
 		}
 
+		[Test]
+		public async Task CreateAdAsync_SuccessfullyCreatesAd()
+		{
+			var adViewModel = new AdCreateViewModel
+			{
+				ImageUrls = new List<string> { "url1", "url2", "url3" },
+				Brand = BrandsEnum.BMW,
+				IsForSale = true,
+				Model = "M5 Competition",
+				Year = 2020,
+				Engine = "V6",
+				HorsePower = 300,
+				Condition = ConditionEnum.BrandNew,
+				EuroStandard = EuroStandardEnum.Six,
+				FuelType = FuelTypeEnum.Petrol,
+				Colour = ColourEnum.Black,
+				Transmission = TransmissionEnum.Automatic,
+				DriveTrain = DriveTrainEnum.RearWheelDrive,
+				Weight = 1850.8m,
+				Mileage = 1000,
+				Price = 110000,
+				BodyType = BodyTypeEnum.Sedan,
+				Manufacturer = "BMW",
+				CarDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				Address = new AddressViewModel
+				{
+					CountryName = "Country",
+					TownName = "Town",
+					StreetName = "Street"
+				},
+				SelectedCheckBoxId = Enumerable.Range(1, 20).ToList()
+			};
+
+
+			var userId = "8ABB04A0-36A0-4A35-8C1A-34D324AA169E";
+
+			await _adService.CreateAdAsync(adViewModel, userId);
+
+			var createdAd = await _dbContext.Ads.FirstOrDefaultAsync(a => a.UserId == Guid.Parse(userId));
+			Assert.IsNotNull(createdAd);
+
+			int expectedImageCount = 5;
+			int actualImageCount = await _dbContext.Images.CountAsync(image => image.CarId == createdAd.CarId);
+			Assert.AreEqual(expectedImageCount, actualImageCount);
+
+			int expectedAccessories = 20;
+
+			var accessoriesCount = await _dbContext.CarAccessories
+	   .CountAsync(ca => ca.CarId == createdAd.CarId);
+			Assert.AreEqual(expectedAccessories, accessoriesCount);
+
+			var adImagesDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Ad");
+			foreach (var image in adViewModel.UploadedImages)
+			{
+				if (image != null && image.Length > 0)
+				{
+					var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+					var filePath = Path.Combine(adImagesDirectory, uniqueFileName);
+
+					using (var stream = new FileStream(filePath, FileMode.Create))
+					{
+						await image.CopyToAsync(stream);
+					}
+
+					var imageToCreate = new Image()
+					{
+						CarId = createdAd.CarId,
+						ImageUrl = uniqueFileName
+					};
+					await _dbContext.AddAsync(imageToCreate);
+
+					var savedImage = await _dbContext.Images.FirstOrDefaultAsync(i => i.ImageUrl == uniqueFileName);
+					Assert.IsNotNull(savedImage);
+					Assert.AreEqual(createdAd.CarId, savedImage.CarId);
+				}
+			}
+		}
+
+
+		[Test]
+		public async Task CreateAdAsync_FailsToCreateAd()
+		{
+			// Arrange
+			var adViewModel = new AdCreateViewModel
+			{
+			};
+
+			var userId = "invalid-user-id"; // Assume an invalid user id
+
+			Assert.Throws<ArgumentException>(() => _adService.CreateAdAsync(adViewModel, userId).GetAwaiter().GetResult());
+		}
 
 
 		[Test]

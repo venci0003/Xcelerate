@@ -543,8 +543,7 @@
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine($"Error deleting car ad: {ex}");
-				throw; // Rethrow the exception to propagate it up
+				throw new Exception($"Error deleting car ad: {ex.Message}");
 			}
 		}
 
