@@ -92,20 +92,16 @@
 				_adService.DeleteCarAdAsync(carId).GetAwaiter().GetResult();
 			});
 
-			// Check if the exception message exactly matches the expected error message
 			Assert.AreEqual(expectedErrorMessage, exception.Message);
 		}
 
 		[Test]
 		public async Task GetCarByIdAsync_CarExists_ReturnsCar()
 		{
-			// Arrange
-			int carId = 1; // Provide an existing car ID here
+			int carId = 1;
 
-			// Act
 			var result = await _adService.GetCarByIdAsync(carId);
 
-			// Assert
 			Assert.IsNotNull(result);
 			Assert.AreEqual(carId, result.CarId);
 		}
@@ -113,10 +109,8 @@
 		[Test]
 		public async Task GetCarByIdAsync_CarDoesNotExist_ExceptionThrown()
 		{
-			// Arrange
 			int carId = -100;
 
-			// Act & Assert
 			ArgumentException exception = null;
 			try
 			{
@@ -216,7 +210,7 @@
 				CreatedOn = DateTime.Now.ToString(),
 				IsForSale = false,
 				Model = string.Empty,
-				Year = 0,
+				Year = 2020,
 				Engine = "V6",
 				HorsePower = 0,
 				Condition = ConditionEnum.Default,
@@ -440,7 +434,7 @@
 			{
 			};
 
-			var userId = "invalid-user-id"; // Assume an invalid user id
+			var userId = "invalid-user-id";
 
 			Assert.Throws<ArgumentException>(() => _adService.CreateAdAsync(adViewModel, userId).GetAwaiter().GetResult());
 		}
