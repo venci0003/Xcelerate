@@ -127,7 +127,7 @@
 		[Test]
 		public async Task EditReviewAsync_ReturnsTrue_WhenReviewExistsAndIsEdited()
 		{
-			var existingReviewId = 17; 
+			var existingReviewId = 17;
 			var newComment = "New comment";
 			var newStarsCount = 4;
 
@@ -174,5 +174,64 @@
 
 			Assert.AreEqual("Review not found!", ex.Message);
 		}
+
+		[Test]
+		public async Task GetUserReviewsAsync_ReturnsListOfUserReviews_WhenAdIdExists()
+		{
+			var existingAdId = 1;
+
+			var reviews = new List<Review>
+			{
+				new Review
+				{
+					ReviewId = 17,
+					AdId = existingAdId,
+					UserId = Guid.NewGuid(),
+					Comment = "First review",
+					StarsCount = 5,
+					User = new User { FirstName = "John", LastName = "Doe" }
+				},
+				new Review
+				{
+					ReviewId = 18,
+					AdId = existingAdId,
+					UserId = Guid.NewGuid(),
+					Comment = "Second review",
+					StarsCount = 4,
+					User = new User { FirstName = "Jane", LastName = "Smith" }
+				}
+			};
+			_dbContext.Reviews.AddRange(reviews);
+			await _dbContext.SaveChangesAsync();
+
+			var result = await _reviewService.GetUserReviewsAsync(existingAdId);
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual(reviews.Count, result.Count);
+
+			foreach (var reviewViewModel in result)
+			{
+				var correspondingReview = reviews.FirstOrDefault(r => r.ReviewId == reviewViewModel.ReviewId);
+				Assert.IsNotNull(correspondingReview);
+				Assert.AreEqual(correspondingReview.Ad.CarId, reviewViewModel.CarId);
+				Assert.AreEqual(correspondingReview.UserId, reviewViewModel.UserId);
+				Assert.AreEqual(correspondingReview.Comment, reviewViewModel.Comment);
+				Assert.AreEqual(correspondingReview.StarsCount, reviewViewModel.StarsCount);
+				Assert.AreEqual(correspondingReview.User.FirstName, reviewViewModel.FirstName);
+				Assert.AreEqual(correspondingReview.User.LastName, reviewViewModel.LastName);
+			}
+		}
+
+		[Test]
+		public async Task GetUserReviewsAsync_ReturnsEmptyList_WhenAdIdDoesNotExist()
+		{
+			var nonExistingAdId = 999;
+
+			var result = await _reviewService.GetUserReviewsAsync(nonExistingAdId);
+
+			Assert.IsNotNull(result);
+			Assert.IsEmpty(result);
+		}
+
 	}
 }
