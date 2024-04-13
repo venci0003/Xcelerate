@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xcelerate.Core", "Xcelerate
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xcelerate.Common", "Xcelerate.Common\Xcelerate.Common.csproj", "{873A2ED3-05B9-4EC4-84D7-1CA8B14E1021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xcelerate.Tests", "Xcelerate.Tests\Xcelerate.Tests.csproj", "{7F3C06FB-AA2C-4094-90B3-CB791B602F30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xcelerate.Tests", "Xcelerate.Tests\Xcelerate.Tests.csproj", "{7F3C06FB-AA2C-4094-90B3-CB791B602F30}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D1B7158-C1EC-4B88-AC43-9CC070B94744}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -328,7 +328,7 @@ namespace Xcelerate.Tests
 				ManufacturerId = 2,
 				AddressId = 2,
 				AdId = 2,
-				UserId = Guid.NewGuid()
+				UserId = Guid.Parse("595CC255-9E57-40E1-A4DE-B1ADBFDBC0FC")
 			};
 			cars.Add(secondCar);
 

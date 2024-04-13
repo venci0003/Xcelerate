@@ -65,7 +65,6 @@
 		[Test]
 		public async Task CreateReviewAsync_ExceptionThrown_ArgumentException()
 		{
-			// Arrange
 			var reviewModel = new ReviewViewModel { Comment = "Test comment", StarsCount = 5 };
 			var userId = string.Empty;
 			var adId = 1;
@@ -83,7 +82,7 @@
 		{
 			int existingReviewId = 1;
 
-			var result = await _reviewService.DeleteReviewAsync(existingReviewId); // Changed from _adService to _reviewService
+			var result = await _reviewService.DeleteReviewAsync(existingReviewId);
 
 			Assert.IsTrue(result);
 
@@ -91,7 +90,40 @@
 			Assert.IsTrue(reviewDeleted);
 		}
 
+		[Test]
+		public async Task DeleteReviewAsync_ReturnsFalse_WhenReviewDoesNotExist()
+		{
+			int nonExistingReviewId = 999;
 
+			var result = await _reviewService.DeleteReviewAsync(nonExistingReviewId);
 
+			Assert.IsFalse(result);
+		}
+
+		[Test]
+		public async Task GetEditInformationAsync_ReturnsEditReviewViewModel_WhenReviewExists()
+		{
+			int existingReviewId = 1;
+
+			var result = await _reviewService.GetEditInformationAsync(existingReviewId);
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual(existingReviewId, result.ReviewId);
+		}
+
+		[Test]
+		public void GetEditInformationAsync_ThrowsArgumentException_WhenReviewDoesNotExist()
+		{
+			// Arrange
+			int nonExistingReviewId = 999;
+
+			// Act & Assert
+			var ex = Assert.ThrowsAsync<ArgumentException>(async () =>
+			{
+				await _reviewService.GetEditInformationAsync(nonExistingReviewId);
+			});
+
+			Assert.AreEqual("Review not found!", ex.Message);
+		}
 	}
 }
