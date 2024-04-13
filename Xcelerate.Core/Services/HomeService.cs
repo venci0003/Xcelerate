@@ -14,21 +14,9 @@ namespace Xcelerate.Core.Services
 		{
 			_dbContext = context;
 		}
-		public async Task<DataStatisticsViewModel> GetDataStatisticsAsync(DataStatisticsViewModel dataStatisticsViewModel)
-		{
-			DataStatisticsViewModel? statistics = await _dbContext.StatisticalData.Select(s => new DataStatisticsViewModel
-			{
-				SoldCars = s.SoldCars,
-				CreatedCars = s.CreatedCars,
-				CreatedReviews = s.CreatedReviews
-			}).FirstOrDefaultAsync();
-
-			return statistics;
-		}
 
 		public async Task<HomePageViewModel> GetHomePageDataAsync(HomePageViewModel homePageView)
 		{
-			// Get data statistics
 			var statistics = await _dbContext.StatisticalData
 				.Select(s => new DataStatisticsViewModel
 				{
@@ -52,7 +40,6 @@ namespace Xcelerate.Core.Services
 				})
 				.ToListAsync();
 
-			// Create an instance of HomePageViewModel
 			var viewModel = new HomePageViewModel
 			{
 				DataStatistics = statistics,
