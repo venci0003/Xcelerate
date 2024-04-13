@@ -87,7 +87,6 @@ namespace Xcelerate.Core.Services
 				throw new ArgumentException("Review not found!");
 			}
 
-			// Update the properties of the existing car entity based on the ViewModel
 			reviewToEdit.Comment = adViewModel.Comment;
 			reviewToEdit.StarsCount = adViewModel.StarsCount;
 

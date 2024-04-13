@@ -114,13 +114,62 @@
 		[Test]
 		public void GetEditInformationAsync_ThrowsArgumentException_WhenReviewDoesNotExist()
 		{
-			// Arrange
 			int nonExistingReviewId = 999;
 
-			// Act & Assert
 			var ex = Assert.ThrowsAsync<ArgumentException>(async () =>
 			{
 				await _reviewService.GetEditInformationAsync(nonExistingReviewId);
+			});
+
+			Assert.AreEqual("Review not found!", ex.Message);
+		}
+
+		[Test]
+		public async Task EditReviewAsync_ReturnsTrue_WhenReviewExistsAndIsEdited()
+		{
+			var existingReviewId = 17; 
+			var newComment = "New comment";
+			var newStarsCount = 4;
+
+			var review = new Review
+			{
+				ReviewId = existingReviewId,
+				Comment = "Old comment",
+				StarsCount = 3
+			};
+			_dbContext.Reviews.Add(review);
+			await _dbContext.SaveChangesAsync();
+
+			var editReviewViewModel = new EditReviewViewModel
+			{
+				ReviewId = existingReviewId,
+				Comment = newComment,
+				StarsCount = newStarsCount
+			};
+
+			var result = await _reviewService.EditReviewAsync(editReviewViewModel);
+
+			Assert.IsTrue(result);
+
+			var editedReview = await _dbContext.Reviews.FirstOrDefaultAsync(r => r.ReviewId == existingReviewId);
+			Assert.IsNotNull(editedReview);
+			Assert.AreEqual(newComment, editedReview.Comment);
+			Assert.AreEqual(newStarsCount, editedReview.StarsCount);
+		}
+
+		[Test]
+		public void EditReviewAsync_ThrowsArgumentException_WhenReviewDoesNotExist()
+		{
+			var nonExistingReviewId = 999;
+
+			var editReviewViewModel = new EditReviewViewModel
+			{
+				ReviewId = nonExistingReviewId,
+			};
+
+			var ex = Assert.ThrowsAsync<ArgumentException>(async () =>
+			{
+				await _reviewService.EditReviewAsync(editReviewViewModel);
 			});
 
 			Assert.AreEqual("Review not found!", ex.Message);
