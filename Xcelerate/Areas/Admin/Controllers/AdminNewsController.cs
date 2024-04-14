@@ -38,7 +38,13 @@
 
 			await _adminNewsService.ApproveNewsAsync(generatedNewsView);
 
-			_memoryCache.Remove(AdminNewsCacheKey);
+			var newsCount = await _adminNewsService.GetNewsCountAsync();
+
+			for (int i = 1; i <= newsCount; i++)
+			{
+				string cacheKey = $"{AdminNewsCacheKey}_{i}";
+				_memoryCache.Remove(cacheKey);
+			}
 
 			return RedirectToAction("Index", "Home", new { Area = "Admin" });
 		}

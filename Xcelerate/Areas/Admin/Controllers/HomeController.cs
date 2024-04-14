@@ -29,16 +29,17 @@
 			Pager pager = new Pager(await _adminNewsService.GetNewsCountAsync(), adminHomeView.CurrentPage, DefaultPageSizeForNews);
 			adminHomeView.Pager = pager;
 
-			AdminHomeViewModel viewModel = _memoryCache.Get<AdminHomeViewModel>(AdminNewsCacheKey);
+			string cacheKey = $"{AdminNewsCacheKey}_{adminHomeView.CurrentPage}";
+
+			AdminHomeViewModel viewModel = _memoryCache.Get<AdminHomeViewModel>(cacheKey);
 
 			if (viewModel == null)
 			{
-
 				viewModel = await _adminNewsService.GetHomePageDataAsync(adminHomeView);
 
 				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(AdminNewsExpirationFromMinutes));
 
-				_memoryCache.Set(AdminNewsCacheKey, viewModel, cacheOptions);
+				_memoryCache.Set(cacheKey, viewModel, cacheOptions);
 			}
 
 			adminHomeView.NewsPreview = viewModel.NewsPreview;
@@ -54,10 +55,13 @@
 				_memoryCache.Set(AdminReviewsCacheKey, reviewsToCheck, cacheOptions);
 			}
 
-
 			adminHomeView.Reviews = reviewsToCheck;
 
 			return View(adminHomeView);
 		}
+
+
+
+
 	}
 }

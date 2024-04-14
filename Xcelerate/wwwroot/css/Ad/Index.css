@@ -436,7 +436,5 @@ select:focus {
     border-radius: 25px;
     text-decoration: none;
     margin-bottom: 10px;
-    height:45px;
-    /*  position: absolute;
-    left: 185px;*/
+    height:43px;
 }
