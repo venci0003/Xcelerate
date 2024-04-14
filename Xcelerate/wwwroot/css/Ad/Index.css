@@ -348,7 +348,6 @@ select {
     background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
 }
 
-/* Style for the options within the select element */
 option {
     background-color: #f0f0f0;
     color: white;
@@ -426,4 +425,18 @@ select:focus {
     display: flex;
     margin-left: 122px;
     grid-column-gap: 13px;
+}
+
+.delete-button {
+    padding: 0px;
+    color: white;
+    font-size: 22px;
+    padding: 10px 38px;
+    background: linear-gradient(180deg, darkred, rgba(255, 255, 255, 0.2));
+    border-radius: 25px;
+    text-decoration: none;
+    margin-bottom: 10px;
+    height:45px;
+    /*  position: absolute;
+    left: 185px;*/
 }
