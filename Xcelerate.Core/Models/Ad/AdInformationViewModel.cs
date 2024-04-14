@@ -19,13 +19,13 @@ namespace Xcelerate.Core.Models.Ad
 		public List<int> SelectedCheckBoxId { get; set; } = new List<int>();
 		public AddressViewModel Address { get; set; } = new AddressViewModel();
 		public IEnumerable<AdPreviewViewModel> Ads { get; set; } = new List<AdPreviewViewModel>();
-		public BrandsEnum? Brand { get; set; }
 		public string CreatedOn { get; set; }
 		public bool IsForSale { get; set; }
 		public string Model { get; set; }
 		public int Year { get; set; }
 		public string Engine { get; set; }
 		public int HorsePower { get; set; }
+		public BrandsEnum? Brand { get; set; }
 		public ConditionEnum? Condition { get; set; }
 		public EuroStandardEnum? EuroStandard { get; set; }
 		public FuelTypeEnum? FuelType { get; set; }
@@ -40,9 +40,11 @@ namespace Xcelerate.Core.Models.Ad
 		public string CarDescription { get; set; }
 		public Pager Pager { get; set; }
 		public int CurrentPage { get; set; }
-		public string SearchQuery { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
+		public string SearchQuery { get; set; }
+
+		//Sorting
 		public SortingEnums Sorting { get; set; }
 		public int StartYear { get; set; }
 		public int EndYear { get; set; }

@@ -45,14 +45,29 @@
 			}
 			else
 			{
-				<ul id="authorize-list-authorized">
-					<img id="keyIcon"
-						 src="~/Icons/icons8-key-100.png"
-						 alt="Icon Description" />
-					<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Logout" class="logout-button-submit">LOG OUT</a></li>
-					<li class="logout-state"><a asp-area="" asp-controller="UserCars" asp-action="Index" class="logout-button-submit">MY CARS</a></li>
-					<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Profile" class="logout-button-submit">ACCOUNT</a></li>
-				</ul>
+				@if (User.IsInRole("Administrator"))
+				{
+					<ul id="authorize-list-authorized-as-admin">
+						<img id="keyIcon"
+							 src="~/Icons/icons8-key-100.png"
+							 alt="Icon Description" />
+						<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Logout" class="logout-button-submit">LOG OUT</a></li>
+						<li class="logout-state"><a asp-area="" asp-controller="UserCars" asp-action="Index" class="logout-button-submit">MY CARS</a></li>
+						<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Profile" class="logout-button-submit">ACCOUNT</a></li>
+						<li class="logout-state"><a asp-area="Admin" asp-controller="Home" asp-action="Index" class="logout-button-submit">ADMIN PANEL</a></li>
+					</ul>
+				}
+				else
+				{
+					<ul id="authorize-list-authorized">
+						<img id="keyIcon"
+							 src="~/Icons/icons8-key-100.png"
+							 alt="Icon Description" />
+						<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Logout" class="logout-button-submit">LOG OUT</a></li>
+						<li class="logout-state"><a asp-area="" asp-controller="UserCars" asp-action="Index" class="logout-button-submit">MY CARS</a></li>
+						<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Profile" class="logout-button-submit">ACCOUNT</a></li>
+					</ul>
+				}
 			}
 		</nav>
 	</header>
@@ -69,12 +84,6 @@
 	<footer>
 		<h2 class="footer-title">Xcelerate</h2>
 		<nav class="footer-nav">
-			<ul>
-				<li><a href="">Tour packages</a></li>
-				<li><a href="">Personalized offers</a></li>
-				<li><a href=""> Special deals</a></li>
-				<li><a href="">Summer holiday</a></li>
-			</ul>
 			<ul>
 				<li><a href="">About us</a></li>
 				<li><a href="">FAQ</a></li>

@@ -1,25 +1,22 @@
 ﻿@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css);
 
-/* Width and height for the scrollbar track */
 ::-webkit-scrollbar {
     width: 12px;
     border-radius: 6px;
     background-color: lightslategray;
 }
 
-/* Styles for the scrollbar handle */
 ::-webkit-scrollbar-thumb {
     background-color: lightgray;
     backdrop-filter: blur(7px);
     border-radius: 6px;
     transition: background-color 0.2s ease-in-out;
 }
-    /* Handle on hover */
+
     ::-webkit-scrollbar-thumb:hover {
         background-color: darkgray;
     }
 
-/* Styles for the scrollbar track (background) */
 ::-webkit-scrollbar-track {
     backdrop-filter: blur(7px);
 }
@@ -35,17 +32,17 @@ button {
     color: white;
     font-size: 14px;
     transition: background-color 0.2s ease-in-out;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #keyIcon {
-    width: 45px; /* Adjust the size as needed */
+    width: 45px;
     height: 45px;
-    transition: transform 0.5s ease-in-out; /* Smooth transition for spinning */
+    transition: transform 0.5s ease-in-out;
 }
 
 @keyframes jingle {
@@ -87,16 +84,12 @@ button {
     border-radius: 50px;
     transition: 0s ease-in-out;
     display: inline-flex;
-  /*  position: absolute;*/
     direction: rtl;
-    /*right: 0;*/ /* Adjust this value as needed */
     height: 50px;
     width: 50px;
-   /* right: 1000px;*/
     margin-top: 5px;
     margin-left: auto;
-    margin-right:5px;
-/*    margin-right: calc(50vw - 1505px);*/
+    margin-right: 5px;
     transition: width .5s;
 }
 
@@ -109,13 +102,12 @@ button {
     }
 
         #authorize-list-unauthorized li a:hover {
-            color: #ffcc00; /* Change the color on hover as needed */
+            color: #ffcc00;
         }
 
 #authorize-list-unauthorized {
-    /* ...existing styles... */
     transition: width 0.3s ease-in-out;
-    left: 1350px; /* Adjust this value as needed */
+    left: 1350px;
 }
 
     #authorize-list-unauthorized:hover {
@@ -139,7 +131,7 @@ button {
         }
 
     #authorize-list-unauthorized a:hover {
-        color: whitesmoke; /* Change the text color on hover as needed */
+        color: whitesmoke;
     }
 
     #authorize-list-unauthorized .register-button-submit {
@@ -154,6 +146,61 @@ button {
         opacity: 0;
     }
 
+#authorize-list-authorized-as-admin {
+    backdrop-filter: blur(20px);
+    box-shadow: 10px 1px 40px 2px #3b2929;
+    padding: 15px;
+    border-radius: 50px;
+    transition: 0s ease-in-out;
+    display: inline-flex;
+    direction: rtl;
+    height: 50px;
+    width: 50px;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: 6px;
+    transition: width .5s;
+}
+
+    #authorize-list-authorized-as-admin li {
+        margin-top: 15px;
+        margin-right: 28px;
+        margin-left: 0px;
+        text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+        direction: rtl;
+    }
+
+        #authorize-list-authorized-as-admin li a:hover {
+            color: #ffcc00; /* Change the color on hover as needed */
+        }
+
+#authorize-list-authorized-as-admin {
+    /* ...existing styles... */
+    transition: width 0.3s ease-in-out;
+    left: 1350px; /* Adjust this value as needed */
+}
+
+    #authorize-list-authorized-as-admin:hover {
+        width: 525px;
+    }
+
+        #authorize-list-authorized-as-admin:hover .register-button-submit,
+        #authorize-list-authorized-as-admin:hover .login-button-submit,
+        #authorize-list-authorized-as-admin:hover .logout-button-submit {
+            opacity: 1;
+            transition: 1.1s ease-in-out;
+        }
+
+    #authorize-list-authorized-as-admin a:hover {
+        color: whitesmoke; /* Change the text color on hover as needed */
+    }
+
+    #authorize-list-authorized-as-admin .register-button-submit,
+    #authorize-list-authorized-as-admin .login-button-submit,
+    #authorize-list-authorized-as-admin .logout-button-submit {
+        opacity: 0;
+    }
+
 #authorize-list-authorized {
     backdrop-filter: blur(20px);
     box-shadow: 10px 1px 40px 2px #3b2929;
@@ -161,16 +208,12 @@ button {
     border-radius: 50px;
     transition: 0s ease-in-out;
     display: inline-flex;
-   /* position: absolute;*/
     direction: rtl;
-    /*right: 0;*/ /* Adjust this value as needed */
     height: 50px;
     width: 50px;
- /*   right: 1000px;*/
     margin-top: 5px;
     margin-left: auto;
-    margin-right:6px;
- /*   margin-right: calc(50vw - 1505px);*/
+    margin-right: 6px;
     transition: width .5s;
 }
 
@@ -263,7 +306,7 @@ button {
     padding: 15px;
     border-radius: 50px;
     width: 40px;
-    height:40px;
+    height: 40px;
     margin-top: 5px;
     margin-left: 6px;
     transition: 0s ease-in-out;

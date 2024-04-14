@@ -186,6 +186,13 @@
 		[HttpPost]
 		public IActionResult Delete(int? carId)
 		{
+			if (User.IsInRole("Administrator"))
+			{
+				TempData["ConfirmDelete"] = true;
+				TempData["CarIdToDelete"] = carId;
+				return RedirectToAction("Index", "Ad");
+			}
+
 			TempData["ConfirmDelete"] = true;
 			TempData["CarIdToDelete"] = carId;
 			return RedirectToAction("UserAds", "Ad");
@@ -204,6 +211,11 @@
 
 			TempData["DeleteMessage"] = true;
 
+
+			if (User.IsInRole("Administrator"))
+			{
+				return RedirectToAction("Index", "Ad");
+			}
 			return RedirectToAction("UserAds", "Ad");
 		}
 

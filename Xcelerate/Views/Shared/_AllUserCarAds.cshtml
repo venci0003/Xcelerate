@@ -33,8 +33,10 @@
 						<i class="edit-delete-cancel-buttons">
 							<a class="edit-button" asp-area="" asp-controller="Ad" asp-action="Edit" asp-route-carId="@ad.CarId">Edit</a>
 							<form asp-area="" asp-controller="Ad" asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
+								<input type="hidden" name="currentPage" value="@ViewContext.HttpContext.Request.Query["currentPage"]" />
 								<button type="submit" class="delete-button">Delete</button>
 							</form>
+
 							<form asp-area="" asp-controller="UserCars" asp-action="Cancel" asp-route-carId="@ad.CarId" asp-route-adId="@ad.AdId" method="post">
 								<button type="submit" class="cancel-button">Cancel</button>
 							</form>
@@ -126,7 +128,7 @@ else
 
 		@TempData.Remove("ConfirmDelete")
 		@TempData.Remove("CarIdToDelete")
-					}
+									}
 		});
 	</script>
 }

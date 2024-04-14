@@ -103,6 +103,13 @@ else
 								}
 								else
 								{
+
+									@if (User.IsInRole("Administrator"))
+									{
+										<form asp-area="" asp-controller="Ad" asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
+											<button type="submit" class="delete-button">Delete</button>
+										</form>
+									}
 									<a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-adId="@ad.AdId">View</a>
 								}
 							</i>
