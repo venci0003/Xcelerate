@@ -10,11 +10,11 @@
 	using Moq;
 	using NUnit.Framework;
 	using System;
+	using System.Text;
 	using Xcelerate.Core.Models.Ad;
 	using Xcelerate.Core.Models.Pager;
 	using Xcelerate.Core.Models.Sorting;
 	using Xcelerate.Infrastructure.Data.Enums;
-	using static System.Net.Mime.MediaTypeNames;
 	using static Tests.DatabaseSeeder;
 
 	[TestFixture]
@@ -24,6 +24,7 @@
 		private XcelerateContext _dbContext;
 		private IWebHostEnvironment _webHostEnvironment;
 		private IAdService _adService;
+
 
 		[SetUp]
 		public void SetUp()
@@ -41,17 +42,80 @@
 			this._webHostEnvironment = mockWebHostEnvironment.Object;
 
 			this._adService = new АdService(this._dbContext, this._webHostEnvironment);
+
 		}
+
+		[Test]
+		public async Task CreateAdAsync_ShouldUploadImagesUnSuccessfully()
+		{
+			var selectedCheckBoxIds = new List<int>
+			{
+				1,
+				3,
+				5,
+			};
+			var adViewModel = new AdCreateViewModel
+			{
+				Brand = BrandsEnum.Toyota,
+				Model = "Camry",
+				Year = 2020,
+				Engine = "V6",
+				Condition = ConditionEnum.Used,
+				EuroStandard = EuroStandardEnum.Six,
+				FuelType = FuelTypeEnum.Petrol,
+				Colour = ColourEnum.Black,
+				Transmission = TransmissionEnum.Automatic,
+				DriveTrain = DriveTrainEnum.RearWheelDrive,
+				Weight = 1850.8m,
+				Mileage = 1000,
+				Price = 110000,
+				BodyType = BodyTypeEnum.Sedan,
+				Manufacturer = "Toyota",
+				CarDescription = "Lorem ipsum dolor sit amet",
+				Address = new AddressViewModel
+				{
+					CountryName = "Country",
+					TownName = "Town",
+					StreetName = "Street"
+				},
+				UploadedImages = new List<IFormFile>
+				{
+					new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "dummy.jpg")
+				}
+				,
+				SelectedCheckBoxId = selectedCheckBoxIds
+			};
+			var userId = Guid.NewGuid().ToString();
+
+			await _adService.CreateAdAsync(adViewModel, userId);
+
+			var createdAd = _dbContext.Ads.FirstOrDefault(a => a.UserId == Guid.Parse(userId));
+			Assert.IsNotNull(createdAd, "Ad was not created successfully.");
+
+			var createdCar = _dbContext.Cars.FirstOrDefault(c => c.UserId == Guid.Parse(userId));
+			Assert.IsNotNull(createdCar, "Car was not created successfully.");
+
+			var carImage = createdCar.Images.Select(c => c.ImageId).FirstOrDefault();
+
+			var createdImages = _dbContext.Images.Where(i => i.ImageId == carImage).ToList();
+			Assert.IsFalse(createdImages.Count > 0, "No images were uploaded for the car.");
+
+			// Additional assertion: Verify if the uploaded image matches the expected filename
+			var uploadedImage = createdImages.FirstOrDefault();
+			Assert.IsNull(uploadedImage, "Image was not uploaded successfully.");
+
+		}
+
 
 		[Test]
 		public async Task EditCarAdAsync_ReturnsTrue_WhenCarAdIsEdited()
 		{
 			var selectedCheckBoxIds = new List<int>
-	        {
-	        	1,
-                3,
-                5, 
-            };
+			{
+				1,
+				3,
+				5,
+			};
 			var image1 = new Mock<IFormFile>();
 			image1.Setup(x => x.FileName).Returns("image1.jpg");
 

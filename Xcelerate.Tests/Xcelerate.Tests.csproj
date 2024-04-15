@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Xcelerate.Core\Xcelerate.Core.csproj" />
     <ProjectReference Include="..\Xcelerate.Infrastructure\Xcelerate.Infrastructure.csproj" />
+    <ProjectReference Include="..\Xcelerate\Xcelerate.csproj" />
   </ItemGroup>
 
   <ItemGroup>
