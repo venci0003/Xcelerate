@@ -125,49 +125,5 @@
 
 			return NotFound();
 		}
-
-		//[HttpPost]
-		//[Authorize(Roles = AdminRoleName)]
-		//public async Task<IActionResult> ChangeRole(Guid id, string? role = null)
-		//{
-		//	User userToFind = await userManager.FindByIdAsync(id.ToString());
-		//	if (!string.IsNullOrWhiteSpace(role))
-		//	{
-		//		if (!await roleManager.RoleExistsAsync(role))
-		//		{
-		//			IdentityRole<Guid> newRole = new IdentityRole<Guid>(role);
-		//			await roleManager.CreateAsync(newRole);
-		//		}
-		//		if (!await userManager.IsInRoleAsync(userToFind, role))
-		//		{
-		//			await userManager.AddToRoleAsync(userToFind, role);
-		//			//To save the changes on SeedUsers
-		//			await xcelerateContext.SaveChangesAsync();
-		//		}
-		//	}
-		//	else
-		//	{
-		//		if (await userManager.IsInRoleAsync(userToFind, ModeratorRoleName))
-		//		{
-		//			await userManager.RemoveFromRoleAsync(userToFind, ModeratorRoleName);
-		//			if (!await roleManager.RoleExistsAsync(UserRoleName))
-		//			{
-		//				IdentityRole<Guid> userRole = new IdentityRole<Guid>(UserRoleName);
-		//				await roleManager.CreateAsync(userRole);
-		//			}
-		//			if (!await userManager.IsInRoleAsync(userToFind, UserRoleName))
-		//			{
-		//				await userManager.AddToRoleAsync(userToFind, UserRoleName);
-		//			}
-		//			//To save the changes on SeedUsers
-		//			await bookingContext.SaveChangesAsync();
-		//		}
-		//		else
-		//		{
-		//			return NotFound();
-		//		}
-		//	}
-		//	return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
-		//}
 	}
 }

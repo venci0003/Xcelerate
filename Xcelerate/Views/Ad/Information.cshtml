@@ -32,6 +32,7 @@
 					{
 						<!-- Display content for non-owner -->
 						<form asp-area="" asp-controller="Ad" asp-action="Buy" asp-route-carId="@Model.CarId" asp-route-adId="@Model.AdId" method="post">
+							@Html.AntiForgeryToken()
 							<button type="submit" class="buy-button">BUY</button>
 						</form>
 					}
@@ -94,6 +95,7 @@
 				<h2 class="reviews-title">Reviews</h2>
 				<ul class="list-car-ad-reviews">
 					<form asp-area="" asp-controller="Review" asp-action="Add" method="post">
+						@Html.AntiForgeryToken()
 						<textarea name="Comment" placeholder="Your comment" required></textarea><br>
 						<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required><br>
 						<input type="hidden" name="AdId" value="@Model.AdId" />
@@ -119,14 +121,17 @@
 												<input type="hidden" name="AdId" value="@Model.AdId" />
 											</button>
 										</form>
-										<form class="delete-form" method="post">
 
+										<form asp-area="" asp-controller="Review" asp-action="Delete" asp-route-carId="@review.ReviewId" method="post">
+											@Html.AntiForgeryToken()
 											<input type="hidden" name="ReviewId" value="@review.ReviewId" />
 											<input type="hidden" name="AdId" value="@Model.AdId" />
-											<button asp-area="" asp-controller="Review" asp-action="Delete" asp-route-carId="@Model.CarId" type="submit" class="delete-icon-link">
+											<button type="button" class="delete-icon-link" data-reviewid="@review.ReviewId" data-adid="@Model.AdId">
 												<img class="delete-icon" src="~/Icons/icons8-garbage-can-65.png" alt="Delete icon">
 											</button>
 										</form>
+
+
 									</div>
 								}
 							</li>
@@ -142,26 +147,7 @@
 
 </section>
 
-@* @if (TempData["FormSubmitted"] != null && (bool)TempData["FormSubmitted"])
-{
-	<script>
-		// Function to scroll to the reviews section
-		function scrollToReviews() {
-			var reviewsSection = document.getElementById("reviews-section");
-			if (reviewsSection) {
-				reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-			}
-		}
-
-		// Scroll to the reviews section when the page loads
-		window.onload = function () {
-			scrollToReviews();
-		};
-	</script>
-		TempData.Remove("FormSubmitted");
-}
- *@
-@if (TempData["DeleteMessage"] != null && (bool)TempData["DeleteMessage"])
+@if (TempData["DeleteMessage"] != null)
 {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -169,60 +155,53 @@
 		Swal.fire({
 			icon: 'success',
 			title: 'Ad deleted!',
-			text: 'You have succesfully deleted an ad!',
+			text: '@TempData["DeleteMessage"]',
 		});
 	</script>
-	@TempData.Remove("DeleteMessage")
-	;
+	{
+		TempData.Remove("DeleteMessage");
+	}
 }
 
-@if (TempData["ConfirmDelete"] != null && (bool)TempData["ConfirmDelete"])
-{
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script>
-		Swal.fire({
-			title: 'Confirm Delete',
-			text: 'Are you sure you want to delete this car ad?',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#d33',
-			cancelButtonColor: '#3085d6',
-			confirmButtonText: 'Yes, delete it!'
-		}).then((result) => {
-			if (result.isConfirmed) {
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-				var form = document.createElement('form');
-				form.method = 'post';
-				form.action = '/Review/DeleteConfirmed';
-
-				var input = document.createElement('input');
-				input.type = 'hidden';
-				input.name = 'reviewId';
-				input.value = '@TempData["ReviewAdIdToDelete"]';
-
-				form.appendChild(input);
-
-				// Append the form to the document body and submit it
-				document.body.appendChild(form);
-
-				var input = document.createElement('input');
-				input.type = 'hidden';
-				input.name = 'adId';
-				input.value = '@TempData["AdId"]';
-
-				form.appendChild(input);
-
-				// Append the form to the document body and submit it
-				document.body.appendChild(form);
-				form.submit();
-
-		@TempData.Remove("ConfirmDelete")
-		@TempData.Remove("ReviewAdIdToDelete")
-		@TempData.Remove("AdId")
-							}
+<script>
+	$(document).ready(function () {
+		$('.delete-icon-link').click(function () {
+			var reviewId = $(this).data('reviewid');
+			var adId = $(this).data('adid');
+			Swal.fire({
+				title: 'Are you sure?',
+				text: 'You won\'t be able to revert this!',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: '@Url.Action("Delete", "Review")',
+						type: 'POST',
+						data: { reviewId: reviewId, adId: adId },
+						headers: {
+							RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+						},
+						success: function () {
+							// Redirect to the Ad Information page
+							window.location.href = '@Url.Action("Information", "Ad")' + '?adId=' + adId;
+						},
+						error: function (xhr, status, error) {
+							console.error(xhr.responseText);
+						}
+					});
+				}
+			});
 		});
-	</script>
-}
+	});
+</script>
+
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />

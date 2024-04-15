@@ -27,6 +27,7 @@
 		<h1 class="news-section-text">NEWS</h1>
 
 		<form asp-area="Admin" asp-controller="AdminNews" asp-action="AddGeneratedNews" method="post">
+			@Html.AntiForgeryToken()
 			<button type="submit" class="generate-button">GENERATE NEWS</button>
 		</form>
 

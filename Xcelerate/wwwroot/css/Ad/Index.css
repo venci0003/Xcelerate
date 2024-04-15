@@ -427,7 +427,7 @@ select:focus {
     grid-column-gap: 13px;
 }
 
-.delete-button {
+.delete-button-admin {
     padding: 0px;
     color: white;
     font-size: 22px;
@@ -436,5 +436,5 @@ select:focus {
     border-radius: 25px;
     text-decoration: none;
     margin-bottom: 10px;
-    height:43px;
+    height: 43px;
 }

@@ -6,6 +6,8 @@
 	using Core.Models.Review;
 	using Extension;
 	using static Common.ApplicationConstants;
+	using Xcelerate.Core.Services;
+	using Xcelerate.Infrastructure.Data.Models;
 
 	public class ReviewController : Controller
 	{
@@ -59,25 +61,18 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Delete(int reviewId, int adId)
-		{
-			TempData["ConfirmDelete"] = true;
-			TempData["ReviewAdIdToDelete"] = reviewId;
-			TempData["AdId"] = adId;
-			return RedirectToAction("Information", "Ad", new { adId = adId });
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> DeleteConfirmed(int reviewId, int? adId)
+		public async Task<IActionResult> Delete(int reviewId, int? adId)
 		{
 			await _reviewService.DeleteReviewAsync(reviewId);
-			TempData["DeleteMessage"] = true;
+
+			TempData["DeleteMessage"] = "Review deleted successfully.";
 
 			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
 
 			_memoryCache.Remove(carReviewsCacheKey);
 
-			return RedirectToAction("Information", "Ad", new { adId = adId });
+			//return RedirectToAction("Information", "Ad", new { adId = adId });
+			return Json(new { success = true });
 		}
 	}
 }

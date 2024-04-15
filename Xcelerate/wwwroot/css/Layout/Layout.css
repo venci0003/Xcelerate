@@ -1,5 +1,12 @@
 ﻿@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css);
 
+@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
+
+
+html {
+    font-family: "Mulish", sans-serif;
+}
+
 ::-webkit-scrollbar {
     width: 12px;
     border-radius: 6px;

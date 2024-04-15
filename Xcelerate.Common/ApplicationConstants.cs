@@ -8,6 +8,8 @@
 		//Default page size for news pages.
 		public const int DefaultPageSizeForNews = 3;
 
+		//User naming constants
+		public const string UserRoleName = "User";
 
 		//Admin naming constants.
 		public const string AdminRoleName = "Administrator";

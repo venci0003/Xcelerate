@@ -33,11 +33,12 @@
 						<i class="edit-delete-cancel-buttons">
 							<a class="edit-button" asp-area="" asp-controller="Ad" asp-action="Edit" asp-route-carId="@ad.CarId">Edit</a>
 							<form asp-area="" asp-controller="Ad" asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
-								<input type="hidden" name="currentPage" value="@ViewContext.HttpContext.Request.Query["currentPage"]" />
-								<button type="submit" class="delete-button">Delete</button>
+								@Html.AntiForgeryToken()
+								<button type="button" class="delete-button" data-carid="@ad.CarId">Delete</button>
 							</form>
 
 							<form asp-area="" asp-controller="UserCars" asp-action="Cancel" asp-route-carId="@ad.CarId" asp-route-adId="@ad.AdId" method="post">
+								@Html.AntiForgeryToken()
 								<button type="submit" class="cancel-button">Cancel</button>
 							</form>
 						</i>
@@ -66,7 +67,46 @@ else
 	</section>
 }
 
-@if (TempData["DeleteMessage"] != null && (bool)TempData["DeleteMessage"])
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+	$(document).ready(function () {
+		$('.delete-button').click(function () {
+			var carId = $(this).data('carid');
+			Swal.fire({
+				title: 'Are you sure?',
+				text: 'You won\'t be able to revert this!',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: '@Url.Action("Delete", "Ad")',
+						type: 'POST',
+						data: { carId: carId },
+						headers: {
+							RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+						},
+						success: function () {
+							window.location.href = '@Url.Action("UserAds", "Ad")';
+						},
+						error: function (xhr, status, error) {
+							console.error(xhr.responseText);
+						}
+					});
+				}
+			});
+		});
+	});
+</script>
+
+@if (TempData["DeleteMessage"] != null)
 {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -74,14 +114,16 @@ else
 		Swal.fire({
 			icon: 'success',
 			title: 'Ad deleted!',
-			text: 'You have succesfully deleted an ad!',
+			text: '@TempData["DeleteMessage"]',
 		});
 	</script>
-	@TempData.Remove("DeleteMessage")
-	;
+	{
+		TempData.Remove("DeleteMessage");
+	}
 }
 
-@if (TempData["AdCreatedSuccesfully"] != null && (bool)TempData["AdCreatedSuccesfully"])
+
+@if (TempData["AdCreatedSuccesfully"] != null)
 {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -89,48 +131,13 @@ else
 		Swal.fire({
 			icon: 'success',
 			title: 'Ad created!',
-			text: 'You have succesfully created an ad!',
+			text: '@TempData["AdCreatedSuccesfully"]',
 		});
 	</script>
-	@TempData.Remove("AdCreatedSuccesfully")
-	;
+	{
+		TempData.Remove("AdCreatedSuccesfully");
+	}
 }
 
-@if (TempData["ConfirmDelete"] != null && (bool)TempData["ConfirmDelete"])
-{
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script>
-		Swal.fire({
-			title: 'Confirm Delete',
-			text: 'Are you sure you want to delete this car ad?',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#d33',
-			cancelButtonColor: '#3085d6',
-			confirmButtonText: 'Yes, delete it!'
-		}).then((result) => {
-			if (result.isConfirmed) {
-
-				var form = document.createElement('form');
-				form.method = 'post';
-				form.action = '/Ad/DeleteConfirmed';
-
-				var input = document.createElement('input');
-				input.type = 'hidden';
-				input.name = 'carId';
-				input.value = '@TempData["CarIdToDelete"]';
-
-				form.appendChild(input);
-
-				// Append the form to the document body and submit it
-				document.body.appendChild(form);
-				form.submit();
-
-		@TempData.Remove("ConfirmDelete")
-		@TempData.Remove("CarIdToDelete")
-									}
-		});
-	</script>
-}
 
 

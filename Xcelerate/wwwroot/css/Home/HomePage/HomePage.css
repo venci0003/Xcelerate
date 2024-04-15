@@ -57,6 +57,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(7px);
     transition: opacity 0.5s;
+    margin-bottom: 115px;
 }
 
 span {
@@ -143,4 +144,8 @@ svg {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
     font-size: 18px;
     text-decoration: none;
+}
+
+footer {
+    margin-top: 200px;
 }

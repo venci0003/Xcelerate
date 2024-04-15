@@ -16,6 +16,13 @@ namespace Xcelerate.Extensions
 
 			Task.Run(async () =>
 			{
+
+				if (!await roleManager.RoleExistsAsync(UserRoleName))
+				{
+					IdentityRole<Guid> newRole = new IdentityRole<Guid>(UserRoleName);
+					await roleManager.CreateAsync(newRole);
+				}
+
 				if (await roleManager.RoleExistsAsync(AdminRoleName))
 				{
 					return;

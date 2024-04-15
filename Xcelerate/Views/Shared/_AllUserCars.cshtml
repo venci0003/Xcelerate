@@ -32,9 +32,10 @@
 					<footer class="bottom-text">
 						<i class="sell-delete-info-buttons">
 							<a class="sell-button" asp-area="" asp-controller="UserCars" asp-action="Sell" asp-route-carId="@ad.CarId">Sell</a>
-							<form asp-area="" asp-controller="UserCars" asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
-								<button type="submit" class="delete-button">Delete</button>
-							</form>
+							<form asp-area="" asp-controller="AdUserCars asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
+								@Html.AntiForgeryToken()
+								<button type="button" class="delete-button-user" data-carid="@ad.CarId">Delete</button>
+							</form>						
 							<a class="view-button" asp-area="" asp-controller="UserCars" asp-action="Information" asp-route-carId="@ad.CarId">View</a>
 						</i>
 					</footer>
@@ -60,4 +61,58 @@ else
 			</div>
 		</article>
 	</section>
+}
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	$(document).ready(function () {
+		$('.delete-button-user').click(function () {
+			var carId = $(this).data('carid');
+			Swal.fire({
+				title: 'Are you sure?',
+				text: 'You won\'t be able to revert this!',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: '@Url.Action("Delete", "UserCars")',
+						type: 'POST',
+						data: { carId: carId },
+						headers: {
+							RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+						},
+						success: function () {
+							window.location.href = '@Url.Action("Index", "UserCars")';
+						},
+						error: function (xhr, status, error) {
+							console.error(xhr.responseText);
+						}
+					});
+				}
+			});
+		});
+	});
+</script>
+
+@if (TempData["DeleteMessage"] != null)
+{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: 'Ad deleted!',
+			text: '@TempData["DeleteMessage"]',
+		});
+	</script>
+	{
+		TempData.Remove("DeleteMessage");
+	}
 }

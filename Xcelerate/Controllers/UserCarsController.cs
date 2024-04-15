@@ -55,8 +55,7 @@
 
 			if (await _userCarsService.IdExists<Car>(carId) == false)
 			{
-				//RETURN TO ERROR PAGE 
-				return RedirectToAction("Index");
+				return NotFound();
 			}
 
 			string userCarsInformationCacheKey = $"{UserCarsInformationCacheKey}_{carId}";
@@ -105,8 +104,7 @@
 		{
 			if (await _userCarsService.IdExists<Car>(carId) == false)
 			{
-				//RETURN TO ERROR PAGE 
-				return RedirectToAction("Index");
+				return NotFound();
 			}
 
 			UserCarsSellViewModel sellInformation = await _userCarsService.GetSellInformationForCarAsync(carId);
@@ -128,16 +126,14 @@
 		public async Task<IActionResult> Cancel(int carId, int adId)
 		{
 			if (await _userCarsService.IdExists<Car>(carId) == false)
-			{
-				//RETURN TO ERROR PAGE 
-				return RedirectToAction("Index");
+			{ 
+				return NotFound();
 			}
 
 
 			if (await _userCarsService.IdExists<Ad>(adId) == false)
 			{
-				//RETURN TO ERROR PAGE 
-				return RedirectToAction("Index");
+				return NotFound();
 			}
 			Car adToCancel = await _adService.GetCarByIdAsync(carId);
 
@@ -146,7 +142,6 @@
 				return NotFound();
 			}
 
-			//CancelCarAsync
 			await _userCarsService.CancelSellAdAsync(adToCancel, adId);
 
 			return RedirectToAction("Index", "UserCars");
@@ -155,31 +150,16 @@
 		[HttpPost]
 		public async Task<IActionResult> Delete(int carId)
 		{
-			if (await _userCarsService.IdExists<Car>(carId) == false)
+			if (await _adService.IdExists<Car>(carId) == false)
 			{
-				//RETURN TO ERROR PAGE 
-				return RedirectToAction("Index");
-			}
-
-			TempData["ConfirmUserCarDelete"] = true;
-			TempData["UserCarIdToDelete"] = carId;
-			return RedirectToAction("Index", "UserCars");
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> DeleteConfirmed(int carId)
-		{
-			if (await _userCarsService.IdExists<Car>(carId) == false)
-			{
-				//RETURN TO ERROR PAGE 
-				return RedirectToAction("Index");
+				return NotFound();
 			}
 
 			await _userCarsService.DeleteCarAdAsync(carId);
 
-			TempData["DeleteMessage"] = true;
+			TempData["DeleteMessage"] = "Ad deleted successfully.";
 
-			return RedirectToAction("Index", "UserCars");
+			return Json(new { success = true });
 		}
 	}
 }

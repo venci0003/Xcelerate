@@ -5,6 +5,7 @@
 	using Infrastructure.Data;
 	using Infrastructure.Data.Models;
 	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.AspNetCore.Http;
 	using Microsoft.EntityFrameworkCore;
 	using Moq;
 	using NUnit.Framework;
@@ -13,6 +14,7 @@
 	using Xcelerate.Core.Models.Pager;
 	using Xcelerate.Core.Models.Sorting;
 	using Xcelerate.Infrastructure.Data.Enums;
+	using static System.Net.Mime.MediaTypeNames;
 	using static Tests.DatabaseSeeder;
 
 	[TestFixture]
@@ -42,6 +44,179 @@
 		}
 
 		[Test]
+		public async Task EditCarAdAsync_ReturnsTrue_WhenCarAdIsEdited()
+		{
+			var selectedCheckBoxIds = new List<int>
+	        {
+	        	1,
+                3,
+                5, 
+            };
+			var image1 = new Mock<IFormFile>();
+			image1.Setup(x => x.FileName).Returns("image1.jpg");
+
+			var image2 = new Mock<IFormFile>();
+			image2.Setup(x => x.FileName).Returns("image2.jpg");
+
+			var adViewModel = new AdEditViewModel
+			{
+				CarId = 1,
+				Brand = BrandsEnum.Toyota,
+				Model = "Camry",
+				Year = 2020,
+				Engine = "V6",
+				Condition = ConditionEnum.Used,
+				EuroStandard = EuroStandardEnum.Six,
+				FuelType = FuelTypeEnum.Petrol,
+				Colour = ColourEnum.Black,
+				Transmission = TransmissionEnum.Automatic,
+				DriveTrain = DriveTrainEnum.RearWheelDrive,
+				Weight = 1850.8m,
+				Mileage = 1000,
+				Price = 110000,
+				BodyType = BodyTypeEnum.Sedan,
+				Manufacturer = "Toyota",
+				CarDescription = "Lorem ipsum dolor sit amet",
+				Address = new AddressViewModel
+				{
+					CountryName = "Country",
+					TownName = "Town",
+					StreetName = "Street"
+				},
+				UploadedImages = new List<IFormFile> { image1.Object, image2.Object },
+				SelectedCheckBoxId = selectedCheckBoxIds
+			};
+
+			var result = await _adService.EditCarAdAsync(adViewModel);
+
+			Assert.IsTrue(result);
+
+			var editedCar = await _dbContext.Cars
+			.Include(c => c.CarAccessories)
+			.FirstOrDefaultAsync(c => c.CarId == adViewModel.CarId);
+
+			Assert.IsNotNull(editedCar);
+			Assert.AreEqual(selectedCheckBoxIds.Count, editedCar.CarAccessories.Count);
+
+			foreach (var accessoryId in selectedCheckBoxIds)
+			{
+				var accessoryExists = editedCar.CarAccessories.Any(ca => ca.AccessoryId == accessoryId);
+				Assert.IsTrue(accessoryExists);
+			}
+		}
+
+
+
+		[Test]
+		public async Task GetEditInformationAsync_ReturnsEditInformation_WhenCarExists()
+		{
+			var carId = 1;
+
+			var result = await _adService.GetEditInformationAsync(carId);
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual(carId, result.CarId);
+		}
+
+		[Test]
+		public async Task GetUserAdsAsync_ReturnsUserAds_WhenUserHasAds()
+		{
+			var userId = Guid.Parse("8ABB04A0-36A0-4A35-8C1A-34D324AA169E");
+
+			var adViewModel = new AdInformationViewModel
+			{
+				UserId = Guid.Parse("8ABB04A0-36A0-4A35-8C1A-34D324AA169E"),
+				Pager = new Pager(totalItems: 1, currentPage: 1, defaultPageSize: 1),
+			};
+
+			var result = await _adService.GetUserAdsAsync(userId, adViewModel);
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual(1, result.Count());
+
+			var firstAd = result.First();
+			Assert.AreEqual(1, firstAd.AdId);
+			Assert.AreEqual(1, firstAd.CarId);
+			Assert.AreEqual(BrandsEnum.BMW, firstAd.Brand);
+			Assert.AreEqual("M5 Competition", firstAd.Model);
+			Assert.AreEqual(2022, firstAd.Year);
+			Assert.AreEqual(110000, firstAd.Price);
+			Assert.AreEqual("Ava", firstAd.FirstName);
+			Assert.AreEqual("Simson", firstAd.LastName);
+			Assert.AreEqual("2020_toyota_camry_trd_1.jpg", firstAd.ImageUrls.FirstOrDefault());
+
+		}
+
+
+
+		[Test]
+		public async Task GetCarsInformationAsync_ReturnsNull_WhenAdIdIsNull()
+		{
+			var result = await _adService.GetCarsInformationAsync(null);
+
+			Assert.IsNull(result);
+			Assert.That(result, Is.Null);
+
+		}
+
+
+
+
+
+		[Test]
+		public async Task GetCarsPreviewAsync_ReturnsCorrectPreviewModels()
+		{
+			// Arrange
+			var adViewModel = new AdInformationViewModel
+			{
+				UserId = Guid.NewGuid(),
+				AdId = 1,
+				CarId = 1,
+				ImageUrls = new List<string> { "url1", "url2", "url3" },
+				Brand = BrandsEnum.Default,
+				CreatedOn = DateTime.Now.ToString(),
+				IsForSale = true,
+				Model = string.Empty,
+				Year = 0,
+				Engine = "V6",
+				HorsePower = 0,
+				Condition = ConditionEnum.Default,
+				EuroStandard = EuroStandardEnum.Default,
+				FuelType = FuelTypeEnum.Default,
+				Colour = ColourEnum.Default,
+				Transmission = TransmissionEnum.Default,
+				DriveTrain = DriveTrainEnum.Default,
+				Weight = 0,
+				Mileage = 0,
+				Price = 0,
+				BodyType = BodyTypeEnum.Default,
+				Manufacturer = string.Empty,
+				CarDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				Pager = new Pager(totalItems: 1, currentPage: 1, defaultPageSize: 1),
+				SearchQuery = string.Empty,
+				FirstName = "John",
+				LastName = "Doe",
+				Sorting = SortingEnums.Default,
+				StartYear = 0,
+				EndYear = 0,
+				MinPrice = null,
+				MaxPrice = null,
+				MinHorsePower = null,
+				MaxHorsePower = null,
+				MinMileage = null,
+				MaxMileage = null
+			};
+
+			// Act
+			var result = await _adService.GetCarsPreviewAsync(adViewModel);
+
+			// Assert
+			Assert.IsNotNull(result);
+			Assert.AreEqual(1, result.Count());
+		}
+
+
+		[Test]
 		public async Task GetTwoCarsByIdAsync_ReturnsTwoCars_WhenBothExist()
 		{
 			int firstCarId = 1;
@@ -63,12 +238,9 @@
 		[Test]
 		public void GetTwoCarsByIdAsync_ThrowsArgumentException_WhenOneOrBothCarsDoNotExist()
 		{
-			// Arrange
-			// Assuming one or both of the car IDs do not exist in your in-memory database
 			int nonExistingCarId = 999;
 			int existingCarId = 1;
 
-			// Act & Assert
 			var aggregateException = Assert.Throws<AggregateException>(() =>
 			{
 				_adService.GetTwoCarsByIdAsync(nonExistingCarId, existingCarId).Wait();
@@ -82,27 +254,20 @@
 		[Test]
 		public async Task BuyCarAsync_RemovesAdAndReviewsAndUpdateStatistics_WhenCarAdExists()
 		{
-			// Arrange
-			// Search for an existing car in the database
 			var existingCar = await _dbContext.Cars.Where(c => c.CarId == 1).FirstOrDefaultAsync();
 
-			// Ensure that an existing car is found in the database
 			Assert.IsNotNull(existingCar, "No existing car found in the database.");
 
-			// Act
 			var result = await _adService.BuyCarAsync(existingCar);
 
-			// Assert
 			Assert.IsTrue(result);
 
-			// Check if the ad and associated reviews are removed
 			var adRemoved = !_dbContext.Ads.Any(a => a.AdId == existingCar.AdId);
 			var reviewsRemoved = !_dbContext.Reviews.Any(r => r.AdId == existingCar.AdId);
 
 			Assert.IsTrue(adRemoved);
 			Assert.IsTrue(reviewsRemoved);
 
-			// Check if statistics are updated
 			var statisticsUpdated = await _dbContext.StatisticalData.FirstOrDefaultAsync();
 			Assert.IsNotNull(statisticsUpdated);
 			Assert.AreEqual(statisticsUpdated.SoldCars, statisticsUpdated.SoldCars);
@@ -111,14 +276,10 @@
 		[Test]
 		public async Task BuyCarAsync_ReturnsFalse_WhenCarAdDoesNotExist()
 		{
-			// Arrange
-			// Search for a non-existing car in the database
-			var nonExistingCar = new Car { CarId = 999 }; // Assuming CarId 999 does not exist in the database
+			var nonExistingCar = new Car { CarId = 999 };
 
-			// Act
 			var result = await _adService.BuyCarAsync(nonExistingCar);
 
-			// Assert
 			Assert.IsFalse(result);
 		}
 
@@ -488,7 +649,7 @@
 						await image.CopyToAsync(stream);
 					}
 
-					var imageToCreate = new Image()
+					var imageToCreate = new Xcelerate.Infrastructure.Data.Models.Image()
 					{
 						CarId = createdAd.CarId,
 						ImageUrl = uniqueFileName

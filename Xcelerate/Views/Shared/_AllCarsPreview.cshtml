@@ -107,7 +107,8 @@ else
 									@if (User.IsInRole("Administrator"))
 									{
 										<form asp-area="" asp-controller="Ad" asp-action="Delete" asp-route-carId="@ad.CarId" method="post">
-											<button type="submit" class="delete-button">Delete</button>
+											@Html.AntiForgeryToken()
+											<button type="button" class="delete-button-admin" data-carid="@ad.CarId">Delete</button>
 										</form>
 									}
 									<a asp-area="" asp-controller="Ad" asp-action="Information" asp-route-adId="@ad.AdId">View</a>
@@ -132,4 +133,57 @@ else
 			</article>
 		</section>
 	}
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+	$(document).ready(function () {
+		$('.delete-button-admin').click(function () {
+			var carId = $(this).data('carid');
+			Swal.fire({
+				title: 'Are you sure?',
+				text: 'You won\'t be able to revert this!',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: '@Url.Action("Delete", "Ad")',
+						type: 'POST',
+						data: { carId: carId },
+						headers: {
+							RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+						},
+						success: function () {
+							window.location.href = '@Url.Action("Index", "Ad")';
+						},
+						error: function (xhr, status, error) {
+							console.error(xhr.responseText);
+						}
+					});
+				}
+			});
+		});
+	});
+</script>
+
+@if (TempData["DeleteMessage"] != null)
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Ad deleted!',
+            text: '@TempData["DeleteMessage"]',
+        });
+    </script>
+    {
+        TempData.Remove("DeleteMessage");
+    }
 }

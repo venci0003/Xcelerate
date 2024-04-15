@@ -10,12 +10,13 @@ builder.Services.AddMemoryCache();
 
 builder.Services.AddServices();
 
-//builder.Services.AddGlobalFilters();
+builder.Services.AddGlobalFilters();
 
 builder.Services.Configure<IISServerOptions>(options =>
 {
 	options.AllowSynchronousIO = true;
 });
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -25,16 +26,9 @@ builder.Services.ConfigureApplicationCookie(options =>
 	options.SlidingExpiration = true;
 
 	options.LoginPath = "/Account/Login";
-	//options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+	options.AccessDeniedPath = "/Home/Unauthorized";
 	options.LogoutPath = "/Home/HomePage";
 });
-
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//	.AddCookie(options =>
-//	{
-//		options.LoginPath = "/Account/Login";
-//	});
-
 
 var app = builder.Build();
 
@@ -45,8 +39,8 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseExceptionHandler("/Home/Error/500");
+	app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
 	app.UseHsts();
 }
 

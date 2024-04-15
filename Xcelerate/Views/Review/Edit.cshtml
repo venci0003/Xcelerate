@@ -15,9 +15,10 @@
 
 <div class="centered-form">
 	<form asp-area="" asp-controller="Review" asp-action="Edit" method="post">
+		@Html.AntiForgeryToken()
 		<input type="hidden" name="ReviewId" value="@Model.ReviewId" />
 		<textarea name="Comment" placeholder="Your comment" required>@Model.Comment</textarea><br>
-		<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required value="@Model.StarsCount"><br> 
+		<input type="number" name="StarsCount" placeholder="Stars (1-5)" min="1" max="5" required value="@Model.StarsCount"><br>
 		<input type="hidden" name="AdId" value="@Model.AdId" />
 		<button class="post-review-button" type="submit">UPDATE</button>
 	</form>

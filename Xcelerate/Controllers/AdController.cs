@@ -62,8 +62,7 @@
 
 			if (await _adService.IdExists<Ad>(adId) == false)
 			{
-				//RETURN TO ERROR PAGE 
-				return RedirectToAction("Index");
+				return NotFound();
 			}
 
 			string carAdInformationCacheKey = $"{CarAdInformationCacheKey}_{adId}";
@@ -136,7 +135,7 @@
 
 			await _adService.CreateAdAsync(adViewModel, userId.ToString());
 
-			TempData["AdCreatedSuccesfully"] = true;
+			TempData["AdCreatedSuccesfully"] = "You have succesfully created an ad!";
 
 			return RedirectToAction("UserAds", "Ad");
 		}
@@ -166,7 +165,6 @@
 		{
 			if (await _adService.IdExists<Car>(carId) == false)
 			{
-				//RETURN TO ERROR PAGE 
 				return NotFound();
 			}
 
@@ -184,40 +182,20 @@
 		}
 
 		[HttpPost]
-		public IActionResult Delete(int? carId)
-		{
-			if (User.IsInRole("Administrator"))
-			{
-				TempData["ConfirmDelete"] = true;
-				TempData["CarIdToDelete"] = carId;
-				return RedirectToAction("Index", "Ad");
-			}
-
-			TempData["ConfirmDelete"] = true;
-			TempData["CarIdToDelete"] = carId;
-			return RedirectToAction("UserAds", "Ad");
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> DeleteConfirmed(int carId)
+		public async Task<IActionResult> Delete(int carId)
 		{
 			if (await _adService.IdExists<Car>(carId) == false)
 			{
-				//RETURN TO ERROR PAGE 
 				return NotFound();
 			}
 
-			await _adService.DeleteCarAdAsync(carId);
+			//await _adService.DeleteCarAdAsync(carId);
 
-			TempData["DeleteMessage"] = true;
+			TempData["DeleteMessage"] = "Ad deleted successfully.";
 
-
-			if (User.IsInRole("Administrator"))
-			{
-				return RedirectToAction("Index", "Ad");
-			}
-			return RedirectToAction("UserAds", "Ad");
+			return Json(new { success = true });
 		}
+
 
 		[HttpPost]
 		public async Task<IActionResult> Buy(int carId)
@@ -226,7 +204,6 @@
 
 			if (await _adService.IdExists<Car>(carId) == false)
 			{
-				//RETURN TO ERROR PAGE 
 				return NotFound();
 			}
 
@@ -252,7 +229,6 @@
 
 				if (await _adService.IdExists<Car>(firstCarId) == false || await _adService.IdExists<Car>(secondCarId) == false)
 				{
-					//RETURN TO ERROR PAGE 
 					return NotFound();
 				}
 
@@ -260,17 +236,14 @@
 
 				if (firstCar.CarId == secondCar.CarId)
 				{
-					TempData["CompareError"] = true;
+					TempData["CompareError"] = "Cannot compare the same car.";
 					return RedirectToAction("Index", "Ad");
 				}
-
-				// Optionally, you can map these cars to view models if needed
 
 				return View((firstCar, secondCar));
 			}
 			catch (ArgumentException ex)
 			{
-				// Handle error (e.g., car not found) appropriately
 				return RedirectToAction("Error", "Home");
 			}
 		}

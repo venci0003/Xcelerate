@@ -1,12 +1,10 @@
 ﻿namespace Xcelerate.Controllers
 {
-	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Mvc;
-	using System.Diagnostics;
 	using Core.Contracts;
 	using Core.Models.Home;
 	using Core.Models.Pager;
-	using Models;
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
 	using static Common.ApplicationConstants;
 	[AllowAnonymous]
 	public class HomeController : Controller
@@ -48,11 +46,21 @@
 			return View(homePageView);
 		}
 
+		
+		public IActionResult Unauthorized()
+		{
+			return View();
+		}
+
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
+		public IActionResult Error(int statusCode)
 		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+			if (statusCode == 404 || statusCode == 400)
+			{
+				return this.View("Error404");
+			}
+			return View("Error");
 		}
 	}
 }

@@ -69,7 +69,7 @@
 			services.Configure<MvcOptions>(options =>
 			{
 				options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
-				//options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+				options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 			});
 		}
 	}
