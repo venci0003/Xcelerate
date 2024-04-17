@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Net;
 using Xcelerate.Core.Contracts;
 using Xcelerate.Core.Models.Review;
 using Xcelerate.Infrastructure.Data;
@@ -24,7 +25,7 @@ namespace Xcelerate.Core.Services
 				{
 					AdId = adId,
 					UserId = Guid.Parse(userId),
-					Comment = reviewModel.Comment,
+					Comment = WebUtility.HtmlEncode(reviewModel.Comment),
 					StarsCount = reviewModel.StarsCount,
 				};
 
@@ -87,7 +88,7 @@ namespace Xcelerate.Core.Services
 				throw new ArgumentException("Review not found!");
 			}
 
-			reviewToEdit.Comment = adViewModel.Comment;
+			reviewToEdit.Comment = WebUtility.HtmlEncode(adViewModel.Comment);
 			reviewToEdit.StarsCount = adViewModel.StarsCount;
 
 			await _dbContext.SaveChangesAsync();

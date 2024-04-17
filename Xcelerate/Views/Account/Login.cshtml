@@ -15,6 +15,7 @@
 <span class="website-name" filter-content="X">Xcelerate</span>
 <article class="card-login">
 	<form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" class="card-content">
+		@Html.AntiForgeryToken()
 		<h1 class="title-text">LOGIN FORM</h1>
 		<section class="other-forms">
 			<label asp-for="@Model.Email">Email</label>

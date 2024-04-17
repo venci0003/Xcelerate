@@ -171,3 +171,8 @@ svg {
 .other-forms ul li strong{
     color: white;
 }
+
+.other-forms ul li {
+    color: white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}

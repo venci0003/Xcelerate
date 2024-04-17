@@ -7,6 +7,8 @@
 	using Infrastructure.Data;
 	using Infrastructure.Data.Models;
 	using static Models.NewsGenerator;
+	using System.Net;
+
 	public class AdminNewsService : IAdminNewsService
 	{
 		private readonly XcelerateContext _dbContext;
@@ -65,8 +67,8 @@
 		{
 			News approvedNews = new News
 			{
-				Title = generatedNewsView.Title,
-				Content = generatedNewsView.Content
+				Title = WebUtility.HtmlEncode(generatedNewsView.Title),
+				Content = WebUtility.HtmlEncode(generatedNewsView.Content)
 			};
 
 			await _dbContext.NewsData.AddAsync(approvedNews);

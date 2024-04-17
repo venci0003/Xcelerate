@@ -8,6 +8,8 @@
 	using Extension;
 	using Infrastructure.Data.Models;
 	using static Common.ApplicationConstants;
+	using System.Net;
+
 	public class AccountController : Controller
 	{
 		private readonly SignInManager<User> signInManager;
@@ -37,10 +39,10 @@
 
 			User user = new User()
 			{
-				UserName = registerViewModel.Email,
-				FirstName = registerViewModel.FirstName,
-				LastName = registerViewModel.LastName,
-				Email = registerViewModel.Email,
+				UserName = WebUtility.HtmlEncode(registerViewModel.Email),
+				FirstName = WebUtility.HtmlEncode(registerViewModel.FirstName),
+				LastName = WebUtility.HtmlEncode(registerViewModel.LastName),
+				Email = WebUtility.HtmlEncode(registerViewModel.Email),
 			};
 			IdentityResult result = await userManager.CreateAsync(user, registerViewModel.Password);
 

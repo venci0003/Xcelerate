@@ -16,6 +16,7 @@
 
 <article class="card-register">
 	<form method="post" action="/Account/Register" class="card-content">
+		@Html.AntiForgeryToken()
 		<h1 class="title-text">REGISTRATION FORM</h1>
 
 		<section class="names-inputs">

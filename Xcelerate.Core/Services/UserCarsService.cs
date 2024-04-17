@@ -12,6 +12,7 @@
 	using Infrastructure.Data.Models;
 	using static Common.EntityValidation;
 	using Xcelerate.Core.Models.Sorting;
+	using System.Net;
 
 	public class UserCarsService : IUserCarsService
 	{
@@ -224,7 +225,7 @@
 				}
 
 				car.Brand = adViewModel.Brand;
-				car.Model = adViewModel.Model;
+				car.Model = WebUtility.HtmlEncode(adViewModel.Model);
 				car.Year = adViewModel.Year;
 				car.Engine.Model = adViewModel.Engine;
 				car.Condition = adViewModel.Condition;
@@ -237,11 +238,11 @@
 				car.Mileage = adViewModel.Mileage;
 				car.Price = adViewModel.Price;
 				car.BodyType = adViewModel.BodyType;
-				car.Manufacturer.Name = adViewModel.Manufacturer;
-				car.Ad.CarDescription = adViewModel.CarDescription;
-				car.Address.CountryName = adViewModel.Address.CountryName;
-				car.Address.TownName = adViewModel.Address.TownName;
-				car.Address.StreetName = adViewModel.Address.StreetName;
+				car.Manufacturer.Name = WebUtility.HtmlEncode(adViewModel.Manufacturer);
+				car.Ad.CarDescription = WebUtility.HtmlEncode(adViewModel.CarDescription);
+				car.Address.CountryName = WebUtility.HtmlEncode(adViewModel.Address.CountryName);
+				car.Address.TownName = WebUtility.HtmlEncode(adViewModel.Address.TownName);
+				car.Address.StreetName = WebUtility.HtmlEncode(adViewModel.Address.StreetName);
 				car.Ad.CreatedOn = DateTime.Now.ToString(AdEntity.CreatedOnDateFormat);
 				car.IsForSale = true;
 
@@ -339,14 +340,11 @@
 
 			if (adToRemove != null)
 			{
-				// Remove associated reviews
 				var reviewsToRemove = _dbContext.Reviews.Where(r => r.AdId == adToRemove.AdId);
 				_dbContext.Reviews.RemoveRange(reviewsToRemove);
 
-				// Now remove the ad
 				_dbContext.Ads.Remove(adToRemove);
 
-				// Update the car
 				_dbContext.Cars.Update(car);
 
 				await _dbContext.SaveChangesAsync();
@@ -354,7 +352,6 @@
 			}
 			else
 			{
-				// Handle the case where the associated ad is not found
 				return false;
 			}
 		}
@@ -387,10 +384,8 @@
 						{
 							using (var stream = new FileStream(imagePath, FileMode.Open, FileAccess.ReadWrite))
 							{
-								// Close the file stream before deletion
 								stream.Close();
 							}
-							// Attempt to delete the file
 							System.IO.File.Delete(imagePath);
 						}
 						catch (IOException)
@@ -402,31 +397,26 @@
 					_dbContext.Images.Remove(image);
 				}
 
-				// Remove associated car accessories
 				if (car.CarAccessories != null)
 				{
 					_dbContext.CarAccessories.RemoveRange(car.CarAccessories);
 				}
 
-				// Remove associated address
 				if (car.Address != null)
 				{
 					_dbContext.Addresses.Remove(car.Address);
 				}
 
-				// Remove associated manufacturer
 				if (car.Manufacturer != null)
 				{
 					_dbContext.Manufacturers.Remove(car.Manufacturer);
 				}
 
-				// Remove associated engine
 				if (car.Engine != null)
 				{
 					_dbContext.Engines.Remove(car.Engine);
 				}
 
-				// Remove car entity
 				_dbContext.Cars.Remove(car);
 
 				await _dbContext.SaveChangesAsync();
