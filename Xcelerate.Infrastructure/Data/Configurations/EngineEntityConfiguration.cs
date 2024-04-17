@@ -32,7 +32,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 1,
 				Model = "V6",
 				Horsepower = 301,
-				CylinderCount = 6,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineOne);
@@ -42,7 +41,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 2,
 				Model = "In-Line 4-Cylinder with Turbocharger",
 				Horsepower = 306,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineTwo);
@@ -52,7 +50,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 3,
 				Model = "5.2-liter V-8 engine",
 				Horsepower = 526,
-				CylinderCount = 8,
 				FuelType = FuelTypeEnum.Diesel,
 			};
 			engines.Add(engineThree);
@@ -62,7 +59,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 4,
 				Model = "1.4L Turbo Inline-4",
 				Horsepower = 147,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineFour);
@@ -72,7 +68,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 5,
 				Model = "Turbocharged 2.0",
 				Horsepower = 255,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineFive);
@@ -82,7 +77,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 6,
 				Model = "2.0",
 				Horsepower = 306,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineSix);
@@ -92,7 +86,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 7,
 				Model = "5.6-liter V-8 ",
 				Horsepower = 400,
-				CylinderCount = 8,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineSeven);
@@ -102,7 +95,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 8,
 				Model = "Turbocharged N Line",
 				Horsepower = 147,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineEight);
@@ -112,7 +104,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 9,
 				Model = "Twin-turbo 3.0-liter inline-six",
 				Horsepower = 473,
-				CylinderCount = 6,
 				FuelType = FuelTypeEnum.Diesel,
 			};
 			engines.Add(engineNine);
@@ -122,7 +113,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 10,
 				Model = "2.5",
 				Horsepower = 181,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Diesel,
 			};
 			engines.Add(engineTen);
@@ -132,7 +122,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 11,
 				Model = "V8",
 				Horsepower = 60,
-				CylinderCount = 8,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineEleven);
@@ -142,7 +131,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 12,
 				Model = "5.3L",
 				Horsepower = 320,
-				CylinderCount = 8,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineTwelve);
@@ -152,7 +140,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 13,
 				Model = "5.4L",
 				Horsepower = 260,
-				CylinderCount = 8,
 				FuelType = FuelTypeEnum.Diesel,
 			};
 			engines.Add(engineThirteen);
@@ -162,7 +149,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 14,
 				Model = "EDC 1.4",
 				Horsepower = 85,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Diesel,
 			};
 			engines.Add(engineFourteen);
@@ -172,7 +158,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 15,
 				Model = "S600L",
 				Horsepower = 389,
-				CylinderCount = 12,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineFifteen);
@@ -182,7 +167,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 16,
 				Model = "DOHC i-VTEC 2.0",
 				Horsepower = 210,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineSixteen);
@@ -192,7 +176,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 17,
 				Model = "3.2L DOHC",
 				Horsepower = 290,
-				CylinderCount = 6,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineSeventeen);
@@ -202,7 +185,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 18,
 				Model = "B204R",
 				Horsepower = 200,
-				CylinderCount = 6,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineEighteen);
@@ -212,7 +194,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 19,
 				Model = "B204L",
 				Horsepower = 185,
-				CylinderCount = 6,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineNineteen);
@@ -222,7 +203,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 20,
 				Model = "2.0L",
 				Horsepower = 225,
-				CylinderCount = 16,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineTwenty);
@@ -232,7 +212,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 21,
 				Model = "F20C",
 				Horsepower = 240,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineTwentyOne);
@@ -242,7 +221,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 22,
 				Model = "K-Series K20A3",
 				Horsepower = 160,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineTwentyTwo);
@@ -252,7 +230,6 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				EngineId = 23,
 				Model = "F20B 1.8L VTEC",
 				Horsepower = 130,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineTwentyThree);

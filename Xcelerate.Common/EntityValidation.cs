@@ -118,5 +118,19 @@
 
 			public const string CreatedOnDateFormat = "yyyy-dd-MM";
 		}
+
+		public static class NewsEntity
+		{
+			// Title validations
+			public const int TitleMaxLength = 150;
+
+			public const int TitleMinLength = 10;
+
+			// Content validations
+			public const int ContentMaxLength = 150;
+
+			public const int ContentMinLength = 10;
+
+		}
 	}
 }

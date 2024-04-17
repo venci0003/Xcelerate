@@ -34,7 +34,7 @@ html {
     }
 
 body {
-    background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
+    background: linear-gradient(-45deg, #00264d, #004080, white, #0073e6);
     animation: gradient 5s ease infinite;
     margin: 0px;
     padding: 0px;

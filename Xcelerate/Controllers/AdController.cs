@@ -189,7 +189,7 @@
 				return NotFound();
 			}
 
-			//await _adService.DeleteCarAdAsync(carId);
+			await _adService.DeleteCarAdAsync(carId);
 
 			TempData["DeleteMessage"] = "Ad deleted successfully.";
 

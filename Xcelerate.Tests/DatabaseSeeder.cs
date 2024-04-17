@@ -393,7 +393,6 @@ namespace Xcelerate.Tests
 				EngineId = 1,
 				Model = "V6",
 				Horsepower = 301,
-				CylinderCount = 6,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineOne);
@@ -403,7 +402,6 @@ namespace Xcelerate.Tests
 				EngineId = 2,
 				Model = "In-Line 4-Cylinder with Turbocharger",
 				Horsepower = 306,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineTwo);
@@ -413,7 +411,6 @@ namespace Xcelerate.Tests
 				EngineId = 3,
 				Model = "5.2-liter V-8 engine",
 				Horsepower = 526,
-				CylinderCount = 8,
 				FuelType = FuelTypeEnum.Diesel,
 			};
 			engines.Add(engineThree);
@@ -423,7 +420,6 @@ namespace Xcelerate.Tests
 				EngineId = 4,
 				Model = "1.4L Turbo Inline-4",
 				Horsepower = 147,
-				CylinderCount = 4,
 				FuelType = FuelTypeEnum.Petrol,
 			};
 			engines.Add(engineFour);

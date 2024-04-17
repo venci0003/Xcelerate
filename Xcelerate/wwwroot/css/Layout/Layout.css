@@ -308,7 +308,7 @@ button {
 }
 
 #ul-list-unauthorized {
-    backdrop-filter: blur(2px);
+    /*backdrop-filter: blur(2px);*/
     box-shadow: 10px 1px 40px 2px #3b2929;
     padding: 15px;
     border-radius: 50px;
@@ -343,11 +343,11 @@ button {
 }
 
 #ul-list-unauthorized li a:hover {
-    color: #ffcc00; /* Change the color on hover as needed */
+    color: #ffcc00;
 }
 
 #ul-list-unauthorized {
-    transition: width 0.3s ease-in-out; /* Adjust the duration and timing function as needed */
+    transition: width 0.3s ease-in-out;
 }
 
     #ul-list-unauthorized:hover {
@@ -355,15 +355,14 @@ button {
     }
 
         #ul-list-unauthorized:hover a {
-            opacity: 1; /* Reveal the links on hover */
+            opacity: 1;
             transition: 0.5s ease-in-out;
         }
 
     #ul-list-unauthorized a:hover {
-        color: whitesmoke; /* Change the text color on hover as needed */
+        color: whitesmoke; 
     }
 
-    /* Initial hiding state */
     #ul-list-unauthorized a {
         opacity: 0;
     }
@@ -390,7 +389,7 @@ button {
     }
 
         #ul-list-authorized li a:hover {
-            color: #ffcc00; /* Change the color on hover as needed */
+            color: #ffcc00;
         }
 
 #ul-list-authorized {

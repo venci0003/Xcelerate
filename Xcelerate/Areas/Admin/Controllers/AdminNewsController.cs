@@ -28,6 +28,12 @@
 
 			string[] parts = TitleAndContent.Split(new string[] { delimiter }, StringSplitOptions.None);
 
+			if (parts.Length < 2)
+			{
+				TempData["ErrorMessage"] = "Title or content is missing.";
+				return RedirectToAction("Index", "Home", new { Area = "Admin" });
+			}
+
 			string title = parts[0];
 			string content = parts[1];
 

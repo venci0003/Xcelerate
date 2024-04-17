@@ -16,13 +16,13 @@ namespace Xcelerate.Tests.IntegrationTests
 			// Arrange
 			var mockHomeService = new Mock<IHomeService>();
 			var controller = new HomeController(mockHomeService.Object);
-			var homePageView = new HomePageViewModel { CurrentPage = 0 }; // CurrentPage less than 1
-			var mockPager = new Pager(10, 1, 10); // Example pager data
-			var mockDataStatistics = new DataStatisticsViewModel(); // Example data statistics
-			var mockNewsPreview = new List<NewsPreviewViewModel>(); // Example news preview list
+			var homePageView = new HomePageViewModel { CurrentPage = 0 };
+			var mockPager = new Pager(10, 1, 10);
+			var mockDataStatistics = new DataStatisticsViewModel();
+			var mockNewsPreview = new List<NewsPreviewViewModel>();
 
 			mockHomeService.Setup(repo => repo.GetNewsCountAsync())
-						   .ReturnsAsync(10); // Example count
+						   .ReturnsAsync(10);
 			mockHomeService.Setup(repo => repo.GetHomePageDataAsync(homePageView))
 						   .ReturnsAsync(new HomePageViewModel
 						   {
@@ -31,14 +31,12 @@ namespace Xcelerate.Tests.IntegrationTests
 							   Pager = mockPager
 						   });
 
-			// Act
 			var result = await controller.HomePage(homePageView);
 
-			// Assert
 			Assert.IsInstanceOf<ViewResult>(result);
 			var viewResult = (ViewResult)result;
 			var model = (HomePageViewModel)viewResult.ViewData.Model;
-			Assert.AreEqual(1, model.CurrentPage); // Assert that CurrentPage is set to 1
+			Assert.AreEqual(1, model.CurrentPage);
 		}
 
 

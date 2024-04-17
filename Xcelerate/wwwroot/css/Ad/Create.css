@@ -103,10 +103,12 @@ input {
     width: 150px;
     height: 40px;
     border: none;
-    background-color: rgba(174, 60, 51, 255);
+    background: linear-gradient(180deg, darkred, rgb(235, 44, 44, 0.50));
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
     color: white;
     font-size: 14px;
     transition: background-color 0.2s ease-in-out;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .title-text-accessory {

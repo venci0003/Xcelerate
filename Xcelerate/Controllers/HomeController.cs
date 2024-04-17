@@ -6,6 +6,7 @@
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 	using static Common.ApplicationConstants;
+
 	[AllowAnonymous]
 	public class HomeController : Controller
 	{
@@ -17,10 +18,11 @@
 			_homeService = context;
 		}
 
-		public IActionResult Privacy()
-		{
-			return View();
-		}
+		//Not used yet
+		//public IActionResult Privacy()
+		//{
+		//	return View();
+		//}
 
 		public IActionResult About()
 		{
@@ -46,7 +48,7 @@
 			return View(homePageView);
 		}
 
-		
+
 		public IActionResult Unauthorized()
 		{
 			return View();
@@ -59,6 +61,10 @@
 			if (statusCode == 404 || statusCode == 400)
 			{
 				return this.View("Error404");
+			}
+			else if (statusCode == 401)
+			{
+				return View("Unauthorized");
 			}
 			return View("Error");
 		}

@@ -18,10 +18,6 @@ namespace Xcelerate.Infrastructure.Data.Models
         [Comment("Horsepower")]
         public int Horsepower { get; set; }
 
-        [Required]
-        [Comment("CylinderCount")]
-        public int CylinderCount { get; set; }
-
         [Comment("FuelType")]
         public FuelTypeEnum FuelType { get; set; }
 

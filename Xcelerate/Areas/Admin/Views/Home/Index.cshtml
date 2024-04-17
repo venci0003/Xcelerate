@@ -99,11 +99,20 @@
 								@if (User.IsInRole("Administrator"))
 								{
 									<div class="edit-and-delete-container">
-										<form class="delete-form" action="@Url.Action("Delete","AdminReview", new {area = "Admin"})" method="post">
+										@* <form class="delete-form" action="@Url.Action("Delete","AdminReview", new {area = "Admin"})" method="post">
+						@Html.AntiForgeryToken()
+						<input type="hidden" name="ReviewId" value="@review.ReviewId" />
+						<input type="hidden" name="AdId" value="@Model.AdId" />
+						<button type="submit" class="delete-icon-link">
+						<img class="delete-icon" src="~/Icons/icons8-garbage-can-65-white.png" alt="Delete icon">
+						</button>
+						</form> *@
+
+										<form asp-area="" asp-controller="AdminReview" asp-action="Delete" asp-route-carId="@review.ReviewId" method="post">
 											@Html.AntiForgeryToken()
 											<input type="hidden" name="ReviewId" value="@review.ReviewId" />
 											<input type="hidden" name="AdId" value="@Model.AdId" />
-											<button type="submit" class="delete-icon-link">
+											<button type="button" class="delete-icon-link-admin" data-reviewid="@review.ReviewId" data-adid="@Model.AdId">
 												<img class="delete-icon" src="~/Icons/icons8-garbage-can-65-white.png" alt="Delete icon">
 											</button>
 										</form>
@@ -138,65 +147,74 @@
 }
 <script src="~/js/Admin/Index.js" asp-append-version="true"></script>
 
-@if (TempData["DeleteMessage"] != null && (bool)TempData["DeleteMessage"])
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+	$(document).ready(function () {
+		$('.delete-icon-link-admin').click(function () {
+			var reviewId = $(this).data('reviewid');
+			var adId = $(this).data('adid');
+			Swal.fire({
+				title: 'Are you sure?',
+				text: 'You won\'t be able to revert this!',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: '/Admin/AdminReview/Delete',
+						type: 'POST',
+						data: { reviewId: reviewId, adId: adId },
+						headers: {
+							RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+						},
+						success: function () {
+							// Redirect to the Ad Information page
+							window.location.href = '@Url.Action("Index", "Home", new { Area = "Admin" })';
+						},
+						error: function (xhr, status, error) {
+							console.error(xhr.responseText);
+						}
+					});
+				}
+			});
+		});
+	});
+</script>
+
+
+@if (TempData["DeleteMessageForAdmin"] != null)
 {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<script>
 		Swal.fire({
 			icon: 'success',
-			title: 'Ad deleted!',
-			text: 'You have succesfully deleted an ad!',
+			title: 'Review deleted!',
+			text: '@TempData["DeleteMessageForAdmin"]',
 		});
 	</script>
-	@TempData.Remove("DeleteMessage")
-	;
+	{
+		TempData.Remove("DeleteMessageForAdmin");
+	}
 }
 
-@if (TempData["ConfirmDelete"] != null && (bool)TempData["ConfirmDelete"])
+@if (TempData["ErrorMessage"] != null)
 {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 	<script>
 		Swal.fire({
-			title: 'Confirm Delete',
-			text: 'Are you sure you want to delete this car ad?',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#d33',
-			cancelButtonColor: '#3085d6',
-			confirmButtonText: 'Yes, delete it!'
-		}).then((result) => {
-			if (result.isConfirmed) {
-
-				var form = document.createElement('form');
-				form.method = 'post';
-				form.action = '/Admin/AdminReview/DeleteConfirmed';
-
-				var input = document.createElement('input');
-				input.type = 'hidden';
-				input.name = 'reviewId';
-				input.value = '@TempData["ReviewAdIdToDelete"]';
-
-				form.appendChild(input);
-
-				// Append the form to the document body and submit it
-				document.body.appendChild(form);
-
-				var input = document.createElement('input');
-				input.type = 'hidden';
-				input.name = 'adId';
-				input.value = '@TempData["AdId"]';
-
-				form.appendChild(input);
-
-				// Append the form to the document body and submit it
-				document.body.appendChild(form);
-				form.submit();
-
-		@TempData.Remove("ConfirmDelete")
-		@TempData.Remove("ReviewAdIdToDelete")
-		@TempData.Remove("AdId")
-																					}
+			icon: 'success',
+			title: 'Oops something happened!',
+			text: '@TempData["ErrorMessage"]',
 		});
 	</script>
+	{
+		TempData.Remove("ErrorMessage");
+	}
 }

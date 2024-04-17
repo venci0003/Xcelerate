@@ -61,6 +61,7 @@ body {
     margin-top: 70px;
     border-radius: 20px 20px 0px 0px;
     background-color: rgb(255, 255, 255);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .car-card-message {
@@ -128,7 +129,7 @@ body {
     .delete-button:hover,
     .edit-button:hover {
         cursor: pointer;
-        opacity: 0.8; /* Reduce opacity on hover for visual feedback */
+        opacity: 0.8;
     }
 
 
@@ -211,7 +212,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 28px;
-    align-items: center; /* Center the cards horizontally */
+    align-items: center;
 }
 
 .card-holder-message {
@@ -220,7 +221,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 28px;
-    align-items: center; /* Center the cards horizontally */
+    align-items: center;
     margin-bottom: 460px;
 }
 
@@ -229,7 +230,7 @@ body {
     color: white;
     font-size: 22px;
     padding: 12px 38px;
-    background-color: darkred;
+    background: linear-gradient(180deg, darkred, rgba(255, 255, 255, 0.2));
     border-radius: 25px;
     text-decoration: none;
     position: absolute;
@@ -362,7 +363,6 @@ select {
     background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
 }
 
-/* Style for the options within the select element */
 option {
     background-color: #f0f0f0;
     color: white;
@@ -434,6 +434,7 @@ select:focus {
     margin-top: 88px;
     position: relative;
     right: 415%;
+    background: linear-gradient(180deg, darkred, rgba(255, 255, 255, 0.2));
 }
 
 .second-form-inputs {

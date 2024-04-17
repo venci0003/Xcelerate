@@ -16,23 +16,15 @@
 		}
 
 		[HttpPost]
-		public IActionResult Delete(int reviewId, int adId)
-		{
-			TempData["ConfirmDelete"] = true;
-			TempData["ReviewAdIdToDelete"] = reviewId;
-			TempData["AdId"] = adId;
-			return RedirectToAction("Index", "Home", new { Area = "Admin" });
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> DeleteConfirmed(int reviewId)
+		public async Task<IActionResult> Delete(int reviewId)
 		{
 			await _adminReviewService.DeleteReviewAsync(reviewId);
-			TempData["DeleteMessage"] = true;
+
+			TempData["DeleteMessageForAdmin"] = "Review deleted successfully.";
 
 			_memoryCache.Remove(AdminReviewsCacheKey);
 
-			return RedirectToAction("Index", "Home", new { Area = "Admin" });
+			return Json(new { success = true });
 		}
 	}
 }

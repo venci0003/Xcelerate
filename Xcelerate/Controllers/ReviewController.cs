@@ -1,13 +1,11 @@
 ﻿namespace Xcelerate.Controllers
 {
-	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.Extensions.Caching.Memory;
 	using Core.Contracts;
 	using Core.Models.Review;
 	using Extension;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.Extensions.Caching.Memory;
 	using static Common.ApplicationConstants;
-	using Xcelerate.Core.Services;
-	using Xcelerate.Infrastructure.Data.Models;
 
 	public class ReviewController : Controller
 	{
@@ -71,7 +69,6 @@
 
 			_memoryCache.Remove(carReviewsCacheKey);
 
-			//return RedirectToAction("Information", "Ad", new { adId = adId });
 			return Json(new { success = true });
 		}
 	}

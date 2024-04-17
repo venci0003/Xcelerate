@@ -3594,10 +3594,6 @@ namespace Xcelerate.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EngineId"), 1L, 1);
 
-                    b.Property<int>("CylinderCount")
-                        .HasColumnType("int")
-                        .HasComment("CylinderCount");
-
                     b.Property<int>("FuelType")
                         .HasColumnType("int")
                         .HasComment("FuelType");
@@ -3619,7 +3615,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 1,
-                            CylinderCount = 6,
                             FuelType = 1,
                             Horsepower = 301,
                             Model = "V6"
@@ -3627,7 +3622,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 2,
-                            CylinderCount = 4,
                             FuelType = 1,
                             Horsepower = 306,
                             Model = "In-Line 4-Cylinder with Turbocharger"
@@ -3635,7 +3629,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 3,
-                            CylinderCount = 8,
                             FuelType = 2,
                             Horsepower = 526,
                             Model = "5.2-liter V-8 engine"
@@ -3643,7 +3636,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 4,
-                            CylinderCount = 4,
                             FuelType = 1,
                             Horsepower = 147,
                             Model = "1.4L Turbo Inline-4"
@@ -3651,7 +3643,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 5,
-                            CylinderCount = 4,
                             FuelType = 1,
                             Horsepower = 255,
                             Model = "Turbocharged 2.0"
@@ -3659,7 +3650,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 6,
-                            CylinderCount = 4,
                             FuelType = 1,
                             Horsepower = 306,
                             Model = "2.0"
@@ -3667,7 +3657,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 7,
-                            CylinderCount = 8,
                             FuelType = 1,
                             Horsepower = 400,
                             Model = "5.6-liter V-8 "
@@ -3675,7 +3664,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 8,
-                            CylinderCount = 4,
                             FuelType = 1,
                             Horsepower = 147,
                             Model = "Turbocharged N Line"
@@ -3683,7 +3671,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 9,
-                            CylinderCount = 6,
                             FuelType = 2,
                             Horsepower = 473,
                             Model = "Twin-turbo 3.0-liter inline-six"
@@ -3691,7 +3678,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 10,
-                            CylinderCount = 4,
                             FuelType = 2,
                             Horsepower = 181,
                             Model = "2.5"
@@ -3699,7 +3685,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 11,
-                            CylinderCount = 8,
                             FuelType = 1,
                             Horsepower = 60,
                             Model = "V8"
@@ -3707,7 +3692,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 12,
-                            CylinderCount = 8,
                             FuelType = 1,
                             Horsepower = 320,
                             Model = "5.3L"
@@ -3715,7 +3699,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 13,
-                            CylinderCount = 8,
                             FuelType = 2,
                             Horsepower = 260,
                             Model = "5.4L"
@@ -3723,7 +3706,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 14,
-                            CylinderCount = 4,
                             FuelType = 2,
                             Horsepower = 85,
                             Model = "EDC 1.4"
@@ -3731,7 +3713,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 15,
-                            CylinderCount = 12,
                             FuelType = 1,
                             Horsepower = 389,
                             Model = "S600L"
@@ -3739,7 +3720,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 16,
-                            CylinderCount = 4,
                             FuelType = 1,
                             Horsepower = 210,
                             Model = "DOHC i-VTEC 2.0"
@@ -3747,7 +3727,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 17,
-                            CylinderCount = 6,
                             FuelType = 1,
                             Horsepower = 290,
                             Model = "3.2L DOHC"
@@ -3755,7 +3734,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 18,
-                            CylinderCount = 6,
                             FuelType = 1,
                             Horsepower = 200,
                             Model = "B204R"
@@ -3763,7 +3741,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 19,
-                            CylinderCount = 6,
                             FuelType = 1,
                             Horsepower = 185,
                             Model = "B204L"
@@ -3771,7 +3748,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 20,
-                            CylinderCount = 16,
                             FuelType = 1,
                             Horsepower = 225,
                             Model = "2.0L"
@@ -3779,7 +3755,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 21,
-                            CylinderCount = 4,
                             FuelType = 1,
                             Horsepower = 240,
                             Model = "F20C"
@@ -3787,7 +3762,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 22,
-                            CylinderCount = 4,
                             FuelType = 1,
                             Horsepower = 160,
                             Model = "K-Series K20A3"
@@ -3795,7 +3769,6 @@ namespace Xcelerate.Infrastructure.Migrations
                         new
                         {
                             EngineId = 23,
-                            CylinderCount = 4,
                             FuelType = 1,
                             Horsepower = 130,
                             Model = "F20B 1.8L VTEC"
@@ -5544,13 +5517,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("9abb04a0-36a0-4a35-8c1a-34d324aa169e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "88460ed4-0b63-467b-9426-461175c0be04",
+                            ConcurrencyStamp = "3454621d-d096-47b1-a81f-bbe0e6f44dec",
                             Email = "alice.smith@example.com",
                             EmailConfirmed = false,
                             FirstName = "Alice",
                             LastName = "Smith",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEN2qARPM9AmH13SW7JWMvhWL/p3BIDEE3E9zPMKiISp/KO9EGbUcoU6LuajZNzVBHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDjJmemO8YB4fWKRhPYb4haGGVtqJotzQPAKh400lLHzqdHGjnJb3eHYIn7nZqzq5g==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5558,13 +5531,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("2cc5da14-f51c-4b51-96b3-0c296c2ee8dc"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e0636506-8cf5-418f-9b0b-a70adea8a400",
+                            ConcurrencyStamp = "aa491b07-094a-4fee-92cf-32b8ea304276",
                             Email = "bob.johnson@example.com",
                             EmailConfirmed = false,
                             FirstName = "Bob",
                             LastName = "Johnson",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENiFMPaKDGLLBlyFggYaU3kpzqrrV+1Ela4/3ldXpmEpcXLVeycFSydtZ76C3/nmHw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAi6b2/c/612AV/MYJ+Eke4i1c0oGhKBwiDLNRxyLj6Ysyd8RW1oJSEt77QuFeN8KQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5572,13 +5545,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("6a31bb92-7ec2-45e3-81a8-912542b314c6"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d57de749-7957-49c5-ac5a-29abf9b5fe4d",
+                            ConcurrencyStamp = "5b4e0267-5457-431f-b0aa-312d65c77a7f",
                             Email = "charlie.williams@example.com",
                             EmailConfirmed = false,
                             FirstName = "Charlie",
                             LastName = "Williams",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEBMdqmS+R3NaksGY+iUgP2O5F02mre3GXZGvT3II0oGlxX5sSY+yLefbp+s/Iri17Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELNJY8OOmksHP1+s4EVTotC0Peiinx5ZFcYEu2zN6D3cSqj3kpgZ3Dkw6KE70iUz6A==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5586,13 +5559,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("495cc255-9e57-40e1-a4de-b1adbfdbc0fc"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f54d7264-bf51-4e1d-b487-29d894f43699",
+                            ConcurrencyStamp = "8869e815-d09b-4cad-944b-05f0b78278f2",
                             Email = "david.brown@example.com",
                             EmailConfirmed = false,
                             FirstName = "David",
                             LastName = "Brown",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEFiPjWSHPysMh7Snn7snNpEL+QDVzFzj8j8D6EECRese/w9DvkUtnq1CjKYPGTKI6w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPCvRDrchcYbFasspt98Ru8KAwfOBu4FUHgvICz6bvWzIsjmKW+h7dntyGtFgbsftw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5600,13 +5573,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("b0b378dd-78aa-4884-afa7-7ec6626c9cdf"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5bc00e85-9396-40b4-b4d9-f9eec225b59b",
+                            ConcurrencyStamp = "932add0b-0806-449f-a575-14d6ea71eeb8",
                             Email = "eva.miller@example.com",
                             EmailConfirmed = false,
                             FirstName = "Eva",
                             LastName = "Miller",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEOmj/ZhhhKcC9Ic1A+dBllRj1dVRzAkqeJ/nwH45b6pFkOk8vJCk/v0zXIhfeKKlqg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHwY46u9CNSezdja6aRl5n+LJuWtutMAr1WiatBS8NJF95majuAKrWqxd1lVmO5E9Q==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5614,13 +5587,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("9173efb3-6dc6-4c27-8d1a-555107353aea"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0e100068-014c-4685-9214-9da9a888e257",
+                            ConcurrencyStamp = "cc1f748a-e9e0-4080-8893-e5734eba25f7",
                             Email = "frank.davis@example.com",
                             EmailConfirmed = false,
                             FirstName = "Frank",
                             LastName = "Davis",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEB/bLmDw3/vSoLp4uvy2nNhV7a5IaAEurOIWY1+f0I0FFQMqNJC4M/M49dMdGghQHA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPN7Q2S8DmM8I8rUTf9eWi/DHKoqhLWGGk+KkWtz2mzspcV38OeLOMDmtXYTlF28lg==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5628,13 +5601,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("0c106d5a-7440-44dd-b8d3-3c1b7aca8020"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c0ec1832-eb37-4aa4-9cc7-9285d306bf8c",
+                            ConcurrencyStamp = "bc0fe702-d74d-4515-a0b4-a508b8a0247f",
                             Email = "grace.taylor@example.com",
                             EmailConfirmed = false,
                             FirstName = "Grace",
                             LastName = "Taylor",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEIbjHWuzQikgqtGgPpMR30MVPhr/VUqNEcgA25Akoa2jKYofBdQLXN0CPopBeGtQ1w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMf1mV274uE+HyD45UmGKq1MhsT7cwm+Sa8NzluFrmJdkJcrQGW+6I4t2X4R8ALFFA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5642,13 +5615,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("b4d7ddad-411e-4fe8-a7d9-c2638f376f1c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "28088086-a49b-4acd-aa6e-9a1f573fb645",
+                            ConcurrencyStamp = "fb6a6f97-61fc-4729-ba8e-df91f03b3ccd",
                             Email = "henry.clark@example.com",
                             EmailConfirmed = false,
                             FirstName = "Henry",
                             LastName = "Clark",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEKK2xzvEt13lYxPCob3+4KpdSjwnEU4dlGF3iHA2JghB6DCfi8xEzL5fOsjzERzMNQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDkNw/DQKp32l6ei94kjsNOQ9ZNEGP0LD0Y8sxkBQd0Ramy48hBIsCjzfskIY/q87g==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5656,13 +5629,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("b13edf51-1ff3-46d7-bf4c-c55caac1a7c0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c0d16743-1e86-42d3-9b3a-101c9d58af26",
+                            ConcurrencyStamp = "6990ef8b-7c28-4c36-a369-359204432112",
                             Email = "ivy.walker@example.com",
                             EmailConfirmed = false,
                             FirstName = "Ivy",
                             LastName = "Walker",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEHccfBvjGxHq3EyQjP6ZzURtyPKxzsF4V2rdgkXcHC4bLN56wOe/Y9r8Dy0tezEsew==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMu5kJBVJmY6YekAzUHgYtiQX+P3KI9xwWxRoFlvQybVNHq2k2UTFhay4BriD3sp+A==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5670,13 +5643,13 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("1b6f6e67-5adf-4f78-a74e-27b02430c709"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "68768c74-51d3-443d-9a88-e18dc65e7d58",
+                            ConcurrencyStamp = "1035ae58-d0f8-420f-8512-101eed07df78",
                             Email = "jack.anderson@example.com",
                             EmailConfirmed = false,
                             FirstName = "Jack",
                             LastName = "Anderson",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAELQtOMBoADnKRipAAEVasDXMjzPdZ9Y+vvAqN8fmtmINdyDBP2rrH+gnpnOMwhlTNA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHQ76E3Pyxa681Yr9v4ilnhjPniaNBPCXQ/WGQTeAl4oZ72ZvFP7n2U68cmqZ+FaYw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5684,7 +5657,7 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("f3b1e0a3-0f36-4e83-aa76-deb9af5d5f07"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "513dc84d-3c6f-4806-ad0b-9c2241e8ebd9",
+                            ConcurrencyStamp = "355cda90-d5f7-4298-be25-bc46761efd4a",
                             Email = "admin.xcelerate@example.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -5692,9 +5665,9 @@ namespace Xcelerate.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN.XCELERATE@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN.XCELERATE@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA7OGk0XQvPpeoAs6Cm6ijyO75vbTP+sp6h+BVAwX/ANqfKL6zpNSV28+ui88lob8g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBHUvJw5UiiVICUXqIGre47Rq9BTLv0A1O/ZaXkEa5EJxPTAGv4CsgXbAcUUtrVHfg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2d493f89-0c9f-499f-8df7-f859422f4bbc",
+                            SecurityStamp = "97966e1c-e67f-4b1a-b76f-27e5be016252",
                             TwoFactorEnabled = false,
                             UserName = "admin.xcelerate@example.com"
                         });
