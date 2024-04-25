@@ -462,6 +462,7 @@
 					.Include(m => m.Manufacturer)
 					.Include(a => a.Address)
 					.Include(e => e.Engine)
+					.Include(r => r.Ad.Reviews)
 				.FirstOrDefaultAsync(c => c.CarId == carId);
 
 			if (car == null)

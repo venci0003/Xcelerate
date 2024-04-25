@@ -219,7 +219,6 @@
 						   href="@Url.Action("Index", "UserCars", new
                             {
                                 currentPage = Model.Pager.CurrentPage - 1,
-								year = Model.Year,
 								EuroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
 								colour = Model.Colour,
@@ -234,6 +233,8 @@
 								minHorsePower = Model.MinHorsePower,
 								maxHorsePower = Model.MaxHorsePower,
 								brand = Model.Brand,
+								model = Model.Model,
+								manufacturer = Model.Manufacturer,
                                 minMileage = Model.MinMileage,
                                 maxMileage = Model.MaxMileage,
                                 sorting = Model.Sorting
@@ -247,7 +248,6 @@
 						<a class="page-link @(page == Model.Pager.CurrentPage ? "active" : "")"
 						   href="@Url.Action("Index", "UserCars", new{
                                 currentPage = page,
-								year = Model.Year,
 								EuroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
 								colour = Model.Colour,
@@ -262,6 +262,8 @@
 								minHorsePower = Model.MinHorsePower,
 								maxHorsePower = Model.MaxHorsePower,
 								brand = Model.Brand,
+								model = Model.Model,
+								manufacturer = Model.Manufacturer,
                                 minMileage = Model.MinMileage,
                                 maxMileage = Model.MaxMileage,
                                 sorting = Model.Sorting
@@ -275,7 +277,6 @@
 						<a class="page-link"
 						   href="@Url.Action("Index", "UserCars", new{
                                 currentPage = Model.Pager.CurrentPage + 1,
-								year = Model.Year,
 								EuroStandard = Model.EuroStandard,
 								fuelType = Model.FuelType,
 								colour = Model.Colour,
@@ -290,6 +291,8 @@
 								minHorsePower = Model.MinHorsePower,
 								maxHorsePower = Model.MaxHorsePower,
 								brand = Model.Brand,
+								model = Model.Model,
+								manufacturer = Model.Manufacturer,
                                 minMileage = Model.MinMileage,
                                 maxMileage = Model.MaxMileage,
                                 sorting = Model.Sorting

@@ -24,7 +24,7 @@
 
 		public const string AdminReviewsCacheKey = "AdminReviewsCacheKey";
 
-		public const int AdminReviewsExpirationFromMinutes = 10;
+		public const int AdminReviewsExpirationFromMinutes = 2;
 
 		//For car ad information in information page.
 		public const string CarAdInformationCacheKey = "CarAdInformationCacheKey";
@@ -39,7 +39,7 @@
 		//For car reviews in information page.
 		public const string CarReviewsCacheKey = "CarReviewsCacheKey";
 
-		public const int CarReviewsExpirationToMinutes = 15;
+		public const int CarReviewsExpirationToMinutes = 2;
 
 		public const string UserCarsInformationCacheKey = "UserCarsInformationCacheKey";
 

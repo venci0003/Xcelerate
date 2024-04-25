@@ -27,6 +27,8 @@
 
 			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
 
+			_memoryCache.Remove(AdminReviewsCacheKey);
+
 			_memoryCache.Remove(carReviewsCacheKey);
 
 			return RedirectToAction("Information", "Ad", new { adId = adId });
@@ -54,6 +56,8 @@
 			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
 
 			_memoryCache.Remove(carReviewsCacheKey);
+
+			_memoryCache.Remove(AdminReviewsCacheKey);
 
 			return RedirectToAction("Information", "Ad", new { adId = adId });
 		}
