@@ -15,7 +15,7 @@
 <span class="website-name" filter-content="X">Xcelerate</span>
 
 <article class="card-register">
-	<form method="post" action="/Account/Register" class="card-content">
+	<form method="post" action="/Account/Register" class="card-content" id="card-content">
 		@Html.AntiForgeryToken()
 		<h1 class="title-text">REGISTRATION FORM</h1>
 
@@ -51,7 +51,7 @@
 			<input type="checkbox" name="" id="check-box" />
 			<label for="check-box">I&nbsp&nbspaccept the Terms of Use & Privacy Policy</label>
 		</section>
-
+		<recaptcha form-id="card-content" />
 		<section class="button-object">
 			<button type="submit">REGISTER NOW</button>
 		</section>
@@ -59,9 +59,27 @@
 </article>
 
 
+@if (TempData.ContainsKey("ErrorMessage"))
+{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops something happened!',
+			text: '@TempData["ErrorMessage"]',
+		});
+	</script>
+	{
+		TempData.Remove("ErrorMessage");
+	}
+}
+
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/Register/Register.js" asp-append-version="true"></script>
+	<recaptcha-script />
 }
-<script src="~/js/Register/Register.js" asp-append-version="true"></script>
+
 
 

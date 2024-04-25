@@ -2,6 +2,8 @@
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRecaptchaService();
+
 builder.Services.AddApplicationDbContext(builder.Configuration);
 
 builder.Services.AddApplicationIdentity(builder.Configuration);

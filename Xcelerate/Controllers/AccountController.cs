@@ -9,6 +9,7 @@
 	using Infrastructure.Data.Models;
 	using static Common.ApplicationConstants;
 	using System.Net;
+	using Griesoft.AspNetCore.ReCaptcha;
 
 	public class AccountController : Controller
 	{
@@ -29,12 +30,20 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+		[ValidateRecaptcha(Action = nameof(Register),
+			ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
+		public async Task<IActionResult> Register(RegisterViewModel registerViewModel, ValidationResponse recaptchaResponse)
 		{
 			if (!ModelState.IsValid)
 			{
 				IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
 				return RedirectToAction(nameof(Login));
+			}
+
+			if (!recaptchaResponse.Success)
+			{
+				TempData["ErrorMessage"] = "ReCaptcha error! Try again!";
+				return this.View(registerViewModel);
 			}
 
 			User user = new User()
