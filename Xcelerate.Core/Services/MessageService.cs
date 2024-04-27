@@ -1,18 +1,15 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Xcelerate.Core.Contracts;
-using Xcelerate.Core.Models.Account.UserProfile;
-using Xcelerate.Infrastructure.Data;
-using Xcelerate.Infrastructure.Data.Models;
-
-namespace Xcelerate.Core.Services
+﻿namespace Xcelerate.Core.Services
 {
-	using IMessageService = Contracts.IMessageService;
+	using Microsoft.EntityFrameworkCore;
+	using Contracts;
+	using Models.Account.UserProfile;
+	using Xcelerate.Infrastructure.Data;
+
 	public class MessageService : IMessageService
 	{
-		private readonly Infrastructure.Data.IMessageService _dbContext;
+		private readonly XcelerateContext _dbContext;
 
-		public MessageService(Infrastructure.Data.IMessageService context)
+		public MessageService(XcelerateContext context)
 		{
 			_dbContext = context;
 		}
