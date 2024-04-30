@@ -236,6 +236,15 @@
 					}
 				}
 
+				await _dbContext.AddAsync(new Message()
+				{
+					UserId = Guid.Parse(userId),
+					Title = "Succesfully added new ad!",
+					Content = $"Car added: {car.Brand} - {car.Model} {car.Year}"
+				});
+
+				await _dbContext.SaveChangesAsync();
+
 				StatisticalData? statisticsUpdate = await _dbContext.StatisticalData.FirstOrDefaultAsync();
 
 				statisticsUpdate.CreatedCars += 1;
@@ -440,6 +449,13 @@
 					}
 				}
 
+				await _dbContext.AddAsync(new Message()
+				{
+					UserId = car.UserId,
+					Title = "Succesfully edited car ad!",
+					Content = $"Car edited: {car.Brand} - {car.Model} {car.Year}"
+				});
+
 				await _dbContext.SaveChangesAsync();
 
 				return true;
@@ -537,6 +553,15 @@
 				}
 
 				_dbContext.Cars.Remove(car);
+
+				await _dbContext.SaveChangesAsync();
+
+				await _dbContext.AddAsync(new Message()
+				{
+					UserId = car.UserId,
+					Title = "Succesfully deleted car ad!",
+					Content = $"Car deleted: {car.Brand} - {car.Model} {car.Year}"
+				});
 
 				await _dbContext.SaveChangesAsync();
 

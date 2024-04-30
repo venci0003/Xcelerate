@@ -10,17 +10,20 @@
 	using static Common.ApplicationConstants;
 	using System.Net;
 	using Griesoft.AspNetCore.ReCaptcha;
+	using Xcelerate.Core.Contracts;
 
 	public class AccountController : Controller
 	{
 		private readonly SignInManager<User> signInManager;
 		private readonly UserManager<User> userManager;
 		private readonly RoleManager<IdentityRole<Guid>> roleManager;
-		public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<IdentityRole<Guid>> roleManager)
+		private readonly IMessageService _messageService;
+		public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<IdentityRole<Guid>> roleManager, IMessageService _messageServiceContext)
 		{
 			this.signInManager = signInManager;
 			this.userManager = userManager;
 			this.roleManager = roleManager;
+			_messageService = _messageServiceContext;
 		}
 
 		[HttpGet]
@@ -123,11 +126,14 @@
 
 				if (user != null)
 				{
+					List<MessageViewModel> messages = await _messageService.GetMessagesAsync(userId.ToString());
+
 					UserProfileViewModel userProfileModel = new UserProfileViewModel
 					{
 						FirstName = user.FirstName,
 						LastName = user.LastName,
-						Email = user.Email
+						Email = user.Email,
+						Messages = messages
 					};
 
 					return View("UserProfile/Profile", userProfileModel);

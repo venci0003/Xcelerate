@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xcelerate.Common;
+﻿using System.ComponentModel.DataAnnotations;
 using static Xcelerate.Common.EntityValidation.UserEntity;
 
 namespace Xcelerate.Core.Models.Account.UserProfile
@@ -23,5 +16,7 @@ namespace Xcelerate.Core.Models.Account.UserProfile
 		[MaxLength(EmailAddressMaxValue)]
 		[MinLength(EmailAddressMinValue)]
 		public string Email { get; set; } = null!;
+
+		public List<MessageViewModel> Messages { get; set; } = new List<MessageViewModel>();
 	}
 }

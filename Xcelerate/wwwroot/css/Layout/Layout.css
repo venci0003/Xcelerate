@@ -25,6 +25,7 @@ html {
     }
 
 ::-webkit-scrollbar-track {
+    background-color: transparent;
     backdrop-filter: blur(7px);
 }
 
@@ -178,13 +179,12 @@ button {
     }
 
         #authorize-list-authorized-as-admin li a:hover {
-            color: #ffcc00; /* Change the color on hover as needed */
+            color: #ffcc00;
         }
 
 #authorize-list-authorized-as-admin {
-    /* ...existing styles... */
     transition: width 0.3s ease-in-out;
-    left: 1350px; /* Adjust this value as needed */
+    left: 1350px;
 }
 
     #authorize-list-authorized-as-admin:hover {
@@ -199,7 +199,7 @@ button {
         }
 
     #authorize-list-authorized-as-admin a:hover {
-        color: whitesmoke; /* Change the text color on hover as needed */
+        color: whitesmoke;
     }
 
     #authorize-list-authorized-as-admin .register-button-submit,
@@ -233,13 +233,12 @@ button {
     }
 
         #authorize-list-authorized li a:hover {
-            color: #ffcc00; /* Change the color on hover as needed */
+            color: #ffcc00;
         }
 
 #authorize-list-authorized {
-    /* ...existing styles... */
     transition: width 0.3s ease-in-out;
-    left: 1350px; /* Adjust this value as needed */
+    left: 1350px;
 }
 
     #authorize-list-authorized:hover {
@@ -262,41 +261,6 @@ button {
     #authorize-list-authorized .logout-button-submit {
         opacity: 0;
     }
-
-
-/* .login-button{
-  display: inline;
-  float: right;
-  position: absolute;
-  left: 1550px;
-  margin: 15px 20px;
-  border-radius: 24px;
-  padding: 10px;
-  width: 150px;
-  height: 40px;
-  border: none;
-  background-color: rgba(174, 60, 51, 255);
-  color: white;
-  font-size: 14px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-}*/
-
-/*.register-button-test {
-    display: inline;
-    float: right;
-    position: absolute;
-    left: 1720px;
-    margin: 15px 20px;
-    border-radius: 24px;
-    padding: 10px;
-    width: 150px;
-    height: 40px;
-    border: none;
-    background-color: rgba(174, 60, 51, 255);
-    color: white;
-    font-size: 14px;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-} */
 
 .nav-bar {
     position: fixed;
@@ -409,7 +373,7 @@ button {
         color: whitesmoke; /* Change the text color on hover as needed */
     }
 
-    /* Initial hiding state */
+
     #ul-list-authorized a {
         opacity: 0;
     }

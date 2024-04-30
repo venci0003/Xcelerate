@@ -13,20 +13,46 @@
 </svg>
 
 <span class="website-name" filter-content="X">Xcelerate</span>
-<article class="card-login">
-	<form  action="/Account/Profile" class="card-content">
-		<h1 class="title-text">ACCOUNT INFORMATION</h1>
-		<section class="other-forms">
-			<ul>
-				<li><strong>First name:</strong> @Model.FirstName</li>
-				<li><strong>Last name:</strong> @Model.LastName</li>
-				<li><strong>Email address:</strong> @Model.Email</li>
-			</ul>
-		</section>
 
-		<div asp-validation-summary="ModelOnly" class="error-container"></div>
-	</form>
-</article>
+<div class="flexed-account-and-messages">
+	<article class="card-account">
+		<form action="/Account/Profile" class="card-content">
+			<h1 class="title-text-account">ACCOUNT INFORMATION</h1>
+			<section class="other-forms">
+				<ul>
+					<li><strong>First name:</strong> @Model.FirstName</li>
+					<li><strong>Last name:</strong> @Model.LastName</li>
+					<li><strong>Email address:</strong> @Model.Email</li>
+				</ul>
+			</section>
+
+			<div asp-validation-summary="ModelOnly" class="error-container"></div>
+		</form>
+	</article>
+
+	<article class="card-messages">
+		<h1 class="title-text-messages">MESSAGES</h1>
+		@if (Model.Messages.Count != 0)
+		{
+			<ul class="messages-ul">
+				@foreach (var message in Model.Messages)
+				{
+					<li class="messages-li">
+						<h2 class="message-title">@message.Title</h2>
+						<p class="message-content">@message.Content</p>
+					</li>
+				}
+			</ul>
+
+		}
+		else
+		{
+			<h2>No messages for now...</h2>
+		}
+
+	</article>
+</div>
+
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
