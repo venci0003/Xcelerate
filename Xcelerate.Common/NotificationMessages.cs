@@ -18,6 +18,16 @@
 			public const string SuccesfulDeleteTitle = "Succesfully deleted car ad!";
 
 			public const string SuccesfulDeleteContent = "Car deleted: {0} - {1} {2}";
+
+			//Sold messages
+			public const string SuccesfulSoldTitle = "Car Sold Successfully!";
+
+			public const string SuccesfulSoldContent = "Car sold: {0} - {1} {2} to {3} {4} for {5}$";
+
+			//Bought messages
+			public const string SuccesfulBoughtTitle = "Congratulations on Your New Car Purchase!";
+
+			public const string SuccesfulBoughtContent = "Car bought: {0} - {1} {2} from {3} {4} for {5}$";
 		};
 	}
 }

@@ -44,6 +44,14 @@
 			{
 				return "#eb4141";
 			}
+			else if (title.Equals(NotificationMessages.UserMessages.SuccesfulSoldTitle, StringComparison.OrdinalIgnoreCase))
+			{
+				return "rgba(162, 235, 186, 1.0)";
+			}
+			else if (title.Equals(NotificationMessages.UserMessages.SuccesfulBoughtTitle, StringComparison.OrdinalIgnoreCase))
+			{
+				return "rgba(162, 235, 186, 1.0)";
+			}
 			else
 			{
 				return "black";

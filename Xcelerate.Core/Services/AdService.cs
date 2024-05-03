@@ -561,8 +561,8 @@
 				await _dbContext.AddAsync(new Message()
 				{
 					UserId = car.UserId,
-					Title = "Succesfully deleted car ad!",
-					Content = $"Car deleted: {car.Brand} - {car.Model} {car.Year}"
+					Title = SuccesfulDeleteTitle,
+					Content = string.Format(SuccesfulDeleteContent, car.Brand, car.Model, car.Year)
 				});
 
 				await _dbContext.SaveChangesAsync();
@@ -577,7 +577,7 @@
 
 		public async Task<bool> BuyCarAsync(Car car)
 		{
-			var adToRemove = await _dbContext.Ads.FirstOrDefaultAsync(a => a.AdId == car.AdId);
+			Ad? adToRemove = await _dbContext.Ads.FirstOrDefaultAsync(a => a.AdId == car.AdId);
 
 			if (adToRemove != null)
 			{
@@ -591,6 +591,24 @@
 				StatisticalData? statisticsUpdate = await _dbContext.StatisticalData.FirstOrDefaultAsync();
 
 				statisticsUpdate.SoldCars += 1;
+
+				var buyer = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == car.UserId);
+
+				var seller = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == adToRemove.UserId);
+
+				await _dbContext.AddAsync(new Message()
+				{
+					UserId = seller.Id,
+					Title = SuccesfulSoldTitle,
+					Content = string.Format(SuccesfulSoldContent, car.Brand, car.Model, car.Year, buyer.FirstName, buyer.LastName, car.Price)
+				});
+
+				await _dbContext.AddAsync(new Message()
+				{
+					UserId = buyer.Id,
+					Title = SuccesfulBoughtTitle,
+					Content = string.Format(SuccesfulBoughtContent, car.Brand, car.Model, car.Year, seller.FirstName, seller.LastName, car.Price)
+				});
 
 				await _dbContext.SaveChangesAsync();
 				return true;
