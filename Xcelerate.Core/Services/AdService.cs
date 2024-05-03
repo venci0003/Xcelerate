@@ -12,7 +12,9 @@
 	using Infrastructure.Data;
 	using Infrastructure.Data.Enums;
 	using Infrastructure.Data.Models;
-	using static Xcelerate.Common.EntityValidation;
+	using static Common.EntityValidation;
+	using static Common.NotificationMessages.UserMessages;
+	using Xcelerate.Common;
 
 	public class АdService : IAdService
 	{
@@ -239,8 +241,8 @@
 				await _dbContext.AddAsync(new Message()
 				{
 					UserId = Guid.Parse(userId),
-					Title = "Succesfully added new ad!",
-					Content = $"Car added: {car.Brand} - {car.Model} {car.Year}"
+					Title = SuccesfulCreateTitle,
+					Content = string.Format(SuccesfulCreateContent, car.Brand, car.Model, car.Year)
 				});
 
 				await _dbContext.SaveChangesAsync();
@@ -452,8 +454,8 @@
 				await _dbContext.AddAsync(new Message()
 				{
 					UserId = car.UserId,
-					Title = "Succesfully edited car ad!",
-					Content = $"Car edited: {car.Brand} - {car.Model} {car.Year}"
+					Title = SuccesfulEditTitle,
+					Content = string.Format(SuccesfulEditContent, car.Brand, car.Model, car.Year)
 				});
 
 				await _dbContext.SaveChangesAsync();
