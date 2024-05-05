@@ -14,17 +14,19 @@
 	using Infrastructure.Data.Models;
 	using static Common.EntityValidation;
 	using static Common.NotificationMessages.UserMessages;
-	using Xcelerate.Common;
+	using Xcelerate.Core.Models.Timestamp;
 
 	public class АdService : IAdService
 	{
 		private readonly XcelerateContext _dbContext;
 		private readonly IWebHostEnvironment _webHostEnvironment;
+		private readonly Timestamp _timestamp;
 
 		public АdService(XcelerateContext context, IWebHostEnvironment webHostEnvironment)
 		{
 			_dbContext = context;
 			_webHostEnvironment = webHostEnvironment;
+			_timestamp = new Timestamp();
 		}
 		public async Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync(AdInformationViewModel adViewModel)
 		{
@@ -242,7 +244,9 @@
 				{
 					UserId = Guid.Parse(userId),
 					Title = SuccesfulCreateTitle,
-					Content = string.Format(SuccesfulCreateContent, car.Brand, car.Model, car.Year)
+					Content = string.Format(SuccesfulCreateContent, car.Brand, car.Model, car.Year),
+					CreatedTime = _timestamp.GetTimestamp(),
+					IsMessageViewed = false
 				});
 
 				await _dbContext.SaveChangesAsync();
@@ -455,7 +459,9 @@
 				{
 					UserId = car.UserId,
 					Title = SuccesfulEditTitle,
-					Content = string.Format(SuccesfulEditContent, car.Brand, car.Model, car.Year)
+					Content = string.Format(SuccesfulEditContent, car.Brand, car.Model, car.Year),
+					CreatedTime = _timestamp.GetTimestamp(),
+					IsMessageViewed = false
 				});
 
 				await _dbContext.SaveChangesAsync();
@@ -562,7 +568,9 @@
 				{
 					UserId = car.UserId,
 					Title = SuccesfulDeleteTitle,
-					Content = string.Format(SuccesfulDeleteContent, car.Brand, car.Model, car.Year)
+					Content = string.Format(SuccesfulDeleteContent, car.Brand, car.Model, car.Year),
+					CreatedTime = _timestamp.GetTimestamp(),
+					IsMessageViewed = false
 				});
 
 				await _dbContext.SaveChangesAsync();
@@ -600,14 +608,18 @@
 				{
 					UserId = seller.Id,
 					Title = SuccesfulSoldTitle,
-					Content = string.Format(SuccesfulSoldContent, car.Brand, car.Model, car.Year, buyer.FirstName, buyer.LastName, car.Price)
+					Content = string.Format(SuccesfulSoldContent, car.Brand, car.Model, car.Year, buyer.FirstName, buyer.LastName, car.Price),
+					CreatedTime = _timestamp.GetTimestamp(),
+					IsMessageViewed = false
 				});
 
 				await _dbContext.AddAsync(new Message()
 				{
 					UserId = buyer.Id,
 					Title = SuccesfulBoughtTitle,
-					Content = string.Format(SuccesfulBoughtContent, car.Brand, car.Model, car.Year, seller.FirstName, seller.LastName, car.Price)
+					Content = string.Format(SuccesfulBoughtContent, car.Brand, car.Model, car.Year, seller.FirstName, seller.LastName, car.Price),
+					CreatedTime = _timestamp.GetTimestamp(),
+					IsMessageViewed = false
 				});
 
 				await _dbContext.SaveChangesAsync();

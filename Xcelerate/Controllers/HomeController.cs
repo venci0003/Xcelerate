@@ -5,6 +5,7 @@
 	using Core.Models.Pager;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
+	using Xcelerate.Extension;
 	using static Common.ApplicationConstants;
 
 	[AllowAnonymous]
@@ -12,10 +13,12 @@
 	{
 
 		private readonly IHomeService _homeService;
+		private readonly IMessageService _messageService;
 
-		public HomeController(IHomeService context)
+		public HomeController(IHomeService context, IMessageService _messageServiceContext)
 		{
 			_homeService = context;
+			_messageService = _messageServiceContext;
 		}
 
 		//Not used yet
@@ -24,8 +27,9 @@
 		//	return View();
 		//}
 
-		public IActionResult About()
+		public async Task<IActionResult> About()
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
 			return View();
 		}
 
@@ -39,9 +43,12 @@
 			Pager pager = new Pager(await _homeService.GetNewsCountAsync(), homePageView.CurrentPage, DefaultPageSizeForNews);
 			homePageView.Pager = pager;
 
-
 			HomePageViewModel viewModel = await _homeService.GetHomePageDataAsync(homePageView);
 
+			if (User.Identity.IsAuthenticated)
+			{
+				ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			}
 			homePageView.DataStatistics = viewModel.DataStatistics;
 			homePageView.NewsPreview = viewModel.NewsPreview;
 

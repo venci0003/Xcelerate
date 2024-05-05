@@ -128,6 +128,8 @@
 				{
 					List<MessageViewModel> messages = await _messageService.GetMessagesAsync(userId.ToString());
 
+					await _messageService.MarkMessagesAsViewedAsync(userId.ToString());
+
 					UserProfileViewModel userProfileModel = new UserProfileViewModel
 					{
 						FirstName = user.FirstName,

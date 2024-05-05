@@ -68,5 +68,7 @@ namespace Xcelerate.Core.Models.Ad
 		[Required(ErrorMessage = "Description is required.")]
 		[StringLength(AdEntity.CarDescriptionMaxLength, ErrorMessage = "Description must be between {2} and {1} characters.", MinimumLength = AdEntity.CarDescriptionMinLength)]
 		public string CarDescription { get; set; }
+
+		public int UnreadMessageCount { get; set; }
 	}
 }

@@ -13,5 +13,7 @@ namespace Xcelerate.Infrastructure.Data.Models
 		[ForeignKey(nameof(User))]
 		public Guid UserId { get; set; }
 		public User User { get; set; } = null!;
-	}
+		public DateTime CreatedTime { get; set; }
+        public bool IsMessageViewed { get; set; }
+    }
 }

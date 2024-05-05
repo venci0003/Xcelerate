@@ -16,16 +16,19 @@
 		private readonly IAdService _adService;
 		private readonly IAccessoriesService _accessoriesService;
 		private readonly IReviewService _reviewService;
+		private readonly IMessageService _messageService;
 		private readonly IMemoryCache _memoryCache;
 
 		public AdController(IAdService adServiceContext,
 			IAccessoriesService accessoriesServiceContext,
 			IReviewService reviewServiceContext,
+			IMessageService messageServiceContext,
 			IMemoryCache _memoryCacheContext)
 		{
 			_adService = adServiceContext;
 			_accessoriesService = accessoriesServiceContext;
 			_reviewService = reviewServiceContext;
+			_messageService = messageServiceContext;
 			_memoryCache = _memoryCacheContext;
 		}
 
@@ -33,6 +36,8 @@
 		[HttpGet]
 		public async Task<IActionResult> Index(AdInformationViewModel adInformation, int firstCarId, bool compareClicked)
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+
 			if (adInformation.CurrentPage < 1)
 			{
 				adInformation.CurrentPage = 1;
@@ -58,6 +63,7 @@
 		[HttpGet]
 		public async Task<IActionResult> Information(int adId)
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
 			ViewBag.UserId = User.GetUserId();
 
 			if (await _adService.IdExists<Ad>(adId) == false)
@@ -124,6 +130,7 @@
 		[HttpGet]
 		public async Task<IActionResult> Create()
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
 			AdCreateViewModel adViewModel = await _accessoriesService.GetAccessories();
 			return View(adViewModel);
 		}
@@ -142,6 +149,7 @@
 
 		public async Task<IActionResult> UserAds(AdInformationViewModel adInformation)
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
 			var userId = User.GetUserId();
 
 			if (adInformation.CurrentPage < 1)
@@ -163,6 +171,7 @@
 		[HttpGet]
 		public async Task<IActionResult> Edit(int carId)
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
 			if (await _adService.IdExists<Car>(carId) == false)
 			{
 				return NotFound();
@@ -224,6 +233,7 @@
 
 		public async Task<IActionResult> Compare(int firstCarId, int secondCarId)
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
 			try
 			{
 

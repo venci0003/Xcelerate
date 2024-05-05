@@ -44,6 +44,8 @@ namespace Xcelerate.Core.Models.Ad
 		public string LastName { get; set; }
 		public string SearchQuery { get; set; }
 
+		public int UnreadMessageCount { get; set; }
+
 		//Sorting
 		public SortingEnums Sorting { get; set; }
 		public int StartYear { get; set; }

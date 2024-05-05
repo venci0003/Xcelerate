@@ -6,21 +6,31 @@
 	using Models;
 	using Core.Models.Pager;
 	using static Common.ApplicationConstants;
+	using Core.Contracts;
+	using Xcelerate.Extension;
+
 	public class HomeController : BaseAdminController
 	{
 		private readonly IAdminReviewService _adminReviewService;
 		private readonly IAdminNewsService _adminNewsService;
+		private readonly IMessageService _messageService;
 		private readonly IMemoryCache _memoryCache;
 
-		public HomeController(IAdminReviewService adminReviewServiceContext, IAdminNewsService _adminNewsServiceContext, IMemoryCache _memoryCacheContext)
+		public HomeController(IAdminReviewService adminReviewServiceContext,
+			IAdminNewsService _adminNewsServiceContext,
+			IMemoryCache _memoryCacheContext,
+			IMessageService _messageServiceContext)
 		{
 			_adminNewsService = _adminNewsServiceContext;
 			_adminReviewService = adminReviewServiceContext;
+			_messageService = _messageServiceContext;
 			_memoryCache = _memoryCacheContext;
 		}
 		[HttpGet]
 		public async Task<IActionResult> Index(AdminHomeViewModel adminHomeView)
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+
 			if (adminHomeView.CurrentPage < 1)
 			{
 				adminHomeView.CurrentPage = 1;
@@ -59,9 +69,5 @@
 
 			return View(adminHomeView);
 		}
-
-
-
-
 	}
 }

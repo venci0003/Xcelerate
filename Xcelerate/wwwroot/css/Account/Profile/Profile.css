@@ -228,3 +228,8 @@ svg {
     margin-bottom: 10px;
     word-wrap: break-word;
 }
+
+.timestamp {
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    margin-top: 0px;
+}

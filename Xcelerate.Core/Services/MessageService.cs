@@ -16,19 +16,71 @@
 		}
 		public async Task<List<MessageViewModel>> GetMessagesAsync(string userId)
 		{
-			List<MessageViewModel> messages = await _dbContext.Messages
-				.AsNoTracking()
-				.Where(m => m.UserId == Guid.Parse(userId))
-				.OrderByDescending(m => m.MessageId)
+			var messagesFromDb = await _dbContext.Messages
+					.AsNoTracking()
+					.Where(m => m.UserId == Guid.Parse(userId))
+					.OrderByDescending(m => m.MessageId)
+					.ToListAsync();
+
+			var messages = messagesFromDb
 				.Select(m => new MessageViewModel()
-				{
-					Title = m.Title,
-					Content = m.Content,
-					TitleColor = GetTitleColor(m.Title)
-				}).ToListAsync();
+			{
+				Title = m.Title,
+				Content = m.Content,
+				CreatedTime = GetFormattedTimestamp(m.CreatedTime),
+				TitleColor = GetTitleColor(m.Title),
+				IsMessageViewed = m.IsMessageViewed
+				
+			}).ToList();
 
 			return messages;
 		}
+
+		public async Task MarkMessagesAsViewedAsync(string userId)
+		{
+			var messagesToUpdate = await _dbContext.Messages
+				.Where(m => m.UserId == Guid.Parse(userId) && !m.IsMessageViewed)
+				.ToListAsync();
+
+			foreach (var message in messagesToUpdate)
+			{
+				message.IsMessageViewed = true;
+				_dbContext.Messages.Update(message);
+			}
+
+			await _dbContext.SaveChangesAsync();
+		}
+
+		public async Task<int> GetUnreadMessageCountAsync(string userId)
+		{
+			return await _dbContext.Messages
+				.CountAsync(m => m.UserId == Guid.Parse(userId) && !m.IsMessageViewed);
+		}
+
+		private string GetFormattedTimestamp(DateTime createdTime)
+		{
+			DateTime localTime = createdTime.ToLocalTime();
+
+			TimeSpan timeSinceCreation = DateTime.UtcNow - createdTime;
+
+			if (timeSinceCreation.TotalMinutes < 1)
+			{
+				return "just now";
+			}
+			else if (timeSinceCreation.TotalMinutes < 60)
+			{
+				return $"{(int)timeSinceCreation.TotalMinutes} minute{(timeSinceCreation.TotalMinutes > 1 ? "s" : "")} ago";
+			}
+			else if (timeSinceCreation.TotalHours < 24)
+			{
+				return $"{(int)timeSinceCreation.TotalHours} hour{(timeSinceCreation.TotalHours > 1 ? "s" : "")} {(int)timeSinceCreation.TotalMinutes % 60} minute{(timeSinceCreation.TotalMinutes % 60 > 1 ? "s" : "")} ago";
+			}
+			else
+			{
+				return localTime.ToString("MM dd HH:mm");
+			}
+		}
+
 
 		private static string GetTitleColor(string title)
 		{

@@ -59,5 +59,7 @@ namespace Xcelerate.Core.Models.Ad
 		[Required]
 		public List<string> ImageUrls { get; set; } = new List<string>();
 
+		public int UnreadMessageCount { get; set; }
+
 	}
 }

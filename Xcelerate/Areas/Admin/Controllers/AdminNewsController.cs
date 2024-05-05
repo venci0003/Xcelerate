@@ -5,19 +5,27 @@
 	using Contracts;
 	using Models;
 	using static Common.ApplicationConstants;
+	using Xcelerate.Core.Contracts;
+	using Xcelerate.Extension;
+
 	public class AdminNewsController : BaseAdminController
 	{
 		private readonly IAdminNewsService _adminNewsService;
-
+		private readonly IMessageService _messageService;
 		private readonly IMemoryCache _memoryCache;
 
-		public AdminNewsController(IAdminNewsService _adminNewsServiceContext, IMemoryCache _memoryCacheContext)
+		public AdminNewsController(
+			IAdminNewsService _adminNewsServiceContext,
+			IMemoryCache _memoryCacheContext,
+			IMessageService _messageServiceContext)
 		{
 			_adminNewsService = _adminNewsServiceContext;
 			_memoryCache = _memoryCacheContext;
+			_messageService = _messageServiceContext;
 		}
-		public IActionResult AddGeneratedNews()
+		public async Task<IActionResult> AddGeneratedNews()
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
 			var result = _adminNewsService.GenerateNews();
 			return View(result);
 		}

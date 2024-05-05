@@ -17,21 +17,26 @@
 		private readonly IUserCarsService _userCarsService;
 		private readonly IAccessoriesService _accessoriesService;
 		private readonly IAdService _adService;
+		private readonly IMessageService _messageService;
 		private readonly IMemoryCache _memoryCache;
 
 		public UserCarsController(IUserCarsService _userCarsServiceContext,
 			IAccessoriesService accessoriesServiceContext,
 			IAdService _adServiceContext,
+			IMessageService _messageServiceContext,
 			IMemoryCache _memoryCacheContext)
 		{
 			_userCarsService = _userCarsServiceContext;
 			_accessoriesService = accessoriesServiceContext;
 			_adService = _adServiceContext;
+			_messageService = _messageServiceContext;
 			_memoryCache = _memoryCacheContext;
 		}
 
 		public async Task<IActionResult> Index(AdInformationViewModel adInformation)
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+
 			Guid userId = User.GetUserId();
 
 			if (adInformation.CurrentPage < 1)
@@ -52,6 +57,7 @@
 		[HttpGet]
 		public async Task<IActionResult> Information(int carId)
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
 
 			if (await _userCarsService.IdExists<Car>(carId) == false)
 			{
@@ -102,6 +108,8 @@
 		[HttpGet]
 		public async Task<IActionResult> Sell(int carId)
 		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+
 			if (await _userCarsService.IdExists<Car>(carId) == false)
 			{
 				return NotFound();
@@ -126,10 +134,9 @@
 		public async Task<IActionResult> Cancel(int carId, int adId)
 		{
 			if (await _userCarsService.IdExists<Car>(carId) == false)
-			{ 
+			{
 				return NotFound();
 			}
-
 
 			if (await _userCarsService.IdExists<Ad>(adId) == false)
 			{

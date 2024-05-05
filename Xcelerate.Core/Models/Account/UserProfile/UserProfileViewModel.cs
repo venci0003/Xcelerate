@@ -18,5 +18,7 @@ namespace Xcelerate.Core.Models.Account.UserProfile
 		public string Email { get; set; } = null!;
 
 		public List<MessageViewModel> Messages { get; set; } = new List<MessageViewModel>();
+
+		public int UnreadMessageCount { get; set; }
 	}
 }
