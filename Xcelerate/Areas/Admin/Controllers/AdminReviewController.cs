@@ -4,6 +4,8 @@
 	using Microsoft.Extensions.Caching.Memory;
 	using Areas.Admin.Contracts;
 	using static Common.ApplicationConstants;
+	using static Common.NotificationMessages.AlertMessages;
+
 	public class AdminReviewController : BaseAdminController
 	{
 		private readonly IAdminReviewService _adminReviewService;
@@ -20,7 +22,7 @@
 		{
 			await _adminReviewService.DeleteReviewAsync(reviewId);
 
-			TempData["DeleteMessageForAdmin"] = "Review deleted successfully.";
+			TempData[DeleteAdminReviewTempData] = DeleteAdminReviewMessage;
 
 			_memoryCache.Remove(AdminReviewsCacheKey);
 

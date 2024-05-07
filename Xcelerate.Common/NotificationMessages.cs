@@ -29,5 +29,34 @@
 
 			public const string SuccesfulBoughtContent = "Car bought: {0} - {1} {2} from {3} {4} for {5}$";
 		};
+
+		public static class AlertMessages
+		{
+			//Create alert message constants
+			public const string AdCreatedSuccesfullyTempData = "AdCreatedSuccesfully";
+
+			public const string AdCreatedSuccesfullyMessage = "You have succesfully created an ad!";
+
+			//Delete alert message constants
+			public const string AdDeletedSuccesfullyTempData = "DeleteMessage";
+
+			public const string AdDeletedSuccesfullyMessage = "Ad deleted successfully.";
+
+			//Delete alert message constants
+			public const string AdCompareErrorTempData = "CompareError";
+
+			public const string AdCompareErrorMessage = "Cannot compare the same car.";
+
+			//Approve news alert message constants
+			public const string NewsApproveErrorTempData = "ErrorMessage";
+
+			public const string NewsApproveErrorMessage = "Title or content is missing.";
+
+
+			//Delete admin reviews alert message constants
+			public const string DeleteAdminReviewTempData = "DeleteMessageForAdmin";
+
+			public const string DeleteAdminReviewMessage = "Review deleted successfully.";
+		}
 	}
 }

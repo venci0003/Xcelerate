@@ -10,6 +10,8 @@
 	using Extension;
 	using Infrastructure.Data.Models;
 	using static Common.ApplicationConstants;
+	using static Common.NotificationMessages.AlertMessages;
+
 
 	[Authorize]
 	public class UserCarsController : Controller
@@ -164,7 +166,7 @@
 
 			await _userCarsService.DeleteCarAdAsync(carId);
 
-			TempData["DeleteMessage"] = "Ad deleted successfully.";
+			TempData[AdDeletedSuccesfullyTempData] = AdDeletedSuccesfullyMessage;
 
 			return Json(new { success = true });
 		}

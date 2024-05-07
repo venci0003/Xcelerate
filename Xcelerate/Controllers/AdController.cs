@@ -10,6 +10,7 @@
 	using Extension;
 	using Infrastructure.Data.Models;
 	using static Common.ApplicationConstants;
+	using static Common.NotificationMessages.AlertMessages;
 	[Authorize]
 	public class AdController : Controller
 	{
@@ -36,7 +37,10 @@
 		[HttpGet]
 		public async Task<IActionResult> Index(AdInformationViewModel adInformation, int firstCarId, bool compareClicked)
 		{
-			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			if (User.Identity.IsAuthenticated)
+			{
+				ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			}
 
 			if (adInformation.CurrentPage < 1)
 			{
@@ -142,7 +146,7 @@
 
 			await _adService.CreateAdAsync(adViewModel, userId.ToString());
 
-			TempData["AdCreatedSuccesfully"] = "You have succesfully created an ad!";
+			TempData[AdCreatedSuccesfullyTempData] = AdCreatedSuccesfullyMessage;
 
 			return RedirectToAction("UserAds", "Ad");
 		}
@@ -200,7 +204,7 @@
 
 			await _adService.DeleteCarAdAsync(carId);
 
-			TempData["DeleteMessage"] = "Ad deleted successfully.";
+			TempData[AdDeletedSuccesfullyTempData] = AdDeletedSuccesfullyMessage;
 
 			return Json(new { success = true });
 		}
@@ -246,7 +250,7 @@
 
 				if (firstCar.CarId == secondCar.CarId)
 				{
-					TempData["CompareError"] = "Cannot compare the same car.";
+					TempData[AdCompareErrorTempData] = AdCompareErrorMessage;
 					return RedirectToAction("Index", "Ad");
 				}
 

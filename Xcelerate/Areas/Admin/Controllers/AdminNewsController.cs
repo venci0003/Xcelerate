@@ -5,6 +5,7 @@
 	using Contracts;
 	using Models;
 	using static Common.ApplicationConstants;
+	using static Common.NotificationMessages.AlertMessages;
 	using Xcelerate.Core.Contracts;
 	using Xcelerate.Extension;
 
@@ -38,7 +39,7 @@
 
 			if (parts.Length < 2)
 			{
-				TempData["ErrorMessage"] = "Title or content is missing.";
+				TempData[NewsApproveErrorTempData] = NewsApproveErrorMessage;
 				return RedirectToAction("Index", "Home", new { Area = "Admin" });
 			}
 
