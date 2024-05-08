@@ -224,6 +224,15 @@ button {
     transition: width .5s;
 }
 
+    #authorize-list-authorized li:nth-child(4) {
+        margin-top: 15px;
+        margin-right: 28px;
+        margin-left: -23px;
+        text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+        direction: rtl;
+        color: red;
+    }
+
     #authorize-list-authorized li {
         margin-top: 15px;
         margin-right: 28px;
@@ -231,6 +240,7 @@ button {
         text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
         direction: rtl;
     }
+
 
         #authorize-list-authorized li a:hover {
             color: #ffcc00;
@@ -324,7 +334,7 @@ button {
         }
 
     #ul-list-unauthorized a:hover {
-        color: whitesmoke; 
+        color: whitesmoke;
     }
 
     #ul-list-unauthorized a {
@@ -443,4 +453,14 @@ footer {
     font-weight: normal;
     margin-bottom: 0px;
     font-size: 18px;
+}
+
+.unread-messages-count {
+    pointer-events: none;
+    cursor: default;
+    color: red;
+}
+
+.unread-messages-count-а {
+    color: red;
 }

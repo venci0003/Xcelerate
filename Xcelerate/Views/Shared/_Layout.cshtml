@@ -12,9 +12,18 @@
 			@if (!User?.Identity?.IsAuthenticated ?? false)
 			{
 				<ul id="ul-list-unauthorized">
-					<img id="wheelIcon"
-						 src="~/Icons/icons8-tire-100 white.png"
-						 alt="Icon Description" />
+					@if (ViewBag.UnreadMessageCount != 0)
+					{
+						<img id="wheelIcon"
+							 src="~/Icons/icons8-tire-100 white.png"
+							 alt="Icon Description" />
+					}
+					else
+					{
+						<img id="wheelIcon"
+							 src="~/Icons/icons8-tire-100 white.png"
+							 alt="Icon Description" />
+					}
 					<li><a asp-area="" asp-controller="Home" asp-action="HomePage">Home</a></li>
 					<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
 					<li><a asp-area="" asp-controller="Ad" asp-action="Index">Ads</a></li>

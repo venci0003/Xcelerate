@@ -1,3 +1,15 @@
 ﻿@model int
 
-<li class="logout-state"><a asp-area="" asp-controller="Account" asp-action="Profile" class="logout-button-submit">DASHBOARD @Model</a></li>
+@if (Model != 0)
+{
+	<li class="unread-messages-count">
+		<a asp-area="" asp-controller="Account" asp-action="Profile" class="logout-button-submit">
+			@Model
+		</a>
+	</li>
+}
+<li class="logout-state">
+	<a asp-area="" asp-controller="Account" asp-action="Profile" class="logout-button-submit">
+		DASHBOARD
+	</a>
+</li>

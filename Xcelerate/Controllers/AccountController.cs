@@ -118,7 +118,12 @@
 
 		public async Task<IActionResult> Profile()
 		{
-			Guid userId = User.GetUserId();
+			Guid userId = Guid.Empty;
+
+			if (User.Identity.IsAuthenticated)
+			{
+				userId = User.GetUserId();
+			}
 
 			if (userId != null)
 			{
