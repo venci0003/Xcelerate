@@ -216,12 +216,23 @@
 
 				if (car.Ad == null)
 				{
-					car.Ad = new Ad
+					var newAd = new Ad
 					{
 						UserId = Guid.Parse(userId),
 						CarDescription = adViewModel.CarDescription,
-						CreatedOn = adViewModel.CreatedOn.ToString(AdEntity.CreatedOnDateFormat)
+						CreatedOn = adViewModel.CreatedOn.ToString(AdEntity.CreatedOnDateFormat),
+						CarId = car.CarId
 					};
+					_dbContext.Ads.Add(newAd);
+					await _dbContext.SaveChangesAsync(); // Save the ad to get the AdId
+
+					car.AdId = newAd.AdId; // Set the AdId of the car to the new Ad's AdId
+					car.Ad = newAd; // Set the Ad navigation property
+				}
+				else
+				{
+					car.Ad.CarDescription = WebUtility.HtmlEncode(adViewModel.CarDescription);
+					car.Ad.CreatedOn = DateTime.Now.ToString(AdEntity.CreatedOnDateFormat);
 				}
 
 				car.Brand = adViewModel.Brand;
@@ -239,11 +250,9 @@
 				car.Price = adViewModel.Price;
 				car.BodyType = adViewModel.BodyType;
 				car.Manufacturer.Name = WebUtility.HtmlEncode(adViewModel.Manufacturer);
-				car.Ad.CarDescription = WebUtility.HtmlEncode(adViewModel.CarDescription);
 				car.Address.CountryName = WebUtility.HtmlEncode(adViewModel.Address.CountryName);
 				car.Address.TownName = WebUtility.HtmlEncode(adViewModel.Address.TownName);
 				car.Address.StreetName = WebUtility.HtmlEncode(adViewModel.Address.StreetName);
-				car.Ad.CreatedOn = DateTime.Now.ToString(AdEntity.CreatedOnDateFormat);
 				car.IsForSale = true;
 
 				var selectedAccessories = adViewModel.SelectedCheckBoxId;
@@ -306,7 +315,7 @@
 					}
 				}
 
-				_dbContext.Ads.Add(car.Ad);
+				_dbContext.Cars.Update(car); // Update the car
 
 				await _dbContext.SaveChangesAsync();
 
@@ -318,6 +327,7 @@
 				throw new ArgumentException("An error occurred while saving the ad.");
 			}
 		}
+
 
 		public async Task<Car> GetCarByIdAsync(int carId)
 		{
@@ -344,6 +354,8 @@
 				_dbContext.Reviews.RemoveRange(reviewsToRemove);
 
 				_dbContext.Ads.Remove(adToRemove);
+
+				car.AdId = null;
 
 				_dbContext.Cars.Update(car);
 

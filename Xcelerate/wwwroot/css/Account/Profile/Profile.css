@@ -181,29 +181,70 @@ svg {
 
 .flexed-account-and-messages {
     display: flex;
+    align-items: flex-start;
+}
+
+.chat-and-messages {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30%;
 }
 
 .card-messages {
-    margin: 120px 10px 314px 42%;
+    margin: 30px 10px 0px 42%;
     border-radius: 24px;
     background-repeat: no-repeat;
     background-size: cover;
     width: 510px;
-    height: 410px;
+    height: 310px;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.card-chat-messages {
+    margin: 30px 10px 0px 42%;
+    border-radius: 24px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 510px;
+    height: 380px;
     backdrop-filter: blur(7px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .messages-ul {
     overflow-y: scroll;
-    height: 310px;
+    height: 225px;
+    margin-top: 0px;
 }
 
 .messages-li {
     list-style-type: none;
 }
 
+.chat-messages-ul {
+    overflow-y: scroll;
+    height: 310px;
+    margin-top: 0px;
+}
+
+.chat-messages-li {
+    list-style-type: none;
+}
+
 .title-text-messages {
+    margin-left: 8%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.title-text-chats {
+    margin-bottom: 0px;
     margin-left: 8%;
     -webkit-touch-callout: none;
     -webkit-user-select: none;

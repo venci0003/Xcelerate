@@ -1,5 +1,7 @@
 ﻿using Xcelerate.Extensions;
 
+using Xcelerate.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRecaptchaService();
@@ -13,6 +15,12 @@ builder.Services.AddMemoryCache();
 builder.Services.AddServices();
 
 builder.Services.AddGlobalFilters();
+
+builder.Services.AddSignalR(options =>
+{
+	options.EnableDetailedErrors = true;
+});
+
 
 builder.Services.Configure<IISServerOptions>(options =>
 {
@@ -37,7 +45,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
+    app.UseMigrationsEndPoint();
 }
 else
 {
@@ -71,5 +80,7 @@ app.UseEndpoints(config =>
 
 	config.MapRazorPages();
 });
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

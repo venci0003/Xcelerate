@@ -133,14 +133,17 @@
 				{
 					List<MessageViewModel> messages = await _messageService.GetMessagesAsync(userId.ToString());
 
-					await _messageService.MarkMessagesAsViewedAsync(userId.ToString());
+                    List<ChatMessageViewModel> chatMessages = await _messageService.GetChatMessagesAsync(userId.ToString());
+
+                    await _messageService.MarkMessagesAsViewedAsync(userId.ToString());
 
 					UserProfileViewModel userProfileModel = new UserProfileViewModel
 					{
 						FirstName = user.FirstName,
 						LastName = user.LastName,
 						Email = user.Email,
-						Messages = messages
+						Messages = messages,
+						ChatMessages = chatMessages
 					};
 
 					return View("UserProfile/Profile", userProfileModel);

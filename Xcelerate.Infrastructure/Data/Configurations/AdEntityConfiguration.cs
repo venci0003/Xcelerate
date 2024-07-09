@@ -20,6 +20,12 @@ namespace Xcelerate.Infrastructure.Data.Configurations
 				.WithOne(a => a.Ad)
 				.OnDelete(DeleteBehavior.NoAction);
 
+			builder.HasMany(ad => ad.ChatSessions)
+			  .WithOne(cs => cs.Ad)
+			  .HasForeignKey(cs => cs.AdId)
+			  .OnDelete(DeleteBehavior.Cascade);
+
+
 			ICollection<Ad> adsCollection = CreateAds();
 			builder.HasData(CreateAds());
 		}

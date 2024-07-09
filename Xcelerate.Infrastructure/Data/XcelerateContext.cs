@@ -32,6 +32,9 @@ namespace Xcelerate.Infrastructure.Data
 				modelBuilder.ApplyConfiguration(new CarAccessoryEntityConfiguration());
 				modelBuilder.ApplyConfiguration(new NewsEntityConfiguration());
 				modelBuilder.ApplyConfiguration(new MessageEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new ChatSessionEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new ChatMessageEntityConfiguration());
+				modelBuilder.ApplyConfiguration(new ChatOfferEntityConfiguration());
 				modelBuilder.Entity<StatisticalData>().HasData(
 				  new StatisticalData { StatisticId = 1, SoldCars = 160, CreatedCars = 210, CreatedReviews = 88 }
 			  );
@@ -57,5 +60,11 @@ namespace Xcelerate.Infrastructure.Data
 		public DbSet<StatisticalData> StatisticalData { get; set; } = null!;
 		public DbSet<News> NewsData { get; set; } = null!;
 		public DbSet<Message> Messages { get; set; } = null!;
+
+		public DbSet<ChatMessage> ChatMessages { get; set; } = null!;
+
+		public DbSet<ChatOffer> ChatOffers { get; set; } = null!;
+
+		public DbSet<ChatSession> ChatSessions { get; set; } = null!;
 	}
 }

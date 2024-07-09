@@ -20,6 +20,7 @@
 			serviceDescriptors.AddScoped<IReviewService, ReviewService>();
 			serviceDescriptors.AddScoped<IHomeService, HomeService>();
 			serviceDescriptors.AddScoped<IMessageService, MessageService>();
+			serviceDescriptors.AddScoped<IChatService, ChatService>();
 
 			serviceDescriptors.AddScoped<IAdminReviewService, AdminReviewService>();
 			serviceDescriptors.AddScoped<IAdminNewsService, AdminNewsService>();

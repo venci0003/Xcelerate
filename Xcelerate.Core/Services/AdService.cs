@@ -583,7 +583,7 @@
 			}
 		}
 
-		public async Task<bool> BuyCarAsync(Car car)
+		public async Task<bool> BuyCarAsync(Car car, decimal confirmedPrice)
 		{
 			Ad? adToRemove = await _dbContext.Ads.FirstOrDefaultAsync(a => a.AdId == car.AdId);
 
@@ -603,6 +603,16 @@
 				var buyer = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == car.UserId);
 
 				var seller = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == adToRemove.UserId);
+
+				if (buyer.Balance < confirmedPrice)
+				{
+					// Handle insufficient balance (you might want to return a specific result or throw an exception)
+					return false;
+				}
+
+				// Update balances
+				buyer.Balance -= confirmedPrice;
+				seller.Balance += confirmedPrice;
 
 				await _dbContext.AddAsync(new Message()
 				{
@@ -727,6 +737,19 @@
 			}
 
 			return (firstCarDataModel, secondCarDataModel);
+		}
+
+		public async Task<(string firstName, string lastName)> GetUserFullNameAsync(Guid userId)
+		{
+			var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+			if (user != null)
+			{
+				return (user.FirstName, user.LastName);
+			}
+			else
+			{
+				return (null, null);
+			}
 		}
 
 		public IQueryable<Ad> FilterCars(AdInformationViewModel adViewModel, IQueryable<Ad> cars)

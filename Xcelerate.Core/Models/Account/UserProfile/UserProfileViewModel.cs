@@ -19,6 +19,9 @@ namespace Xcelerate.Core.Models.Account.UserProfile
 
 		public List<MessageViewModel> Messages { get; set; } = new List<MessageViewModel>();
 
-		public int UnreadMessageCount { get; set; }
+        public List<ChatMessageViewModel> ChatMessages { get; set; } = new List<ChatMessageViewModel>();
+
+
+        public int UnreadMessageCount { get; set; }
 	}
 }

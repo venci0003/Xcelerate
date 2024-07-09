@@ -38,7 +38,8 @@
 				Id = Guid.Parse("9ABB04A0-36A0-4A35-8C1A-34D324AA169E"),
 				FirstName = "Alice",
 				LastName = "Smith",
-				Email = "alice.smith@example.com"
+				Email = "alice.smith@example.com",
+				Balance = 10000,
 			};
 			firstUser.PasswordHash = passwordHasher.HashPassword(firstUser, "9vX&3gZ!7qR");
 			users.Add(firstUser);
@@ -48,7 +49,8 @@
 				Id = Guid.Parse("2CC5DA14-F51C-4B51-96B3-0C296C2EE8DC"),
 				FirstName = "Bob",
 				LastName = "Johnson",
-				Email = "bob.johnson@example.com"
+				Email = "bob.johnson@example.com",
+				Balance = 10000,
 			};
 			secondUser.PasswordHash = passwordHasher.HashPassword(secondUser, "L@8z6#Vc0&Y");
 			users.Add(secondUser);
@@ -58,7 +60,8 @@
 				Id = Guid.Parse("6A31BB92-7EC2-45E3-81A8-912542B314C6"),
 				FirstName = "Charlie",
 				LastName = "Williams",
-				Email = "charlie.williams@example.com"
+				Email = "charlie.williams@example.com",
+				Balance = 10000,
 			};
 			thirdUser.PasswordHash = passwordHasher.HashPassword(thirdUser, "T5!u8$Xp6^Z");
 			users.Add(thirdUser);
@@ -68,7 +71,8 @@
 				Id = Guid.Parse("495CC255-9E57-40E1-A4DE-B1ADBFDBC0FC"),
 				FirstName = "David",
 				LastName = "Brown",
-				Email = "david.brown@example.com"
+				Email = "david.brown@example.com",
+				Balance = 10000,
 			};
 			fourthUser.PasswordHash = passwordHasher.HashPassword(fourthUser, "M3^y7#Bn9*V");
 			users.Add(fourthUser);
@@ -78,7 +82,8 @@
 				Id = Guid.Parse("B0B378DD-78AA-4884-AFA7-7EC6626C9CDF"),
 				FirstName = "Eva",
 				LastName = "Miller",
-				Email = "eva.miller@example.com"
+				Email = "eva.miller@example.com",
+				Balance = 10000,
 			};
 			fifthUser.PasswordHash = passwordHasher.HashPassword(fifthUser, "H6*xC9@F2&L");
 			users.Add(fifthUser);
@@ -88,7 +93,8 @@
 				Id = Guid.Parse("9173EFB3-6DC6-4C27-8D1A-555107353AEA"),
 				FirstName = "Frank",
 				LastName = "Davis",
-				Email = "frank.davis@example.com"
+				Email = "frank.davis@example.com",
+				Balance = 10000,
 			};
 			sixthUser.PasswordHash = passwordHasher.HashPassword(sixthUser, "K8$y4#Bn1^T");
 			users.Add(sixthUser);
@@ -98,7 +104,8 @@
 				Id = Guid.Parse("0C106D5A-7440-44DD-B8D3-3C1B7ACA8020"),
 				FirstName = "Grace",
 				LastName = "Taylor",
-				Email = "grace.taylor@example.com"
+				Email = "grace.taylor@example.com",
+				Balance = 10000,
 			};
 			seventhUser.PasswordHash = passwordHasher.HashPassword(seventhUser, "N4!u7$Mj3&Z");
 			users.Add(seventhUser);
@@ -108,7 +115,8 @@
 				Id = Guid.Parse("B4D7DDAD-411E-4FE8-A7D9-C2638F376F1C"),
 				FirstName = "Henry",
 				LastName = "Clark",
-				Email = "henry.clark@example.com"
+				Email = "henry.clark@example.com",
+				Balance = 10000,
 			};
 			eighthUser.PasswordHash = passwordHasher.HashPassword(eighthUser, "P2^y6#Un0*X");
 			users.Add(eighthUser);
@@ -118,7 +126,8 @@
 				Id = Guid.Parse("B13EDF51-1FF3-46D7-BF4C-C55CAAC1A7C0"),
 				FirstName = "Ivy",
 				LastName = "Walker",
-				Email = "ivy.walker@example.com"
+				Email = "ivy.walker@example.com",
+				Balance = 10000,
 			};
 			ninthUser.PasswordHash = passwordHasher.HashPassword(ninthUser, "Q1!v5$Rp9&Y");
 			users.Add(ninthUser);
@@ -128,7 +137,8 @@
 				Id = Guid.Parse("1B6F6E67-5ADF-4F78-A74E-27B02430C709"),
 				FirstName = "Jack",
 				LastName = "Anderson",
-				Email = "jack.anderson@example.com"
+				Email = "jack.anderson@example.com",
+				Balance = 10000,
 			};
 			tenthUser.PasswordHash = passwordHasher.HashPassword(tenthUser, "S7*xC6@G3&K");
 			users.Add(tenthUser);
@@ -143,6 +153,7 @@
 				NormalizedUserName = "ADMIN.XCELERATE@EXAMPLE.COM",
 				NormalizedEmail = "ADMIN.XCELERATE@EXAMPLE.COM",
 				SecurityStamp = Guid.NewGuid().ToString(),
+				Balance = 10000000
 			};
 			eleventhUser.PasswordHash = passwordHasher.HashPassword(eleventhUser, "admin12345-");
 			users.Add(eleventhUser);

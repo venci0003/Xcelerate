@@ -11,6 +11,11 @@
 	using Infrastructure.Data.Models;
 	using static Common.ApplicationConstants;
 	using static Common.NotificationMessages.AlertMessages;
+	using Microsoft.AspNetCore.SignalR;
+	using Xcelerate.Hubs;
+	using Microsoft.EntityFrameworkCore;
+	using Xcelerate.Core.Services;
+
 	[Authorize]
 	public class AdController : Controller
 	{
@@ -19,18 +24,25 @@
 		private readonly IReviewService _reviewService;
 		private readonly IMessageService _messageService;
 		private readonly IMemoryCache _memoryCache;
+		private readonly IHubContext<ChatHub> _chatHubContext;
+		private readonly IChatService _chatService;
 
 		public AdController(IAdService adServiceContext,
 			IAccessoriesService accessoriesServiceContext,
 			IReviewService reviewServiceContext,
 			IMessageService messageServiceContext,
-			IMemoryCache _memoryCacheContext)
+			IMemoryCache _memoryCacheContext,
+			IHubContext<ChatHub> chatHubContext,
+			IChatService chatService)
 		{
 			_adService = adServiceContext;
 			_accessoriesService = accessoriesServiceContext;
 			_reviewService = reviewServiceContext;
 			_messageService = messageServiceContext;
 			_memoryCache = _memoryCacheContext;
+			_chatHubContext = chatHubContext;
+			_chatService = chatService;
+
 		}
 
 		[AllowAnonymous]
@@ -79,6 +91,7 @@
 
 			AdInformationViewModel? carAdInfo = _memoryCache.Get<AdInformationViewModel>(carAdInformationCacheKey);
 
+
 			if (carAdInfo == null)
 			{
 				carAdInfo = await _adService.GetCarsInformationAsync(adId);
@@ -92,6 +105,8 @@
 			{
 				return NotFound();
 			}
+
+			ViewBag.CarId = carAdInfo.CarId;
 
 			string carAccessoriesCacheKey = $"{CarAccessoriesCacheKey}_{adId}";
 
@@ -211,9 +226,8 @@
 
 
 		[HttpPost]
-		public async Task<IActionResult> Buy(int carId)
+		public async Task<IActionResult> Buy(int carId, Guid buyerId, decimal confirmedPrice)
 		{
-			Guid buyerUserId = User.GetUserId();
 
 			if (await _adService.IdExists<Car>(carId) == false)
 			{
@@ -227,13 +241,41 @@
 				return NotFound();
 			}
 
-			carToBuy.UserId = buyerUserId;
+			carToBuy.UserId = buyerId;
 
-			await _adService.BuyCarAsync(carToBuy);
+			await _adService.BuyCarAsync(carToBuy, confirmedPrice);
 
 			return RedirectToAction("Index", "UserCars");
 
 		}
+
+		[HttpGet]
+		[Route("StartChat")]
+		public async Task<IActionResult> StartChat(Guid otherUserId, int adId, int carId)
+		{
+			var currentUserId = User.GetUserId();
+
+			// Call the CreateChatSession method to create or retrieve the chat session ID
+			var chatSessionId = await _chatService.CreateChatSession(currentUserId, otherUserId, adId);
+
+			// Get the full name of the current user
+			var (firstName, lastName) = await _adService.GetUserFullNameAsync(currentUserId);
+
+			// Pass the current user's name and the chat session ID to the view
+			ViewBag.UserFirstName = firstName;
+			ViewBag.UserLastName = lastName;
+			var chatView = new ChatViewModel
+			{
+				ChatSessionId = chatSessionId,
+				CurrentUserId = currentUserId,
+				CarId = carId
+			};
+
+			// Return the ChatIndex view with the chat session information
+			return View("ChatIndex", chatView);
+		}
+
+
 
 		public async Task<IActionResult> Compare(int firstCarId, int secondCarId)
 		{

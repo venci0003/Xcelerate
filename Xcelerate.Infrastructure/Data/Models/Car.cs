@@ -83,10 +83,9 @@
 		public int AddressId { get; set; }
 		public Address Address { get; set; } = null!;
 
-		[Required]
 		[ForeignKey(nameof(Ad))]
-		public int AdId { get; set; }
-		public Ad Ad { get; set; } = null!;
+		public int? AdId { get; set; }  
+		public Ad? Ad { get; set; }
 
 		[Required]
 		[ForeignKey(nameof(User))]

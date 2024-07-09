@@ -1,0 +1,91 @@
+﻿@model ChatViewModel
+
+<!-- Main Chat Container -->
+<div class="container" style="margin-top: 287px; position: absolute; right: 50%;">
+	<div class="row p-1">
+		<div class="col-1">User</div>
+		<div class="col-5">
+			<span id="userName">@ViewBag.UserFirstName @ViewBag.UserLastName</span>
+		</div>
+	</div>
+	<div class="row p-1">
+		<div class="col-1">Message</div>
+		<div class="col-5">
+			<input type="text" class="w-100" id="messageInput" />
+		</div>
+	</div>
+	<div class="row p-1">
+		<div class="col-6 text-end">
+			<input type="button" id="sendButton" value="Send Message" class="btn btn-primary" />
+		</div>
+	</div>
+	<div class="row p-1">
+		<div class="col-6"></div>
+	</div>
+	<div class="row p-1">
+		<div class="col-6">
+			<ul id="messagesList" style="list-style-type: none; padding: 0;"></ul>
+		</div>
+	</div>
+	<input type="hidden" id="sessionId" value="@Model.ChatSessionId" />
+	@Html.AntiForgeryToken()
+</div>
+
+<!-- Offer Container -->
+<div class="container" style="margin-top: 287px; position: absolute; right: 20%;">
+	<div class="row p-1">
+		<div class="col-1">Offers</div>
+		<div class="col-5">
+			<input type="number" class="w-100" id="messageOfferInput" />
+		</div>
+	</div>
+	<div class="row p-1">
+		<div class="col-6 text-end">
+			<input type="button" id="sendButtonOffer" value="Send Offer" class="btn btn-primary" />
+		</div>
+	</div>
+	<div class="row p-1">
+		<div class="col-6"></div>
+	</div>
+	<div class="row p-1">
+		<div class="col-6">
+			<ul id="messagesOfferList" style="list-style-type: none; padding: 0;"></ul>
+		</div>
+	</div>
+	<input type="hidden" id="sessionOfferId" value="@Model.ChatSessionId" />
+	<input type="hidden" id="currentUserId" value="@Model.CurrentUserId" />
+
+</div>
+
+<!-- Embedded CSS -->
+<style>
+	/* Styles for chat messages and offers */
+	#messagesList li {
+		margin-bottom: 5px;
+		padding: 10px;
+		background-color: #f0f0f0;
+		border-radius: 5px;
+	}
+
+	#messagesOfferList li {
+		margin-bottom: 10px;
+		padding: 10px;
+		background-color: #d3eaf8;
+		border-radius: 5px;
+	}
+
+		#messagesOfferList li button {
+			margin-left: 10px;
+		}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css">
+
+
+<!-- SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+<!-- Include SignalR JavaScript -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/signalr/chat.js"></script>

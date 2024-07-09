@@ -875,7 +875,7 @@ namespace Xcelerate.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"), 1L, 1);
 
-                    b.Property<int>("AdId")
+                    b.Property<int?>("AdId")
                         .HasColumnType("int");
 
                     b.Property<int>("AddressId")
@@ -3585,6 +3585,97 @@ namespace Xcelerate.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.ChatMessage", b =>
+                {
+                    b.Property<int>("ChatMessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatMessageId"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ChatMessageId");
+
+                    b.HasIndex("SenderId");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("ChatMessages");
+                });
+
+            modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.ChatOffer", b =>
+                {
+                    b.Property<int>("ChatOfferId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatOfferId"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ChatOfferId");
+
+                    b.HasIndex("SenderId");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("ChatOffers");
+                });
+
+            modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.ChatSession", b =>
+                {
+                    b.Property<Guid>("ChatSessionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AdId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("BuyerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SellerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ChatSessionId");
+
+                    b.HasIndex("AdId");
+
+                    b.HasIndex("BuyerId");
+
+                    b.HasIndex("SellerId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ChatSessions");
+                });
+
             modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.Engine", b =>
                 {
                     b.Property<int>("EngineId")
@@ -4763,6 +4854,38 @@ namespace Xcelerate.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.Message", b =>
+                {
+                    b.Property<int>("MessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageId"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsMessageViewed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.News", b =>
                 {
                     b.Property<int>("NewsId")
@@ -5446,6 +5569,10 @@ namespace Xcelerate.Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("User's balance (fake money)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -5517,13 +5644,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("9abb04a0-36a0-4a35-8c1a-34d324aa169e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3454621d-d096-47b1-a81f-bbe0e6f44dec",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "2e99d95b-3fe3-4c39-8ece-ff2d4dc79b6b",
                             Email = "alice.smith@example.com",
                             EmailConfirmed = false,
                             FirstName = "Alice",
                             LastName = "Smith",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDjJmemO8YB4fWKRhPYb4haGGVtqJotzQPAKh400lLHzqdHGjnJb3eHYIn7nZqzq5g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELghEGL9Ly6t514AANr8JEOizJ0cNKOj4hYxCmhQLquwLPP7oBx7LN6fivTsU9VCPA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5531,13 +5659,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("2cc5da14-f51c-4b51-96b3-0c296c2ee8dc"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aa491b07-094a-4fee-92cf-32b8ea304276",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "01bc42a7-e7f2-4fc4-bc6e-bf05f8fd2ee8",
                             Email = "bob.johnson@example.com",
                             EmailConfirmed = false,
                             FirstName = "Bob",
                             LastName = "Johnson",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEAi6b2/c/612AV/MYJ+Eke4i1c0oGhKBwiDLNRxyLj6Ysyd8RW1oJSEt77QuFeN8KQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBEOmHiG4pMjoMoF+B9m+k7VZUC58jmwzchdn7h6rIa3riTGCOkFBvkJWRauj05ApA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5545,13 +5674,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("6a31bb92-7ec2-45e3-81a8-912542b314c6"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5b4e0267-5457-431f-b0aa-312d65c77a7f",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "18c8c476-b74c-4893-9510-6d4d940968ec",
                             Email = "charlie.williams@example.com",
                             EmailConfirmed = false,
                             FirstName = "Charlie",
                             LastName = "Williams",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAELNJY8OOmksHP1+s4EVTotC0Peiinx5ZFcYEu2zN6D3cSqj3kpgZ3Dkw6KE70iUz6A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO6Dhzx2JkU+MtOCUUiNzh5CCPzpMmBOk6qjtzKlJpVchXgtUzgW17zgs1US6nViNA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5559,13 +5689,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("495cc255-9e57-40e1-a4de-b1adbfdbc0fc"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8869e815-d09b-4cad-944b-05f0b78278f2",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "3140d7fa-5b7d-4ae2-b802-73b1d8f22c4e",
                             Email = "david.brown@example.com",
                             EmailConfirmed = false,
                             FirstName = "David",
                             LastName = "Brown",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEPCvRDrchcYbFasspt98Ru8KAwfOBu4FUHgvICz6bvWzIsjmKW+h7dntyGtFgbsftw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPjWYie44FjFguYkrFMjRr3JWQJsh+EkvvPQqakkvXrQZntxf8VvnOJBSrvV50zzew==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5573,13 +5704,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("b0b378dd-78aa-4884-afa7-7ec6626c9cdf"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "932add0b-0806-449f-a575-14d6ea71eeb8",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "b077cde2-405c-4d5d-a1ec-df3045be957d",
                             Email = "eva.miller@example.com",
                             EmailConfirmed = false,
                             FirstName = "Eva",
                             LastName = "Miller",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEHwY46u9CNSezdja6aRl5n+LJuWtutMAr1WiatBS8NJF95majuAKrWqxd1lVmO5E9Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOsWlNHwZPrgOX7W/EEpKXTIWJX6IqEOHM9tRjrxbbHOOCdzBra5PnhUWLOPJ2tgNg==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5587,13 +5719,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("9173efb3-6dc6-4c27-8d1a-555107353aea"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc1f748a-e9e0-4080-8893-e5734eba25f7",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "946fed5b-44c0-46b4-845c-2d038deb201a",
                             Email = "frank.davis@example.com",
                             EmailConfirmed = false,
                             FirstName = "Frank",
                             LastName = "Davis",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEPN7Q2S8DmM8I8rUTf9eWi/DHKoqhLWGGk+KkWtz2mzspcV38OeLOMDmtXYTlF28lg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOWOm1Q1uZzKfYcawuXzRKo7yfm2QpQFhgrWibUEn/De1VmX0Da7XH4PjkWfyW8yMw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5601,13 +5734,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("0c106d5a-7440-44dd-b8d3-3c1b7aca8020"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bc0fe702-d74d-4515-a0b4-a508b8a0247f",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "d2ede4bf-94da-4264-9393-8b4dc152da4d",
                             Email = "grace.taylor@example.com",
                             EmailConfirmed = false,
                             FirstName = "Grace",
                             LastName = "Taylor",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMf1mV274uE+HyD45UmGKq1MhsT7cwm+Sa8NzluFrmJdkJcrQGW+6I4t2X4R8ALFFA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG3vKTlFIu2RPuewD8gezHc3b2P/zOgoiMP6IubVodvcv1v3NXE1AK6qW/QjHYW4WQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5615,13 +5749,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("b4d7ddad-411e-4fe8-a7d9-c2638f376f1c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fb6a6f97-61fc-4729-ba8e-df91f03b3ccd",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "b0eb2eb3-4985-4327-8dd5-4eb4fd1df0ff",
                             Email = "henry.clark@example.com",
                             EmailConfirmed = false,
                             FirstName = "Henry",
                             LastName = "Clark",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDkNw/DQKp32l6ei94kjsNOQ9ZNEGP0LD0Y8sxkBQd0Ramy48hBIsCjzfskIY/q87g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH5qMgcjdWTepzsQS+tl47U4puqCAFzlcLJBNd1aFaSNpQ/fGbdFcOqukGvrQcUq5g==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5629,13 +5764,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("b13edf51-1ff3-46d7-bf4c-c55caac1a7c0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6990ef8b-7c28-4c36-a369-359204432112",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "09b1db0f-fe65-4412-9402-baec9968261e",
                             Email = "ivy.walker@example.com",
                             EmailConfirmed = false,
                             FirstName = "Ivy",
                             LastName = "Walker",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMu5kJBVJmY6YekAzUHgYtiQX+P3KI9xwWxRoFlvQybVNHq2k2UTFhay4BriD3sp+A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELM2OKVCWBxouBoeFIQUQKmJfLk6hcR4hwcvynpvNzOaPloFHZM5H+5din6Mh+HYuw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5643,13 +5779,14 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("1b6f6e67-5adf-4f78-a74e-27b02430c709"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1035ae58-d0f8-420f-8512-101eed07df78",
+                            Balance = 10000m,
+                            ConcurrencyStamp = "d28e7486-6ff9-41e5-97e4-10e61a45d067",
                             Email = "jack.anderson@example.com",
                             EmailConfirmed = false,
                             FirstName = "Jack",
                             LastName = "Anderson",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEHQ76E3Pyxa681Yr9v4ilnhjPniaNBPCXQ/WGQTeAl4oZ72ZvFP7n2U68cmqZ+FaYw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF8E7lgP2hLZUqcZsn4Jf8v82z2/V6pqySFiPy4t9UadmF0FDgiQCVrtnQvKa93zUA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
                         },
@@ -5657,7 +5794,8 @@ namespace Xcelerate.Infrastructure.Migrations
                         {
                             Id = new Guid("f3b1e0a3-0f36-4e83-aa76-deb9af5d5f07"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "355cda90-d5f7-4298-be25-bc46761efd4a",
+                            Balance = 10000000m,
+                            ConcurrencyStamp = "e2910036-dbf1-4037-ac02-948ef0e58114",
                             Email = "admin.xcelerate@example.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -5665,9 +5803,9 @@ namespace Xcelerate.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN.XCELERATE@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN.XCELERATE@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBHUvJw5UiiVICUXqIGre47Rq9BTLv0A1O/ZaXkEa5EJxPTAGv4CsgXbAcUUtrVHfg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEInnEw4IPBdS4kqSP6JxqJNUvDQbwwWD1V5HRqtalTR+q7OyWGLBR0cm5BthsvZjOQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "97966e1c-e67f-4b1a-b76f-27e5be016252",
+                            SecurityStamp = "0b5d9eba-4125-4d3a-a0e4-b7cee9a01879",
                             TwoFactorEnabled = false,
                             UserName = "admin.xcelerate@example.com"
                         });
@@ -5797,6 +5935,75 @@ namespace Xcelerate.Infrastructure.Migrations
                     b.Navigation("Car");
                 });
 
+            modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.ChatMessage", b =>
+                {
+                    b.HasOne("Xcelerate.Infrastructure.Data.Models.User", "Sender")
+                        .WithMany("ChatMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Xcelerate.Infrastructure.Data.Models.ChatSession", "Session")
+                        .WithMany("ChatMessages")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sender");
+
+                    b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.ChatOffer", b =>
+                {
+                    b.HasOne("Xcelerate.Infrastructure.Data.Models.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Xcelerate.Infrastructure.Data.Models.ChatSession", "Session")
+                        .WithMany("ChatOffers")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sender");
+
+                    b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.ChatSession", b =>
+                {
+                    b.HasOne("Xcelerate.Infrastructure.Data.Models.Ad", "Ad")
+                        .WithMany("ChatSessions")
+                        .HasForeignKey("AdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Xcelerate.Infrastructure.Data.Models.User", "Buyer")
+                        .WithMany()
+                        .HasForeignKey("BuyerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Xcelerate.Infrastructure.Data.Models.User", "Seller")
+                        .WithMany()
+                        .HasForeignKey("SellerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Xcelerate.Infrastructure.Data.Models.User", null)
+                        .WithMany("ChatSessions")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Ad");
+
+                    b.Navigation("Buyer");
+
+                    b.Navigation("Seller");
+                });
+
             modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.Image", b =>
                 {
                     b.HasOne("Xcelerate.Infrastructure.Data.Models.Car", "Car")
@@ -5806,6 +6013,17 @@ namespace Xcelerate.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.Message", b =>
+                {
+                    b.HasOne("Xcelerate.Infrastructure.Data.Models.User", "User")
+                        .WithMany("Messages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.Review", b =>
@@ -5834,6 +6052,8 @@ namespace Xcelerate.Infrastructure.Migrations
 
             modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.Ad", b =>
                 {
+                    b.Navigation("ChatSessions");
+
                     b.Navigation("Reviews");
                 });
 
@@ -5844,12 +6064,18 @@ namespace Xcelerate.Infrastructure.Migrations
 
             modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.Car", b =>
                 {
-                    b.Navigation("Ad")
-                        .IsRequired();
+                    b.Navigation("Ad");
 
                     b.Navigation("CarAccessories");
 
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.ChatSession", b =>
+                {
+                    b.Navigation("ChatMessages");
+
+                    b.Navigation("ChatOffers");
                 });
 
             modelBuilder.Entity("Xcelerate.Infrastructure.Data.Models.Engine", b =>
@@ -5867,6 +6093,12 @@ namespace Xcelerate.Infrastructure.Migrations
                     b.Navigation("Ads");
 
                     b.Navigation("Cars");
+
+                    b.Navigation("ChatMessages");
+
+                    b.Navigation("ChatSessions");
+
+                    b.Navigation("Messages");
 
                     b.Navigation("Reviews");
                 });

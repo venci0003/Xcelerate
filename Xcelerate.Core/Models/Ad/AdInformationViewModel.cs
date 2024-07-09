@@ -46,8 +46,8 @@ namespace Xcelerate.Core.Models.Ad
 
 		public int UnreadMessageCount { get; set; }
 
-		//Sorting
-		public SortingEnums Sorting { get; set; }
+        //Sorting
+        public SortingEnums Sorting { get; set; }
 		public int StartYear { get; set; }
 		public int EndYear { get; set; }
 		public int? MinPrice { get; set; }

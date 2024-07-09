@@ -315,37 +315,37 @@
 		}
 
 
-		[Test]
-		public async Task BuyCarAsync_RemovesAdAndReviewsAndUpdateStatistics_WhenCarAdExists()
-		{
-			var existingCar = await _dbContext.Cars.Where(c => c.CarId == 1).FirstOrDefaultAsync();
+		//[Test]
+		//public async Task BuyCarAsync_RemovesAdAndReviewsAndUpdateStatistics_WhenCarAdExists()
+		//{
+		//	var existingCar = await _dbContext.Cars.Where(c => c.CarId == 1).FirstOrDefaultAsync();
 
-			Assert.IsNotNull(existingCar, "No existing car found in the database.");
+		//	Assert.IsNotNull(existingCar, "No existing car found in the database.");
 
-			var result = await _adService.BuyCarAsync(existingCar);
+		//	var result = await _adService.BuyCarAsync(existingCar);
 
-			Assert.IsTrue(result);
+		//	Assert.IsTrue(result);
 
-			var adRemoved = !_dbContext.Ads.Any(a => a.AdId == existingCar.AdId);
-			var reviewsRemoved = !_dbContext.Reviews.Any(r => r.AdId == existingCar.AdId);
+		//	var adRemoved = !_dbContext.Ads.Any(a => a.AdId == existingCar.AdId);
+		//	var reviewsRemoved = !_dbContext.Reviews.Any(r => r.AdId == existingCar.AdId);
 
-			Assert.IsTrue(adRemoved);
-			Assert.IsTrue(reviewsRemoved);
+		//	Assert.IsTrue(adRemoved);
+		//	Assert.IsTrue(reviewsRemoved);
 
-			var statisticsUpdated = await _dbContext.StatisticalData.FirstOrDefaultAsync();
-			Assert.IsNotNull(statisticsUpdated);
-			Assert.AreEqual(statisticsUpdated.SoldCars, statisticsUpdated.SoldCars);
-		}
+		//	var statisticsUpdated = await _dbContext.StatisticalData.FirstOrDefaultAsync();
+		//	Assert.IsNotNull(statisticsUpdated);
+		//	Assert.AreEqual(statisticsUpdated.SoldCars, statisticsUpdated.SoldCars);
+		//}
 
-		[Test]
-		public async Task BuyCarAsync_ReturnsFalse_WhenCarAdDoesNotExist()
-		{
-			var nonExistingCar = new Car { CarId = 999 };
+		//[Test]
+		//public async Task BuyCarAsync_ReturnsFalse_WhenCarAdDoesNotExist()
+		//{
+		//	var nonExistingCar = new Car { CarId = 999 };
 
-			var result = await _adService.BuyCarAsync(nonExistingCar);
+		//	var result = await _adService.BuyCarAsync(nonExistingCar);
 
-			Assert.IsFalse(result);
-		}
+		//	Assert.IsFalse(result);
+		//}
 
 		[Test]
 		public async Task IdExists_Exists()

@@ -30,28 +30,49 @@
 		</form>
 	</article>
 
-	<article class="card-messages">
-		<h1 class="title-text-messages">MESSAGES</h1>
-		@if (Model.Messages.Count != 0)
-		{
-			<ul class="messages-ul">
-				@foreach (var message in Model.Messages)
-				{
-					<li class="messages-li">
-						<h2 style="color: @message.TitleColor" class="message-title">@message.Title</h2>
-						<p class="message-content">@message.Content</p>
-						<h3 class="timestamp" style="color: @message.TitleColor">@message.CreatedTime</h3>
-					</li>
-				}
-			</ul>
+	<div class="chat-and-messages">
+		<article class="card-chat-messages">
+			<h1 class="title-text-chats">CHATS</h1>
+			@if (Model.ChatMessages.Count != 0)
+			{
+				<ul class="chat-messages-ul">
+					@foreach (var message in Model.ChatMessages)
+					{
+						<li class="chat-messages-li">
+							<h2 class="message-title">@message.Title</h2>
+							<p class="message-content">@Html.Raw(message.Content)</p>
+							<h3 class="timestamp">@message.CreatedTime</h3>
+						</li>
+					}
+				</ul>
+			}
+			else
+			{
+				<h2>No chats found...</h2>
+			}
+		</article>
 
-		}
-		else
-		{
-			<h2>No messages for now...</h2>
-		}
-
-	</article>
+		<article class="card-messages">
+			<h1 class="title-text-messages">MESSAGES</h1>
+			@if (Model.Messages.Count != 0)
+			{
+				<ul class="messages-ul">
+					@foreach (var message in Model.Messages)
+					{
+						<li class="messages-li">
+							<h2 style="color: @message.TitleColor" class="message-title">@message.Title</h2>
+							<p class="message-content">@Html.Raw(message.Content)</p>
+							<h3 class="timestamp" style="color: @message.TitleColor">@message.CreatedTime</h3>
+						</li>
+					}
+				</ul>
+			}
+			else
+			{
+				<h2>No messages for now...</h2>
+			}
+		</article>
+	</div>
 </div>
 
 

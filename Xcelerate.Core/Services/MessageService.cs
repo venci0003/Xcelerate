@@ -14,6 +14,41 @@
 		{
 			_dbContext = context;
 		}
+
+		public async Task<List<ChatMessageViewModel>> GetChatMessagesAsync(string userId)
+		{
+			var userIdGuid = Guid.Parse(userId);
+
+			var chatMessagesFromDb = await _dbContext.ChatMessages
+				.Include(m => m.Sender)
+				.Include(m => m.Session)
+					.ThenInclude(s => s.Ad)
+					.ThenInclude(a => a.Car)
+				.Where(m => m.Session.BuyerId == userIdGuid || m.Session.SellerId == userIdGuid)
+				.OrderByDescending(m => m.SentAt)
+				.ToListAsync();
+
+			var latestMessages = chatMessagesFromDb
+				.Where(m => m.SenderId != userIdGuid)
+				.GroupBy(m => m.SessionId)
+				.Select(g => g.OrderByDescending(m => m.SentAt).First())
+				.OrderByDescending(m => m.SentAt)
+				.ToList();
+
+			var chatMessages = latestMessages.Select(chatMessage => new ChatMessageViewModel
+			{
+				Title = $"{chatMessage.Session.Ad.Car.Brand} {chatMessage.Session.Ad.Car.Model}",
+				Content = $"{chatMessage.Sender.FirstName} {chatMessage.Sender.LastName}. Click <a href='/StartChat?otherUserId={chatMessage.Sender.Id}&adId={chatMessage.Session.Ad.AdId}&carId={chatMessage.Session.Ad.CarId}'>here</a> to join the chat.",
+				CreatedTime = chatMessage.SentAt.ToString("g"),
+				SenderName = $"{chatMessage.Sender.FirstName} {chatMessage.Sender.LastName}"
+			}).ToList();
+
+			return chatMessages;
+		}
+
+
+
+
 		public async Task<List<MessageViewModel>> GetMessagesAsync(string userId)
 		{
 			var messagesFromDb = await _dbContext.Messages
@@ -24,14 +59,14 @@
 
 			var messages = messagesFromDb
 				.Select(m => new MessageViewModel()
-			{
-				Title = m.Title,
-				Content = m.Content,
-				CreatedTime = GetFormattedTimestamp(m.CreatedTime),
-				TitleColor = GetTitleColor(m.Title),
-				IsMessageViewed = m.IsMessageViewed
-				
-			}).ToList();
+				{
+					Title = m.Title,
+					Content = m.Content,
+					CreatedTime = GetFormattedTimestamp(m.CreatedTime),
+					TitleColor = GetTitleColor(m.Title),
+					IsMessageViewed = m.IsMessageViewed
+
+				}).ToList();
 
 			return messages;
 		}
