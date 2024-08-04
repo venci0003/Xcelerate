@@ -1,0 +1,215 @@
+﻿
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+.abstract-element {
+    position: absolute; /* Ensure circles are positioned relative to the document */
+    border-radius: 50%; /* Keep it circular */
+    opacity: 0.8; /* Slight transparency */
+    animation: moveElement 15s infinite;
+    mix-blend-mode: screen; /* This helps with blending the colors */
+    z-index: -2;
+    background-size: cover;
+    background-repeat: no-repeat;
+    will-change: transform, clip-path; /* Helps with smoother animations */
+}
+
+@keyframes moveElement {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    10% {
+        transform: translate(20vw, 10vh) scale(1.2);
+    }
+
+    20% {
+        transform: translate(30vw, -15vh) scale(1.3);
+    }
+
+    30% {
+        transform: translate(-10vw, 25vh) scale(1.1);
+    }
+
+    40% {
+        transform: translate(-20vw, -20vh) scale(1.2);
+    }
+
+    50% {
+        transform: translate(10vw, 30vh) scale(1.1);
+    }
+
+    60% {
+        transform: translate(-25vw, -10vh) scale(1.3);
+    }
+
+    70% {
+        transform: translate(15vw, 20vh) scale(1.2);
+    }
+
+    80% {
+        transform: translate(-30vw, 15vh) scale(1.1);
+    }
+
+    90% {
+        transform: translate(20vw, -25vh) scale(1.2);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+
+body {
+    margin: 0px;
+    background: linear-gradient(135deg, #1b2838, #2a475e, #4d6a79, #171a21);
+    animation: gradientShift 5s ease infinite;
+    background-size: 100% 100%;
+    color: #c7d5e0;
+    position: relative;
+    overflow-x: hidden
+}
+
+
+#messagesList li {
+    margin-bottom: 5px;
+    padding: 10px;
+    background-color: #2a475e; /* Darker chat bubble color */
+    color: #c7d5e0; /* Text color */
+
+    border-radius: 5px;
+}
+
+#messagesOfferList li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #2a475e; /* Darker offer bubble color */
+    color: #c7d5e0; /* Text color */
+    border-radius: 5px;
+}
+
+    #messagesOfferList li button {
+        margin-left: 10px;
+        background-color: #1b2838; /* Button color */
+        color: #c7d5e0;
+        border: 1px solid #4d6a79; /* Border color */
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        #messagesOfferList li button:hover {
+            background-color: #3a7aa0; /* Hover color */
+        }
+
+.chat-message-section {
+    background: rgba(34, 49, 63, 0.9); /* Background color with transparency */
+    padding: 20px;
+    margin-right: 50px;
+    margin: 120px 10px 314px 2%;
+    border-radius: 24px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 510px;
+    height: 410px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(7px);
+}
+
+.offer-message-section {
+    background: rgba(34, 49, 63, 0.9); /* Background color with transparency */
+    padding: 20px;
+    margin: 120px 10px 314px 2%;
+    border-radius: 24px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 510px;
+    height: 410px;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+#messagesOfferList > li {
+    width: 460px;
+}
+
+#messagesOfferList {
+    overflow-y: scroll;
+    height: 315px;
+}
+
+    #messagesOfferList li.seller {
+        background-color: #4d6a79; /* Seller chat bubble color */
+    }
+
+    #messagesOfferList li.buyer {
+        background-color: #2a475e; /* Buyer chat bubble color */
+    }
+
+    #messagesOfferList > li > button {
+        width: 100px;
+    }
+
+#messagesList {
+    overflow-y: scroll;
+    height: 275px;
+}
+
+    #messagesList li.seller {
+        background-color: #4d6a79; /* Seller chat bubble color */
+        width: 420px;
+        height: auto;
+    }
+
+    #messagesList li.buyer {
+        background-color: #2a475e; /* Buyer chat bubble color */
+        width: 440px;
+        height: auto;
+    }
+
+.chat-offer-sections-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.input-field {
+    background-color: #1b2838; /* Input background color */
+    color: #c7d5e0; /* Input text color */
+    border: 1px solid #4d6a79; /* Input border color */
+    padding: 5px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+    .input-field::placeholder {
+        color: #c7d5e0; /* Placeholder text color */
+    }
+
+.send-button {
+    background-color: #2a475e; /* Button color */
+    color: #c7d5e0; /* Button text color */
+    border: 1px solid #4d6a79; /* Button border color */
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px
+}
+
+    .send-button:hover {
+        background-color: #3a7aa0; /* Hover color */
+    }

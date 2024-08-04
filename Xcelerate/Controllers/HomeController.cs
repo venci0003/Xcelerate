@@ -29,7 +29,10 @@
 
 		public async Task<IActionResult> About()
 		{
-			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			if (User.Identity.IsAuthenticated)
+			{
+				ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			}
 			return View();
 		}
 

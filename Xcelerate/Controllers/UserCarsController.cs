@@ -53,6 +53,11 @@
 
 			adInformation.Ads = cars;
 
+			if (TempData["Notification"] != null)
+			{
+				ViewBag.Notification = TempData["Notification"].ToString();
+			}
+
 			return View(adInformation);
 		}
 

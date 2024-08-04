@@ -3,202 +3,210 @@
 @model AdInformationViewModel
 
 <link rel="stylesheet" href="~/css/Ad/UserAds.css" asp-append-version="true" />
-<form class="filters" method="get">
-	<article class="filter-card">
-		<h1 class="title-text">Filter and Sort your search!</h1>
-		<section class="information-inputs">
-			<div class="form-input">
-				<label for="sorting-select">Sorting</label>
-				<select name="Sorting" asp-for="@Model.Sorting" id="sorting-select" onchange="this.form.submit()">
-					@foreach (var sorting in Enum.GetValues(typeof(SortingEnums)))
-					{
-						<option value="@sorting">@sorting</option>
-					}
-				</select>
-				<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
-			</div>
 
-			<div class="form-input">
-				<label for="brand-select">Brand</label>
-				<select name="Brand" asp-for="@Model.Brand" id="brand-select" onchange="this.form.submit()">
-					@foreach (var brandType in Enum.GetValues(typeof(BrandsEnum)))
-					{
-						<option value="@brandType">@brandType</option>
-					}
-				</select>
-				<span asp-validation-for="@Model.Brand" class="text-danger"></span>
-			</div>
+<partial name="_WebsiteName">
+</partial>
 
-			<div class="form-input">
-				<label for="model">Model</label>
-				<input type="text" name="model" id="model" value="@Model.Model" placeholder="Enter model">
-			</div>
+<button id="toggle-button">Show Filters</button>
 
-			<div class="form-input">
-				<label for="manufacturer">Manufacturer</label>
-				<input type="text" name="manufacturer" id="manufacturer" value="@Model.Manufacturer" placeholder="Enter manufacturer">
-			</div>
-
-			<div class="form-input">
-				<label for="minHorsePower">Min HP</label>
-				<input type="number" name="minHorsePower" id="minHorsePower" value="@Model.MinHorsePower" placeholder="Enter min hp">
-			</div>
-			<div class="form-input">
-				<label for="maxHorsePower">Max HP</label>
-				<input type="number" name="maxHorsePower" id="maxHorsePower" value="@Model.MaxHorsePower" placeholder="Enter max hp">
-			</div>
-
-			<div class="form-input">
-				<label for="minPrice">Min Price</label>
-				<input type="number" name="minPrice" id="minPrice" value="@Model.MinPrice" placeholder="Enter min price">
-			</div>
-			<div class="form-input">
-				<label for="maxPrice">Max Price</label>
-				<input type="number" name="maxPrice" id="maxPrice" value="@Model.MaxPrice" placeholder="Enter max price">
-			</div>
-
-			<div class="form-input">
-				<label for="minMileage">Min Mileage</label>
-				<input type="number" name="minMileage" id="minMileage" value="@Model.MinMileage" placeholder="Enter min mileage">
-			</div>
-			<div class="form-input">
-				<label for="maxMileage">Max Mileage</label>
-				<input type="number" name="maxMileage" id="maxMileage" value="@Model.MaxMileage" placeholder="Enter max mileage">
-			</div>
-
-
-			<div class="second-form-inputs">
-
+<div id="filter-form-container" class="collapsed">
+	<form class="filters" method="get">
+		<article class="filter-card">
+			<h1 class="title-text">Filter and Sort your search!</h1>
+			<section class="information-inputs">
 				<div class="form-input">
-					<label for="endYear">End Year</label>
-					<select name="endYear" id="endYear">
-						<option value="">Select End Year</option>
-						@{
-							var endCurrentYear = DateTime.Now.Year;
-							for (int year = endCurrentYear; year >= 1900; year--)
-							{
-								if (Model.EndYear == year)
-								{
-									<text>
-									<option value="@year" selected>@year</option></text>
-								}
-								else
-								{
-									<text>
-									<option value="@year">@year</option></text>
-								}
-							}
-						}
-					</select>
-				</div>
-				<div class="form-input">
-					<label for="startYear">Start Year</label>
-					<select name="startYear" id="startYear">
-						<option value="">Select Start Year</option>
-						@{
-							var startCurrentYear = DateTime.Now.Year;
-							for (int year = startCurrentYear; year >= 1900; year--)
-							{
-								if (Model.StartYear == year)
-								{
-									<text>
-									<option value="@year" selected>@year</option></text>
-								}
-								else
-								{
-									<text>
-									<option value="@year">@year</option></text>
-								}
-							}
-						}
-					</select>
-				</div>
-				<div class="form-input">
-					<label for="eurostandard-select">Euro Standard</label>
-					<select name="EuroStandard" asp-for="@Model.EuroStandard" id="eurostandard-select" onchange="this.form.submit()">
-						@foreach (var standard in Enum.GetValues(typeof(EuroStandardEnum)))
+					<label for="sorting-select">Sorting</label>
+					<select name="Sorting" asp-for="@Model.Sorting" id="sorting-select" onchange="this.form.submit()">
+						@foreach (var sorting in Enum.GetValues(typeof(SortingEnums)))
 						{
-							<option value="@standard">@standard</option>
+							<option value="@sorting">@sorting</option>
 						}
 					</select>
 					<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
 				</div>
+
 				<div class="form-input">
-					<label for="fueltype-select">Fuel Type</label>
-					<select name="FuelType" asp-for="@Model.FuelType" id="fueltype-select" onchange="this.form.submit()">
-						@foreach (var fuelType in Enum.GetValues(typeof(FuelTypeEnum)))
+					<label for="brand-select">Brand</label>
+					<select name="Brand" asp-for="@Model.Brand" id="brand-select" onchange="this.form.submit()">
+						@foreach (var brandType in Enum.GetValues(typeof(BrandsEnum)))
 						{
-							<option value="@fuelType">@fuelType</option>
+							<option value="@brandType">@brandType</option>
 						}
 					</select>
-					<span asp-validation-for="@Model.FuelType" class="text-danger"></span>
+					<span asp-validation-for="@Model.Brand" class="text-danger"></span>
 				</div>
 
 				<div class="form-input">
-					<label for="colour-select">Colour</label>
-					<select name="Colour" asp-for="@Model.Colour" id="colour-select" onchange="this.form.submit()">
-						@foreach (var colour in Enum.GetValues(typeof(ColourEnum)))
-						{
-							<option value="@colour">@colour</option>
-						}
-					</select>
-					<span asp-validation-for="@Model.Colour" class="text-danger"></span>
+					<label for="model">Model</label>
+					<input type="text" name="model" id="model" value="@Model.Model" placeholder="Enter model">
 				</div>
 
 				<div class="form-input">
-					<label for="transmission-select">Transmission</label>
-					<select name="Transmission" asp-for="@Model.Transmission" id="transmission-select" onchange="this.form.submit()">
-						@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
-						{
-							<option value="@transmission">@transmission</option>
-						}
-					</select>
-					<span asp-validation-for="@Model.Transmission" class="text-danger"></span>
+					<label for="manufacturer">Manufacturer</label>
+					<input type="text" name="manufacturer" id="manufacturer" value="@Model.Manufacturer" placeholder="Enter manufacturer">
 				</div>
 
 				<div class="form-input">
-					<label for="drivetrain-select">Drive Train</label>
-					<select name="DriveTrain" asp-for="@Model.DriveTrain" id="drivetrain-select" onchange="this.form.submit()">
-						@foreach (var driveTrainType in Enum.GetValues(typeof(DriveTrainEnum)))
-						{
-							<option value="@driveTrainType">@driveTrainType</option>
-						}
-					</select>
-					<span asp-validation-for="@Model.DriveTrain" class="text-danger"></span>
+					<label for="minHorsePower">Min HP</label>
+					<input type="number" name="minHorsePower" id="minHorsePower" value="@Model.MinHorsePower" placeholder="Enter min hp">
+				</div>
+				<div class="form-input">
+					<label for="maxHorsePower">Max HP</label>
+					<input type="number" name="maxHorsePower" id="maxHorsePower" value="@Model.MaxHorsePower" placeholder="Enter max hp">
 				</div>
 
 				<div class="form-input">
-					<label for="bodytype-select">Body Type</label>
-					<select name="BodyType" asp-for="@Model.BodyType" id="bodytype-select" onchange="this.form.submit()">
-						@foreach (var bodyType in Enum.GetValues(typeof(BodyTypeEnum)))
-						{
-							<option value="@bodyType">@bodyType</option>
-						}
-					</select>
-					<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
+					<label for="minPrice">Min Price</label>
+					<input type="number" name="minPrice" id="minPrice" value="@Model.MinPrice" placeholder="Enter min price">
+				</div>
+				<div class="form-input">
+					<label for="maxPrice">Max Price</label>
+					<input type="number" name="maxPrice" id="maxPrice" value="@Model.MaxPrice" placeholder="Enter max price">
 				</div>
 
 				<div class="form-input">
-					<label for="condition-select">Condition</label>
-					<select name="Condition" asp-for="@Model.Condition" id="condition-select" onchange="this.form.submit()">
-						@foreach (var condition in Enum.GetValues(typeof(ConditionEnum)))
-						{
-							<option value="@condition">@condition</option>
-						}
-					</select>
-					<span asp-validation-for="@Model.Condition" class="text-danger"></span>
+					<label for="minMileage">Min Mileage</label>
+					<input type="number" name="minMileage" id="minMileage" value="@Model.MinMileage" placeholder="Enter min mileage">
+				</div>
+				<div class="form-input">
+					<label for="maxMileage">Max Mileage</label>
+					<input type="number" name="maxMileage" id="maxMileage" value="@Model.MaxMileage" placeholder="Enter max mileage">
 				</div>
 
-			</div>
+
+				<div class="second-form-inputs">
+
+					<div class="form-input">
+						<label for="endYear">End Year</label>
+						<select name="endYear" id="endYear">
+							<option value="">Select End Year</option>
+							@{
+								var endCurrentYear = DateTime.Now.Year;
+								for (int year = endCurrentYear; year >= 1900; year--)
+								{
+									if (Model.EndYear == year)
+									{
+										<text>
+										<option value="@year" selected>@year</option></text>
+									}
+									else
+									{
+										<text>
+										<option value="@year">@year</option></text>
+									}
+								}
+							}
+						</select>
+					</div>
+					<div class="form-input">
+						<label for="startYear">Start Year</label>
+						<select name="startYear" id="startYear">
+							<option value="">Select Start Year</option>
+							@{
+								var startCurrentYear = DateTime.Now.Year;
+								for (int year = startCurrentYear; year >= 1900; year--)
+								{
+									if (Model.StartYear == year)
+									{
+										<text>
+										<option value="@year" selected>@year</option></text>
+									}
+									else
+									{
+										<text>
+										<option value="@year">@year</option></text>
+									}
+								}
+							}
+						</select>
+					</div>
+					<div class="form-input">
+						<label for="eurostandard-select">Euro Standard</label>
+						<select name="EuroStandard" asp-for="@Model.EuroStandard" id="eurostandard-select" onchange="this.form.submit()">
+							@foreach (var standard in Enum.GetValues(typeof(EuroStandardEnum)))
+							{
+								<option value="@standard">@standard</option>
+							}
+						</select>
+						<span asp-validation-for="@Model.EuroStandard" class="text-danger"></span>
+					</div>
+					<div class="form-input">
+						<label for="fueltype-select">Fuel Type</label>
+						<select name="FuelType" asp-for="@Model.FuelType" id="fueltype-select" onchange="this.form.submit()">
+							@foreach (var fuelType in Enum.GetValues(typeof(FuelTypeEnum)))
+							{
+								<option value="@fuelType">@fuelType</option>
+							}
+						</select>
+						<span asp-validation-for="@Model.FuelType" class="text-danger"></span>
+					</div>
+
+					<div class="form-input">
+						<label for="colour-select">Colour</label>
+						<select name="Colour" asp-for="@Model.Colour" id="colour-select" onchange="this.form.submit()">
+							@foreach (var colour in Enum.GetValues(typeof(ColourEnum)))
+							{
+								<option value="@colour">@colour</option>
+							}
+						</select>
+						<span asp-validation-for="@Model.Colour" class="text-danger"></span>
+					</div>
+
+					<div class="form-input">
+						<label for="transmission-select">Transmission</label>
+						<select name="Transmission" asp-for="@Model.Transmission" id="transmission-select" onchange="this.form.submit()">
+							@foreach (var transmission in Enum.GetValues(typeof(TransmissionEnum)))
+							{
+								<option value="@transmission">@transmission</option>
+							}
+						</select>
+						<span asp-validation-for="@Model.Transmission" class="text-danger"></span>
+					</div>
+
+					<div class="form-input">
+						<label for="drivetrain-select">Drive Train</label>
+						<select name="DriveTrain" asp-for="@Model.DriveTrain" id="drivetrain-select" onchange="this.form.submit()">
+							@foreach (var driveTrainType in Enum.GetValues(typeof(DriveTrainEnum)))
+							{
+								<option value="@driveTrainType">@driveTrainType</option>
+							}
+						</select>
+						<span asp-validation-for="@Model.DriveTrain" class="text-danger"></span>
+					</div>
+
+					<div class="form-input">
+						<label for="bodytype-select">Body Type</label>
+						<select name="BodyType" asp-for="@Model.BodyType" id="bodytype-select" onchange="this.form.submit()">
+							@foreach (var bodyType in Enum.GetValues(typeof(BodyTypeEnum)))
+							{
+								<option value="@bodyType">@bodyType</option>
+							}
+						</select>
+						<span asp-validation-for="@Model.BodyType" class="text-danger"></span>
+					</div>
+
+					<div class="form-input">
+						<label for="condition-select">Condition</label>
+						<select name="Condition" asp-for="@Model.Condition" id="condition-select" onchange="this.form.submit()">
+							@foreach (var condition in Enum.GetValues(typeof(ConditionEnum)))
+							{
+								<option value="@condition">@condition</option>
+							}
+						</select>
+						<span asp-validation-for="@Model.Condition" class="text-danger"></span>
+					</div>
+
+				</div>
 
 
-			<div>
-				<button class="filter-button" type="submit" asp-area="">Apply Filter</button>
-			</div>
+				<div>
+					<button class="filter-button" type="submit" asp-area="">Apply Filter</button>
+				</div>
 
-		</section>
-	</article>
-</form>
+			</section>
+		</article>
+	</form>
+</div>
 
 <section>
 	<partial name="_AllUserCarAds" model="Model.Ads">
@@ -300,3 +308,4 @@
 		</ul>
 	}
 </div>
+<script src="~/js/Minimize Filters/Minimize.js" asp-append-version="true"></script>

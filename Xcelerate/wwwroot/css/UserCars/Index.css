@@ -5,25 +5,71 @@ html {
     font-family: "Mulish", sans-serif;
 }
 
-@keyframes gradient {
+.abstract-element {
+    position: absolute; /* Ensure circles are positioned relative to the document */
+    border-radius: 50%; /* Keep it circular */
+    opacity: 0.8; /* Slight transparency */
+    animation: moveElement 15s infinite;
+    mix-blend-mode: screen; /* This helps with blending the colors */
+    z-index: -2;
+    background-size: cover;
+    background-repeat: no-repeat;
+    will-change: transform, clip-path; /* Helps with smoother animations */
+}
+
+@keyframes moveElement {
     0% {
-        background-position: 0% 50%;
+        transform: translate(0, 0) scale(1);
+    }
+
+    10% {
+        transform: translate(20vw, 10vh) scale(1.2);
+    }
+
+    20% {
+        transform: translate(30vw, -15vh) scale(1.3);
+    }
+
+    30% {
+        transform: translate(-10vw, 25vh) scale(1.1);
+    }
+
+    40% {
+        transform: translate(-20vw, -20vh) scale(1.2);
     }
 
     50% {
-        background-position: 100% 50%;
+        transform: translate(10vw, 30vh) scale(1.1);
+    }
+
+    60% {
+        transform: translate(-25vw, -10vh) scale(1.3);
+    }
+
+    70% {
+        transform: translate(15vw, 20vh) scale(1.2);
+    }
+
+    80% {
+        transform: translate(-30vw, 15vh) scale(1.1);
+    }
+
+    90% {
+        transform: translate(20vw, -25vh) scale(1.2);
     }
 
     100% {
-        background-position: 0% 50%;
+        transform: translate(0, 0) scale(1);
     }
 }
 
 body {
-    background: linear-gradient(-45deg, #00264d, #004080, white, #0073e6);
-    animation: gradient 3s ease infinite;
+    background: linear-gradient(135deg, #6d662c, #2a475e, #ff8585, #385759);
+    animation: gradientShift 5s ease infinite;
+    background-size: 100% 100%;
     margin: 0px;
     padding: 0px;
+    overflow-x: hidden
 }
 
 .div-wrapper {
@@ -259,6 +305,28 @@ body {
     text-decoration: none;
 }
 
+#filter-form-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+}
+
+    #filter-form-container.expanded {
+        max-height: 1000px; /* Adjust this value as needed */
+        padding: 20px 0;
+    }
+
+#toggle-button {
+    display: inline-block;
+    margin-left: 46%;
+    margin-top: 90px;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center; /* Center the text */
+    background: linear-gradient(90deg, black, rgba(0, 0, 0, 0.2));
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
 .filters {
     display: flex;
     padding: 0px 60px 0px 60px;
@@ -268,7 +336,7 @@ body {
 }
 
 .filter-card {
-    margin: 45px 108px 0px 222px;
+    margin: 0px 108px 0px 222px;
     border-radius: 24px;
     background-repeat: no-repeat;
     background-size: cover;

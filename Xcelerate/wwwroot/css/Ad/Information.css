@@ -5,7 +5,7 @@ html {
     font-family: "Mulish", sans-serif;
 }
 
-@keyframes gradient {
+@keyframes gradientShift {
     0% {
         background-position: 0% 50%;
     }
@@ -16,6 +16,61 @@ html {
 
     100% {
         background-position: 0% 50%;
+    }
+}
+
+.abstract-element {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: moveElement 15s infinite;
+    mix-blend-mode: screen;
+    z-index: -2;
+}
+
+@keyframes moveElement {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    10% {
+        transform: translate(20vw, 10vh) scale(1.2);
+    }
+
+    20% {
+        transform: translate(30vw, -15vh) scale(1.3);
+    }
+
+    30% {
+        transform: translate(-10vw, 25vh) scale(1.1);
+    }
+
+    40% {
+        transform: translate(-20vw, -20vh) scale(1.2);
+    }
+
+    50% {
+        transform: translate(10vw, 30vh) scale(1.1);
+    }
+
+    60% {
+        transform: translate(-25vw, -10vh) scale(1.3);
+    }
+
+    70% {
+        transform: translate(15vw, 20vh) scale(1.2);
+    }
+
+    80% {
+        transform: translate(-30vw, 15vh) scale(1.1);
+    }
+
+    90% {
+        transform: translate(20vw, -25vh) scale(1.2);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
     }
 }
 
@@ -34,10 +89,12 @@ html {
     }
 
 body {
-    background: linear-gradient(-45deg, #8B0000, #B22222, #A52A2A, #800000);
-    animation: gradient 5s ease infinite;
+    background: linear-gradient(135deg, #1b2838, #2a475e, #4d6a79, #171a21);
+    animation: gradientShift 5s ease infinite;
+    background-size: 100% 100%;
     margin: 0px;
     padding: 0px;
+    overflow-x: hidden
 }
 
 .div-wrapper {

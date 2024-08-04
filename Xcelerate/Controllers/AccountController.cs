@@ -142,9 +142,15 @@
 						FirstName = user.FirstName,
 						LastName = user.LastName,
 						Email = user.Email,
+						Balance = user.Balance,
 						Messages = messages,
 						ChatMessages = chatMessages
 					};
+
+					if (TempData["Notification"] != null)
+					{
+						ViewBag.Notification = TempData["Notification"].ToString();
+					}
 
 					return View("UserProfile/Profile", userProfileModel);
 				}

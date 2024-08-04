@@ -23,7 +23,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Views\Chat\" />
 		<Folder Include="wwwroot\Images\Ad\" />
 		<Folder Include="wwwroot\js\About\" />
 	</ItemGroup>

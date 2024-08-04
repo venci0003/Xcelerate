@@ -5,18 +5,71 @@ html {
     font-family: "Mulish", sans-serif;
 }
 
-@keyframes gradient {
+.abstract-element {
+    position: absolute; /* Ensure circles are positioned relative to the document */
+    border-radius: 50%; /* Keep it circular */
+    opacity: 0.8; /* Slight transparency */
+    animation: moveElement 15s infinite;
+    mix-blend-mode: screen; /* This helps with blending the colors */
+    z-index: -2;
+    background-size: cover;
+    background-repeat: no-repeat;
+    will-change: transform, clip-path; /* Helps with smoother animations */
+}
+
+@keyframes moveElement {
     0% {
-        background-position: 0% 50%;
+        transform: translate(0, 0) scale(1);
+    }
+
+    10% {
+        transform: translate(20vw, 10vh) scale(1.2);
+    }
+
+    20% {
+        transform: translate(30vw, -15vh) scale(1.3);
+    }
+
+    30% {
+        transform: translate(-10vw, 25vh) scale(1.1);
+    }
+
+    40% {
+        transform: translate(-20vw, -20vh) scale(1.2);
     }
 
     50% {
-        background-position: 100% 50%;
+        transform: translate(10vw, 30vh) scale(1.1);
+    }
+
+    60% {
+        transform: translate(-25vw, -10vh) scale(1.3);
+    }
+
+    70% {
+        transform: translate(15vw, 20vh) scale(1.2);
+    }
+
+    80% {
+        transform: translate(-30vw, 15vh) scale(1.1);
+    }
+
+    90% {
+        transform: translate(20vw, -25vh) scale(1.2);
     }
 
     100% {
-        background-position: 0% 50%;
+        transform: translate(0, 0) scale(1);
     }
+}
+
+body {
+    background: linear-gradient(135deg, #6d662c, #2a475e, #ff8585, #385759);
+    animation: gradientShift 5s ease infinite;
+    background-size: 100% 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden
 }
 
 .image-holder {
@@ -32,13 +85,6 @@ html {
     .image-holder:hover img {
         transform: scale(1.5); /* Scale the image to 120% on hover */
     }
-
-body {
-    background: linear-gradient(-45deg, #00264d, #004080, white, #0073e6);
-    animation: gradient 5s ease infinite;
-    margin: 0px;
-    padding: 0px;
-}
 
 .div-wrapper {
     display: flex;

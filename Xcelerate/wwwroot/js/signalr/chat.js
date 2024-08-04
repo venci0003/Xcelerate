@@ -6,16 +6,31 @@
 
     var currentUserId = document.getElementById("currentUserId").value;
 
-    connection.on("ReceiveMessage", function (user, message) {
+    connection.on("ReceiveMessage", function (user, message, senderId, buyerId, sellerId) {
         var li = document.createElement("li");
-        document.getElementById("messagesList").appendChild(li);
+
+        // Determine the role of the sender and add the appropriate class
+        if (senderId === sellerId) {
+            li.classList.add("seller");
+        } else if (senderId === buyerId) {
+            li.classList.add("buyer");
+        }
+
         li.textContent = `${user} says ${message}`;
+        document.getElementById("messagesList").appendChild(li);
     });
 
-    function addOfferToUI(user, message, offerId, senderId, buyerId) {
+    function addOfferToUI(user, offerMessage, offerId, senderId, buyerId, sellerId) {
         var li = document.createElement("li");
-        li.textContent = `${user} offers ${message}$`;
-        li.setAttribute("data-offer-id", offerId); // Ensure offerId is set as integer
+        li.textContent = `${user} offers ${offerMessage}$`;
+        li.setAttribute("data-offer-id", offerId);
+        // Ensure offerId is set as integer
+
+        if (senderId === sellerId) {
+            li.classList.add("seller");
+        } else if (senderId === buyerId) {
+            li.classList.add("buyer");
+        }
 
         var acceptButton = document.createElement("button");
         acceptButton.textContent = "Accept";
@@ -43,19 +58,19 @@
                         data: {
                             carId: carId,
                             buyerId: buyerId,
-                            confirmedPrice: parseFloat(message),
+                            confirmedPrice: parseFloat(offerMessage),
                             __RequestVerificationToken: token
                         },
                         success: function () {
-                            console.log('Buy request successful');
-                            window.location.href = '/UserCars/Index';  // Redirect to user's cars page
+                            connection.invoke("AcceptOffer", buyerId, sellerId, parseFloat(offerMessage)).catch(function (err) {
+                                console.error('Error invoking AcceptOffer:', err);
+                            });
                         },
                         error: function (xhr, status, error) {
                             console.error('Error response text:', xhr.responseText);
                             console.error('Status:', status);
                             console.error('Error thrown:', error);
 
-                            // Display a detailed error message to the user
                             Swal.fire({
                                 title: 'Error!',
                                 text: `An error occurred: ${xhr.responseText || 'Unknown error'}`,
@@ -107,8 +122,8 @@
         document.getElementById("messagesOfferList").appendChild(li);
     }
 
-    connection.on("ReceiveOfferMessage", function (user, message, offerId, senderId, buyerId) {
-        addOfferToUI(user, message, offerId, senderId, buyerId);
+    connection.on("ReceiveOfferMessage", function (user, message, offerId, senderId, buyerId, sellerId) {
+        addOfferToUI(user, message, offerId, senderId, buyerId, sellerId);
     });
 
     connection.on("OfferDeclined", function (offerId) {
@@ -118,6 +133,20 @@
             offerElement.remove();
         }
     });
+
+    connection.on("OfferAccepted", function (redirectUrl, message, offerMessage) {
+        console.log("Received OfferAccepted event with URL:", redirectUrl, "and message:", message, "and amount:", offerMessage);
+        if (redirectUrl) {
+            // Store the message in sessionStorage
+            sessionStorage.setItem('notificationMessage', message);
+            sessionStorage.setItem('offerAmount', offerMessage);
+            window.location.href = redirectUrl;
+        } else {
+            console.error("Received an invalid redirect URL");
+        }
+    });
+
+
 
     connection.start().then(function () {
         var sessionId = document.getElementById("sessionId").value;

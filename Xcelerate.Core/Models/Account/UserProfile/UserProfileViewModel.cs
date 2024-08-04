@@ -17,6 +17,8 @@ namespace Xcelerate.Core.Models.Account.UserProfile
 		[MinLength(EmailAddressMinValue)]
 		public string Email { get; set; } = null!;
 
+		public decimal Balance { get; set; }
+
 		public List<MessageViewModel> Messages { get; set; } = new List<MessageViewModel>();
 
         public List<ChatMessageViewModel> ChatMessages { get; set; } = new List<ChatMessageViewModel>();

@@ -13,7 +13,7 @@ body {
     padding: 0px;
 }
 
-span {
+.website-name {
     position: relative;
     font-family: "Avenir Next", sans-serif;
     font-weight: 900;
@@ -24,13 +24,16 @@ span {
     display: inline-block;
 }
 
-    span:before {
-        position: absolute;
-        left: 0;
-        top: 0;
-        content: attr(filter-content);
-        filter: url(#motion-blur-filter);
-    }
+.website-name:before {
+    position: absolute;
+    left: -305px; /* Adjust this value to position the blur on the left */
+    top: 5px;
+    width: 340px;
+    content: attr(filter-content);
+    filter: url(#motion-blur-filter);
+    display: inline-block;
+    transform: rotateZ(180deg);
+}
 
 svg {
     display: none;
@@ -273,4 +276,18 @@ svg {
 .timestamp {
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
     margin-top: 0px;
+}
+
+.empty-message-box {
+    margin-left: 40px;
+    user-select: none;
+    color: white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.empty-chat-box {
+    margin-left: 40px;
+    user-select: none;
+    color: white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }

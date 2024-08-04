@@ -24,14 +24,42 @@ namespace Xcelerate.Hubs
 
 		public async Task LoadChatMessages(string sessionId)
 		{
+			var userId = Context.User.GetUserId();
+
 			var chatMessages = _dbContext.ChatMessages
 				.Include(cs => cs.Sender)
 				.Where(m => m.SessionId == Guid.Parse(sessionId))
 				.OrderBy(m => m.SentAt);
 
+			var chatSession = await _dbContext.ChatSessions
+				.Include(cs => cs.Buyer)
+				.Include(cs => cs.Seller)
+				.Include(cs => cs.Ad)
+				.ThenInclude(cs => cs.Car)
+				.SingleAsync(cs => cs.ChatSessionId == Guid.Parse(sessionId));
+
+			Guid senderId;
+			User sender;
+			if (userId == chatSession.Buyer.Id)
+			{
+				senderId = chatSession.BuyerId;
+				sender = chatSession.Buyer;
+			}
+			else if (userId == chatSession.Seller.Id)
+			{
+				senderId = chatSession.SellerId;
+				sender = chatSession.Seller;
+			}
+			else
+			{
+				throw new Exception("The user is neither the buyer nor the seller of this chat session.");
+			}
+
+			//await Clients.Group(sessionId).SendAsync("ReceiveMessage", $"{sender.FirstName} {sender.LastName}", chatMessage.Content, senderId, chatSession.BuyerId, chatSession.SellerId);
+
 			foreach (var chatMessage in chatMessages)
 			{
-				await Clients.Caller.SendAsync("ReceiveMessage", chatMessage.Sender.FirstName, chatMessage.Content);
+				await Clients.User(userId.ToString()).SendAsync("ReceiveMessage", $"{chatMessage.Sender.FirstName} {chatMessage.Sender.LastName}", chatMessage.Content, chatMessage.SenderId, chatSession.BuyerId, chatSession.SellerId);
 			}
 		}
 
@@ -94,7 +122,7 @@ namespace Xcelerate.Hubs
 			await _dbContext.ChatMessages.AddAsync(chatMessage);
 			await _dbContext.SaveChangesAsync();
 
-			await Clients.Group(sessionId).SendAsync("ReceiveMessage", $"{sender.FirstName} {sender.LastName}", message);
+			await Clients.Group(sessionId).SendAsync("ReceiveMessage", $"{sender.FirstName} {sender.LastName}", message, senderId, chatSession.BuyerId, chatSession.SellerId);
 
 			var adId = chatSession.Ad.AdId;
 
@@ -249,6 +277,13 @@ namespace Xcelerate.Hubs
 			}
 		}
 
+		public async Task AcceptOffer(string buyerId, string sellerId, decimal amount)
+		{
+			await Clients.User(buyerId).SendAsync("OfferAccepted", "/UserCars/Index", $"You have successfully bought the car for {amount:C}");
+
+			await Clients.User(sellerId).SendAsync("OfferAccepted", "/Account/Profile", $"You have successfully sold the car for {amount:C}");
+		}
+		//ADD REDIRECT TO THE CAR THAT THE USER HAS BOUGHT FOR THE FUTURE.
 
 	}
 }

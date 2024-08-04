@@ -4,17 +4,8 @@
 
 <link rel="stylesheet" href="~/css/Ad/Create.css" asp-append-version="true" />
 
-<svg xmlns="http://www.w3.org/2000/svg">
-	<!-- filterUnits is required to prevent clipping the blur outside the viewBox -->
-
-	<filter id="motion-blur-filter" filterUnits="userSpaceOnUse">
-		<!-- We only want horizontal blurring. x: 100, y: 0 -->
-
-		<feGaussianBlur stdDeviation="100 0"></feGaussianBlur>
-	</filter>
-</svg>
-
-<span class="website-name" filter-content="X">Xcelerate</span>
+<partial name="_WebsiteName">
+</partial>
 
 <article class="card-ad-create">
 	<form method="post" action="/Ad/Create" class="card-content" enctype="multipart/form-data">
