@@ -255,13 +255,10 @@
         {
             var currentUserId = User.GetUserId();
 
-            // Call the CreateChatSession method to create or retrieve the chat session ID
             var chatSessionId = await _chatService.CreateChatSession(currentUserId, otherUserId, adId);
 
-            // Get the full name of the current user
             var (firstName, lastName) = await _adService.GetUserFullNameAsync(currentUserId);
 
-            // Pass the current user's name and the chat session ID to the view
             var chatView = new ChatViewModel
             {
                 ChatSessionId = chatSessionId,
@@ -271,7 +268,6 @@
                 UserLastName = lastName
             };
 
-            // Return the ChatIndex view with the chat session information
             return View("ChatIndex", chatView);
         }
 
