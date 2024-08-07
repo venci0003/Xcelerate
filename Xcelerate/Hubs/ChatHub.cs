@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using System.Web;
 using Xcelerate.Core.Models.Timestamp;
 using Xcelerate.Extension;
 using Xcelerate.Infrastructure.Data;
@@ -110,10 +111,11 @@ namespace Xcelerate.Hubs
 			{
 				throw new Exception("The user is neither the buyer nor the seller of this chat session.");
 			}
+			var sanitizedMessage = HttpUtility.HtmlEncode(message);
 
 			var chatMessage = new ChatMessage
 			{
-				Content = message,
+				Content = sanitizedMessage,
 				SentAt = DateTime.UtcNow,
 				SenderId = senderId,
 				SessionId = chatSession.ChatSessionId

@@ -1,15 +1,25 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-    document.getElementById("sendButton").disabled = true;
-    document.getElementById("sendButtonOffer").disabled = true;
+    var sendButton = document.getElementById("sendButton");
+    var sendButtonOffer = document.getElementById("sendButtonOffer");
 
-    var currentUserId = document.getElementById("currentUserId").value;
+    var messageInput = document.getElementById("messageInput");
+    var messageOfferInput = document.getElementById("messageOfferInput");
+
+    function toggleButtonState() {
+        sendButton.disabled = messageInput.value.trim() === '';
+        sendButtonOffer.disabled = messageOfferInput.value.trim() === '' || messageOfferInput.value <= 0;
+    }
+
+    messageInput.addEventListener('input', toggleButtonState);
+    messageOfferInput.addEventListener('input', toggleButtonState);
+
+    toggleButtonState();
 
     connection.on("ReceiveMessage", function (user, message, senderId, buyerId, sellerId) {
         var li = document.createElement("li");
 
-        // Determine the role of the sender and add the appropriate class
         if (senderId === sellerId) {
             li.classList.add("seller");
         } else if (senderId === buyerId) {
@@ -24,7 +34,6 @@
         var li = document.createElement("li");
         li.textContent = `${user} offers ${offerMessage}$`;
         li.setAttribute("data-offer-id", offerId);
-        // Ensure offerId is set as integer
 
         if (senderId === sellerId) {
             li.classList.add("seller");
@@ -37,20 +46,18 @@
         acceptButton.onclick = function () {
             var urlParams = new URLSearchParams(window.location.search);
             var carId = urlParams.get('carId');
-            console.log(buyerId);
 
             Swal.fire({
                 title: 'Are you sure?',
-                text: "If you accept this offer, you will buy the car.",
+                text: "If you accept this offer, you will proceed with the car transaction.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, buy it!'
+                confirmButtonText: 'Yes, accept the offer!'
             }).then((result) => {
                 if (result.isConfirmed) {
                     var token = $('input[name="__RequestVerificationToken"]').val();
-                    console.log('Token:', token);  // Debug token
 
                     $.ajax({
                         url: '/Ad/Buy',
@@ -79,15 +86,9 @@
                             });
                         }
                     });
-
                 }
             });
         };
-
-        // Append acceptButton to your UI as needed
-
-
-
 
         var declineButton = document.createElement("button");
         declineButton.textContent = "Decline";
@@ -110,11 +111,9 @@
         };
 
         if (currentUserId === senderId) {
-            // Sender can only see Decline button
             acceptButton.style.display = "none";
         } else {
-            // Recipient can see both Accept and Decline buttons
-            declineButton.style.display = "inline-block"; // Ensure decline button is displayed for recipient
+            declineButton.style.display = "inline-block";
         }
 
         li.appendChild(acceptButton);
@@ -127,7 +126,6 @@
     });
 
     connection.on("OfferDeclined", function (offerId) {
-        // Remove the declined offer from the UI
         var offerElement = document.querySelector(`[data-offer-id='${offerId}']`);
         if (offerElement) {
             offerElement.remove();
@@ -135,9 +133,7 @@
     });
 
     connection.on("OfferAccepted", function (redirectUrl, message, offerMessage) {
-        console.log("Received OfferAccepted event with URL:", redirectUrl, "and message:", message, "and amount:", offerMessage);
         if (redirectUrl) {
-            // Store the message in sessionStorage
             sessionStorage.setItem('notificationMessage', message);
             sessionStorage.setItem('offerAmount', offerMessage);
             window.location.href = redirectUrl;
@@ -145,8 +141,6 @@
             console.error("Received an invalid redirect URL");
         }
     });
-
-
 
     connection.start().then(function () {
         var sessionId = document.getElementById("sessionId").value;
@@ -161,13 +155,11 @@
             console.error('Error loading chat offers:', err);
         });
 
-        document.getElementById("sendButton").disabled = false;
-        document.getElementById("sendButtonOffer").disabled = false;
+        toggleButtonState();
     }).catch(function (err) {
         console.error('SignalR connection error:', err);
     });
 
-    // Function to handle Send message button click
     document.getElementById("sendButton").addEventListener("click", function (event) {
         var message = document.getElementById("messageInput").value;
         var sessionId = document.getElementById("sessionId").value;
@@ -175,16 +167,30 @@
             console.error('Error sending message:', err);
         });
         event.preventDefault();
+
+        document.getElementById("messageInput").value = '';
+        toggleButtonState();
     });
 
-    // Function to handle Send offer button click
     document.getElementById("sendButtonOffer").addEventListener("click", function (event) {
-        var message = document.getElementById("messageOfferInput").value;
+        var offerValue = document.getElementById("messageOfferInput").value;
         var sessionId = document.getElementById("sessionId").value;
+        var isValid = true;
 
-        connection.invoke("SendOffer", sessionId, message).catch(function (err) {
-            console.error('Error sending offer:', err);
-        });
+        $(".text-danger").text('');
+
+        if (!offerValue || offerValue < 500) {
+            isValid = false;
+            $("#messageOfferInput").siblings(".text-danger").text("The offer must be at least $500.");
+        }
+
+        if (isValid) {
+            connection.invoke("SendOffer", sessionId, offerValue).catch(function (err) {
+                console.error('Error sending offer:', err);
+            });
+            document.getElementById("messageOfferInput").value = '';
+            toggleButtonState();
+        }
         event.preventDefault();
     });
 });

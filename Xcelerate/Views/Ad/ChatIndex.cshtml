@@ -6,77 +6,81 @@
 </partial>
 
 <div class="chat-offer-sections-flex">
-	<!-- Main Chat Container -->
-	<section class="chat-message-section">
-		<div class="container">
-			<div class="row p-1">
-				<div class="col-5">
-					<span id="userName">@ViewBag.UserFirstName @ViewBag.UserLastName</span>
-				</div>
-			</div>
-			<div class="row p-1">
-				<div class="col-1">Message</div>
-				<div class="col-5">
-					<input type="text" class="w-100 input-field" id="messageInput" />
-				</div>
-			</div>
-			<div class="row p-1">
-				<div class="col-6 text-end">
-					<input type="button" id="sendButton" value="Send Message" class="btn btn-primary send-button" />
-				</div>
-			</div>
-			<div class="row p-1">
-				<div class="col-6"></div>
-			</div>
-			<div class="row p-1">
-				<div class="col-6">
-					<ul id="messagesList" style="list-style-type: none; padding: 0;"></ul>
-				</div>
-			</div>
-			<input type="hidden" id="sessionId" value="@Model.ChatSessionId" />
-			@Html.AntiForgeryToken()
-		</div>
-	</section>
+    <!-- Main Chat Container -->
+    <section class="chat-message-section">
+        <div class="container">
+            <div class="row p-1">
+                <div class="col-5">
+                    <span id="userName">@ViewBag.UserFirstName @ViewBag.UserLastName</span>
+                </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-1">Message</div>
+                <div class="col-5">
+                    <input type="text" class="w-100 input-field" id="messageInput" name="MessageInput" value="@Model.MessageInput" />
+                    <span asp-validation-for="MessageInput" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-6 text-end">
+                    <input type="button" id="sendButton" value="Send Message" class="btn btn-primary send-button" disabled />
+                </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-6"></div>
+            </div>
+            <div class="row p-1">
+                <div class="col-6">
+                    <ul id="messagesList" style="list-style-type: none; padding: 0;"></ul>
+                </div>
+            </div>
+            <input type="hidden" id="sessionId" value="@Model.ChatSessionId" />
+            @Html.AntiForgeryToken()
+        </div>
+    </section>
 
-	<!-- Offer Container -->
-	<section class="offer-message-section">
-		<div class="container">
-			<div class="row p-1">
-				<div class="col-1">Offers</div>
-				<div class="col-5">
-					<input type="number" class="w-100 input-field" id="messageOfferInput" />
-				</div>
-			</div>
-			<div class="row p-1">
-				<div class="col-6 text-end">
-					<input type="button" id="sendButtonOffer" value="Send Offer" class="btn btn-primary send-button" />
-				</div>
-			</div>
-			<div class="row p-1">
-				<div class="col-6"></div>
-			</div>
-			<div class="row p-1">
-				<div class="col-6">
-					<ul id="messagesOfferList" style="list-style-type: none; padding: 0;"></ul>
-				</div>
-			</div>
-			<input type="hidden" id="sessionOfferId" value="@Model.ChatSessionId" />
-			<input type="hidden" id="currentUserId" value="@Model.CurrentUserId" />
-
-		</div>
-	</section>
-
+    <!-- Offer Container -->
+    <section class="offer-message-section">
+        <div class="container">
+            <div class="row p-1">
+                <div class="col-1">Offers</div>
+                <div class="col-5">
+                    <input type="number" class="w-100 input-field" id="messageOfferInput" name="Offer" asp-for="Offer" />
+                    <span asp-validation-for="Offer" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-6 text-end">
+                    <input type="button" id="sendButtonOffer" value="Send Offer" class="btn btn-primary send-button" disabled />
+                </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-6"></div>
+            </div>
+            <div class="row p-1">
+                <div class="col-6">
+                    <ul id="messagesOfferList" style="list-style-type: none; padding: 0;"></ul>
+                </div>
+            </div>
+            <input type="hidden" id="sessionOfferId" value="@Model.ChatSessionId" />
+            <input type="hidden" id="currentUserId" value="@Model.CurrentUserId" />
+        </div>
+    </section>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+
+<script src="~/js/signalr/chat.js"></script>
+<script src="~/js/Background Effect/Background.js" asp-append-version="true"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css">
 
-
-<!-- SweetAlert JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
-<!-- Include SignalR JavaScript -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/signalr/chat.js"></script>
-<script src="~/js/Background Effect/Background.js" asp-append-version="true"></script>
+<partial name="_ValidationScriptsPartial" />
