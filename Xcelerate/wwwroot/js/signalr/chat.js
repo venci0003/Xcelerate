@@ -11,7 +11,7 @@
     var offerCooldownElement = document.getElementById("offerCooldown");
 
     var messageCooldown = 5;
-    var offerCooldown = 60; 
+    var offerCooldown = 60;
 
     function toggleButtonState() {
         sendButton.disabled = messageInput.value.trim() === '';
@@ -185,8 +185,8 @@
         console.error('SignalR connection error:', err);
     });
 
-    document.getElementById("sendButton").addEventListener("click", function (event) {
-        var message = document.getElementById("messageInput").value;
+    function handleSendMessage(event) {
+        var message = messageInput.value;
         var sessionId = document.getElementById("sessionId").value;
         connection.invoke("SendMessage", sessionId, message).catch(function (err) {
             console.error('Error sending message:', err);
@@ -195,12 +195,12 @@
         startCountdown(messageInput, messageCooldown, "Message", messageCooldownElement);
 
         event.preventDefault();
-        document.getElementById("messageInput").value = '';
+        messageInput.value = '';
         toggleButtonState();
-    });
+    }
 
-    document.getElementById("sendButtonOffer").addEventListener("click", function (event) {
-        var offerValue = document.getElementById("messageOfferInput").value;
+    function handleSendOffer(event) {
+        var offerValue = messageOfferInput.value;
         var sessionId = document.getElementById("sessionId").value;
         var isValid = true;
 
@@ -218,9 +218,24 @@
 
             startCountdown(messageOfferInput, offerCooldown, "Offer", offerCooldownElement);
 
-            document.getElementById("messageOfferInput").value = '';
+            messageOfferInput.value = '';
             toggleButtonState();
         }
         event.preventDefault();
+    }
+
+    sendButton.addEventListener("click", handleSendMessage);
+    sendButtonOffer.addEventListener("click", handleSendOffer);
+
+    messageInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            handleSendMessage(event);
+        }
+    });
+
+    messageOfferInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            handleSendOffer(event);
+        }
     });
 });
