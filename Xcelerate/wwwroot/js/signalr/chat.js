@@ -7,6 +7,12 @@
     var messageInput = document.getElementById("messageInput");
     var messageOfferInput = document.getElementById("messageOfferInput");
 
+    var messageCooldownElement = document.getElementById("messageCooldown");
+    var offerCooldownElement = document.getElementById("offerCooldown");
+
+    var messageCooldown = 5;
+    var offerCooldown = 60; 
+
     function toggleButtonState() {
         sendButton.disabled = messageInput.value.trim() === '';
         sendButtonOffer.disabled = messageOfferInput.value.trim() === '' || messageOfferInput.value <= 0;
@@ -16,6 +22,25 @@
     messageOfferInput.addEventListener('input', toggleButtonState);
 
     toggleButtonState();
+
+    function startCountdown(inputElement, cooldownTime, type, cooldownElement) {
+        var timeLeft = cooldownTime;
+
+        var interval = setInterval(function () {
+            timeLeft--;
+            cooldownElement.textContent = `${type} available in ${timeLeft}s`;
+
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                inputElement.disabled = false;
+                cooldownElement.textContent = '';
+                toggleButtonState();
+            }
+        }, 1000);
+
+        inputElement.disabled = true;
+        cooldownElement.textContent = `${type} available in ${cooldownTime}s`;
+    }
 
     connection.on("ReceiveMessage", function (user, message, senderId, buyerId, sellerId) {
         var li = document.createElement("li");
@@ -166,8 +191,10 @@
         connection.invoke("SendMessage", sessionId, message).catch(function (err) {
             console.error('Error sending message:', err);
         });
-        event.preventDefault();
 
+        startCountdown(messageInput, messageCooldown, "Message", messageCooldownElement);
+
+        event.preventDefault();
         document.getElementById("messageInput").value = '';
         toggleButtonState();
     });
@@ -188,6 +215,9 @@
             connection.invoke("SendOffer", sessionId, offerValue).catch(function (err) {
                 console.error('Error sending offer:', err);
             });
+
+            startCountdown(messageOfferInput, offerCooldown, "Offer", offerCooldownElement);
+
             document.getElementById("messageOfferInput").value = '';
             toggleButtonState();
         }

@@ -15,15 +15,15 @@
 
 
 .abstract-element {
-    position: absolute; /* Ensure circles are positioned relative to the document */
-    border-radius: 50%; /* Keep it circular */
-    opacity: 0.8; /* Slight transparency */
+    position: absolute; 
+    border-radius: 50%; 
+    opacity: 0.8;
     animation: moveElement 15s infinite;
-    mix-blend-mode: screen; /* This helps with blending the colors */
+    mix-blend-mode: screen; 
     z-index: -2;
     background-size: cover;
     background-repeat: no-repeat;
-    will-change: transform, clip-path; /* Helps with smoother animations */
+    will-change: transform, clip-path;
 }
 
 @keyframes moveElement {
@@ -87,8 +87,8 @@ body {
 #messagesList li {
     margin-bottom: 5px;
     padding: 10px;
-    background-color: #2a475e; /* Darker chat bubble color */
-    color: #c7d5e0; /* Text color */
+    background-color: #2a475e;
+    color: #c7d5e0;
 
     border-radius: 5px;
 }
@@ -96,27 +96,27 @@ body {
 #messagesOfferList li {
     margin-bottom: 10px;
     padding: 10px;
-    background-color: #2a475e; /* Darker offer bubble color */
-    color: #c7d5e0; /* Text color */
+    background-color: #2a475e;
+    color: #c7d5e0;
     border-radius: 5px;
 }
 
     #messagesOfferList li button {
         margin-left: 10px;
-        background-color: #1b2838; /* Button color */
+        background-color: #1b2838;
         color: #c7d5e0;
-        border: 1px solid #4d6a79; /* Border color */
+        border: 1px solid #4d6a79;
         padding: 5px 10px;
         border-radius: 4px;
         cursor: pointer;
     }
 
         #messagesOfferList li button:hover {
-            background-color: #3a7aa0; /* Hover color */
+            background-color: #3a7aa0;
         }
 
 .chat-message-section {
-    background: rgba(34, 49, 63, 0.9); /* Background color with transparency */
+    background: rgba(34, 49, 63, 0.9);
     padding: 20px;
     margin-right: 50px;
     margin: 120px 10px 314px 2%;
@@ -130,14 +130,14 @@ body {
 }
 
 .offer-message-section {
-    background: rgba(34, 49, 63, 0.9); /* Background color with transparency */
+    background: rgba(34, 49, 63, 0.9);
     padding: 20px;
     margin: 120px 10px 314px 2%;
     border-radius: 24px;
     background-repeat: no-repeat;
     background-size: cover;
     width: 510px;
-    height: 410px;
+    height: auto;
     backdrop-filter: blur(7px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
@@ -152,11 +152,11 @@ body {
 }
 
     #messagesOfferList li.seller {
-        background-color: #4d6a79; /* Seller chat bubble color */
+        background-color: #4d6a79;
     }
 
     #messagesOfferList li.buyer {
-        background-color: #2a475e; /* Buyer chat bubble color */
+        background-color: #2a475e;
     }
 
     #messagesOfferList > li > button {
@@ -169,13 +169,13 @@ body {
 }
 
     #messagesList li.seller {
-        background-color: #4d6a79; /* Seller chat bubble color */
+        background-color: #4d6a79;
         width: 420px;
         height: auto;
     }
 
     #messagesList li.buyer {
-        background-color: #2a475e; /* Buyer chat bubble color */
+        background-color: #2a475e;
         width: 440px;
         height: auto;
     }
@@ -188,22 +188,22 @@ body {
 
 
 .input-field {
-    background-color: #1b2838; /* Input background color */
-    color: #c7d5e0; /* Input text color */
-    border: 1px solid #4d6a79; /* Input border color */
+    background-color: #1b2838;
+    color: #c7d5e0;
+    border: 1px solid #4d6a79;
     padding: 5px;
     border-radius: 4px;
     width: 100%;
 }
 
     .input-field::placeholder {
-        color: #c7d5e0; /* Placeholder text color */
+        color: #c7d5e0;
     }
 
 .send-button {
-    background-color: #2a475e; /* Button color */
-    color: #c7d5e0; /* Button text color */
-    border: 1px solid #4d6a79; /* Button border color */
+    background-color: #2a475e;
+    color: #c7d5e0; 
+    border: 1px solid #4d6a79;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
@@ -211,5 +211,5 @@ body {
 }
 
     .send-button:hover {
-        background-color: #3a7aa0; /* Hover color */
+        background-color: #3a7aa0;
     }
