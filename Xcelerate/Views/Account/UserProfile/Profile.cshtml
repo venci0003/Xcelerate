@@ -15,6 +15,7 @@
 					<li><strong>Last name:</strong> @Model.LastName</li>
 					<li><strong>Email address:</strong> @Model.Email</li>
 					<li><strong>Balance:</strong> @Model.Balance$</li>
+
 				</ul>
 			</section>
 
@@ -40,12 +41,20 @@
 			}
 			else
 			{
-				<h2 class ="empty-chat-box">No chats found...</h2>
+				<h2 class="empty-chat-box">No chats found...</h2>
 			}
 		</article>
 
 		<article class="card-messages">
-			<h1 class="title-text-messages">MESSAGES</h1>
+			<div class="title-text-and-delete-flexed">
+				<h1 class="title-text-messages">MESSAGES</h1>
+				<form asp-area="" asp-controller="Account" asp-action="Delete" method="post">
+					@Html.AntiForgeryToken()
+					<button type="button" class="delete-icon-link">
+						<img class="delete-icon" src="~/Icons/icons8-garbage-can-65-white-with-border.png" alt="Delete icon">
+					</button>
+				</form>
+			</div>
 			@if (Model.Messages.Count != 0)
 			{
 				<ul class="messages-ul">
@@ -105,4 +114,56 @@
 			}
 		});
 	</script>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+	$(document).ready(function () {
+		$('.delete-icon-link').click(function () {
+			Swal.fire({
+				title: 'Are you sure you want to delete all messages?',
+				text: 'You won\'t be able to revert this!',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete all!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: '@Url.Action("DeleteAll", "Account")',
+						type: 'POST',
+						headers: {
+							RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+						},
+						success: function () {
+							// Redirect to the Ad Information page
+							window.location.href = '@Url.Action("Profile", "Account")';
+						},
+						error: function (xhr, status, error) {
+							console.error(xhr.responseText);
+						}
+					});
+				}
+			});
+		});
+	});
+</script>
+
+@if (TempData["DeleteAllMessages"] != null)
+{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: 'Messages deleted!',
+			text: '@TempData["DeleteAllMessages"]',
+		});
+	</script>
+	{
+		TempData.Remove("DeleteAllMessages");
+	}
 }

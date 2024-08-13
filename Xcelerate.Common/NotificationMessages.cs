@@ -42,7 +42,12 @@
 
 			public const string AdDeletedSuccesfullyMessage = "Ad deleted successfully.";
 
-			//Delete alert message constants
+			//Delete all messages alert message constants
+			public const string DeleteAllUserMessagesSuccesfullyTempData = "DeleteAllMessages";
+
+			public const string DeleteAllUserMessagesSuccesfullyMessage = "All messages deleted successfully.";
+
+			//Ad compare alert message constants
 			public const string AdCompareErrorTempData = "CompareError";
 
 			public const string AdCompareErrorMessage = "Cannot compare the same car.";

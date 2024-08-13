@@ -30,12 +30,6 @@
 					}
 					else
 					{
-						@* <!-- Display content for non-owner -->
-						<form asp-area="" asp-controller="Ad" asp-action="Buy" asp-route-carId="@Model.CarId" asp-route-adId="@Model.AdId" method="post">
-							@Html.AntiForgeryToken()
-							<button type="submit" class="buy-button">BUY</button>
-						</form> *@
-
 						<form asp-controller="Ad" asp-action="StartChat" method="get">
 							@Html.AntiForgeryToken()
 							<input type="hidden" name="otherUserId" value="@Model.UserId" />

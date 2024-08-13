@@ -24,16 +24,16 @@ body {
     display: inline-block;
 }
 
-.website-name:before {
-    position: absolute;
-    left: -305px; /* Adjust this value to position the blur on the left */
-    top: 5px;
-    width: 340px;
-    content: attr(filter-content);
-    filter: url(#motion-blur-filter);
-    display: inline-block;
-    transform: rotateZ(180deg);
-}
+    .website-name:before {
+        position: absolute;
+        left: -305px; /* Adjust this value to position the blur on the left */
+        top: 5px;
+        width: 340px;
+        content: attr(filter-content);
+        filter: url(#motion-blur-filter);
+        display: inline-block;
+        transform: rotateZ(180deg);
+    }
 
 svg {
     display: none;
@@ -200,8 +200,24 @@ svg {
     background-size: cover;
     width: 510px;
     height: 310px;
-    backdrop-filter: blur(7px);
+    backdrop-filter: blur(8px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.title-text-and-delete-flexed {
+    display: flex;
+}
+
+.delete-icon-link {
+    background: none;
+    border: none;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 255px;
+    border-radius: 40%;
+    filter: drop-shadow(5px 5px 2px rgba(0, 0, 0, 0.5));
 }
 
 .card-chat-messages {

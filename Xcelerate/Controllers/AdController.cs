@@ -1,303 +1,301 @@
 ﻿namespace Xcelerate.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Caching.Memory;
-    using Core.Contracts;
-    using Core.Models.Ad;
-    using Core.Models.Pager;
-    using Core.Models.Review;
-    using Extension;
-    using Infrastructure.Data.Models;
-    using static Common.ApplicationConstants;
-    using static Common.NotificationMessages.AlertMessages;
-    using Microsoft.AspNetCore.SignalR;
-    using Xcelerate.Hubs;
-    using Microsoft.EntityFrameworkCore;
-    using Xcelerate.Core.Services;
-
-    [Authorize]
-    public class AdController : Controller
-    {
-        private readonly IAdService _adService;
-        private readonly IAccessoriesService _accessoriesService;
-        private readonly IReviewService _reviewService;
-        private readonly IMessageService _messageService;
-        private readonly IMemoryCache _memoryCache;
-        private readonly IHubContext<ChatHub> _chatHubContext;
-        private readonly IChatService _chatService;
-
-        public AdController(IAdService adServiceContext,
-            IAccessoriesService accessoriesServiceContext,
-            IReviewService reviewServiceContext,
-            IMessageService messageServiceContext,
-            IMemoryCache _memoryCacheContext,
-            IHubContext<ChatHub> chatHubContext,
-            IChatService chatService)
-        {
-            _adService = adServiceContext;
-            _accessoriesService = accessoriesServiceContext;
-            _reviewService = reviewServiceContext;
-            _messageService = messageServiceContext;
-            _memoryCache = _memoryCacheContext;
-            _chatHubContext = chatHubContext;
-            _chatService = chatService;
-
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> Index(AdInformationViewModel adInformation, int firstCarId, bool compareClicked)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
-            }
-
-            if (adInformation.CurrentPage < 1)
-            {
-                adInformation.CurrentPage = 1;
-            }
-
-            ViewBag.FirstCarId = firstCarId;
-
-            if (compareClicked == true)
-            {
-                TempData["CompareButtonClicked"] = true;
-            }
-
-            Pager pager = new Pager(await _adService.GetCarAdsCountAsync(adInformation), adInformation.CurrentPage, DefaultPageSizeForAds);
-            adInformation.Pager = pager;
-
-            IEnumerable<AdPreviewViewModel> carsPreview = await _adService.GetCarsPreviewAsync(adInformation);
-
-            adInformation.Ads = carsPreview;
-
-            return View(adInformation);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Information(int adId)
-        {
-            ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
-            ViewBag.UserId = User.GetUserId();
-
-            if (await _adService.IdExists<Ad>(adId) == false)
-            {
-                return NotFound();
-            }
+	using Core.Contracts;
+	using Core.Models.Ad;
+	using Core.Models.Pager;
+	using Core.Models.Review;
+	using Extension;
+	using Infrastructure.Data.Models;
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.SignalR;
+	using Microsoft.Extensions.Caching.Memory;
+	using Xcelerate.Hubs;
+	using static Common.ApplicationConstants;
+	using static Common.NotificationMessages.AlertMessages;
+
+	[Authorize]
+	public class AdController : Controller
+	{
+		private readonly IAdService _adService;
+		private readonly IAccessoriesService _accessoriesService;
+		private readonly IReviewService _reviewService;
+		private readonly IMessageService _messageService;
+		private readonly IMemoryCache _memoryCache;
+		private readonly IHubContext<ChatHub> _chatHubContext;
+		private readonly IChatService _chatService;
+
+		public AdController(IAdService adServiceContext,
+			IAccessoriesService accessoriesServiceContext,
+			IReviewService reviewServiceContext,
+			IMessageService messageServiceContext,
+			IMemoryCache _memoryCacheContext,
+			IHubContext<ChatHub> chatHubContext,
+			IChatService chatService)
+		{
+			_adService = adServiceContext;
+			_accessoriesService = accessoriesServiceContext;
+			_reviewService = reviewServiceContext;
+			_messageService = messageServiceContext;
+			_memoryCache = _memoryCacheContext;
+			_chatHubContext = chatHubContext;
+			_chatService = chatService;
+
+		}
+
+		[AllowAnonymous]
+		[HttpGet]
+		public async Task<IActionResult> Index(AdInformationViewModel adInformation, int firstCarId, bool compareClicked)
+		{
+			if (User.Identity.IsAuthenticated)
+			{
+				ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			}
+
+			if (adInformation.CurrentPage < 1)
+			{
+				adInformation.CurrentPage = 1;
+			}
+
+			ViewBag.FirstCarId = firstCarId;
+
+			if (compareClicked == true)
+			{
+				TempData["CompareButtonClicked"] = true;
+			}
+
+			Pager pager = new Pager(await _adService.GetCarAdsCountAsync(adInformation), adInformation.CurrentPage, DefaultPageSizeForAds);
+			adInformation.Pager = pager;
+
+			IEnumerable<AdPreviewViewModel> carsPreview = await _adService.GetCarsPreviewAsync(adInformation);
+
+			adInformation.Ads = carsPreview;
+
+			return View(adInformation);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Information(int adId)
+		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			ViewBag.UserId = User.GetUserId();
 
-            string carAdInformationCacheKey = $"{CarAdInformationCacheKey}_{adId}";
+			if (await _adService.IdExists<Ad>(adId) == false)
+			{
+				return NotFound();
+			}
 
-            AdInformationViewModel? carAdInfo = _memoryCache.Get<AdInformationViewModel>(carAdInformationCacheKey);
+			string carAdInformationCacheKey = $"{CarAdInformationCacheKey}_{adId}";
 
+			AdInformationViewModel? carAdInfo = _memoryCache.Get<AdInformationViewModel>(carAdInformationCacheKey);
 
-            if (carAdInfo == null)
-            {
-                carAdInfo = await _adService.GetCarsInformationAsync(adId);
-
-                var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarAdInformationExpirationToMinutes));
-
-                _memoryCache.Set(carAdInformationCacheKey, carAdInfo, cacheOptions);
-            }
 
-            if (carAdInfo == null)
-            {
-                return NotFound();
-            }
+			if (carAdInfo == null)
+			{
+				carAdInfo = await _adService.GetCarsInformationAsync(adId);
+
+				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarAdInformationExpirationToMinutes));
 
-            ViewBag.CarId = carAdInfo.CarId;
+				_memoryCache.Set(carAdInformationCacheKey, carAdInfo, cacheOptions);
+			}
 
-            string carAccessoriesCacheKey = $"{CarAccessoriesCacheKey}_{adId}";
+			if (carAdInfo == null)
+			{
+				return NotFound();
+			}
 
-            List<AccessoryViewModel> carAccessories = _memoryCache.Get<List<AccessoryViewModel>>(carAccessoriesCacheKey);
+			ViewBag.CarId = carAdInfo.CarId;
 
-            if (carAccessories == null || carAccessories.Any() == false)
-            {
-                carAccessories = await _accessoriesService.GetCarAccessoriesForSaleAsync(adId);
+			string carAccessoriesCacheKey = $"{CarAccessoriesCacheKey}_{adId}";
 
-                var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarAccessoriesExpirationToMinutes));
+			List<AccessoryViewModel> carAccessories = _memoryCache.Get<List<AccessoryViewModel>>(carAccessoriesCacheKey);
 
-                _memoryCache.Set(carAccessoriesCacheKey, carAccessories, cacheOptions);
-            }
+			if (carAccessories == null || carAccessories.Any() == false)
+			{
+				carAccessories = await _accessoriesService.GetCarAccessoriesForSaleAsync(adId);
 
-            if (carAccessories == null)
-            {
-                return NotFound();
-            }
+				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarAccessoriesExpirationToMinutes));
 
-            string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
+				_memoryCache.Set(carAccessoriesCacheKey, carAccessories, cacheOptions);
+			}
 
-            List<UsersReviewsViewModel> carReviews = _memoryCache.Get<List<UsersReviewsViewModel>>(carReviewsCacheKey);
+			if (carAccessories == null)
+			{
+				return NotFound();
+			}
 
-            if (carReviews == null || carReviews.Any() == false)
-            {
-                carReviews = await _reviewService.GetUserReviewsAsync(adId);
+			string carReviewsCacheKey = $"{CarReviewsCacheKey}_{adId}";
 
-                var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarReviewsExpirationToMinutes));
+			List<UsersReviewsViewModel> carReviews = _memoryCache.Get<List<UsersReviewsViewModel>>(carReviewsCacheKey);
 
-                _memoryCache.Set(carReviewsCacheKey, carReviews, cacheOptions);
-            }
+			if (carReviews == null || carReviews.Any() == false)
+			{
+				carReviews = await _reviewService.GetUserReviewsAsync(adId);
 
-            carAdInfo.Reviews = carReviews;
+				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CarReviewsExpirationToMinutes));
 
-            carAdInfo.Accessories = carAccessories;
+				_memoryCache.Set(carReviewsCacheKey, carReviews, cacheOptions);
+			}
 
-            return View(carAdInfo);
-        }
+			carAdInfo.Reviews = carReviews;
 
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
-            AdCreateViewModel adViewModel = await _accessoriesService.GetAccessories();
-            return View(adViewModel);
-        }
+			carAdInfo.Accessories = carAccessories;
 
-        [HttpPost]
-        public async Task<IActionResult> Create(AdCreateViewModel adViewModel)
-        {
-            Guid userId = User.GetUserId();
+			return View(carAdInfo);
+		}
 
-            await _adService.CreateAdAsync(adViewModel, userId.ToString());
+		[HttpGet]
+		public async Task<IActionResult> Create()
+		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			AdCreateViewModel adViewModel = await _accessoriesService.GetAccessories();
+			return View(adViewModel);
+		}
 
-            TempData[AdCreatedSuccesfullyTempData] = AdCreatedSuccesfullyMessage;
+		[HttpPost]
+		public async Task<IActionResult> Create(AdCreateViewModel adViewModel)
+		{
+			Guid userId = User.GetUserId();
 
-            return RedirectToAction("UserAds", "Ad");
-        }
+			await _adService.CreateAdAsync(adViewModel, userId.ToString());
 
-        public async Task<IActionResult> UserAds(AdInformationViewModel adInformation)
-        {
-            ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
-            var userId = User.GetUserId();
+			TempData[AdCreatedSuccesfullyTempData] = AdCreatedSuccesfullyMessage;
 
-            if (adInformation.CurrentPage < 1)
-            {
-                adInformation.CurrentPage = 1;
-            }
+			return RedirectToAction("UserAds", "Ad");
+		}
 
-            Pager pager = new Pager(await _adService.GetUserAdsCountAsync(adInformation, userId.ToString()), adInformation.CurrentPage, DefaultPageSizeForAds);
-            adInformation.Pager = pager;
+		public async Task<IActionResult> UserAds(AdInformationViewModel adInformation)
+		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			var userId = User.GetUserId();
 
-            IEnumerable<AdPreviewViewModel> userAds = await _adService.GetUserAdsAsync(userId, adInformation);
+			if (adInformation.CurrentPage < 1)
+			{
+				adInformation.CurrentPage = 1;
+			}
 
-            adInformation.Ads = userAds;
+			Pager pager = new Pager(await _adService.GetUserAdsCountAsync(adInformation, userId.ToString()), adInformation.CurrentPage, DefaultPageSizeForAds);
+			adInformation.Pager = pager;
 
-            return View(adInformation);
-        }
+			IEnumerable<AdPreviewViewModel> userAds = await _adService.GetUserAdsAsync(userId, adInformation);
 
+			adInformation.Ads = userAds;
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(int carId)
-        {
-            ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
-            if (await _adService.IdExists<Car>(carId) == false)
-            {
-                return NotFound();
-            }
+			return View(adInformation);
+		}
 
-            AdEditViewModel editInformation = await _adService.GetEditInformationAsync(carId);
 
-            return View(editInformation);
-        }
+		[HttpGet]
+		public async Task<IActionResult> Edit(int carId)
+		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			if (await _adService.IdExists<Car>(carId) == false)
+			{
+				return NotFound();
+			}
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(AdEditViewModel adViewModel)
-        {
-            await _adService.EditCarAdAsync(adViewModel);
+			AdEditViewModel editInformation = await _adService.GetEditInformationAsync(carId);
 
-            return RedirectToAction("UserAds", "Ad");
-        }
+			return View(editInformation);
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(int carId)
-        {
-            if (await _adService.IdExists<Car>(carId) == false)
-            {
-                return NotFound();
-            }
+		[HttpPost]
+		public async Task<IActionResult> Edit(AdEditViewModel adViewModel)
+		{
+			await _adService.EditCarAdAsync(adViewModel);
 
-            await _adService.DeleteCarAdAsync(carId);
+			return RedirectToAction("UserAds", "Ad");
+		}
 
-            TempData[AdDeletedSuccesfullyTempData] = AdDeletedSuccesfullyMessage;
+		[HttpPost]
+		public async Task<IActionResult> Delete(int carId)
+		{
+			if (await _adService.IdExists<Car>(carId) == false)
+			{
+				return NotFound();
+			}
 
-            return Json(new { success = true });
-        }
+			await _adService.DeleteCarAdAsync(carId);
 
+			TempData[AdDeletedSuccesfullyTempData] = AdDeletedSuccesfullyMessage;
 
-        [HttpPost]
-        public async Task<IActionResult> Buy(int carId, Guid buyerId, decimal confirmedPrice)
-        {
+			return Json(new { success = true });
+		}
 
-            if (await _adService.IdExists<Car>(carId) == false)
-            {
-                return NotFound();
-            }
 
-            Car carToBuy = await _adService.GetCarByIdAsync(carId);
+		[HttpPost]
+		public async Task<IActionResult> Buy(int carId, Guid buyerId, decimal confirmedPrice)
+		{
 
-            if (carToBuy == null)
-            {
-                return NotFound();
-            }
+			if (await _adService.IdExists<Car>(carId) == false)
+			{
+				return NotFound();
+			}
 
-            carToBuy.UserId = buyerId;
+			Car carToBuy = await _adService.GetCarByIdAsync(carId);
 
-            await _adService.BuyCarAsync(carToBuy, confirmedPrice);
+			if (carToBuy == null)
+			{
+				return NotFound();
+			}
 
-            return RedirectToAction("Index", "UserCars");
+			carToBuy.UserId = buyerId;
 
-        }
+			await _adService.BuyCarAsync(carToBuy, confirmedPrice);
 
-        [HttpGet]
-        [Route("StartChat")]
-        public async Task<IActionResult> StartChat(Guid otherUserId, int adId, int carId)
-        {
-            var currentUserId = User.GetUserId();
+			return RedirectToAction("Index", "UserCars");
 
-            var chatSessionId = await _chatService.CreateChatSession(currentUserId, otherUserId, adId);
+		}
 
-            var (firstName, lastName) = await _adService.GetUserFullNameAsync(currentUserId);
+		[HttpGet]
+		[Route("StartChat")]
+		public async Task<IActionResult> StartChat(Guid otherUserId, int adId, int carId)
+		{
+			var currentUserId = User.GetUserId();
 
-            var chatView = new ChatViewModel
-            {
-                ChatSessionId = chatSessionId,
-                CurrentUserId = currentUserId,
-                CarId = carId,
-                UserFirstName = firstName,
-                UserLastName = lastName
-            };
+			var chatSessionId = await _chatService.CreateChatSession(currentUserId, otherUserId, adId);
 
-            return View("ChatIndex", chatView);
-        }
+			var (firstName, lastName) = await _adService.GetUserFullNameAsync(currentUserId);
 
+			var chatView = new ChatViewModel
+			{
+				ChatSessionId = chatSessionId,
+				CurrentUserId = currentUserId,
+				CarId = carId,
+				UserFirstName = firstName,
+				UserLastName = lastName
+			};
 
+			return View("ChatIndex", chatView);
+		}
 
-        public async Task<IActionResult> Compare(int firstCarId, int secondCarId)
-        {
-            ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
-            try
-            {
 
-                if (await _adService.IdExists<Car>(firstCarId) == false || await _adService.IdExists<Car>(secondCarId) == false)
-                {
-                    return NotFound();
-                }
 
-                var (firstCar, secondCar) = await _adService.GetTwoCarsByIdAsync(firstCarId, secondCarId);
+		public async Task<IActionResult> Compare(int firstCarId, int secondCarId)
+		{
+			ViewBag.UnreadMessageCount = await _messageService.GetUnreadMessageCountAsync(User.GetUserId().ToString());
+			try
+			{
 
-                if (firstCar.CarId == secondCar.CarId)
-                {
-                    TempData[AdCompareErrorTempData] = AdCompareErrorMessage;
-                    return RedirectToAction("Index", "Ad");
-                }
+				if (await _adService.IdExists<Car>(firstCarId) == false || await _adService.IdExists<Car>(secondCarId) == false)
+				{
+					return NotFound();
+				}
 
-                return View((firstCar, secondCar));
-            }
-            catch (ArgumentException ex)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-        }
-    }
+				var (firstCar, secondCar) = await _adService.GetTwoCarsByIdAsync(firstCarId, secondCarId);
+
+				if (firstCar.CarId == secondCar.CarId)
+				{
+					TempData[AdCompareErrorTempData] = AdCompareErrorMessage;
+					return RedirectToAction("Index", "Ad");
+				}
+
+				return View((firstCar, secondCar));
+			}
+			catch (ArgumentException ex)
+			{
+				return RedirectToAction("Error", "Home");
+			}
+		}
+	}
 }

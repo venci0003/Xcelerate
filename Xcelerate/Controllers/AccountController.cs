@@ -11,6 +11,9 @@
 	using System.Net;
 	using Griesoft.AspNetCore.ReCaptcha;
 	using Xcelerate.Core.Contracts;
+	using Xcelerate.Core.Services;
+	using static Common.NotificationMessages.AlertMessages;
+
 
 	public class AccountController : Controller
 	{
@@ -133,9 +136,9 @@
 				{
 					List<MessageViewModel> messages = await _messageService.GetMessagesAsync(userId.ToString());
 
-                    List<ChatMessageViewModel> chatMessages = await _messageService.GetChatMessagesAsync(userId.ToString());
+					List<ChatMessageViewModel> chatMessages = await _messageService.GetChatMessagesAsync(userId.ToString());
 
-                    await _messageService.MarkMessagesAsViewedAsync(userId.ToString());
+					await _messageService.MarkMessagesAsViewedAsync(userId.ToString());
 
 					UserProfileViewModel userProfileModel = new UserProfileViewModel
 					{
@@ -157,6 +160,23 @@
 			}
 
 			return NotFound();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteAll()
+		{
+			Guid userId = Guid.Empty;
+
+			if (User.Identity.IsAuthenticated)
+			{
+				userId = User.GetUserId();
+			}
+
+			await _messageService.DeleteAllMessages(userId);
+
+			TempData[DeleteAllUserMessagesSuccesfullyTempData] = DeleteAllUserMessagesSuccesfullyMessage;
+
+			return Json(new { success = true });
 		}
 	}
 }

@@ -46,9 +46,6 @@
 			return chatMessages;
 		}
 
-
-
-
 		public async Task<List<MessageViewModel>> GetMessagesAsync(string userId)
 		{
 			var messagesFromDb = await _dbContext.Messages
@@ -90,6 +87,17 @@
 		{
 			return await _dbContext.Messages
 				.CountAsync(m => m.UserId == Guid.Parse(userId) && !m.IsMessageViewed);
+		}
+
+		public async Task DeleteAllMessages(Guid userId)
+		{
+			var allUserMessages = _dbContext.Messages.Where(u => u.UserId == userId);
+
+			if (allUserMessages.Any())
+			{
+				_dbContext.Messages.RemoveRange(allUserMessages);
+				await _dbContext.SaveChangesAsync();
+			}
 		}
 
 		private string GetFormattedTimestamp(DateTime createdTime)
