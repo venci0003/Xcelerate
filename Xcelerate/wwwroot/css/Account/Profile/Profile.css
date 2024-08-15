@@ -69,7 +69,20 @@ svg {
     display: flex;
     flex-direction: column;
     width: 250px;
+    background-color: rgb(238 185 185 / 0.60);
+    padding: 0px 190px 0px 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+    .other-forms ul {
+        filter: blur(5px);
+        transition: filter 0.3s ease;
+    }
+
+        .other-forms ul:hover {
+            filter: none;
+        }
 
     .other-forms label {
         color: white;
@@ -180,6 +193,17 @@ svg {
 .other-forms ul li {
     color: white;
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    font-size: 19px;
+    width: 350px;
+    height: 25px;
+}
+
+.other-forms {
+    margin-left: -10%;
+}
+
+.flexed-username-and-balance {
+    display: flex;
 }
 
 .flexed-account-and-messages {
@@ -231,6 +255,20 @@ svg {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
+.chat-messages-li {
+    color: white;
+    background-color: rgb(197 164 164 / 60%);
+    padding: 0px 20px 0px 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-right: 20px;
+    margin-bottom: 12px;
+}
+
+
 .messages-ul {
     overflow-y: scroll;
     height: 225px;
@@ -239,12 +277,35 @@ svg {
 
 .messages-li {
     list-style-type: none;
+    color: white;
+    background-color: rgb(197 164 164 / 60%);
+    padding: 0px 20px 0px 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-right: 20px;
+    margin-bottom: 12px;
 }
+    .messages-li a {
+        color: white;
+        text-decoration: none;
+        background-color: black;
+        padding: 2px 4px;
+        border-radius: 3px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
+.messages-li a:hover {
+    background-color: white;
+    color: black;
+}
 .chat-messages-ul {
     overflow-y: scroll;
     height: 310px;
-    margin-top: 0px;
+    margin-top: 15px;
+    margin-left: -18px;
 }
 
 .chat-messages-li {
@@ -278,7 +339,22 @@ svg {
     color: white;
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
     list-style-type: none;
+    margin-bottom: -5px;
 }
+
+.card-chat-messages a {
+    color: white;
+    text-decoration: none;
+    background-color: black;
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .card-chat-messages a:hover {
+        background-color: white;
+        color: black;
+    }
 
 .message-content {
     color: white;
@@ -287,11 +363,14 @@ svg {
     height: auto;
     margin-bottom: 10px;
     word-wrap: break-word;
+    font-size: 19px;
 }
 
 .timestamp {
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
     margin-top: 0px;
+    color: #f7e5e5;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
 .empty-message-box {
