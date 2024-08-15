@@ -28,6 +28,8 @@
 			public const string SuccesfulBoughtTitle = "Congratulations on Your New Car Purchase!";
 
 			public const string SuccesfulBoughtContent = "Car bought: {0} - {1} {2} from {3} {4} for {5}$";
+
+			public const string NewMessageTitle = "New Message";
 		};
 
 		public static class AlertMessages

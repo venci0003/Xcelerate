@@ -147,6 +147,10 @@
 			{
 				return "rgba(162, 235, 186, 1.0)";
 			}
+			else if (title.Equals(NotificationMessages.UserMessages.NewMessageTitle, StringComparison.OrdinalIgnoreCase))
+			{
+				return "rgba(120, 230, 150, 1.0)";
+			}
 			else
 			{
 				return "black";
