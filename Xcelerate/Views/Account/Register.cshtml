@@ -13,30 +13,31 @@
 		<section class="names-inputs">
 			<div class="first-name-input">
 				<label asp-for="@Model.FirstName">First Name</label>
-				<input type="text" name="FirstName" asp-for="@Model.FirstName" id="first-name" />
+				<input type="text" name="FirstName" asp-for="@Model.FirstName" id="first-name" minlength="4" maxlength="30" placeholder="Enter your first name" />
 				<span asp-validation-for="@Model.FirstName" class="text-danger"></span>
 			</div>
 
 			<div class="last-name-input">
 				<label asp-for="@Model.LastName">Last Name</label>
-				<input type="text" name="LastName" asp-for="@Model.LastName" id="last-name" />
+				<input type="text" name="LastName" asp-for="@Model.LastName" id="last-name" minlength="4" maxlength="30" placeholder="Enter your last name" />
 				<span asp-validation-for="@Model.LastName" class="text-danger"></span>
 			</div>
 		</section>
 
 		<section class="other-forms">
 			<label asp-for="@Model.Email">Email</label>
-			<input type="text" name="Email" asp-for="@Model.Email" id="email-name" />
+			<input type="email" name="Email" asp-for="@Model.Email" id="email-name" minlength="15" maxlength="30" placeholder="Enter your email address" />
 			<span asp-validation-for="@Model.Email" class="text-danger"></span>
 
 			<label asp-for="@Model.Password">Password</label>
-			<input type="password" name="Password" asp-for="@Model.Password" id="password" />
+			<input type="password" name="Password" asp-for="@Model.Password" id="password" minlength="8" maxlength="20" placeholder="Choose a strong password" />
 			<span asp-validation-for="@Model.Password" class="text-danger"></span>
 
 			<label asp-for="@Model.ConfirmPassword">Confirm Password</label>
-			<input type="password" name="ConfirmPassword" asp-for="@Model.ConfirmPassword" id="password-confirm" />
+			<input type="password" name="ConfirmPassword" asp-for="@Model.ConfirmPassword" id="password-confirm" placeholder="Re-enter your password" />
 			<span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
 		</section>
+
 
 		<section class="check-box-input">
 			<input type="checkbox" name="" id="check-box" />
@@ -44,7 +45,7 @@
 		</section>
 		<recaptcha form-id="card-content" />
 		<section class="button-object">
-			<button type="submit">REGISTER NOW</button>
+			<button class="register-button" type="submit">REGISTER NOW</button>
 		</section>
 	</form>
 </article>

@@ -6,6 +6,13 @@ html {
     font-family: "Mulish", sans-serif;
 }
 
+:root {
+    --clr-success: #28a745;
+    --clr-error: #dc3545;
+    --clr-warning: #ffc107;
+}
+
+
 body {
     transition: background-image 1s ease-in-out;
     background-repeat: no-repeat;
@@ -44,11 +51,11 @@ svg {
     font-size: 60px;
     margin-top: 0px;
     margin-bottom: 0px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .card-content {
@@ -86,11 +93,11 @@ svg {
         color: white;
         font-size: 18px;
         text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
 input {
@@ -98,7 +105,19 @@ input {
     height: 30px;
 }
 
-button {
+    input:not(:placeholder-shown):valid {
+        outline-color: var(--clr-success);
+    }
+
+    input:not(:placeholder-shown):invalid {
+        outline-color: var(--clr-error);
+    }
+
+    input:focus:invalid {
+        outline-color: var(--clr-warning)
+    }
+
+.register-button {
     border-radius: 24px;
     margin-bottom: 20px;
     padding: 10px;
@@ -109,22 +128,23 @@ button {
     color: white;
     font-size: 14px;
     transition: background-color 0.2s ease-in-out;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
 }
 
 
 
 .title-text {
     margin-right: 100px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .other-forms {
@@ -137,11 +157,11 @@ button {
         color: white;
         font-size: 18px;
         text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
     .other-forms input {
@@ -165,11 +185,11 @@ button {
         font-size: 16px;
         width: 500px;
         text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
 .button-object {
@@ -217,5 +237,5 @@ button {
     min-height: calc(100% + 20px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(7px);
-    transition: opacity 0.5s; /* Add a transition effect */
+    transition: opacity 0.5s;
 }
