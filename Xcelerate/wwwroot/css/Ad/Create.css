@@ -9,11 +9,11 @@ body {
     background-repeat: no-repeat;
     margin: 0px;
     padding: 0px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 span {
@@ -97,7 +97,7 @@ input {
 .submit-button {
     position: absolute;
     left: 40%;
-    bottom: 170px;
+    bottom: 210px;
     border-radius: 24px;
     padding: 10px;
     width: 150px;
@@ -244,7 +244,6 @@ select {
     background: linear-gradient(180deg, rgb(41, 40, 40), rgba(255, 255, 255, 0.1));
 }
 
-/* Style for the options within the select element */
 option {
     background-color: #f0f0f0;
     color: white;

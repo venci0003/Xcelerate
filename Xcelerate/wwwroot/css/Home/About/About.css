@@ -39,19 +39,6 @@ body {
         color: #ffcc00;
     }
 
-/* @keyframes changeColor {
-    0% { color: #ffffff; }
-    25% { color: #ece3e2; }
-    50% { color: #e1ebe5; }
-    75% { color: #f0ece7; }
-    100% { color: #ffffff; }
-  }
-  
-  .website-name {
-    animation: changeColor 6s infinite; 
-  } */
-
-/* We set the position to relative so that we can stack a blurred pseudo element on top of the original text */
 
 span {
     position: relative;
@@ -64,7 +51,6 @@ span {
     display: inline-block;
 }
 
-    /* We create a pseudo element and blur it using the SVG filter. We’ll grab the content from the custom HTML attribute. */
 
     span:before {
         position: absolute;
@@ -74,13 +60,12 @@ span {
         filter: url(#motion-blur-filter);
     }
 
-/* We hide the SVG filter element from the DOM as it would take up some space */
+
 
 svg {
     display: none;
 }
 
-/* footer */
 footer {
     background-color: black;
     display: flex;
@@ -153,7 +138,6 @@ footer {
 
 
 .parallax {
-    /* overflow: hidden; */
     position: relative;
     z-index: 0;
     min-height: 75vh;
@@ -199,12 +183,12 @@ footer {
     margin-top: 0px;
     margin-bottom: 0px;
     height: 0px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     --parallax-speed: 8;
     z-index: 2;
     transition: transform 0.9s ease-in-out infinite;
@@ -371,12 +355,12 @@ footer {
     font-size: 60px;
     margin-top: 0px;
     margin-bottom: 0px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     --parallax-speed: 3;
     z-index: 12;
     transition: transform 0.9s ease-in-out infinite;
@@ -394,5 +378,4 @@ footer {
     height: 1250px;
     margin-bottom: 0;
     z-index: 10;
-
 }

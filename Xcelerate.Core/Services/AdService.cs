@@ -26,7 +26,7 @@
 		{
 			_dbContext = context;
 			_webHostEnvironment = webHostEnvironment;
-			_timestamp = new Timestamp();
+			_timestamp = new Timestamp(DateTime.UtcNow);
 		}
 		public async Task<IEnumerable<AdPreviewViewModel>> GetCarsPreviewAsync(AdInformationViewModel adViewModel)
 		{
@@ -385,6 +385,7 @@
 				car.Model = WebUtility.HtmlEncode(adViewModel.Model);
 				car.Year = adViewModel.Year;
 				car.Engine.Model = WebUtility.HtmlEncode(adViewModel.Engine);
+				car.Engine.Horsepower = adViewModel.HorsePower;
 				car.Condition = adViewModel.Condition;
 				car.EuroStandard = adViewModel.EuroStandard;
 				car.Engine.FuelType = adViewModel.FuelType;
