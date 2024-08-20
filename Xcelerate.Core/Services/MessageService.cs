@@ -5,6 +5,8 @@
 	using Models.Account.UserProfile;
 	using Xcelerate.Infrastructure.Data;
 	using Xcelerate.Common;
+	using static Xcelerate.Common.NotificationMessages;
+	using Xcelerate.Core.Models.Timestamp;
 
 	public class MessageService : IMessageService
 	{
@@ -102,58 +104,41 @@
 
 		private string GetFormattedTimestamp(DateTime createdTime)
 		{
-			DateTime localTime = createdTime.ToLocalTime();
-
-			TimeSpan timeSinceCreation = DateTime.UtcNow - createdTime;
-
-			if (timeSinceCreation.TotalMinutes < 1)
-			{
-				return "just now";
-			}
-			else if (timeSinceCreation.TotalMinutes < 60)
-			{
-				return $"{(int)timeSinceCreation.TotalMinutes} minute{(timeSinceCreation.TotalMinutes > 1 ? "s" : "")} ago";
-			}
-			else if (timeSinceCreation.TotalHours < 24)
-			{
-				return $"{(int)timeSinceCreation.TotalHours} hour{(timeSinceCreation.TotalHours > 1 ? "s" : "")} {(int)timeSinceCreation.TotalMinutes % 60} minute{(timeSinceCreation.TotalMinutes % 60 > 1 ? "s" : "")} ago";
-			}
-			else
-			{
-				return localTime.ToString("MM dd HH:mm");
-			}
+			// Create a Timestamp instance using createdTime and return its formatted version
+			var timestamp = new Timestamp(createdTime);
+			return timestamp.GetFormattedTimestamp();
 		}
 
 
 		private static string GetTitleColor(string title)
 		{
-			if (title.Equals(NotificationMessages.UserMessages.SuccesfulEditTitle, StringComparison.OrdinalIgnoreCase))
+			if (title.Equals(UserMessages.SuccesfulEditTitle, StringComparison.OrdinalIgnoreCase))
 			{
-				return "#cdcdef";
+				return TitleColors.EditTitleColor;
 			}
-			else if (title.Equals(NotificationMessages.UserMessages.SuccesfulCreateTitle, StringComparison.OrdinalIgnoreCase))
+			else if (title.Equals(UserMessages.SuccesfulCreateTitle, StringComparison.OrdinalIgnoreCase))
 			{
-				return "rgba(162, 235, 186, 1.0)";
+				return TitleColors.CreateTitleColor;
 			}
-			else if (title.Equals(NotificationMessages.UserMessages.SuccesfulDeleteTitle, StringComparison.OrdinalIgnoreCase))
+			else if (title.Equals(UserMessages.SuccesfulDeleteTitle, StringComparison.OrdinalIgnoreCase))
 			{
-				return "#eb4141";
+				return TitleColors.DeleteTitleColor;
 			}
-			else if (title.Equals(NotificationMessages.UserMessages.SuccesfulSoldTitle, StringComparison.OrdinalIgnoreCase))
+			else if (title.Equals(UserMessages.SuccesfulSoldTitle, StringComparison.OrdinalIgnoreCase))
 			{
-				return "rgba(162, 235, 186, 1.0)";
+				return TitleColors.SoldTitleColor;
 			}
-			else if (title.Equals(NotificationMessages.UserMessages.SuccesfulBoughtTitle, StringComparison.OrdinalIgnoreCase))
+			else if (title.Equals(UserMessages.SuccesfulBoughtTitle, StringComparison.OrdinalIgnoreCase))
 			{
-				return "rgba(162, 235, 186, 1.0)";
+				return TitleColors.BoughtTitleColor;
 			}
-			else if (title.Equals(NotificationMessages.UserMessages.NewMessageTitle, StringComparison.OrdinalIgnoreCase))
+			else if (title.Equals(UserMessages.NewMessageTitle, StringComparison.OrdinalIgnoreCase))
 			{
-				return "rgba(120, 230, 150, 1.0)";
+				return TitleColors.NewMessageTitleColor;
 			}
 			else
 			{
-				return "black";
+				return TitleColors.DefaultTitleColor;
 			}
 		}
 	}

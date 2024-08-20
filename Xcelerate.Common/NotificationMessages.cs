@@ -65,5 +65,22 @@
 
 			public const string DeleteAdminReviewMessage = "Review deleted successfully.";
 		}
+
+		public static class TitleColors
+		{
+			public const string EditTitleColor = "cdcdef";
+
+			public const string CreateTitleColor = "rgba(162, 235, 186, 1.0)";
+
+			public const string DeleteTitleColor = "#eb4141";
+
+			public const string SoldTitleColor = "rgba(162, 235, 186, 1.0)";
+
+			public const string BoughtTitleColor = "rgba(162, 235, 186, 1.0)";
+
+			public const string NewMessageTitleColor = "rgba(120, 230, 150, 1.0)";
+
+			public const string DefaultTitleColor = "black";
+		}
 	}
 }
