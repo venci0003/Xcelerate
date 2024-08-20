@@ -1,4 +1,5 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿
+document.addEventListener("DOMContentLoaded", function () {
     var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
     var sendButton = document.getElementById("sendButton");
@@ -13,6 +14,12 @@
     var messageCooldown = 5;
     var offerCooldown = 60;
 
+    function scrollMessagesToBottom() {
+        const messagesList = document.getElementById('messagesList');
+        messagesList.scrollTop = messagesList.scrollHeight;
+    }
+
+    window.onload = scrollMessagesToBottom;
     function toggleButtonState() {
         sendButton.disabled = messageInput.value.trim() === '';
         sendButtonOffer.disabled = messageOfferInput.value.trim() === '' || messageOfferInput.value <= 0;
@@ -42,6 +49,11 @@
         cooldownElement.textContent = `${type} available in ${cooldownTime}s`;
     }
 
+    function scrollToBottom() {
+        var messagesList = document.getElementById('messagesList');
+        messagesList.scrollTop = messagesList.scrollHeight; // Scroll to bottom
+    }
+
     connection.on("ReceiveMessage", function (user, message, senderId, buyerId, sellerId) {
         var li = document.createElement("li");
 
@@ -52,7 +64,9 @@
         }
 
         li.textContent = `${user} says ${message}`;
-        document.getElementById("messagesList").appendChild(li);
+        var messagesList = document.getElementById("messagesList");
+        messagesList.appendChild(li);
+        scrollToBottom(); // Scroll to the bottom when a new message is added
     });
 
     function addOfferToUI(user, offerMessage, offerId, senderId, buyerId, sellerId) {

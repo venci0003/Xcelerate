@@ -15,11 +15,11 @@
 
 
 .abstract-element {
-    position: absolute; 
-    border-radius: 50%; 
+    position: absolute;
+    border-radius: 50%;
     opacity: 0.8;
     animation: moveElement 15s infinite;
-    mix-blend-mode: screen; 
+    mix-blend-mode: screen;
     z-index: -2;
     background-size: cover;
     background-repeat: no-repeat;
@@ -89,7 +89,6 @@ body {
     padding: 10px;
     background-color: #2a475e;
     color: #c7d5e0;
-
     border-radius: 5px;
 }
 
@@ -165,20 +164,40 @@ body {
 
 #messagesList {
     overflow-y: scroll;
-    height: 275px;
+    height: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    margin: 0;
+
 }
 
-    #messagesList li.seller {
-        background-color: #4d6a79;
-        width: 420px;
-        height: auto;
+    #messagesList li {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        max-width: 70%;
+        clear: both;
+        position: relative;
+        color: #c7d5e0;
     }
 
-    #messagesList li.buyer {
-        background-color: #2a475e;
-        width: 440px;
-        height: auto;
-    }
+        #messagesList li.seller {
+            background-color: #4d6a79;
+            align-self: flex-start;
+            margin-right: auto;
+            border-bottom-left-radius: 0;
+        }
+
+        #messagesList li.buyer {
+            background-color: #2a475e;
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 0;
+            margin-right: 10px;
+        }
+
 
 .chat-offer-sections-flex {
     display: flex;
@@ -202,7 +221,7 @@ body {
 
 .send-button {
     background-color: #2a475e;
-    color: #c7d5e0; 
+    color: #c7d5e0;
     border: 1px solid #4d6a79;
     padding: 10px 20px;
     border-radius: 4px;
