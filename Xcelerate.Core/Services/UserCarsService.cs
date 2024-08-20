@@ -224,10 +224,10 @@
 						CarId = car.CarId
 					};
 					_dbContext.Ads.Add(newAd);
-					await _dbContext.SaveChangesAsync(); // Save the ad to get the AdId
+					await _dbContext.SaveChangesAsync();
 
-					car.AdId = newAd.AdId; // Set the AdId of the car to the new Ad's AdId
-					car.Ad = newAd; // Set the Ad navigation property
+					car.AdId = newAd.AdId;
+					car.Ad = newAd;
 				}
 				else
 				{
@@ -239,6 +239,7 @@
 				car.Model = WebUtility.HtmlEncode(adViewModel.Model);
 				car.Year = adViewModel.Year;
 				car.Engine.Model = adViewModel.Engine;
+				car.Engine.Horsepower = adViewModel.HorsePower;
 				car.Condition = adViewModel.Condition;
 				car.EuroStandard = adViewModel.EuroStandard;
 				car.Engine.FuelType = adViewModel.FuelType;
