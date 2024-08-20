@@ -15,6 +15,7 @@
 	using static Common.EntityValidation;
 	using static Common.NotificationMessages.UserMessages;
 	using Xcelerate.Core.Models.Timestamp;
+	using Microsoft.VisualBasic;
 
 	public class АdService : IAdService
 	{
@@ -287,12 +288,14 @@
 			Model = car.Car.Model,
 			Year = car.Car.Year,
 			Engine = car.Car.Engine.Model,
+			HorsePower = car.Car.Engine.Horsepower,
 			Condition = car.Car.Condition,
 			EuroStandard = car.Car.EuroStandard,
 			FuelType = car.Car.Engine.FuelType,
 			Price = car.Car.Price,
 			FirstName = car.User.FirstName,
 			LastName = car.User.LastName,
+			CreatedOn = DateTime.ParseExact(car.Car.Ad.CreatedOn, AdEntity.CreatedOnDateFormat, CultureInfo.InvariantCulture).ToString(AdEntity.CreatedOnDateFormat),
 		})
 		.ToListAsync();
 
@@ -401,6 +404,8 @@
 				car.Address.CountryName = WebUtility.HtmlEncode(adViewModel.Address.CountryName);
 				car.Address.TownName = WebUtility.HtmlEncode(adViewModel.Address.TownName);
 				car.Address.StreetName = WebUtility.HtmlEncode(adViewModel.Address.StreetName);
+
+				car.Ad.CreatedOn = DateTime.Now.ToString(AdEntity.CreatedOnDateFormat);
 
 				var selectedAccessories = adViewModel.SelectedCheckBoxId;
 				var existingAccessories = car.CarAccessories.Select(ca => ca.AccessoryId).ToList();
