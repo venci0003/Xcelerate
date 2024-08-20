@@ -11,12 +11,12 @@ namespace Xcelerate.Hubs
 	{
 
 		private readonly XcelerateContext _dbContext;
-		private readonly Timestamp _timestamp;
+		//private readonly Timestamp _timestamp;
 
 		public ChatHub(XcelerateContext dbContext)
 		{
 			_dbContext = dbContext;
-			_timestamp = new Timestamp();
+			//_timestamp = new Timestamp(DateTime.UtcNow);
 		}
 		public async Task JoinChat(string sessionId)
 		{
@@ -55,8 +55,6 @@ namespace Xcelerate.Hubs
 			{
 				throw new Exception("The user is neither the buyer nor the seller of this chat session.");
 			}
-
-			//await Clients.Group(sessionId).SendAsync("ReceiveMessage", $"{sender.FirstName} {sender.LastName}", chatMessage.Content, senderId, chatSession.BuyerId, chatSession.SellerId);
 
 			foreach (var chatMessage in chatMessages)
 			{

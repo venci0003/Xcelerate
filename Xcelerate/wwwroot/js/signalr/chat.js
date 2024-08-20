@@ -1,5 +1,4 @@
-﻿
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
     var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
     var sendButton = document.getElementById("sendButton");
